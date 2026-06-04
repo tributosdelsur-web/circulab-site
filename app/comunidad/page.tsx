@@ -98,6 +98,14 @@ export default function Comunidad() {
     setPosts(p.data||[]); setStories(s.data||[]); setLoading(false)
   }
 
+  async function eliminarPost(postId: string) {
+    if(!confirm('¿Eliminar este post?')) return
+    await supabase.from('comentarios').delete().eq('post_id', postId)
+    await supabase.from('likes').delete().eq('post_id', postId)
+    await supabase.from('posts').delete().eq('id', postId).eq('usuario_id', uid)
+    cargarFeed()
+  }
+
   async function buscarUsuarios(q: string) {
     if(!q||q.length<2){setResultados([]);return}
     const {data} = await supabase.from('usuarios').select('id,nombre,apellido,score_pulso,nivel').or(`nombre.ilike.%${q}%,apellido.ilike.%${q}%`).limit(10)
@@ -215,7 +223,6 @@ export default function Comunidad() {
   return (
     <div style={{minHeight:'100vh',background:'#0a0e1a',color:'#f1f5f9',fontFamily:'system-ui',maxWidth:600,margin:'0 auto'}}>
 
-      {/* Header */}
       <div style={{padding:'12px 16px',borderBottom:'1px solid rgba(255,255,255,0.06)',display:'flex',alignItems:'center',justifyContent:'space-between',position:'sticky',top:0,background:'rgba(10,14,26,0.97)',backdropFilter:'blur(10px)',zIndex:100}}>
         <a href="/" style={{display:'flex',alignItems:'center',gap:8,textDecoration:'none'}}>
           <div style={{width:32,height:32,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:14,color:'white'}}>O</div>
@@ -236,7 +243,6 @@ export default function Comunidad() {
         </div>
       </div>
 
-      {/* AMIGOS */}
       {vista==='amigos'&&uid&&(
         <div style={{padding:16}}>
           <button onClick={()=>setVista('feed')} style={{background:'transparent',border:'none',color:'#64748b',fontSize:13,cursor:'pointer',marginBottom:16}}>← Volver</button>
@@ -261,7 +267,6 @@ export default function Comunidad() {
         </div>
       )}
 
-      {/* BUSCAR */}
       {vista==='buscar'&&(
         <div style={{padding:16}}>
           <button onClick={()=>setVista('feed')} style={{background:'transparent',border:'none',color:'#64748b',fontSize:13,cursor:'pointer',marginBottom:16}}>← Volver</button>
@@ -281,7 +286,6 @@ export default function Comunidad() {
         </div>
       )}
 
-      {/* WALLET */}
       {vista==='wallet'&&uid&&(
         <div style={{padding:16}}>
           <button onClick={()=>setVista('feed')} style={{background:'transparent',border:'none',color:'#64748b',fontSize:13,cursor:'pointer',marginBottom:16}}>← Volver al feed</button>
@@ -335,7 +339,6 @@ export default function Comunidad() {
         </div>
       )}
 
-      {/* FEED */}
       {vista==='feed'&&(
         <div>
           <div style={{padding:'12px 16px',borderBottom:'1px solid rgba(255,255,255,0.06)'}}>
@@ -423,7 +426,11 @@ export default function Comunidad() {
                   <div style={{fontSize:13,fontWeight:700}}>{post.usuarios?.nombre} {post.usuarios?.apellido}</div>
                   <div style={{fontSize:10,color:'#64748b'}}>{tiempoRelativo(post.created_at)} · +{post.olv_ganados} OLV</div>
                 </div>
-                <BtnSeguir targetId={post.usuarios?.id} />
+                {post.usuario_id===uid?(
+                  <button onClick={()=>eliminarPost(post.id)} style={{background:'transparent',border:'none',color:'#ef4444',fontSize:16,cursor:'pointer',padding:'4px 8px',borderRadius:8}}>🗑</button>
+                ):(
+                  <BtnSeguir targetId={post.usuarios?.id} />
+                )}
                 <span style={{fontSize:18}}>🌿</span>
               </div>
               {post.contenido&&<div style={{fontSize:13,lineHeight:1.6,marginBottom:10,color:'#f1f5f9'}}>{post.contenido}</div>}
@@ -468,7 +475,6 @@ export default function Comunidad() {
         </div>
       )}
 
-      {/* Bottom nav */}
       <div style={{position:'fixed',bottom:0,left:'50%',transform:'translateX(-50%)',width:'100%',maxWidth:600,background:'rgba(8,12,22,0.98)',borderTop:'1px solid rgba(255,255,255,0.08)',display:'flex',justifyContent:'space-around',padding:'8px 0',zIndex:100}}>
         <button onClick={()=>setVista('feed')} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:2,border:'none',background:'transparent',color:vista==='feed'?'#22c55e':'#64748b',cursor:'pointer'}}>
           <span style={{fontSize:20}}>🌿</span>
