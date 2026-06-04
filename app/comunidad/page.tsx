@@ -43,7 +43,7 @@ export default function Comunidad() {
   const [posts, setPosts] = useState<any[]>([])
   const [stories, setStories] = useState<any[]>([])
   const [wallet, setWallet] = useState(0)
-  const [vista, setVista] = useState<'feed'|'wallet'|'buscar'>('feed')
+  const [vista, setVista] = useState<'feed'|'wallet'|'buscar'|'amigos'>('feed')
   const [transacciones, setTransacciones] = useState<any[]>([])
   const [nuevoPost, setNuevoPost] = useState('')
   const [nuevaFoto, setNuevaFoto] = useState<File|null>(null)
@@ -57,6 +57,9 @@ export default function Comunidad() {
   const [busqueda, setBusqueda] = useState('')
   const [resultados, setResultados] = useState<any[]>([])
   const [siguiendo, setSiguiendo] = useState<Set<string>>(new Set())
+  const [listaSiguiendo, setListaSiguiendo] = useState<any[]>([])
+  const [listaSeguidores, setListaSeguidores] = useState<any[]>([])
+  const [tabAmigos, setTabAmigos] = useState<'siguiendo'|'seguidores'>('siguiendo')
   const [loading, setLoading] = useState(true)
   const fileRef = useRef<HTMLInputElement>(null)
   const storyRef = useRef<HTMLInputElement>(null)
@@ -64,20 +67,28 @@ export default function Comunidad() {
   useEffect(()=>{
     supabase.auth.getSession().then(async ({data})=>{
       if(data.session?.user?.id) {
-        const uid = data.session.user.id
-        setUid(uid)
-        const {data:u} = await supabase.from('usuarios').select('*').eq('id',uid).single()
+        const u_id = data.session.user.id
+        setUid(u_id)
+        const {data:u} = await supabase.from('usuarios').select('*').eq('id',u_id).single()
         setUsuario(u)
-        const {data:t} = await supabase.from('wallet_transacciones').select('*').eq('usuario_id',uid).order('created_at',{ascending:false}).limit(20)
+        const {data:t} = await supabase.from('wallet_transacciones').select('*').eq('usuario_id',u_id).order('created_at',{ascending:false}).limit(20)
         setTransacciones(t||[])
         setWallet((t||[]).reduce((a:number,tr:any)=>a+Number(tr.monto_olv),0))
-        // Cargar a quiénes sigo
-        const {data:seg} = await supabase.from('seguidores').select('seguido_id').eq('seguidor_id',uid)
+        const {data:seg} = await supabase.from('seguidores').select('seguido_id').eq('seguidor_id',u_id)
         setSiguiendo(new Set((seg||[]).map((s:any)=>s.seguido_id)))
       }
       cargarFeed()
     })
   },[])
+
+  async function cargarAmigos(u_id: string) {
+    const [{data:sig},{data:segs}] = await Promise.all([
+      supabase.from('seguidores').select('seguido_id, usuarios!seguidores_seguido_id_fkey(id,nombre,apellido,nivel,score_pulso)').eq('seguidor_id',u_id),
+      supabase.from('seguidores').select('seguidor_id, usuarios!seguidores_seguidor_id_fkey(id,nombre,apellido,nivel,score_pulso)').eq('seguido_id',u_id),
+    ])
+    setListaSiguiendo((sig||[]).map((s:any)=>s.usuarios))
+    setListaSeguidores((segs||[]).map((s:any)=>s.usuarios))
+  }
 
   async function cargarFeed() {
     const [p,s] = await Promise.all([
@@ -105,6 +116,7 @@ export default function Comunidad() {
       setSiguiendo(prev=>new Set(prev).add(targetId))
       setWallet(w=>w+5)
     }
+    if(vista==='amigos') cargarAmigos(uid)
   }
 
   async function publicarPost() {
@@ -182,6 +194,22 @@ export default function Comunidad() {
     )
   }
 
+  function CardUsuario({u}: {u:any}) {
+    if(!u) return null
+    return (
+      <div style={{display:'flex',alignItems:'center',gap:12,padding:'14px',borderRadius:14,background:'#111827',border:'1px solid rgba(255,255,255,0.06)',marginBottom:10}}>
+        <div style={{width:44,height:44,borderRadius:'50%',background:'linear-gradient(135deg,#22c55e,#3b82f6)',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:800,fontSize:16,color:'white',flexShrink:0}}>
+          {u.nombre?.[0]}{u.apellido?.[0]}
+        </div>
+        <div style={{flex:1}}>
+          <div style={{fontSize:14,fontWeight:700}}>{u.nombre} {u.apellido}</div>
+          <div style={{fontSize:11,color:'#22c55e',marginTop:2}}>Nivel {u.nivel} · {u.score_pulso} pts PULSO</div>
+        </div>
+        <BtnSeguir targetId={u.id} />
+      </div>
+    )
+  }
+
   if(loading) return <div style={{minHeight:'100vh',background:'#0a0e1a',display:'flex',alignItems:'center',justifyContent:'center',color:'#22c55e',fontFamily:'system-ui'}}>Cargando comunidad...</div>
 
   return (
@@ -208,8 +236,33 @@ export default function Comunidad() {
         </div>
       </div>
 
+      {/* AMIGOS */}
+      {vista==='amigos'&&uid&&(
+        <div style={{padding:16}}>
+          <button onClick={()=>setVista('feed')} style={{background:'transparent',border:'none',color:'#64748b',fontSize:13,cursor:'pointer',marginBottom:16}}>← Volver</button>
+          <div style={{display:'flex',gap:4,marginBottom:20,background:'rgba(255,255,255,0.04)',borderRadius:12,padding:4}}>
+            <button onClick={()=>setTabAmigos('siguiendo')} style={{flex:1,padding:'8px',borderRadius:10,border:'none',background:tabAmigos==='siguiendo'?'rgba(34,197,94,0.15)':'transparent',color:tabAmigos==='siguiendo'?'#22c55e':'#64748b',fontSize:13,fontWeight:700,cursor:'pointer'}}>
+              Siguiendo ({listaSiguiendo.length})
+            </button>
+            <button onClick={()=>setTabAmigos('seguidores')} style={{flex:1,padding:'8px',borderRadius:10,border:'none',background:tabAmigos==='seguidores'?'rgba(34,197,94,0.15)':'transparent',color:tabAmigos==='seguidores'?'#22c55e':'#64748b',fontSize:13,fontWeight:700,cursor:'pointer'}}>
+              Seguidores ({listaSeguidores.length})
+            </button>
+          </div>
+          {tabAmigos==='siguiendo'&&(
+            listaSiguiendo.length===0
+              ? <div style={{textAlign:'center',padding:'40px 0',color:'#64748b'}}><div style={{fontSize:32,marginBottom:12}}>🌿</div><div style={{fontSize:13}}>Todavía no seguís a nadie</div></div>
+              : listaSiguiendo.map((u:any)=><CardUsuario key={u.id} u={u} />)
+          )}
+          {tabAmigos==='seguidores'&&(
+            listaSeguidores.length===0
+              ? <div style={{textAlign:'center',padding:'40px 0',color:'#64748b'}}><div style={{fontSize:32,marginBottom:12}}>👥</div><div style={{fontSize:13}}>Todavía nadie te sigue</div></div>
+              : listaSeguidores.map((u:any)=><CardUsuario key={u.id} u={u} />)
+          )}
+        </div>
+      )}
+
       {/* BUSCAR */}
-      {vista==='buscar' && (
+      {vista==='buscar'&&(
         <div style={{padding:16}}>
           <button onClick={()=>setVista('feed')} style={{background:'transparent',border:'none',color:'#64748b',fontSize:13,cursor:'pointer',marginBottom:16}}>← Volver</button>
           <input value={busqueda} onChange={e=>{setBusqueda(e.target.value);buscarUsuarios(e.target.value)}}
@@ -224,18 +277,7 @@ export default function Comunidad() {
           {busqueda.length>1&&resultados.length===0&&(
             <div style={{textAlign:'center',color:'#64748b',fontSize:13,padding:'32px 0'}}>No encontramos a nadie con ese nombre</div>
           )}
-          {resultados.map((u:any)=>(
-            <div key={u.id} style={{display:'flex',alignItems:'center',gap:12,padding:'14px',borderRadius:14,background:'#111827',border:'1px solid rgba(255,255,255,0.06)',marginBottom:10}}>
-              <div style={{width:44,height:44,borderRadius:'50%',background:'linear-gradient(135deg,#22c55e,#3b82f6)',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:800,fontSize:16,color:'white',flexShrink:0}}>
-                {u.nombre?.[0]}{u.apellido?.[0]}
-              </div>
-              <div style={{flex:1}}>
-                <div style={{fontSize:14,fontWeight:700}}>{u.nombre} {u.apellido}</div>
-                <div style={{fontSize:11,color:'#22c55e',marginTop:2}}>Nivel {u.nivel} · {u.score_pulso} pts PULSO</div>
-              </div>
-              <BtnSeguir targetId={u.id} />
-            </div>
-          ))}
+          {resultados.map((u:any)=><CardUsuario key={u.id} u={u} />)}
         </div>
       )}
 
@@ -296,7 +338,6 @@ export default function Comunidad() {
       {/* FEED */}
       {vista==='feed'&&(
         <div>
-          {/* Stories */}
           <div style={{padding:'12px 16px',borderBottom:'1px solid rgba(255,255,255,0.06)'}}>
             <div style={{display:'flex',gap:12,overflowX:'auto',paddingBottom:4}}>
               {uid&&(
@@ -317,7 +358,6 @@ export default function Comunidad() {
             </div>
           </div>
 
-          {/* Story viewer */}
           {storyViendo&&(
             <div onClick={()=>setStoryViendo(null)} style={{position:'fixed',inset:0,background:'rgba(0,0,0,0.96)',zIndex:200,display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column',padding:16}}>
               <img src={storyViendo.foto_url} alt="" style={{maxWidth:'100%',maxHeight:'75vh',objectFit:'contain',borderRadius:12}} />
@@ -326,7 +366,6 @@ export default function Comunidad() {
             </div>
           )}
 
-          {/* Nuevo post */}
           {uid?(
             <div style={{padding:16,borderBottom:'1px solid rgba(255,255,255,0.06)'}}>
               <div style={{display:'flex',gap:10,marginBottom:10}}>
@@ -369,7 +408,6 @@ export default function Comunidad() {
             </div>
           )}
 
-          {/* Posts */}
           {posts.length===0?(
             <div style={{padding:40,textAlign:'center',color:'#64748b'}}>
               <div style={{fontSize:32,marginBottom:12}}>🌿</div>
@@ -445,15 +483,15 @@ export default function Comunidad() {
           <span style={{fontSize:9,fontWeight:700}}>Registrar</span>
         </a>
         {uid&&(
-          <button onClick={()=>setVista('wallet')} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:2,border:'none',background:'transparent',color:vista==='wallet'?'#22c55e':'#64748b',cursor:'pointer'}}>
-            <span style={{fontSize:20}}>🪙</span>
-            <span style={{fontSize:9,fontWeight:vista==='wallet'?700:400}}>Wallet</span>
+          <button onClick={()=>{setVista('amigos');cargarAmigos(uid)}} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:2,border:'none',background:'transparent',color:vista==='amigos'?'#22c55e':'#64748b',cursor:'pointer'}}>
+            <span style={{fontSize:20}}>👥</span>
+            <span style={{fontSize:9,fontWeight:vista==='amigos'?700:400}}>Amigos</span>
           </button>
         )}
-        <a href="/dashboard" style={{display:'flex',flexDirection:'column',alignItems:'center',gap:2,textDecoration:'none',color:'#64748b'}}>
-          <span style={{fontSize:20}}>⊞</span>
-          <span style={{fontSize:9}}>Panel</span>
-        </a>
+        <button onClick={()=>setVista('wallet')} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:2,border:'none',background:'transparent',color:vista==='wallet'?'#22c55e':'#64748b',cursor:'pointer'}}>
+          <span style={{fontSize:20}}>🪙</span>
+          <span style={{fontSize:9,fontWeight:vista==='wallet'?700:400}}>Wallet</span>
+        </button>
       </div>
 
       <div style={{height:70}} />
