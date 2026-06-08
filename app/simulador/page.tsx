@@ -1,259 +1,240 @@
 'use client'
 import { useState } from 'react'
 
-const ORGANICO_POR_DEPTO_KG = 15
-const CO2_FACTOR = 1.8
-const KM_RELLENO = 35
-const PRECIO_VCS = 22
-const PRECIO_ART64 = 90
-const DIST_VECINO = 0.25
-const TARIFA_CEAMSE = 850
-const FEE_CIRCULAB_USD = 10
-const PRECIO_ABONO_ARS = 600
-const AHORRO_RECOLECCION_ARS_DEPTO = 800
-
-function calcular(deptos: number) {
-  const kgMes = deptos * ORGANICO_POR_DEPTO_KG
-  const co2eq = kgMes * CO2_FACTOR * (1 + KM_RELLENO / 100)
-  const creditoVCS = (co2eq / 1000) * PRECIO_VCS
-  const creditoArt64 = (co2eq / 1000) * PRECIO_ART64
-  const vecinoVCS = creditoVCS * DIST_VECINO
-  const vecinoArt64 = creditoArt64 * DIST_VECINO
-  const costoEvitado = kgMes * TARIFA_CEAMSE
-  const feeTotal = deptos * FEE_CIRCULAB_USD
-  const abonoKg = kgMes * 0.3
-  const abonoValorARS = abonoKg * PRECIO_ABONO_ARS * DIST_VECINO
-  const ahorroRecoleccionARS = deptos * AHORRO_RECOLECCION_ARS_DEPTO
-  const arboles = Math.round(co2eq / 0.021)
-  const tokens = Math.round(co2eq * 100)
-  return {
-    kgMes:parseFloat(kgMes.toFixed(1)),
-    co2eq:parseFloat(co2eq.toFixed(2)),
-    creditoVCS:parseFloat(creditoVCS.toFixed(2)),
-    creditoArt64:parseFloat(creditoArt64.toFixed(2)),
-    vecinoVCS:parseFloat(vecinoVCS.toFixed(2)),
-    vecinoArt64:parseFloat(vecinoArt64.toFixed(2)),
-    costoEvitado,
-    feeTotal,
-    abonoKg:parseFloat(abonoKg.toFixed(1)),
-    abonoValorARS:parseFloat(abonoValorARS.toFixed(0)),
-    ahorroRecoleccionARS,
-    arboles,
-    tokens,
-    vecinoPorDeptoVCS:parseFloat((vecinoVCS/deptos).toFixed(2)),
-    vecinoPorDeptoArt64:parseFloat((vecinoArt64/deptos).toFixed(2)),
-    totalMensualARS: (vecinoVCS*1200) + abonoValorARS + ahorroRecoleccionARS,
-    totalAnualARS: ((vecinoVCS*1200) + abonoValorARS + ahorroRecoleccionARS) * 12,
-    totalAnualPorDeptoARS: (((vecinoVCS*1200) + abonoValorARS + ahorroRecoleccionARS) * 12) / deptos,
-  }
-}
+const TIPOS = [
+ {
+   v:'organico', l:'Orgánico', icon:'🌿', color:'#22c55e',
+   factor:1.8, kg_depto:15,
+   fuentes:[
+     {l:'Crédito carbono VCS (25%)', calc:(kg:number,d:number)=>kg*1.8/1000*22*0.25},
+     {l:'Abono comercializable (25%)', calc:(kg:number,d:number)=>kg*0.5/1200*0.25},
+     {l:'Ahorro recolección', calc:(kg:number,d:number)=>d*6},
+   ]
+ },
+ {
+   v:'plastico', l:'Plástico', icon:'♻️', color:'#3b82f6',
+   factor:1.5, kg_depto:3,
+   fuentes:[
+     {l:'Crédito carbono Gold Standard (25%)', calc:(kg:number,d:number)=>kg*1.5/1000*20*0.25},
+     {l:'Venta material reciclado', calc:(kg:number,d:number)=>kg*0.08*0.25},
+   ]
+ },
+ {
+   v:'papel', l:'Papel y cartón', icon:'📄', color:'#f59e0b',
+   factor:0.9, kg_depto:4,
+   fuentes:[
+     {l:'Crédito carbono Gold Standard (25%)', calc:(kg:number,d:number)=>kg*0.9/1000*18*0.25},
+     {l:'Venta material reciclado', calc:(kg:number,d:number)=>kg*0.04*0.25},
+   ]
+ },
+ {
+   v:'vidrio', l:'Vidrio', icon:'🍾', color:'#a855f7',
+   factor:0.3, kg_depto:2,
+   fuentes:[
+     {l:'Crédito carbono Verra (25%)', calc:(kg:number,d:number)=>kg*0.3/1000*15*0.25},
+     {l:'Ahorro recolección', calc:(kg:number,d:number)=>d*1},
+   ]
+ },
+ {
+   v:'metal', l:'Metal', icon:'🔩', color:'#ef4444',
+   factor:8.0, kg_depto:0.5,
+   fuentes:[
+     {l:'Crédito carbono CAR (25%)', calc:(kg:number,d:number)=>kg*8.0/1000*35*0.25},
+     {l:'Venta chatarra (25%)', calc:(kg:number,d:number)=>kg*0.40*0.25},
+   ]
+ },
+ {
+   v:'aceite', l:'Aceite usado', icon:'🛢️', color:'#f97316',
+   factor:2.5, kg_depto:0.3,
+   fuentes:[
+     {l:'Crédito carbono Verra (25%)', calc:(kg:number,d:number)=>kg*2.5/1000*25*0.25},
+     {l:'Biodiesel (25%)', calc:(kg:number,d:number)=>kg*0.30*0.25},
+   ]
+ },
+ {
+   v:'textil', l:'Textil', icon:'👕', color:'#ec4899',
+   factor:5.5, kg_depto:0.5,
+   fuentes:[
+     {l:'Crédito carbono Gold Standard (25%)', calc:(kg:number,d:number)=>kg*5.5/1000*28*0.25},
+     {l:'Ropa reutilizable (25%)', calc:(kg:number,d:number)=>kg*0.50*0.25},
+   ]
+ },
+]
 
 export default function Simulador() {
-  const [deptos, setDeptos] = useState(20)
-  const [fase, setFase] = useState<'vcs'|'art64'>('vcs')
-  const r = calcular(deptos)
+ const [deptos, setDeptos] = useState(50)
+ const [participacion, setParticipacion] = useState(60)
+ const [tipos_activos, setTiposActivos] = useState(['organico','plastico','papel','metal'])
 
-  const totalMensual = fase==='vcs'
-    ? (r.vecinoVCS*1200) + r.abonoValorARS + r.ahorroRecoleccionARS
-    : (r.vecinoArt64*1200) + r.abonoValorARS + r.ahorroRecoleccionARS
-  const totalAnual = totalMensual * 12
-  const totalAnualPorDepto = totalAnual / deptos
+ function toggleTipo(v: string) {
+   setTiposActivos(prev=>prev.includes(v)?prev.filter(t=>t!==v):[...prev,v])
+ }
 
-  return (
-    <div style={{minHeight:'100vh',background:'#0a0e1a',color:'#f1f5f9',fontFamily:'system-ui,sans-serif',padding:'24px 20px'}}>
-      <div style={{maxWidth:620,margin:'0 auto'}}>
+ const deptos_activos = Math.round(deptos * participacion / 100)
 
-        {/* Header */}
-        <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:32}}>
-          <a href="/" style={{display:'flex',alignItems:'center',gap:8,textDecoration:'none'}}>
-            <div style={{width:32,height:32,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:14,color:'white'}}>C</div>
-            <span style={{fontSize:13,fontWeight:800,color:'#f1f5f9'}}>CIRCULAB</span>
-          </a>
-          <a href="/dashboard" style={{fontSize:12,color:'#64748b',textDecoration:'none'}}>Mi panel →</a>
-        </div>
+ const resultados = TIPOS.filter(t=>tipos_activos.includes(t.v)).map(t=>{
+   const kg_mes = deptos_activos * t.kg_depto
+   const total_fuentes = t.fuentes.reduce((a,f)=>a+f.calc(kg_mes,deptos),0)
+   const detalle = t.fuentes.map(f=>({l:f.l, v:f.calc(kg_mes,deptos)}))
+   const co2 = kg_mes * t.factor / 1000
+   return {...t, kg_mes, total:total_fuentes, detalle, co2}
+ })
 
-        <div style={{textAlign:'center',marginBottom:32}}>
-          <div style={{fontSize:26,fontWeight:900,marginBottom:8,lineHeight:1.2}}>
-            ¿Cuanto puede ahorrar<br/>tu consorcio? 🏢
-          </div>
-          <div style={{fontSize:14,color:'#64748b',maxWidth:420,margin:'0 auto'}}>
-            Tu consorcio ya paga por la basura. Con Circulab esa basura genera 5 fuentes de valor distintas.
-          </div>
-        </div>
+ const total_mensual = resultados.reduce((a,r)=>a+r.total,0)
+ const total_anual = total_mensual * 12
+ const total_co2 = resultados.reduce((a,r)=>a+r.co2,0)
+ const total_kg = resultados.reduce((a,r)=>a+r.kg_mes,0)
+ const por_depto = total_mensual / deptos
 
-        {/* Slider */}
-        <div style={{background:'#111827',border:'1px solid rgba(255,255,255,0.06)',borderRadius:16,padding:'24px',marginBottom:16}}>
-          <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:16}}>
-            <div style={{fontSize:14,fontWeight:700}}>Departamentos en el edificio</div>
-            <div style={{fontSize:36,fontWeight:900,color:'#22c55e'}}>{deptos}</div>
-          </div>
-          <input type="range" min={5} max={200} step={5} value={deptos}
-            onChange={e=>setDeptos(Number(e.target.value))}
-            style={{width:'100%',accentColor:'#22c55e',cursor:'pointer'}} />
-          <div style={{display:'flex',justifyContent:'space-between',fontSize:10,color:'#64748b',marginTop:6}}>
-            <span>5</span><span>50</span><span>100</span><span>150</span><span>200</span>
-          </div>
-        </div>
+ return (
+   <div style={{minHeight:'100vh',background:'#0a0e1a',color:'#f1f5f9',fontFamily:'system-ui',padding:'24px 20px 60px'}}>
+     <div style={{maxWidth:560,margin:'0 auto'}}>
 
-        {/* Toggle fase */}
-        <div style={{display:'flex',gap:8,marginBottom:16}}>
-          <button onClick={()=>setFase('vcs')} style={{flex:1,padding:'10px',borderRadius:10,border:'none',cursor:'pointer',background:fase==='vcs'?'rgba(34,197,94,0.15)':'rgba(255,255,255,0.04)',color:fase==='vcs'?'#22c55e':'#64748b',fontSize:12,fontWeight:700,outline:fase==='vcs'?'2px solid rgba(34,197,94,0.4)':'none'}}>
-            Fase 3 · VCS Verra · USD 22/t
-          </button>
-          <button onClick={()=>setFase('art64')} style={{flex:1,padding:'10px',borderRadius:10,border:'none',cursor:'pointer',background:fase==='art64'?'rgba(168,85,247,0.15)':'rgba(255,255,255,0.04)',color:fase==='art64'?'#a855f7':'#64748b',fontSize:12,fontWeight:700,outline:fase==='art64'?'2px solid rgba(168,85,247,0.4)':'none'}}>
-            Fase 4 · Art. 6.4 · USD 90/t
-          </button>
-        </div>
+       {/* Header */}
+       <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:24}}>
+         <a href="/" style={{display:'flex',alignItems:'center',gap:8,textDecoration:'none'}}>
+           <div style={{width:32,height:32,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:14,color:'white'}}>O</div>
+           <span style={{fontSize:13,fontWeight:800,color:'#f1f5f9'}}>OLIVIA Circulab</span>
+         </a>
+         <a href="/dashboard" style={{fontSize:11,color:'#64748b',textDecoration:'none'}}>Mi panel →</a>
+       </div>
 
-        {/* KPI principal */}
-        <div style={{background:'linear-gradient(135deg,#0f1f10,#0a1628)',border:'2px solid rgba(34,197,94,0.4)',borderRadius:20,padding:'24px',marginBottom:16,textAlign:'center'}}>
-          <div style={{fontSize:12,color:'#64748b',marginBottom:4,textTransform:'uppercase',letterSpacing:'0.05em'}}>Reduccion total estimada por departamento</div>
-          <div style={{fontSize:44,fontWeight:900,color:'#22c55e',marginBottom:4}}>
-            ${Math.round(totalAnualPorDepto).toLocaleString()}
-          </div>
-          <div style={{fontSize:14,color:'#64748b',marginBottom:16}}>ARS por departamento por año</div>
-          <div style={{display:'flex',gap:12,justifyContent:'center'}}>
-            <div style={{textAlign:'center'}}>
-              <div style={{fontSize:18,fontWeight:800,color:'#22c55e'}}>${Math.round(totalMensual).toLocaleString()}</div>
-              <div style={{fontSize:10,color:'#64748b'}}>ARS/mes consorcio</div>
-            </div>
-            <div style={{width:1,background:'rgba(255,255,255,0.1)'}} />
-            <div style={{textAlign:'center'}}>
-              <div style={{fontSize:18,fontWeight:800,color:'#22c55e'}}>${Math.round(totalAnual).toLocaleString()}</div>
-              <div style={{fontSize:10,color:'#64748b'}}>ARS/año consorcio</div>
-            </div>
-            <div style={{width:1,background:'rgba(255,255,255,0.1)'}} />
-            <div style={{textAlign:'center'}}>
-              <div style={{fontSize:18,fontWeight:800,color:'#f59e0b'}}>${r.costoEvitado.toLocaleString()}</div>
-              <div style={{fontSize:10,color:'#64748b'}}>evitado al Estado/mes</div>
-            </div>
-          </div>
-        </div>
+       <div style={{fontSize:22,fontWeight:900,marginBottom:4}}>
+         🏢 ¿Cuánto puede recuperar tu consorcio?
+       </div>
+       <div style={{fontSize:13,color:'#64748b',marginBottom:24,lineHeight:1.5}}>
+         Calculá el valor real de separar los residuos de tu edificio — en dinero.
+       </div>
 
-        {/* 5 fuentes de valor */}
-        <div style={{background:'#111827',border:'1px solid rgba(255,255,255,0.06)',borderRadius:16,padding:'20px',marginBottom:16}}>
-          <div style={{fontSize:13,fontWeight:700,marginBottom:4,color:'#22c55e'}}>Las 5 fuentes de valor</div>
-          <div style={{fontSize:11,color:'#64748b',marginBottom:16}}>Combinadas generan el ahorro total estimado</div>
+       {/* Configuración */}
+       <div style={{background:'#111827',border:'1px solid rgba(255,255,255,0.06)',borderRadius:16,padding:'20px',marginBottom:16}}>
 
-          {[
-            {
-              num:'01',
-              titulo:'Credito de carbono',
-              desc:`${r.co2eq}kg CO2eq evitado · ${fase==='vcs'?'VCS Verra':'Art. 6.4 Paris'}`,
-              valor:'USD '+(fase==='vcs'?r.vecinoVCS:r.vecinoArt64)+'/mes',
-              valorARS:'$'+(Math.round(fase==='vcs'?r.vecinoVCS*1200:r.vecinoArt64*1200)).toLocaleString()+'/mes',
-              color:'#22c55e',
-              icon:'🌿',
-              nota:'Tu parte 25% del credito generado',
-            },
-            {
-              num:'02',
-              titulo:'Abono comercializable',
-              desc:`${r.abonoKg}kg de compost producido · $${PRECIO_ABONO_ARS}/kg mercado`,
-              valor:'$'+r.abonoValorARS.toLocaleString()+'/mes',
-              valorARS:'$'+(r.abonoValorARS*12).toLocaleString()+'/año',
-              color:'#f59e0b',
-              icon:'🪴',
-              nota:'Tu parte 25% del abono producido',
-            },
-            {
-              num:'03',
-              titulo:'Ahorro en recoleccion',
-              desc:`Menos residuo mezclado = menor tarifa de recoleccion`,
-              valor:'$'+r.ahorroRecoleccionARS.toLocaleString()+'/mes',
-              valorARS:'$'+(r.ahorroRecoleccionARS*12).toLocaleString()+'/año',
-              color:'#3b82f6',
-              icon:'🚛',
-              nota:'Estimado $'+AHORRO_RECOLECCION_ARS_DEPTO+' ARS por depto/mes',
-            },
-            {
-              num:'04',
-              titulo:'Tokens OLV acumulados',
-              desc:`${r.tokens} tokens OLV por mes · Canjeable por beneficios`,
-              valor:r.tokens+' OLV/mes',
-              valorARS:(r.tokens*12)+' OLV/año',
-              color:'#a855f7',
-              icon:'🪙',
-              nota:'Valor actual: reputacion digital · Fase 3: USD '+(r.tokens*0.022*12).toFixed(0)+'/año',
-            },
-            {
-              num:'05',
-              titulo:'Certificacion RSE corporativa',
-              desc:`Empresas pagan por asociarse a consorcios certificados`,
-              valor:'USD 50-200/mes',
-              valorARS:'Segun acuerdo',
-              color:'#f1f5f9',
-              icon:'🏆',
-              nota:'Disponible con 3+ meses de participacion activa',
-            },
-          ].map((f,i)=>(
-            <div key={i} style={{display:'flex',gap:12,padding:'14px',borderRadius:12,background:'rgba(255,255,255,0.02)',marginBottom:8,border:`1px solid ${f.color}18`}}>
-              <div style={{width:32,height:32,borderRadius:8,background:f.color+'18',display:'flex',alignItems:'center',justifyContent:'center',fontSize:18,flexShrink:0}}>{f.icon}</div>
-              <div style={{flex:1}}>
-                <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:4}}>
-                  <div style={{fontSize:12,fontWeight:700,color:f.color}}>{f.titulo}</div>
-                  <div style={{textAlign:'right',flexShrink:0,marginLeft:8}}>
-                    <div style={{fontSize:12,fontWeight:700,color:f.color}}>{f.valor}</div>
-                    <div style={{fontSize:9,color:'#64748b'}}>{f.valorARS}</div>
-                  </div>
-                </div>
-                <div style={{fontSize:10,color:'#64748b',marginBottom:4}}>{f.desc}</div>
-                <div style={{fontSize:9,color:'#94a3b8',fontStyle:'italic'}}>{f.nota}</div>
-              </div>
-            </div>
-          ))}
-        </div>
+         <div style={{marginBottom:20}}>
+           <div style={{display:'flex',justifyContent:'space-between',marginBottom:8}}>
+             <span style={{fontSize:13,color:'#94a3b8'}}>¿Cuántos departamentos tiene tu edificio?</span>
+             <span style={{fontSize:15,fontWeight:800,color:'#f1f5f9'}}>{deptos}</span>
+           </div>
+           <input type="range" min={10} max={300} value={deptos}
+             onChange={e=>setDeptos(Number(e.target.value))}
+             style={{width:'100%',accentColor:'#22c55e',cursor:'pointer'}} />
+           <div style={{display:'flex',justifyContent:'space-between',fontSize:10,color:'#64748b',marginTop:4}}>
+             <span>10 deptos</span>
+             <span>150</span>
+             <span>300 deptos</span>
+           </div>
+         </div>
 
-        {/* Distribucion */}
-        <div style={{background:'#111827',border:'1px solid rgba(255,255,255,0.06)',borderRadius:16,padding:'20px',marginBottom:16}}>
-          <div style={{fontSize:13,fontWeight:700,marginBottom:12}}>Como se distribuye el credito de carbono</div>
-          <div style={{display:'flex',height:28,borderRadius:8,overflow:'hidden',gap:1,marginBottom:12}}>
-            <div style={{width:'50%',background:'#3b82f6',display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,fontWeight:700,color:'white'}}>Circulab 50%</div>
-            <div style={{width:'25%',background:'#22c55e',display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,fontWeight:700,color:'white'}}>Vos 25%</div>
-            <div style={{width:'15%',background:'#f59e0b',display:'flex',alignItems:'center',justifyContent:'center',fontSize:9,fontWeight:700,color:'white'}}>15%</div>
-            <div style={{width:'10%',background:'#a855f7',display:'flex',alignItems:'center',justifyContent:'center',fontSize:8,fontWeight:700,color:'white'}}>10%</div>
-          </div>
-          {[
-            {actor:'Circulab',desc:'Infraestructura y certificacion',pct:'50%',usd:(fase==='vcs'?r.creditoVCS:r.creditoArt64)*0.50,color:'#3b82f6'},
-            {actor:'Tu consorcio',desc:'Separacion en origen',pct:'25%',usd:fase==='vcs'?r.vecinoVCS:r.vecinoArt64,color:'#22c55e'},
-            {actor:'Recolector',desc:'Logistica y transporte',pct:'15%',usd:(fase==='vcs'?r.creditoVCS:r.creditoArt64)*0.15,color:'#f59e0b'},
-            {actor:'Planta',desc:'Procesamiento y compostaje',pct:'10%',usd:(fase==='vcs'?r.creditoVCS:r.creditoArt64)*0.10,color:'#a855f7'},
-          ].map(a=>(
-            <div key={a.actor} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'8px 10px',borderRadius:8,background:'rgba(255,255,255,0.02)',marginBottom:4}}>
-              <div>
-                <div style={{fontSize:11,fontWeight:600,color:a.color}}>{a.actor} {a.pct}</div>
-                <div style={{fontSize:9,color:'#64748b'}}>{a.desc}</div>
-              </div>
-              <div style={{fontSize:12,fontWeight:700,color:a.color}}>USD {a.usd.toFixed(2)}/mes</div>
-            </div>
-          ))}
-        </div>
+         <div style={{marginBottom:20}}>
+           <div style={{display:'flex',justifyContent:'space-between',marginBottom:8}}>
+             <span style={{fontSize:13,color:'#94a3b8'}}>¿Qué % de vecinos participaría?</span>
+             <span style={{fontSize:15,fontWeight:800,color:'#f1f5f9'}}>{participacion}% · {deptos_activos} vecinos</span>
+           </div>
+           <input type="range" min={10} max={100} value={participacion}
+             onChange={e=>setParticipacion(Number(e.target.value))}
+             style={{width:'100%',accentColor:'#22c55e',cursor:'pointer'}} />
+           <div style={{display:'flex',justifyContent:'space-between',fontSize:10,color:'#64748b',marginTop:4}}>
+             <span>10%</span>
+             <span>50%</span>
+             <span>100%</span>
+           </div>
+         </div>
 
-        {/* Metodologia */}
-        <div style={{background:'rgba(59,130,246,0.06)',border:'1px solid rgba(59,130,246,0.2)',borderRadius:12,padding:'14px',marginBottom:24}}>
-          <div style={{fontSize:11,fontWeight:600,color:'#93c5fd',marginBottom:6}}>Metodologia y supuestos</div>
-          <div style={{fontSize:10,color:'#94a3b8',lineHeight:1.7}}>
-            · 15kg organico por depto/mes (promedio CABA verificado)<br/>
-            · Factor CO2eq 1.8t/t (metano evitado + CO2 compostaje + transporte evitado)<br/>
-            · KM al relleno Norte III: 35km<br/>
-            · Tarifa CEAMSE 2025: $850 ARS/kg<br/>
-            · Precio abono: $600 ARS/kg mercado local<br/>
-            · Ahorro recoleccion: $800 ARS/depto/mes estimado<br/>
-            · USD/ARS referencia: $1.200 ARS
-          </div>
-        </div>
+         <div>
+           <div style={{fontSize:13,color:'#94a3b8',marginBottom:10}}>¿Qué residuos van a separar?</div>
+           <div style={{display:'flex',gap:6,flexWrap:'wrap'}}>
+             {TIPOS.map(t=>(
+               <button key={t.v} onClick={()=>toggleTipo(t.v)}
+                 style={{padding:'7px 12px',borderRadius:8,border:'none',cursor:'pointer',fontSize:12,fontWeight:600,
+                   background:tipos_activos.includes(t.v)?`rgba(${t.color==='#22c55e'?'34,197,94':t.color==='#3b82f6'?'59,130,246':t.color==='#f59e0b'?'245,158,11':t.color==='#a855f7'?'168,85,247':t.color==='#ef4444'?'239,68,68':t.color==='#f97316'?'249,115,22':'236,72,153'},0.15)`:'rgba(255,255,255,0.04)',
+                   color:tipos_activos.includes(t.v)?t.color:'#64748b',
+                   outline:tipos_activos.includes(t.v)?`2px solid ${t.color}44`:'none'}}>
+                 {t.icon} {t.l}
+               </button>
+             ))}
+           </div>
+         </div>
+       </div>
 
-        {/* CTA */}
-        <div style={{display:'flex',flexDirection:'column',gap:12}}>
-          <a href="/registro" style={{display:'block',background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',padding:'16px',borderRadius:14,textAlign:'center',fontSize:15,fontWeight:700,textDecoration:'none',boxShadow:'0 0 30px rgba(34,197,94,0.25)'}}>
-            Quiero que mi consorcio participe →
-          </a>
-          <a href="/dashboard" style={{display:'block',background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.08)',color:'#94a3b8',padding:'12px',borderRadius:12,textAlign:'center',fontSize:13,textDecoration:'none'}}>
-            Ver mi panel →
-          </a>
-        </div>
+       {/* Resultado grande */}
+       <div style={{background:'linear-gradient(135deg,#0f1f10,#050d1f)',border:'2px solid rgba(34,197,94,0.4)',borderRadius:16,padding:'24px',marginBottom:16,textAlign:'center'}}>
+         <div style={{fontSize:12,color:'#64748b',marginBottom:4}}>Tu consorcio recupera</div>
+         <div style={{fontSize:48,fontWeight:900,color:'#22c55e',lineHeight:1}}>
+           USD {total_mensual.toFixed(0)}
+         </div>
+         <div style={{fontSize:14,color:'#64748b',marginBottom:16}}>por mes</div>
 
-      </div>
-    </div>
-  )
+         <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:10,marginBottom:16}}>
+           <div style={{background:'rgba(255,255,255,0.04)',borderRadius:10,padding:'10px'}}>
+             <div style={{fontSize:16,fontWeight:800,color:'#22c55e'}}>USD {total_anual.toFixed(0)}</div>
+             <div style={{fontSize:9,color:'#64748b',marginTop:2}}>por año</div>
+           </div>
+           <div style={{background:'rgba(255,255,255,0.04)',borderRadius:10,padding:'10px'}}>
+             <div style={{fontSize:16,fontWeight:800,color:'#3b82f6'}}>USD {por_depto.toFixed(2)}</div>
+             <div style={{fontSize:9,color:'#64748b',marginTop:2}}>por depto/mes</div>
+           </div>
+           <div style={{background:'rgba(255,255,255,0.04)',borderRadius:10,padding:'10px'}}>
+             <div style={{fontSize:16,fontWeight:800,color:'#a855f7'}}>{(total_co2*1000).toFixed(0)}kg</div>
+             <div style={{fontSize:9,color:'#64748b',marginTop:2}}>CO2eq evitado/mes</div>
+           </div>
+         </div>
+
+         <div style={{fontSize:10,color:'#64748b',lineHeight:1.5}}>
+           Basado en {total_kg.toFixed(0)}kg de residuos separados por mes · {deptos_activos} vecinos activos
+         </div>
+       </div>
+
+       {/* Desglose por tipo */}
+       {resultados.length>0&&(
+         <div style={{background:'#111827',border:'1px solid rgba(255,255,255,0.06)',borderRadius:16,padding:'20px',marginBottom:16}}>
+           <div style={{fontSize:14,fontWeight:700,marginBottom:16}}>Desglose por tipo de residuo</div>
+           {resultados.map(r=>(
+             <div key={r.v} style={{marginBottom:16,paddingBottom:16,borderBottom:'1px solid rgba(255,255,255,0.04)'}}>
+               <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:8}}>
+                 <div style={{display:'flex',alignItems:'center',gap:8}}>
+                   <span style={{fontSize:20}}>{r.icon}</span>
+                   <div>
+                     <div style={{fontSize:13,fontWeight:700}}>{r.l}</div>
+                     <div style={{fontSize:10,color:'#64748b'}}>{r.kg_mes.toFixed(1)}kg/mes · {deptos_activos} vecinos</div>
+                   </div>
+                 </div>
+                 <div style={{textAlign:'right'}}>
+                   <div style={{fontSize:16,fontWeight:800,color:r.color}}>USD {r.total.toFixed(2)}</div>
+                   <div style={{fontSize:9,color:'#64748b'}}>por mes</div>
+                 </div>
+               </div>
+               {r.detalle.map((d:any,i:number)=>(
+                 <div key={i} style={{display:'flex',justifyContent:'space-between',padding:'4px 8px',background:'rgba(255,255,255,0.02)',borderRadius:6,marginBottom:3}}>
+                   <span style={{fontSize:10,color:'#64748b'}}>{d.l}</span>
+                   <span style={{fontSize:10,fontWeight:600,color:r.color}}>USD {d.v.toFixed(2)}</span>
+                 </div>
+               ))}
+             </div>
+           ))}
+         </div>
+       )}
+
+       {/* Nota importante */}
+       <div style={{background:'rgba(245,158,11,0.06)',border:'1px solid rgba(245,158,11,0.2)',borderRadius:12,padding:'14px',marginBottom:20}}>
+         <div style={{fontSize:11,fontWeight:700,color:'#f59e0b',marginBottom:6}}>⚠️ Importante</div>
+         <div style={{fontSize:11,color:'#94a3b8',lineHeight:1.6}}>
+           Los ingresos por créditos de carbono se activan cuando OLIVIA certifique con Verra en 2027 (Fase 3).
+           Los consorcios que empiezan hoy acumulan el historial verificado que habilita ese cobro.
+           El ahorro en recolección y venta de materiales aplica desde el día 1.
+         </div>
+       </div>
+
+       {/* CTAs */}
+       <div style={{display:'flex',flexDirection:'column',gap:10}}>
+         <a href="/registrar" style={{background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',padding:'16px',borderRadius:14,fontSize:15,fontWeight:700,textDecoration:'none',display:'block',textAlign:'center',boxShadow:'0 0 20px rgba(34,197,94,0.2)'}}>
+           Registrar mi primer residuo →
+         </a>
+         <a href="mailto:hola@oliviacirculab.com.ar?subject=Quiero sumar mi consorcio a OLIVIA"
+           style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.08)',color:'#f1f5f9',padding:'14px',borderRadius:14,fontSize:14,fontWeight:700,textDecoration:'none',display:'block',textAlign:'center'}}>
+           🏢 Sumar mi consorcio a OLIVIA →
+         </a>
+       </div>
+
+     </div>
+   </div>
+ )
 }

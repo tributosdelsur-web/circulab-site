@@ -1,5 +1,6 @@
 'use client'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, Suspense } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { supabase } from '../../lib/supabase'
 
 function getYouTubeId(url: string) {
@@ -37,13 +38,15 @@ function VideoEmbed({url}: {url: string}) {
   )
 }
 
-export default function Comunidad() {
+function ComunidadContent() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
   const [uid, setUid] = useState('')
   const [usuario, setUsuario] = useState<any>(null)
   const [posts, setPosts] = useState<any[]>([])
   const [stories, setStories] = useState<any[]>([])
   const [wallet, setWallet] = useState(0)
-  const [vista, setVista] = useState<'feed'|'wallet'|'buscar'|'amigos'>('feed')
+  const [vista, setVista] = useState(searchParams.get('vista')||'feed')
   const [transacciones, setTransacciones] = useState<any[]>([])
   const [nuevoPost, setNuevoPost] = useState('')
   const [nuevaFoto, setNuevaFoto] = useState<File|null>(null)
@@ -56,54 +59,45 @@ export default function Comunidad() {
   const [storyViendo, setStoryViendo] = useState<any|null>(null)
   const [busqueda, setBusqueda] = useState('')
   const [resultados, setResultados] = useState<any[]>([])
-  const [siguiendo, setSiguiendo] = useState<Set<string>>(new Set())
-  const [listaSiguiendo, setListaSiguiendo] = useState<any[]>([])
-  const [listaSeguidores, setListaSeguidores] = useState<any[]>([])
-  const [tabAmigos, setTabAmigos] = useState<'siguiendo'|'seguidores'>('siguiendo')
   const [loading, setLoading] = useState(true)
+  const [rankingUsuarios, setRankingUsuarios] = useState<any[]>([])
   const fileRef = useRef<HTMLInputElement>(null)
   const storyRef = useRef<HTMLInputElement>(null)
+
+  function cambiarVista(v: string) {
+    setVista(v)
+    router.push(`/comunidad?vista=${v}`, {scroll:false})
+  }
 
   useEffect(()=>{
     supabase.auth.getSession().then(async ({data})=>{
       if(data.session?.user?.id) {
-        const u_id = data.session.user.id
-        setUid(u_id)
-        const {data:u} = await supabase.from('usuarios').select('*').eq('id',u_id).single()
+        const id = data.session.user.id
+        setUid(id)
+        const {data:u} = await supabase.from('usuarios').select('*').eq('id',id).single()
         setUsuario(u)
-        const {data:t} = await supabase.from('wallet_transacciones').select('*').eq('usuario_id',u_id).order('created_at',{ascending:false}).limit(20)
+        const {data:t} = await supabase.from('wallet_transacciones').select('*').eq('usuario_id',id).order('created_at',{ascending:false}).limit(20)
         setTransacciones(t||[])
         setWallet((t||[]).reduce((a:number,tr:any)=>a+Number(tr.monto_olv),0))
-        const {data:seg} = await supabase.from('seguidores').select('seguido_id').eq('seguidor_id',u_id)
-        setSiguiendo(new Set((seg||[]).map((s:any)=>s.seguido_id)))
       }
       cargarFeed()
+      cargarRanking()
     })
   },[])
 
-  async function cargarAmigos(u_id: string) {
-    const [{data:sig},{data:segs}] = await Promise.all([
-      supabase.from('seguidores').select('seguido_id, usuarios!seguidores_seguido_id_fkey(id,nombre,apellido,nivel,score_pulso)').eq('seguidor_id',u_id),
-      supabase.from('seguidores').select('seguidor_id, usuarios!seguidores_seguidor_id_fkey(id,nombre,apellido,nivel,score_pulso)').eq('seguido_id',u_id),
-    ])
-    setListaSiguiendo((sig||[]).map((s:any)=>s.usuarios))
-    setListaSeguidores((segs||[]).map((s:any)=>s.usuarios))
-  }
-
   async function cargarFeed() {
     const [p,s] = await Promise.all([
-      supabase.from('posts').select('*, usuarios(id,nombre,apellido)').order('created_at',{ascending:false}).limit(50),
+      supabase.from('posts').select('*, usuarios(nombre,apellido)').order('created_at',{ascending:false}).limit(50),
       supabase.from('stories').select('*, usuarios(nombre,apellido)').gte('expires_at',new Date().toISOString()).order('created_at',{ascending:false}),
     ])
-    setPosts(p.data||[]); setStories(s.data||[]); setLoading(false)
+    setPosts(p.data||[])
+    setStories(s.data||[])
+    setLoading(false)
   }
 
-  async function eliminarPost(postId: string) {
-    if(!confirm('¿Eliminar este post?')) return
-    await supabase.from('comentarios').delete().eq('post_id', postId)
-    await supabase.from('likes').delete().eq('post_id', postId)
-    await supabase.from('posts').delete().eq('id', postId).eq('usuario_id', uid)
-    cargarFeed()
+  async function cargarRanking() {
+    const {data} = await supabase.from('usuarios').select('id,nombre,apellido,score_pulso,nivel').order('score_pulso',{ascending:false}).limit(10)
+    setRankingUsuarios(data||[])
   }
 
   async function buscarUsuarios(q: string) {
@@ -112,43 +106,30 @@ export default function Comunidad() {
     setResultados(data||[])
   }
 
-  async function toggleSeguir(targetId: string) {
-    if(!uid){window.location.href='/login';return}
-    if(targetId===uid) return
-    if(siguiendo.has(targetId)) {
-      await supabase.from('seguidores').delete().eq('seguidor_id',uid).eq('seguido_id',targetId)
-      setSiguiendo(prev=>{const n=new Set(prev);n.delete(targetId);return n})
-    } else {
-      await supabase.from('seguidores').insert({seguidor_id:uid,seguido_id:targetId})
-      await supabase.from('wallet_transacciones').insert({usuario_id:uid,tipo:'seguir',monto_olv:5,descripcion:'Seguiste a alguien'})
-      setSiguiendo(prev=>new Set(prev).add(targetId))
-      setWallet(w=>w+5)
-    }
-    if(vista==='amigos') cargarAmigos(uid)
-  }
-
   async function publicarPost() {
     if(!uid){window.location.href='/login';return}
     if(!nuevoPost&&!nuevaFoto&&!videoUrl) return
     setPublicando(true)
     let foto_url = null
     if(nuevaFoto) {
-      const ext = nuevaFoto.name.split('.').pop()
-      const nombre = `${uid}-post-${Date.now()}.${ext}`
+      const nombre = `${uid}-post-${Date.now()}`
       await supabase.storage.from('residuos-fotos').upload(nombre,nuevaFoto)
       const {data} = supabase.storage.from('residuos-fotos').getPublicUrl(nombre)
       foto_url = data.publicUrl
     }
     await supabase.from('posts').insert({usuario_id:uid,contenido:nuevoPost,foto_url,video_url:videoUrl||null,tipo:'accion',olv_ganados:20})
     await supabase.from('wallet_transacciones').insert({usuario_id:uid,tipo:'post',monto_olv:20,descripcion:'Post publicado en la comunidad'})
-    setNuevoPost(''); setNuevaFoto(null); setVideoUrl(''); setMostrarVideo(false); setPublicando(false)
+    setNuevoPost('')
+    setNuevaFoto(null)
+    setVideoUrl('')
+    setMostrarVideo(false)
+    setPublicando(false)
     cargarFeed()
   }
 
   async function publicarStory(file: File) {
     if(!uid){window.location.href='/login';return}
-    const ext = file.name.split('.').pop()
-    const nombre = `${uid}-story-${Date.now()}.${ext}`
+    const nombre = `${uid}-story-${Date.now()}`
     await supabase.storage.from('residuos-fotos').upload(nombre,file)
     const {data} = supabase.storage.from('residuos-fotos').getPublicUrl(nombre)
     await supabase.from('stories').insert({usuario_id:uid,foto_url:data.publicUrl,texto:''})
@@ -182,6 +163,28 @@ export default function Comunidad() {
     cargarComentarios(postId)
   }
 
+  async function borrarComentario(comentarioId: string, postId: string, comentarioUserId: string) {
+    if(uid!==comentarioUserId) return
+    await supabase.from('comentarios').delete().eq('id',comentarioId)
+    cargarComentarios(postId)
+  }
+
+  async function borrarPost(postId: string, postUserId: string) {
+    if(uid!==postUserId) return
+    await supabase.from('posts').delete().eq('id',postId)
+    cargarFeed()
+  }
+
+  async function compartirPost(post: any) {
+    const texto = `${post.contenido||'Acción climática verificada'} 🌿\n\n#OliviaCirculab #ReFi\noliviacirculab.com.ar`
+    if(navigator.share) {
+      try { await navigator.share({title:'OLIVIA Circulab',text:texto,url:'https://circulab-site.vercel.app/comunidad'}) } catch(e) {}
+    } else {
+      await navigator.clipboard.writeText(texto)
+      alert('Texto copiado — pegalo en Instagram, Facebook o X')
+    }
+  }
+
   function tiempoRelativo(fecha: string) {
     const diff = Date.now()-new Date(fecha).getTime()
     const min = Math.floor(diff/60000)
@@ -191,38 +194,16 @@ export default function Comunidad() {
     return Math.floor(hs/24)+'d'
   }
 
-  function BtnSeguir({targetId}: {targetId: string}) {
-    if(!uid||targetId===uid) return null
-    const sigo = siguiendo.has(targetId)
-    return (
-      <button onClick={()=>toggleSeguir(targetId)}
-        style={{background:sigo?'rgba(255,255,255,0.06)':'linear-gradient(135deg,#22c55e,#16a34a)',border:sigo?'1px solid rgba(255,255,255,0.1)':'none',borderRadius:20,padding:'4px 14px',color:sigo?'#64748b':'white',fontSize:11,fontWeight:700,cursor:'pointer',flexShrink:0}}>
-        {sigo?'Siguiendo':'+ Seguir'}
-      </button>
-    )
-  }
-
-  function CardUsuario({u}: {u:any}) {
-    if(!u) return null
-    return (
-      <div style={{display:'flex',alignItems:'center',gap:12,padding:'14px',borderRadius:14,background:'#111827',border:'1px solid rgba(255,255,255,0.06)',marginBottom:10}}>
-        <div style={{width:44,height:44,borderRadius:'50%',background:'linear-gradient(135deg,#22c55e,#3b82f6)',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:800,fontSize:16,color:'white',flexShrink:0}}>
-          {u.nombre?.[0]}{u.apellido?.[0]}
-        </div>
-        <div style={{flex:1}}>
-          <div style={{fontSize:14,fontWeight:700}}>{u.nombre} {u.apellido}</div>
-          <div style={{fontSize:11,color:'#22c55e',marginTop:2}}>Nivel {u.nivel} · {u.score_pulso} pts PULSO</div>
-        </div>
-        <BtnSeguir targetId={u.id} />
-      </div>
-    )
-  }
-
-  if(loading) return <div style={{minHeight:'100vh',background:'#0a0e1a',display:'flex',alignItems:'center',justifyContent:'center',color:'#22c55e',fontFamily:'system-ui'}}>Cargando comunidad...</div>
+  if(loading) return (
+    <div style={{minHeight:'100vh',background:'#0a0e1a',display:'flex',alignItems:'center',justifyContent:'center',color:'#22c55e',fontFamily:'system-ui'}}>
+      Cargando comunidad...
+    </div>
+  )
 
   return (
     <div style={{minHeight:'100vh',background:'#0a0e1a',color:'#f1f5f9',fontFamily:'system-ui',maxWidth:600,margin:'0 auto'}}>
 
+      {/* Header */}
       <div style={{padding:'12px 16px',borderBottom:'1px solid rgba(255,255,255,0.06)',display:'flex',alignItems:'center',justifyContent:'space-between',position:'sticky',top:0,background:'rgba(10,14,26,0.97)',backdropFilter:'blur(10px)',zIndex:100}}>
         <a href="/" style={{display:'flex',alignItems:'center',gap:8,textDecoration:'none'}}>
           <div style={{width:32,height:32,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:14,color:'white'}}>O</div>
@@ -233,7 +214,7 @@ export default function Comunidad() {
         </a>
         <div style={{display:'flex',gap:8,alignItems:'center'}}>
           {uid?(
-            <button onClick={()=>setVista('wallet')} style={{background:'rgba(34,197,94,0.1)',border:'1px solid rgba(34,197,94,0.3)',borderRadius:20,padding:'5px 12px',color:'#22c55e',fontSize:12,fontWeight:700,cursor:'pointer'}}>
+            <button onClick={()=>cambiarVista('wallet')} style={{background:'rgba(34,197,94,0.1)',border:'1px solid rgba(34,197,94,0.3)',borderRadius:20,padding:'5px 12px',color:'#22c55e',fontSize:12,fontWeight:700,cursor:'pointer'}}>
               🪙 {wallet} OLV
             </button>
           ):(
@@ -243,33 +224,10 @@ export default function Comunidad() {
         </div>
       </div>
 
-      {vista==='amigos'&&uid&&(
-        <div style={{padding:16}}>
-          <button onClick={()=>setVista('feed')} style={{background:'transparent',border:'none',color:'#64748b',fontSize:13,cursor:'pointer',marginBottom:16}}>← Volver</button>
-          <div style={{display:'flex',gap:4,marginBottom:20,background:'rgba(255,255,255,0.04)',borderRadius:12,padding:4}}>
-            <button onClick={()=>setTabAmigos('siguiendo')} style={{flex:1,padding:'8px',borderRadius:10,border:'none',background:tabAmigos==='siguiendo'?'rgba(34,197,94,0.15)':'transparent',color:tabAmigos==='siguiendo'?'#22c55e':'#64748b',fontSize:13,fontWeight:700,cursor:'pointer'}}>
-              Siguiendo ({listaSiguiendo.length})
-            </button>
-            <button onClick={()=>setTabAmigos('seguidores')} style={{flex:1,padding:'8px',borderRadius:10,border:'none',background:tabAmigos==='seguidores'?'rgba(34,197,94,0.15)':'transparent',color:tabAmigos==='seguidores'?'#22c55e':'#64748b',fontSize:13,fontWeight:700,cursor:'pointer'}}>
-              Seguidores ({listaSeguidores.length})
-            </button>
-          </div>
-          {tabAmigos==='siguiendo'&&(
-            listaSiguiendo.length===0
-              ? <div style={{textAlign:'center',padding:'40px 0',color:'#64748b'}}><div style={{fontSize:32,marginBottom:12}}>🌿</div><div style={{fontSize:13}}>Todavía no seguís a nadie</div></div>
-              : listaSiguiendo.map((u:any)=><CardUsuario key={u.id} u={u} />)
-          )}
-          {tabAmigos==='seguidores'&&(
-            listaSeguidores.length===0
-              ? <div style={{textAlign:'center',padding:'40px 0',color:'#64748b'}}><div style={{fontSize:32,marginBottom:12}}>👥</div><div style={{fontSize:13}}>Todavía nadie te sigue</div></div>
-              : listaSeguidores.map((u:any)=><CardUsuario key={u.id} u={u} />)
-          )}
-        </div>
-      )}
-
+      {/* BUSCAR */}
       {vista==='buscar'&&(
         <div style={{padding:16}}>
-          <button onClick={()=>setVista('feed')} style={{background:'transparent',border:'none',color:'#64748b',fontSize:13,cursor:'pointer',marginBottom:16}}>← Volver</button>
+          <button onClick={()=>cambiarVista('feed')} style={{background:'transparent',border:'none',color:'#64748b',fontSize:13,cursor:'pointer',marginBottom:16}}>← Volver</button>
           <input value={busqueda} onChange={e=>{setBusqueda(e.target.value);buscarUsuarios(e.target.value)}}
             placeholder="Buscá por nombre..."
             style={{width:'100%',padding:'12px 16px',borderRadius:12,background:'rgba(255,255,255,0.06)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:14,outline:'none',fontFamily:'inherit',boxSizing:'border-box',marginBottom:16}} />
@@ -282,13 +240,51 @@ export default function Comunidad() {
           {busqueda.length>1&&resultados.length===0&&(
             <div style={{textAlign:'center',color:'#64748b',fontSize:13,padding:'32px 0'}}>No encontramos a nadie con ese nombre</div>
           )}
-          {resultados.map((u:any)=><CardUsuario key={u.id} u={u} />)}
+          {resultados.map((u:any)=>(
+            <a key={u.id} href={`/usuario/${u.id}`} style={{display:'flex',alignItems:'center',gap:12,padding:'14px',borderRadius:14,background:'#111827',border:'1px solid rgba(255,255,255,0.06)',marginBottom:10,textDecoration:'none'}}>
+              <div style={{width:44,height:44,borderRadius:'50%',background:'linear-gradient(135deg,#22c55e,#3b82f6)',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:800,fontSize:16,color:'white',flexShrink:0}}>
+                {u.nombre?.[0]}{u.apellido?.[0]}
+              </div>
+              <div style={{flex:1}}>
+                <div style={{fontSize:14,fontWeight:700,color:'#f1f5f9'}}>{u.nombre} {u.apellido}</div>
+                <div style={{fontSize:11,color:'#22c55e',marginTop:2}}>Nivel {u.nivel} · {u.score_pulso} pts PULSO</div>
+              </div>
+              <span style={{color:'#64748b',fontSize:14}}>→</span>
+            </a>
+          ))}
         </div>
       )}
 
+      {/* RANKING */}
+      {vista==='ranking'&&(
+        <div style={{padding:16}}>
+          <button onClick={()=>cambiarVista('feed')} style={{background:'transparent',border:'none',color:'#64748b',fontSize:13,cursor:'pointer',marginBottom:16}}>← Volver</button>
+          <div style={{fontSize:16,fontWeight:900,marginBottom:16}}>🏆 Ranking de recicladores</div>
+          {rankingUsuarios.map((u:any,i:number)=>(
+            <a key={u.id} href={`/usuario/${u.id}`} style={{display:'flex',alignItems:'center',gap:12,padding:'14px',borderRadius:14,background:'#111827',border:`1px solid ${i===0?'rgba(245,158,11,0.3)':i===1?'rgba(148,163,184,0.3)':i===2?'rgba(180,100,50,0.3)':'rgba(255,255,255,0.06)'}`,marginBottom:10,textDecoration:'none'}}>
+              <div style={{width:32,height:32,borderRadius:'50%',background:i===0?'#f59e0b':i===1?'#94a3b8':i===2?'#b46432':'rgba(255,255,255,0.1)',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:800,fontSize:14,color:'white',flexShrink:0}}>
+                {i===0?'🥇':i===1?'🥈':i===2?'🥉':i+1}
+              </div>
+              <div style={{width:36,height:36,borderRadius:'50%',background:'linear-gradient(135deg,#22c55e,#3b82f6)',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:800,fontSize:14,color:'white',flexShrink:0}}>
+                {u.nombre?.[0]}{u.apellido?.[0]}
+              </div>
+              <div style={{flex:1}}>
+                <div style={{fontSize:13,fontWeight:700,color:'#f1f5f9'}}>{u.nombre} {u.apellido}</div>
+                <div style={{fontSize:11,color:'#22c55e',marginTop:2}}>Nivel {u.nivel}</div>
+              </div>
+              <div style={{textAlign:'right'}}>
+                <div style={{fontSize:14,fontWeight:700,color:'#3b82f6'}}>{u.score_pulso}</div>
+                <div style={{fontSize:9,color:'#64748b'}}>pts PULSO</div>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+
+      {/* WALLET */}
       {vista==='wallet'&&uid&&(
         <div style={{padding:16}}>
-          <button onClick={()=>setVista('feed')} style={{background:'transparent',border:'none',color:'#64748b',fontSize:13,cursor:'pointer',marginBottom:16}}>← Volver al feed</button>
+          <button onClick={()=>cambiarVista('feed')} style={{background:'transparent',border:'none',color:'#64748b',fontSize:13,cursor:'pointer',marginBottom:16}}>← Volver al feed</button>
           <div style={{background:'linear-gradient(135deg,#0f1f10,#0a1628)',border:'1px solid rgba(34,197,94,0.3)',borderRadius:16,padding:24,marginBottom:16,textAlign:'center'}}>
             <div style={{fontSize:12,color:'#64748b',marginBottom:4}}>Tu billetera OLIVIA</div>
             <div style={{fontSize:52,fontWeight:900,color:'#22c55e'}}>{wallet}</div>
@@ -307,12 +303,11 @@ export default function Comunidad() {
           <div style={{background:'#111827',border:'1px solid rgba(255,255,255,0.06)',borderRadius:16,padding:16,marginBottom:16}}>
             <div style={{fontSize:13,fontWeight:700,marginBottom:12,color:'#22c55e'}}>Cómo ganar OLV</div>
             {[
-              {a:'Registrar residuo verificado',v:'+50'},
+              {a:'Registrar residuo verificado',v:'+50-800'},
               {a:'Subir foto de entrega',v:'+30'},
               {a:'Publicar en la comunidad',v:'+20'},
               {a:'Publicar una story',v:'+10'},
               {a:'Comentar un post',v:'+5'},
-              {a:'Seguir a alguien',v:'+5'},
               {a:'Dar un like',v:'+2'},
               {a:'Traer un amigo',v:'+200'},
             ].map(i=>(
@@ -339,8 +334,10 @@ export default function Comunidad() {
         </div>
       )}
 
+      {/* FEED */}
       {vista==='feed'&&(
         <div>
+          {/* Stories */}
           <div style={{padding:'12px 16px',borderBottom:'1px solid rgba(255,255,255,0.06)'}}>
             <div style={{display:'flex',gap:12,overflowX:'auto',paddingBottom:4}}>
               {uid&&(
@@ -361,6 +358,7 @@ export default function Comunidad() {
             </div>
           </div>
 
+          {/* Story viewer */}
           {storyViendo&&(
             <div onClick={()=>setStoryViendo(null)} style={{position:'fixed',inset:0,background:'rgba(0,0,0,0.96)',zIndex:200,display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column',padding:16}}>
               <img src={storyViendo.foto_url} alt="" style={{maxWidth:'100%',maxHeight:'75vh',objectFit:'contain',borderRadius:12}} />
@@ -369,6 +367,7 @@ export default function Comunidad() {
             </div>
           )}
 
+          {/* Nuevo post */}
           {uid?(
             <div style={{padding:16,borderBottom:'1px solid rgba(255,255,255,0.06)'}}>
               <div style={{display:'flex',gap:10,marginBottom:10}}>
@@ -386,7 +385,9 @@ export default function Comunidad() {
                     placeholder="Pegá el link de YouTube o Instagram..."
                     style={{width:'100%',padding:'10px 14px',borderRadius:10,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:13,outline:'none',fontFamily:'inherit',boxSizing:'border-box'}} />
                   {videoUrl&&(getYouTubeId(videoUrl)||getInstagramId(videoUrl))&&(
-                    <div style={{marginTop:8}}><VideoEmbed url={videoUrl} /></div>
+                    <div style={{marginTop:8}}>
+                      <VideoEmbed url={videoUrl} />
+                    </div>
                   )}
                 </div>
               )}
@@ -411,6 +412,7 @@ export default function Comunidad() {
             </div>
           )}
 
+          {/* Posts */}
           {posts.length===0?(
             <div style={{padding:40,textAlign:'center',color:'#64748b'}}>
               <div style={{fontSize:32,marginBottom:12}}>🌿</div>
@@ -419,24 +421,33 @@ export default function Comunidad() {
           ):posts.map((post:any)=>(
             <div key={post.id} style={{borderBottom:'1px solid rgba(255,255,255,0.06)',padding:16}}>
               <div style={{display:'flex',gap:10,marginBottom:10,alignItems:'center'}}>
-                <div style={{width:38,height:38,borderRadius:'50%',background:'linear-gradient(135deg,#22c55e,#3b82f6)',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:800,fontSize:14,color:'white',flexShrink:0}}>
+                <a href={`/usuario/${post.usuario_id}`} style={{width:38,height:38,borderRadius:'50%',background:'linear-gradient(135deg,#22c55e,#3b82f6)',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:800,fontSize:14,color:'white',flexShrink:0,textDecoration:'none'}}>
                   {post.usuarios?.nombre?.[0]}{post.usuarios?.apellido?.[0]}
-                </div>
+                </a>
                 <div style={{flex:1}}>
-                  <div style={{fontSize:13,fontWeight:700}}>{post.usuarios?.nombre} {post.usuarios?.apellido}</div>
+                  <a href={`/usuario/${post.usuario_id}`} style={{fontSize:13,fontWeight:700,color:'#f1f5f9',textDecoration:'none'}}>
+                    {post.usuarios?.nombre} {post.usuarios?.apellido}
+                  </a>
                   <div style={{fontSize:10,color:'#64748b'}}>{tiempoRelativo(post.created_at)} · +{post.olv_ganados} OLV</div>
                 </div>
-                {post.usuario_id===uid?(
-                  <button onClick={()=>eliminarPost(post.id)} style={{background:'transparent',border:'none',color:'#ef4444',fontSize:16,cursor:'pointer',padding:'4px 8px',borderRadius:8}}>🗑</button>
-                ):(
-                  <BtnSeguir targetId={post.usuarios?.id} />
-                )}
-                <span style={{fontSize:18}}>🌿</span>
+                <div style={{display:'flex',gap:6,alignItems:'center'}}>
+                  <span style={{fontSize:18}}>🌿</span>
+                  {uid===post.usuario_id&&(
+                    <button onClick={()=>borrarPost(post.id,post.usuario_id)}
+                      style={{background:'transparent',border:'none',color:'#64748b',fontSize:11,cursor:'pointer',padding:'2px 6px'}}>
+                      🗑️
+                    </button>
+                  )}
+                </div>
               </div>
-              {post.contenido&&<div style={{fontSize:13,lineHeight:1.6,marginBottom:10,color:'#f1f5f9'}}>{post.contenido}</div>}
-              {post.foto_url&&<img src={post.foto_url} alt="" style={{width:'100%',borderRadius:12,marginBottom:12,maxHeight:400,objectFit:'cover'}} />}
+              {post.contenido&&(
+                <div style={{fontSize:13,lineHeight:1.6,marginBottom:10,color:'#f1f5f9'}}>{post.contenido}</div>
+              )}
+              {post.foto_url&&(
+                <img src={post.foto_url} alt="" style={{width:'100%',borderRadius:12,marginBottom:12,maxHeight:400,objectFit:'cover'}} />
+              )}
               {post.video_url&&<VideoEmbed url={post.video_url} />}
-              <div style={{display:'flex',gap:16}}>
+              <div style={{display:'flex',gap:12,marginBottom:8}}>
                 <button onClick={()=>toggleLike(post.id)} style={{background:'transparent',border:'none',color:'#64748b',fontSize:13,cursor:'pointer',display:'flex',alignItems:'center',gap:4,padding:0}}>
                   ❤️ <span style={{fontSize:12}}>Me importa</span>
                 </button>
@@ -446,13 +457,25 @@ export default function Comunidad() {
                 }} style={{background:'transparent',border:'none',color:'#64748b',fontSize:13,cursor:'pointer',display:'flex',alignItems:'center',gap:4,padding:0}}>
                   💬 <span style={{fontSize:12}}>Comentar</span>
                 </button>
+                <button onClick={()=>compartirPost(post)}
+                  style={{background:'transparent',border:'none',color:'#64748b',fontSize:13,cursor:'pointer',display:'flex',alignItems:'center',gap:4,padding:0}}>
+                  📤 <span style={{fontSize:12}}>Compartir</span>
+                </button>
               </div>
               {comentarioActivo===post.id&&(
-                <div style={{marginTop:12}}>
+                <div style={{marginTop:8}}>
                   {(comentarios[post.id]||[]).map((c:any,i:number)=>(
-                    <div key={i} style={{padding:'8px 12px',borderRadius:10,background:'rgba(255,255,255,0.03)',marginBottom:6}}>
-                      <div style={{fontSize:11,fontWeight:600,color:'#22c55e',marginBottom:2}}>{c.usuarios?.nombre}</div>
-                      <div style={{fontSize:12,color:'#f1f5f9'}}>{c.texto}</div>
+                    <div key={i} style={{padding:'8px 12px',borderRadius:10,background:'rgba(255,255,255,0.03)',marginBottom:6,display:'flex',justifyContent:'space-between',alignItems:'flex-start'}}>
+                      <div>
+                        <div style={{fontSize:11,fontWeight:600,color:'#22c55e',marginBottom:2}}>{c.usuarios?.nombre}</div>
+                        <div style={{fontSize:12,color:'#f1f5f9'}}>{c.texto}</div>
+                      </div>
+                      {uid===c.usuario_id&&(
+                        <button onClick={()=>borrarComentario(c.id,post.id,c.usuario_id)}
+                          style={{background:'transparent',border:'none',color:'#64748b',fontSize:11,cursor:'pointer',flexShrink:0,marginLeft:8}}>
+                          🗑️
+                        </button>
+                      )}
                     </div>
                   ))}
                   {uid?(
@@ -475,12 +498,13 @@ export default function Comunidad() {
         </div>
       )}
 
+      {/* Bottom nav */}
       <div style={{position:'fixed',bottom:0,left:'50%',transform:'translateX(-50%)',width:'100%',maxWidth:600,background:'rgba(8,12,22,0.98)',borderTop:'1px solid rgba(255,255,255,0.08)',display:'flex',justifyContent:'space-around',padding:'8px 0',zIndex:100}}>
-        <button onClick={()=>setVista('feed')} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:2,border:'none',background:'transparent',color:vista==='feed'?'#22c55e':'#64748b',cursor:'pointer'}}>
+        <button onClick={()=>cambiarVista('feed')} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:2,border:'none',background:'transparent',color:vista==='feed'?'#22c55e':'#64748b',cursor:'pointer'}}>
           <span style={{fontSize:20}}>🌿</span>
           <span style={{fontSize:9,fontWeight:vista==='feed'?700:400}}>Feed</span>
         </button>
-        <button onClick={()=>setVista('buscar')} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:2,border:'none',background:'transparent',color:vista==='buscar'?'#22c55e':'#64748b',cursor:'pointer'}}>
+        <button onClick={()=>cambiarVista('buscar')} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:2,border:'none',background:'transparent',color:vista==='buscar'?'#22c55e':'#64748b',cursor:'pointer'}}>
           <span style={{fontSize:20}}>🔍</span>
           <span style={{fontSize:9,fontWeight:vista==='buscar'?700:400}}>Buscar</span>
         </button>
@@ -488,19 +512,31 @@ export default function Comunidad() {
           <div style={{width:44,height:44,background:'linear-gradient(135deg,#22c55e,#16a34a)',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',fontSize:22,marginTop:-16,boxShadow:'0 0 20px rgba(34,197,94,0.4)'}}>📷</div>
           <span style={{fontSize:9,fontWeight:700}}>Registrar</span>
         </a>
+        <button onClick={()=>cambiarVista('ranking')} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:2,border:'none',background:'transparent',color:vista==='ranking'?'#22c55e':'#64748b',cursor:'pointer'}}>
+          <span style={{fontSize:20}}>🏆</span>
+          <span style={{fontSize:9,fontWeight:vista==='ranking'?700:400}}>Ranking</span>
+        </button>
         {uid&&(
-          <button onClick={()=>{setVista('amigos');cargarAmigos(uid)}} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:2,border:'none',background:'transparent',color:vista==='amigos'?'#22c55e':'#64748b',cursor:'pointer'}}>
-            <span style={{fontSize:20}}>👥</span>
-            <span style={{fontSize:9,fontWeight:vista==='amigos'?700:400}}>Amigos</span>
+          <button onClick={()=>cambiarVista('wallet')} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:2,border:'none',background:'transparent',color:vista==='wallet'?'#22c55e':'#64748b',cursor:'pointer'}}>
+            <span style={{fontSize:20}}>🪙</span>
+            <span style={{fontSize:9,fontWeight:vista==='wallet'?700:400}}>Wallet</span>
           </button>
         )}
-        <button onClick={()=>setVista('wallet')} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:2,border:'none',background:'transparent',color:vista==='wallet'?'#22c55e':'#64748b',cursor:'pointer'}}>
-          <span style={{fontSize:20}}>🪙</span>
-          <span style={{fontSize:9,fontWeight:vista==='wallet'?700:400}}>Wallet</span>
-        </button>
       </div>
 
       <div style={{height:70}} />
     </div>
+  )
+}
+
+export default function Comunidad() {
+  return (
+    <Suspense fallback={
+      <div style={{minHeight:'100vh',background:'#0a0e1a',display:'flex',alignItems:'center',justifyContent:'center',color:'#22c55e',fontFamily:'system-ui'}}>
+        Cargando...
+      </div>
+    }>
+      <ComunidadContent />
+    </Suspense>
   )
 }

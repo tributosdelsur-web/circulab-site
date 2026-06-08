@@ -1,6 +1,8 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { supabase } from '../../lib/supabase'
+
+const STORAGE_KEY = 'olivia_encuesta_data'
 
 export default function Encuesta() {
   const [paso, setPaso] = useState(1)
@@ -15,29 +17,71 @@ export default function Encuesta() {
     nombre:'', contacto:''
   })
 
-  function set(k: string, v: any) { setData(d=>({...d,[k]:v})) }
+  // Cargar datos guardados al iniciar
+  useEffect(()=>{
+    const guardado = localStorage.getItem(STORAGE_KEY)
+    if(guardado) {
+      try {
+        const parsed = JSON.parse(guardado)
+        setData(parsed.data || data)
+        setPaso(parsed.paso || 1)
+      } catch(e) {}
+    }
+  },[])
+
+  // Guardar automáticamente cada vez que cambia algo
+  useEffect(()=>{
+    if(estado==='ok') return
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({data, paso}))
+  },[data, paso])
+
+  function set(k: string, v: any) {
+    setData(d=>({...d,[k]:v}))
+  }
+
+  function siguiente() {
+    setPaso(p=>p+1)
+    window.scrollTo(0,0)
+  }
+
+  function atras() {
+    setPaso(p=>p-1)
+    window.scrollTo(0,0)
+  }
 
   async function enviar() {
     setEstado('cargando')
     await supabase.from('encuestas').insert(data)
+    localStorage.removeItem(STORAGE_KEY)
     setEstado('ok')
   }
 
   const TOTAL = 5
   const progreso = ((paso-1)/TOTAL)*100
 
-  const Opcion = ({k,v,label,color='#22c55e'}: any) => (
-    <button onClick={()=>set(k,v)} style={{padding:'10px 16px',borderRadius:10,border:'none',cursor:'pointer',fontSize:13,fontWeight:600,background:(data as any)[k]===v?`rgba(${color==='#22c55e'?'34,197,94':color==='#3b82f6'?'59,130,246':'168,85,247'},0.15)`:'rgba(255,255,255,0.04)',color:(data as any)[k]===v?color:'#64748b',outline:(data as any)[k]===v?`2px solid ${color}`:'2px solid transparent',transition:'all 0.15s'}}>
-      {label}
-    </button>
-  )
+  const Opcion = ({k,v,label,color='#22c55e'}: any) => {
+    const activo = (data as any)[k]===v
+    const rgb = color==='#22c55e'?'34,197,94':color==='#3b82f6'?'59,130,246':'168,85,247'
+    return (
+      <button onClick={()=>set(k,v)} style={{
+        padding:'10px 16px',borderRadius:10,border:'none',cursor:'pointer',
+        fontSize:13,fontWeight:600,
+        background:activo?`rgba(${rgb},0.15)`:'rgba(255,255,255,0.04)',
+        color:activo?color:'#64748b',
+        outline:activo?`2px solid ${color}`:'2px solid transparent',
+        transition:'all 0.15s'
+      }}>
+        {label}
+      </button>
+    )
+  }
 
   if(estado==='ok') return (
     <div style={{minHeight:'100vh',background:'#0a0e1a',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',padding:24,fontFamily:'system-ui',textAlign:'center'}}>
       <div style={{fontSize:56,marginBottom:16}}>🌿</div>
       <div style={{fontSize:22,fontWeight:900,color:'#f1f5f9',marginBottom:8}}>¡Gracias!</div>
       <div style={{fontSize:14,color:'#64748b',maxWidth:320,lineHeight:1.6,marginBottom:24}}>
-        Tu respuesta nos ayuda a construir OLIVIA para toda la comunidad.
+        Tu respuesta construye OLIVIA Circulab para toda la comunidad.
         {data.quiere_piloto==='si'&&' Te vamos a contactar para sumarte al piloto.'}
       </div>
       <div style={{display:'flex',gap:12,flexWrap:'wrap',justifyContent:'center'}}>
@@ -58,7 +102,7 @@ export default function Encuesta() {
         <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:24}}>
           <a href="/" style={{display:'flex',alignItems:'center',gap:8,textDecoration:'none'}}>
             <div style={{width:32,height:32,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:14,color:'white'}}>O</div>
-            <span style={{fontSize:13,fontWeight:800,color:'#f1f5f9'}}>OLIVIA</span>
+            <span style={{fontSize:13,fontWeight:800,color:'#f1f5f9'}}>OLIVIA Circulab</span>
           </a>
           <div style={{fontSize:11,color:'#64748b'}}>Paso {paso} de {TOTAL}</div>
         </div>
@@ -220,7 +264,7 @@ export default function Encuesta() {
                 </div>
               </div>
               <div>
-                <div style={{fontSize:12,color:'#94a3b8',marginBottom:8,textTransform:'uppercase',letterSpacing:'0.05em'}}>¿Qué te parece OLIVIA Circular?</div>
+                <div style={{fontSize:12,color:'#94a3b8',marginBottom:8,textTransform:'uppercase',letterSpacing:'0.05em'}}>¿Qué te parece OLIVIA Circulab?</div>
                 <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
                   {[{v:'encanta',l:'🔥 Me encanta'},{v:'interesante',l:'👍 Interesante'},{v:'no_entendi',l:'🤔 No la entendí'},{v:'no_interesa',l:'👎 No me interesa'}].map(o=><Opcion key={o.v} k="opinion_olivia" v={o.v} label={o.l} />)}
                 </div>
@@ -253,12 +297,12 @@ export default function Encuesta() {
 
         <div style={{display:'flex',gap:12,marginTop:16}}>
           {paso>1&&(
-            <button onClick={()=>setPaso(paso-1)} style={{flex:1,padding:'14px',borderRadius:12,border:'1px solid rgba(255,255,255,0.1)',background:'transparent',color:'#64748b',fontSize:14,fontWeight:600,cursor:'pointer'}}>
+            <button onClick={atras} style={{flex:1,padding:'14px',borderRadius:12,border:'1px solid rgba(255,255,255,0.1)',background:'transparent',color:'#64748b',fontSize:14,fontWeight:600,cursor:'pointer'}}>
               ← Atrás
             </button>
           )}
           {paso<TOTAL?(
-            <button onClick={()=>setPaso(paso+1)} style={{flex:2,padding:'14px',borderRadius:12,border:'none',background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',fontSize:15,fontWeight:700,cursor:'pointer'}}>
+            <button onClick={siguiente} style={{flex:2,padding:'14px',borderRadius:12,border:'none',background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',fontSize:15,fontWeight:700,cursor:'pointer'}}>
               Siguiente →
             </button>
           ):(
@@ -269,7 +313,7 @@ export default function Encuesta() {
         </div>
 
         <div style={{textAlign:'center',marginTop:16,fontSize:11,color:'#64748b'}}>
-          Tus respuestas son anónimas · No compartimos tus datos
+          Tus respuestas son anónimas · OLIVIA Circulab no comparte tus datos
         </div>
       </div>
     </div>
