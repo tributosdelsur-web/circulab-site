@@ -28,8 +28,6 @@ export async function POST(req: NextRequest) {
     )
 
     const data = await response.json()
-    console.log('GEMINI_RAW:', JSON.stringify(data).slice(0,500))
-
     if(data.error) {
       return NextResponse.json({
         tipo_detectado: 'error',
@@ -39,13 +37,12 @@ export async function POST(req: NextRequest) {
         contaminantes: false,
         calidad_foto: 'mala',
         recomendacion: 'REVISAR',
-        observaciones: 'Gemini API error ' + data.error.code + ': ' + data.error.message.slice(0,100),
+        observaciones: 'Gemini error: ' + data.error.message.slice(0,150),
         confianza: 'baja'
       })
     }
 
     const texto = data.candidates?.[0]?.content?.parts?.[0]?.text || ''
-    console.log('GEMINI_TEXT:', texto)
     const clean = texto.replace(/```json|```/g, '').trim()
     const match = clean.match(/\{[\s\S]*\}/)
 
@@ -58,7 +55,7 @@ export async function POST(req: NextRequest) {
         contaminantes: false,
         calidad_foto: 'regular',
         recomendacion: 'REVISAR',
-        observaciones: 'Sin respuesta válida: ' + texto.slice(0,100),
+        observaciones: 'Sin respuesta: ' + texto.slice(0,100),
         confianza: 'baja'
       })
     }
