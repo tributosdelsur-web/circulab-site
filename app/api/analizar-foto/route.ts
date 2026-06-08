@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
     const contentType = imgResponse.headers.get('content-type') || 'image/jpeg'
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${process.env.GEMINI_API_KEY}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -28,16 +28,28 @@ export async function POST(req: NextRequest) {
     )
 
     const data = await response.json()
-    console.log('GEMINI_RESPONSE:', JSON.stringify(data))
-    
+    console.log('GEMINI_RAW:', JSON.stringify(data).slice(0,500))
+
+    if(data.error) {
+      return NextResponse.json({
+        tipo_detectado: 'error',
+        separacion_correcta: false,
+        peso_estimado_kg: 0,
+        moneda_referencia: false,
+        contaminantes: false,
+        calidad_foto: 'mala',
+        recomendacion: 'REVISAR',
+        observaciones: 'Gemini API error ' + data.error.code + ': ' + data.error.message.slice(0,100),
+        confianza: 'baja'
+      })
+    }
+
     const texto = data.candidates?.[0]?.content?.parts?.[0]?.text || ''
     console.log('GEMINI_TEXT:', texto)
-    
     const clean = texto.replace(/```json|```/g, '').trim()
     const match = clean.match(/\{[\s\S]*\}/)
 
     if (!match) {
-      console.log('NO_MATCH - texto recibido:', texto)
       return NextResponse.json({
         tipo_detectado: 'no detectado',
         separacion_correcta: false,
@@ -46,7 +58,7 @@ export async function POST(req: NextRequest) {
         contaminantes: false,
         calidad_foto: 'regular',
         recomendacion: 'REVISAR',
-        observaciones: 'No se pudo analizar: ' + texto.slice(0,100),
+        observaciones: 'Sin respuesta válida: ' + texto.slice(0,100),
         confianza: 'baja'
       })
     }
@@ -59,13 +71,12 @@ export async function POST(req: NextRequest) {
       moneda_referencia: parsed.moneda_referencia ?? false,
       contaminantes: parsed.contaminantes ?? false,
       calidad_foto: parsed.calidad_foto || 'regular',
-      recomendacion: parsed.recomendacion || 'REVISAR',
+      recomendacion: parsed.recomendacion || 'VALIDAR',
       observaciones: parsed.observaciones || '',
       confianza: parsed.confianza || 'media'
     })
 
   } catch(e: any) {
-    console.log('ERROR:', e.message)
     return NextResponse.json({
       tipo_detectado: 'error',
       separacion_correcta: false,
