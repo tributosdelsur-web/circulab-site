@@ -307,8 +307,8 @@ export default function OnePager() {
          <div style={{fontSize:11,fontWeight:700,color:'#22c55e',marginBottom:10,textTransform:'uppercase',letterSpacing:'0.05em'}}>{t.equipo_titulo}</div>
          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
            {[
-             {foto:'/founders/founder-jp.jpg',n:'Juan Pablo Sanguinetti',rol:lang==='es'?'CEO & Founder':'CEO & Founder',d:lang==='es'?'Abogado y director de teatro chileno. Product builder con IA. Medio ambiente, tributación y gestión de proyectos.':'Chilean lawyer and theater director. AI product builder. Environmental law, taxation and project management.',c:'#22c55e'},
-             {foto:'/founders/founder-mileidy.jpg',n:'Mileidy Zapata',rol:lang==='es'?'COO & Co-founder':'COO & Co-founder',d:lang==='es'?'Bailarina y coreógrafa dominicana. Comunidad y economía del cuidado. 3 países, 1 misión.':'Dominican dancer and choreographer. Community and care economy. 3 countries, 1 mission.',c:'#3b82f6'},
+             {foto:'/founders/founder-jp.jpg',n:'Juan Pablo Sanguinetti de Zapata',rol:lang==='es'?'CEO & Founder':'CEO & Founder',d:lang==='es'?'Abogado y director de teatro chileno. Product builder con IA. Medio ambiente, tributación y gestión de proyectos.':'Chilean lawyer and theater director. AI product builder. Environmental law, taxation and project management.',c:'#22c55e'},
+             {foto:'/founders/founder-mileidy.jpg',n:'Mileidy Zapata de Sanguinetti',rol:lang==='es'?'COO & Co-founder':'COO & Co-founder',d:lang==='es'?'Bailarina y coreógrafa dominicana. Comunidad y economía del cuidado. 3 países, 1 misión.':'Dominican dancer and choreographer. Community and care economy. 3 countries, 1 mission.',c:'#3b82f6'},
            ].map(f=>(
              <div key={f.n} style={{display:'flex',gap:8,alignItems:'flex-start'}}>
                <img src={f.foto} alt={f.n} style={{width:40,height:40,borderRadius:'50%',objectFit:'cover',flexShrink:0,border:`2px solid ${f.c}`}} />

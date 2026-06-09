@@ -656,8 +656,8 @@ export default function Landing() {
         <div style={{fontSize:12,color:sub,textAlign:'center',marginBottom:20}}>{t.fundadores_sub}</div>
         <div style={{display:'flex',flexDirection:'column',gap:12,marginBottom:14}}>
           {[
-            {foto:'/founders/founder-jp.jpg',nombre:'Juan Pablo Sanguinetti',rol:t.jp_rol,desc:t.jp_desc,color:'#22c55e'},
-            {foto:'/founders/founder-mileidy.jpg',nombre:'Mileidy Zapata',rol:t.mileidy_rol,desc:t.mileidy_desc,color:'#3b82f6'},
+            {foto:'/founders/founder-jp.jpg',nombre:'Juan Pablo Sanguinetti de Zapata',rol:t.jp_rol,desc:t.jp_desc,color:'#22c55e'},
+            {foto:'/founders/founder-mileidy.jpg',nombre:'Mileidy Zapata de Sanguinetti',rol:t.mileidy_rol,desc:t.mileidy_desc,color:'#3b82f6'},
           ].map(f=>(
             <div key={f.nombre} style={{display:'flex',gap:14,padding:'16px',background:card,borderRadius:14,border:`1px solid ${f.color}22`,alignItems:'flex-start'}}>
               <img src={f.foto} alt={f.nombre} style={{width:56,height:56,borderRadius:'50%',objectFit:'cover',flexShrink:0,border:`2px solid ${f.color}`}} />
@@ -880,14 +880,14 @@ export default function Landing() {
         </div>
         <div style={{display:'flex',gap:14,justifyContent:'center',flexWrap:'wrap',marginBottom:14}}>
           {[
-            {l:'Simulador',h:'/simulador'},
-            {l:'Comunidad',h:'/comunidad'},
-            {l:'Pitch',h:'/pitch'},
-            {l:'Admin',h:'/admin'},
-            {l:'Privacidad',h:'/privacidad'},
-            {l:'Términos',h:'/terminos'},
+            {l:'Simulador',h:'/simulador',c:'#22c55e'},
+            {l:'Comunidad',h:'/comunidad',c:'#3b82f6'},
+            {l:'Pitch',h:'/pitch',c:'#a855f7'},
+            {l:'Alianzas',h:'/alianzas',c:'#f59e0b'},
+            {l:'Privacidad',h:'/privacidad',c:sub},
+            {l:'Términos',h:'/terminos',c:sub},
           ].map(n=>(
-            <a key={n.l} href={n.h} style={{fontSize:11,color:sub,textDecoration:'none'}}>{n.l}</a>
+            <a key={n.l} href={n.h} style={{fontSize:11,color:n.c,textDecoration:'none',fontWeight:600}}>{n.l}</a>
           ))}
         </div>
         <div style={{fontSize:11,color:sub,marginBottom:6}}>hola@oliviacirculab.com.ar</div>

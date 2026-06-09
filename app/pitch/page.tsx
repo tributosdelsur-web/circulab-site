@@ -142,8 +142,8 @@ const SLIDES = [
     subtitulo: 'Construido con USD 0 de inversión externa',
     tipo: 'equipo',
     contenido: [
-      {nombre:'Juan Pablo Sanguinetti',rol:'CEO & Founder',desc:'Director de teatro chileno y abogado. Product builder con IA. Especialidad en medio ambiente, tributación y gestión de proyectos. Arquitecto del ecosistema Circulab desde Buenos Aires.',foto:'/founders/founder-jp.jpg',color:'#22c55e'},
-      {nombre:'Mileidy Zapata',rol:'COO & Co-founder',desc:'Madre, bailarina y coreógrafa dominicana. Un corazón, tres países, una misión: desarrollar la comunidad y mejorar la calidad de vida. Junto a OLIVIA y Santino Eloy, dieron comienzo al piloto en casa.',foto:'/founders/founder-mileidy.jpg',color:'#3b82f6'},
+      {nombre:'Juan Pablo Sanguinetti de Zapata',rol:'CEO & Founder',desc:'Director de teatro chileno y abogado. Product builder con IA. Especialidad en medio ambiente, tributación y gestión de proyectos. Arquitecto del ecosistema Circulab desde Buenos Aires.',foto:'/founders/founder-jp.jpg',color:'#22c55e'},
+      {nombre:'Mileidy Zapata de Sanguinetti',rol:'COO & Co-founder',desc:'Madre, bailarina y coreógrafa dominicana. Un corazón, tres países, una misión: desarrollar la comunidad y mejorar la calidad de vida. Junto a OLIVIA y Santino Eloy, dieron comienzo al piloto en casa.',foto:'/founders/founder-mileidy.jpg',color:'#3b82f6'},
     ],
     bg: 'linear-gradient(135deg,#0a1a0a,#0a0e1a)',
   },
