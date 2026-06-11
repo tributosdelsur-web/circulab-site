@@ -1,9 +1,14 @@
 'use client'
 import { useState } from 'react'
+import { supabase } from '../../lib/supabase'
 
 export default function OnePager() {
 const [lang, setLang] = useState<'es'|'en'>('es')
 const [dark, setDark] = useState(true)
+const [showGate, setShowGate] = useState(false)
+const [gateNombre, setGateNombre] = useState('')
+const [gateEmail, setGateEmail] = useState('')
+const [gateOk, setGateOk] = useState(false)
 
 const bg = dark?'#0a0e1a':'#f0f4f8'
 const text = dark?'#f1f5f9':'#0a0e1a'
@@ -13,36 +18,36 @@ const sub = dark?'#94a3b8':'#475569'
 
 const T = {
   es: {
-    badge:'Ronda Seed 2026 · Distrito IA Buenos Aires · Ley 27.506',
-    tagline:'La primera infraestructura de datos ambientales ciudadanos de América Latina',
+    badge:'🌱 Tramo Semilla 2026 · Distrito IA Buenos Aires · Ley 27.506 · USD 1 = USD 1.4',
+    tagline:'La primera infraestructura autopoiética de bienes meritorios de América Latina — un sistema que se alimenta a sí mismo haciendo el bien.',
     problema_titulo:'El problema',
     solucion_titulo:'La solución',
     producto_titulo:'El producto hoy',
-    fases_titulo:'Las 4 fases',
+    fases_titulo:'Los 6 tramos del ecosistema',
     segmentos_titulo:'8 segmentos de clientes',
     fuentes_titulo:'5 fuentes de valor',
     ronda_titulo:'La ronda',
     equipo_titulo:'El equipo',
     mercado_titulo:'El mercado',
-    ventajas_titulo:'Ventajas para invertir',
+    ventajas_titulo:'Garantías para el inversor',
     cta:'hola@oliviacirculab.com.ar · oliviacirculab.com.ar',
     descargar:'Descargar PDF →',
     ver_pitch:'Ver pitch deck →',
     ver_wp:'Ver whitepaper →',
   },
   en: {
-    badge:'Seed Round 2026 · AI District Buenos Aires · Law 27.506',
-    tagline:'The first citizen environmental data infrastructure in Latin America',
+    badge:'🌱 Seed Stage 2026 · AI District Buenos Aires · Law 27.506 · USD 1 = USD 1.4',
+    tagline:'The first autopoietic merit goods infrastructure in Latin America — a system that feeds itself by doing good.',
     problema_titulo:'The Problem',
     solucion_titulo:'The Solution',
     producto_titulo:'The Product Today',
-    fases_titulo:'4 Phases',
+    fases_titulo:'The 6 Ecosystem Stages',
     segmentos_titulo:'8 Customer Segments',
     fuentes_titulo:'5 Value Sources',
     ronda_titulo:'The Round',
     equipo_titulo:'The Team',
     mercado_titulo:'The Market',
-    ventajas_titulo:'Investment Advantages',
+    ventajas_titulo:'Investor Guarantees',
     cta:'hola@oliviacirculab.com.ar · oliviacirculab.com.ar',
     descargar:'Download PDF →',
     ver_pitch:'View pitch deck →',
@@ -52,14 +57,40 @@ const T = {
 
 const t = T[lang]
 
-function imprimir() {
+async function imprimir() {
+  if(!gateOk) { setShowGate(true); return }
   window.print()
 }
 
-return (
-  <div style={{minHeight:'100vh',background:bg,color:text,fontFamily:'system-ui',transition:'all 0.2s'}}>
+async function confirmarGate() {
+  if(!gateEmail) return
+  await supabase.from('onepager_descargas').insert({nombre:gateNombre,email:gateEmail})
+  setGateOk(true)
+  setShowGate(false)
+  setTimeout(()=>window.print(),500)
+}
 
-    <div style={{padding:'12px 20px',borderBottom:`1px solid ${border}`,display:'flex',alignItems:'center',justifyContent:'space-between',background:dark?'rgba(8,12,22,0.98)':'rgba(240,244,248,0.98)',backdropFilter:'blur(10px)',position:'sticky',top:0,zIndex:100}} className="no-print">
+return (
+ <div style={{minHeight:'100vh',background:bg,color:text,fontFamily:'system-ui',transition:'all 0.2s'}}>
+
+   {showGate&&(
+     <div style={{position:'fixed',inset:0,background:'rgba(0,0,0,0.85)',zIndex:9999,display:'flex',alignItems:'center',justifyContent:'center',padding:24,backdropFilter:'blur(8px)'}}>
+       <div style={{background:'#111827',border:'1px solid rgba(34,197,94,0.3)',borderRadius:20,padding:32,maxWidth:400,width:'100%',position:'relative'}}>
+         <button onClick={()=>setShowGate(false)} style={{position:'absolute',top:12,right:16,background:'transparent',border:'none',color:'#64748b',fontSize:22,cursor:'pointer'}}>×</button>
+         <div style={{fontSize:24,marginBottom:12,textAlign:'center'}}>📋</div>
+         <div style={{fontSize:16,fontWeight:900,color:'#f1f5f9',marginBottom:4,textAlign:'center'}}>{lang==='es'?'Descargar One Pager':'Download One Pager'}</div>
+         <div style={{fontSize:12,color:'#64748b',marginBottom:20,textAlign:'center'}}>{lang==='es'?'Dejá tus datos para acceder':'Leave your details to access'}</div>
+         <input value={gateNombre} onChange={e=>setGateNombre(e.target.value)} placeholder={lang==='es'?'Tu nombre completo':'Your full name'} style={{width:'100%',padding:'10px 14px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:13,outline:'none',fontFamily:'inherit',boxSizing:'border-box',marginBottom:8}} />
+         <input value={gateEmail} onChange={e=>setGateEmail(e.target.value)} placeholder={lang==='es'?'Tu email':'Your email'} type="email" style={{width:'100%',padding:'10px 14px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:13,outline:'none',fontFamily:'inherit',boxSizing:'border-box',marginBottom:16}} />
+         <button onClick={confirmarGate} disabled={!gateEmail} style={{width:'100%',padding:'13px',borderRadius:12,border:'none',background:gateEmail?'linear-gradient(135deg,#22c55e,#16a34a)':'rgba(255,255,255,0.06)',color:gateEmail?'white':'#64748b',fontSize:14,fontWeight:700,cursor:gateEmail?'pointer':'not-allowed'}}>
+           {lang==='es'?'Descargar PDF →':'Download PDF →'}
+         </button>
+         <div style={{fontSize:10,color:'#64748b',textAlign:'center',marginTop:10}}>{lang==='es'?'Documento confidencial':'Confidential document'}</div>
+       </div>
+     </div>
+   )}
+
+   <div style={{padding:'12px 20px',borderBottom:`1px solid ${border}`,display:'flex',alignItems:'center',justifyContent:'space-between',background:dark?'rgba(8,12,22,0.98)':'rgba(240,244,248,0.98)',backdropFilter:'blur(10px)',position:'sticky',top:0,zIndex:100}} className="no-print">
       <a href="/" style={{display:'flex',alignItems:'center',gap:8,textDecoration:'none'}}>
         <div style={{width:32,height:32,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:14,color:'white'}}>O</div>
         <div>
@@ -88,6 +119,9 @@ return (
       <div style={{textAlign:'center',padding:'32px 0 24px',borderBottom:`1px solid ${border}`,marginBottom:24}}>
         <div style={{display:'inline-flex',alignItems:'center',gap:6,background:'rgba(34,197,94,0.1)',border:'1px solid rgba(34,197,94,0.3)',borderRadius:20,padding:'5px 14px',fontSize:10,color:'#22c55e',fontWeight:700,marginBottom:16}}>
           {t.badge}
+        </div>
+        <div style={{fontSize:14,fontWeight:700,color:'#22c55e',marginBottom:8,fontStyle:'italic'}}>
+          {lang==='es'?'"En la naturaleza no hay basura. Solo recursos sin infraestructura."':'"In nature there is no waste. Only resources without infrastructure."'}
         </div>
         <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:12,marginBottom:12}}>
           <div style={{width:52,height:52,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:14,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:24,color:'white'}}>O</div>
@@ -196,10 +230,12 @@ return (
         <div style={{fontSize:11,fontWeight:700,color:'#22c55e',marginBottom:8,textTransform:'uppercase',letterSpacing:'0.05em'}}>{t.fases_titulo}</div>
         <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}}>
           {(lang==='es'?[
-            {fase:'Fase 1 · 2026 · ACTIVA',desc:'Piloto dMRV · OLV · Comunidad',c:'#22c55e'},
-            {fase:'Fase 2 · Q4 2026',desc:'OLV canjeables · Convenios partner',c:'#3b82f6'},
-            {fase:'Fase 3 · 2027 💰',desc:'Certificación Verra · USD 22/t · Primer pago',c:'#f59e0b'},
-            {fase:'Fase 4 · 2028',desc:'Art. 6.4 París · USD 90/t · LATAM',c:'#a855f7'},
+            {fase:'🌱 SEMILLA · 2026 · ACTIVA',desc:'Piloto dMRV · OLV sin valor monetario · Construís historial',c:'#22c55e'},
+            {fase:'🌿 BROTE · Q4 2026',desc:'OLV canjeables · Convenios partner · 3 consorcios piloto',c:'#3b82f6'},
+            {fase:'🌳 ÁRBOL · 2027 💰',desc:'Certificación Verra · USD 22/t · Primer pago real',c:'#f59e0b'},
+            {fase:'🌲 BOSQUE · 2028',desc:'Art. 6.4 París · USD 90/t · AR MX CO BR CH DO',c:'#a855f7'},
+            {fase:'🏔️ SELVA · 2029',desc:'OLIVIA Ocean + Waters + Space · PULSO estándar LATAM',c:'#ec4899'},
+            {fase:'🌊 SUMIDERO · 2030+',desc:'Net positive verificado · Infraestructura climática global',c:'#06b6d4'},
           ]:[
             {fase:'Phase 1 · 2026 · ACTIVE',desc:'dMRV pilot · OLV · Community',c:'#22c55e'},
             {fase:'Phase 2 · Q4 2026',desc:'OLV redeemable · Partner deals',c:'#3b82f6'},
@@ -340,10 +376,10 @@ return (
         <div style={{fontSize:11,fontWeight:700,color:'#22c55e',marginBottom:8,textTransform:'uppercase',letterSpacing:'0.05em'}}>{t.ventajas_titulo}</div>
         <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:6}}>
           {(lang==='es'?[
-            {icon:'🤖',t:'Distrito IA Buenos Aires',d:'El primer ecosistema de IA de LATAM'},
-            {icon:'📋',t:'Ley 27.506',d:'Ganancias al 15% · FONDCE · Estabilidad 10 años'},
-            {icon:'🚀',t:'Primer movedor',d:'Sin competencia directa en dMRV ciudadano LATAM'},
-            {icon:'✅',t:'Producto activo',d:'En producción con USD 0 de inversión externa'},
+            {icon:'💎',t:'USD 1 = USD 1.4 efectivos',d:'Ley Economía del Conocimiento 27.506 · Ganancias 15% · FONDCE · Estabilidad fiscal 10 años'},
+            {icon:'🏛️',t:'Garantías concretas',d:'Seat en el board · Reporting mensual · Milestone-based · Anti-dilution · Tag-along'},
+            {icon:'✅',t:'Sin costos fijos',d:'Sin gastos hasta inversión comprometida · USD 0 operativo hoy'},
+            {icon:'🚀',t:'Primer movedor',d:'Sin competencia en dMRV ciudadano LATAM · Producto activo'},
           ]:[
             {icon:'🤖',t:'AI District Buenos Aires',d:'First AI ecosystem in LATAM'},
             {icon:'📋',t:'Law 27.506',d:'15% income tax · FONDCE · 10-year stability'},

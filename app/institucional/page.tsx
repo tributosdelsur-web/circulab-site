@@ -87,9 +87,9 @@ export default function Institucional() {
 
           <h1 style={{fontSize:40,fontWeight:900,lineHeight:1,letterSpacing:'-0.03em',marginBottom:20,maxWidth:700}}>
             {es?(
-              <>Infraestructura de coordinación para ecosistemas urbanos <span style={{background:`linear-gradient(90deg,${accent},#22c55e)`,WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',fontStyle:'italic'}}>AI-native.</span></>
+              <>Infraestructura de coordinación para ecosistemas urbanos <span style={{color:'#22c55e',fontStyle:'italic'}}>AI-native.</span></>
             ):(
-              <>Coordination infrastructure for <span style={{background:`linear-gradient(90deg,${accent},#22c55e)`,WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',fontStyle:'italic'}}>AI-native</span> urban ecosystems.</>
+              <>Coordination infrastructure for <span style={{color:'#22c55e',fontStyle:'italic'}}>AI-native</span> urban ecosystems.</>
             )}
           </h1>
 

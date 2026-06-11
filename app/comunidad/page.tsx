@@ -61,6 +61,8 @@ function ComunidadContent() {
   const [resultados, setResultados] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [rankingUsuarios, setRankingUsuarios] = useState<any[]>([])
+  const [likesCount, setLikesCount] = useState<any>({})
+  const [misLikes, setMisLikes] = useState<string[]>([])
   const fileRef = useRef<HTMLInputElement>(null)
   const storyRef = useRef<HTMLInputElement>(null)
 
@@ -79,6 +81,9 @@ function ComunidadContent() {
         const {data:t} = await supabase.from('wallet_transacciones').select('*').eq('usuario_id',id).order('created_at',{ascending:false}).limit(20)
         setTransacciones(t||[])
         setWallet((t||[]).reduce((a:number,tr:any)=>a+Number(tr.monto_olv),0))
+        // Cargar mis likes
+        const {data:ml} = await supabase.from('likes').select('post_id').eq('usuario_id',id)
+        setMisLikes((ml||[]).map((l:any)=>l.post_id))
       }
       cargarFeed()
       cargarRanking()
@@ -86,12 +91,21 @@ function ComunidadContent() {
   },[])
 
   async function cargarFeed() {
-    const [p,s] = await Promise.all([
+    const [p,s,l] = await Promise.all([
       supabase.from('posts').select('*, usuarios(nombre,apellido)').order('created_at',{ascending:false}).limit(50),
       supabase.from('stories').select('*, usuarios(nombre,apellido)').gte('expires_at',new Date().toISOString()).order('created_at',{ascending:false}),
+      supabase.from('likes').select('post_id, usuario_id'),
     ])
-    setPosts(p.data||[])
+    const posts = p.data||[]
+    setPosts(posts)
     setStories(s.data||[])
+    // Contar likes por post
+    const counts: any = {}
+    const myLikes: string[] = []
+    ;(l.data||[]).forEach((like:any)=>{
+      counts[like.post_id] = (counts[like.post_id]||0) + 1
+    })
+    setLikesCount(counts)
     setLoading(false)
   }
 
@@ -137,16 +151,27 @@ function ComunidadContent() {
     cargarFeed()
   }
 
-  async function toggleLike(postId: string) {
+  async function toggleLike(postId: string, postOwnerId: string) {
     if(!uid){window.location.href='/login';return}
-    const {data:existing} = await supabase.from('likes').select('*').eq('post_id',postId).eq('usuario_id',uid).single()
-    if(existing) {
+    const yaDiLike = misLikes.includes(postId)
+    if(yaDiLike) {
       await supabase.from('likes').delete().eq('post_id',postId).eq('usuario_id',uid)
+      setMisLikes(prev=>prev.filter(id=>id!==postId))
+      setLikesCount((prev:any)=>({...prev,[postId]:Math.max((prev[postId]||1)-1,0)}))
     } else {
       await supabase.from('likes').insert({post_id:postId,usuario_id:uid})
-      await supabase.from('wallet_transacciones').insert({usuario_id:uid,tipo:'like',monto_olv:2,descripcion:'Like dado'})
+      setMisLikes(prev=>[...prev,postId])
+      setLikesCount((prev:any)=>({...prev,[postId]:(prev[postId]||0)+1}))
+      // +5 OLV al dueño del post si no es el mismo usuario
+      if(uid!==postOwnerId) {
+        await supabase.from('wallet_transacciones').insert({
+          usuario_id:postOwnerId,
+          tipo:'like_recibido',
+          monto_olv:5,
+          descripcion:'Like recibido en tu post'
+        })
+      }
     }
-    cargarFeed()
   }
 
   async function cargarComentarios(postId: string) {
@@ -173,6 +198,124 @@ function ComunidadContent() {
     if(uid!==postUserId) return
     await supabase.from('posts').delete().eq('id',postId)
     cargarFeed()
+  }
+
+  async function generarStoryPost(post: any) {
+    const canvas = document.createElement('canvas')
+    canvas.width = 1080
+    canvas.height = 1920
+    const ctx = canvas.getContext('2d')!
+
+    // Fondo degradado verde oscuro
+    const grad = ctx.createLinearGradient(0,0,0,1920)
+    grad.addColorStop(0,'#0a1a0a')
+    grad.addColorStop(1,'#0a0e1a')
+    ctx.fillStyle = grad
+    ctx.fillRect(0,0,1080,1920)
+
+    // Logo OLIVIA
+    ctx.fillStyle = '#22c55e'
+    ctx.font = 'bold 52px system-ui'
+    ctx.textAlign = 'center'
+    ctx.fillText('🌿 OLIVIA Circulab', 540, 120)
+
+    ctx.fillStyle = '#64748b'
+    ctx.font = '36px system-ui'
+    ctx.fillText('Reciclé y gané OLV reales', 540, 180)
+
+    // Foto del residuo si existe
+    if(post.foto_url) {
+      try {
+        const img = new Image()
+        img.crossOrigin = 'anonymous'
+        await new Promise((res,rej)=>{img.onload=res;img.onerror=rej;img.src=post.foto_url})
+        // Marco redondeado para la foto
+        ctx.save()
+        ctx.beginPath()
+        ctx.roundRect(80, 240, 920, 700, 40)
+        ctx.clip()
+        ctx.drawImage(img, 80, 240, 920, 700)
+        ctx.restore()
+        // Borde verde
+        ctx.strokeStyle = '#22c55e'
+        ctx.lineWidth = 8
+        ctx.beginPath()
+        ctx.roundRect(80, 240, 920, 700, 40)
+        ctx.stroke()
+      } catch(e) {
+        // Si no carga la foto, solo el fondo
+      }
+    }
+
+    // Texto del post
+    if(post.contenido) {
+      ctx.fillStyle = '#f1f5f9'
+      ctx.font = 'bold 52px system-ui'
+      const palabras = post.contenido.split(' ')
+      let linea = ''
+      let y = post.foto_url ? 1060 : 500
+      palabras.forEach((palabra: string) => {
+        const prueba = linea + palabra + ' '
+        if(ctx.measureText(prueba).width > 900 && linea !== '') {
+          ctx.fillText(linea.trim(), 540, y)
+          linea = palabra + ' '
+          y += 70
+        } else { linea = prueba }
+      })
+      ctx.fillText(linea.trim(), 540, y)
+    }
+
+    // OLV ganados
+    const yOLV = post.foto_url ? 1280 : 900
+    ctx.fillStyle = '#22c55e'
+    ctx.font = 'bold 100px system-ui'
+    ctx.fillText('+'+post.olv_ganados+' OLV', 540, yOLV)
+
+    ctx.fillStyle = '#64748b'
+    ctx.font = '40px system-ui'
+    ctx.fillText('tokens de carbono verificados', 540, yOLV+70)
+
+    // CTA — Registrate vos también
+    const yCTA = post.foto_url ? 1480 : 1200
+    ctx.fillStyle = '#22c55e'
+    ctx.beginPath()
+    ctx.roundRect(140, yCTA, 800, 130, 30)
+    ctx.fill()
+    ctx.fillStyle = '#0a1a0a'
+    ctx.font = 'bold 52px system-ui'
+    ctx.fillText('Registrate vos también →', 540, yCTA+82)
+
+    // URL
+    ctx.fillStyle = '#64748b'
+    ctx.font = '40px system-ui'
+    ctx.fillText('circulab-site.vercel.app', 540, 1840)
+
+    // Convertir a blob y compartir
+    canvas.toBlob(async (blob) => {
+      if(!blob) return
+      const file = new File([blob], 'olivia-story.png', {type:'image/png'})
+      const texto = `Recién reciclé con OLIVIA Circulab y gané OLV reales 🌿 ¡Registrate vos también! circulab-site.vercel.app`
+
+      // Intentar Web Share API con imagen (abre Instagram Stories en móvil)
+      if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})) {
+        try {
+          await navigator.share({
+            files: [file],
+            title: 'OLIVIA Circulab',
+            text: texto,
+          })
+          return
+        } catch(e) {}
+      }
+
+      // Fallback: descargar la imagen
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = 'olivia-story.png'
+      a.click()
+      alert('Imagen descargada 📸\nAbrí Instagram → Nueva Story → Galería → elegí la imagen')
+    }, 'image/png')
   }
 
   async function compartirPost(post: any) {
@@ -448,8 +591,12 @@ function ComunidadContent() {
               )}
               {post.video_url&&<VideoEmbed url={post.video_url} />}
               <div style={{display:'flex',gap:12,marginBottom:8}}>
-                <button onClick={()=>toggleLike(post.id)} style={{background:'transparent',border:'none',color:'#64748b',fontSize:13,cursor:'pointer',display:'flex',alignItems:'center',gap:4,padding:0}}>
-                  ❤️ <span style={{fontSize:12}}>Me importa</span>
+                <button onClick={()=>toggleLike(post.id,post.usuario_id)}
+                  style={{background:'transparent',border:'none',color:misLikes.includes(post.id)?'#ef4444':'#64748b',fontSize:13,cursor:'pointer',display:'flex',alignItems:'center',gap:4,padding:0,transition:'0.2s'}}>
+                  {misLikes.includes(post.id)?'❤️':'🤍'}
+                  <span style={{fontSize:12,color:misLikes.includes(post.id)?'#ef4444':'#64748b'}}>
+                    {likesCount[post.id]||0}
+                  </span>
                 </button>
                 <button onClick={()=>{
                   setComentarioActivo(comentarioActivo===post.id?null:post.id)
@@ -460,6 +607,10 @@ function ComunidadContent() {
                 <button onClick={()=>compartirPost(post)}
                   style={{background:'transparent',border:'none',color:'#64748b',fontSize:13,cursor:'pointer',display:'flex',alignItems:'center',gap:4,padding:0}}>
                   📤 <span style={{fontSize:12}}>Compartir</span>
+                </button>
+                <button onClick={()=>generarStoryPost(post)}
+                  style={{background:'transparent',border:'none',color:'#64748b',fontSize:13,cursor:'pointer',display:'flex',alignItems:'center',gap:4,padding:0}}>
+                  📸 <span style={{fontSize:12}}>Story</span>
                 </button>
               </div>
               {comentarioActivo===post.id&&(

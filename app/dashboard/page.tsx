@@ -59,9 +59,20 @@ function DashboardContent() {
     setMostrarFeedback(false)
   }
 
-  const olv_total = transacciones.reduce((a,t)=>a+Number(t.monto_olv),0)
-  const olv_verificados = transacciones.filter(t=>!t.descripcion?.includes('pendiente')).reduce((a,t)=>a+Number(t.monto_olv),0)
-  const olv_pendientes = olv_total - olv_verificados
+  // OLV calculados desde residuos — reflejan validación del admin en tiempo real
+  const olv_verificados = residuos
+    .filter(r=>r.status==='validado')
+    .reduce((a,r)=>{
+      const factor = TIPOS_RESIDUO.find(t=>t.v===r.tipo)?.factor||1.8
+      return a + Math.round(Number(r.kg)*factor*100)
+    },0)
+  const olv_pendientes = residuos
+    .filter(r=>r.status==='pendiente')
+    .reduce((a,r)=>{
+      const factor = TIPOS_RESIDUO.find(t=>t.v===r.tipo)?.factor||1.8
+      return a + Math.round(Number(r.kg)*factor*100)
+    },0)
+  const olv_total = olv_verificados + olv_pendientes
   const kg_total = residuos.reduce((a,r)=>a+Number(r.kg),0)
   const co2_total = residuos.reduce((a,r)=>{
     const factor = TIPOS_RESIDUO.find(t=>t.v===r.tipo)?.factor||1.8
@@ -265,7 +276,64 @@ function DashboardContent() {
                 </div>
               </button>
 
-              <div style={{marginTop:10,padding:'8px 12px',background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.15)',borderRadius:8,textAlign:'center'}}>
+             <button onClick={async()=>{
+               const canvas = document.createElement('canvas')
+               canvas.width = 1080
+               canvas.height = 1920
+               const ctx = canvas.getContext('2d')!
+               const grad = ctx.createLinearGradient(0,0,0,1920)
+               grad.addColorStop(0,'#0a1a0a')
+               grad.addColorStop(1,'#0a0e1a')
+               ctx.fillStyle = grad
+               ctx.fillRect(0,0,1080,1920)
+               ctx.textAlign = 'center'
+               ctx.fillStyle = '#22c55e'
+               ctx.font = 'bold 60px system-ui'
+               ctx.fillText('🌿 OLIVIA Circulab', 540, 280)
+               ctx.fillStyle = '#f1f5f9'
+               ctx.font = 'bold 80px system-ui'
+               ctx.fillText(lang==='es'?'¡Me sumé al':'I joined', 540, 600)
+               ctx.fillText(lang==='es'?'reciclaje que paga 💰':'recycling that pays 💰', 540, 700)
+               ctx.fillStyle = '#f1f5f9'
+               ctx.font = '50px system-ui'
+               ctx.fillText(lang==='es'?'Usá mi código:':'Use my code:', 540, 1000)
+               ctx.fillStyle = '#22c55e'
+               ctx.font = 'bold 120px system-ui'
+               ctx.fillText(usuario?.codigo_referido||'OLIVIA', 540, 1150)
+               ctx.fillStyle = '#f1f5f9'
+               ctx.font = '50px system-ui'
+               ctx.fillText(lang==='es'?'y registrate gratis →':'register free →', 540, 1350)
+               ctx.fillStyle = '#22c55e'
+               ctx.beginPath()
+               ctx.roundRect(140,1450,800,130,30)
+               ctx.fill()
+               ctx.fillStyle = '#0a1a0a'
+               ctx.font = 'bold 44px system-ui'
+               ctx.fillText('circulab-site.vercel.app', 540, 1530)
+               ctx.fillStyle = '#64748b'
+               ctx.font = '36px system-ui'
+               ctx.fillText(lang==='es'?'Tu residuo vale dinero real':'Your waste is worth real money', 540, 1720)
+               canvas.toBlob(async(blob)=>{
+                 if(!blob) return
+                 const file = new File([blob],'olivia-invitacion.png',{type:'image/png'})
+                 const txt = `Sumate a OLIVIA Circulab 🌿 Usá mi código ${usuario?.codigo_referido}: https://circulab-site.vercel.app/registro`
+                 if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
+                   try{await navigator.share({files:[file],title:'OLIVIA Circulab',text:txt});return}catch(e){}
+                 }
+                 const url = URL.createObjectURL(blob)
+                 const a = document.createElement('a')
+                 a.href=url;a.download='olivia-invitacion.png';a.click()
+                 alert(lang==='es'?'📸 Imagen descargada\nAbrí Instagram → Nueva Story → Galería':'📸 Image downloaded\nOpen Instagram → New Story → Gallery')
+               },'image/png')
+             }} style={{width:'100%',display:'flex',alignItems:'center',gap:10,padding:'12px',borderRadius:10,background:'rgba(131,58,180,0.08)',border:'1px solid rgba(131,58,180,0.3)',cursor:'pointer',marginBottom:8}}>
+               <span style={{fontSize:20}}>📸</span>
+               <div style={{textAlign:'left'}}>
+                 <div style={{fontSize:12,fontWeight:700,color:'#a855f7'}}>{lang==='es'?'Story Instagram con tu código':'Instagram Story with your code'}</div>
+                 <div style={{fontSize:10,color:'#64748b'}}>{lang==='es'?'Imagen lista para Stories':'Image ready for Stories'}</div>
+               </div>
+             </button>
+
+             <div style={{marginTop:10,padding:'8px 12px',background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.15)',borderRadius:8,textAlign:'center'}}>
                 <span style={{fontSize:11,color:'#22c55e',fontWeight:700}}>{lang==='es'?'Amigos invitados:':'Friends invited:'} {usuario?.referidos_count||0}</span>
                 <span style={{fontSize:10,color:'#64748b'}}> · {(usuario?.referidos_count||0)*200} OLV {lang==='es'?'ganados':'earned'}</span>
               </div>

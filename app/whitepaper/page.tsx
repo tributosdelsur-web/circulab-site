@@ -6,7 +6,7 @@ const SECCIONES_ES = [
 '📋 Resumen ejecutivo','🔴 El problema','🌿 La solución OLIVIA','🔬 Arquitectura dMRV',
 '📜 Certificación multi-metodológica','🪙 Tokenómica OLV','👥 Los 8 segmentos',
 '💰 Las 5 fuentes de valor','🌍 Los 7 mercados','🤝 Modelo de convenios',
-'🔄 Incentivos cruzados','🚛 Transporte inteligente','🗺️ Roadmap 4 fases',
+'🔄 Incentivos cruzados','🚛 Recolección coordinada con IA','🌱 Los 6 tramos del ecosistema',
 '🌱 Familia OLIVIA','👨‍💻 Equipo y tecnología','📈 Ronda Seed 2026',
 '⚠️ Riesgos y mitigación','🏛️ Marco legal',
 ]
@@ -15,7 +15,7 @@ const SECCIONES_EN = [
 '📋 Executive Summary','🔴 The Problem','🌿 OLIVIA Solution','🔬 dMRV Architecture',
 '📜 Multi-methodology Certification','🪙 OLV Tokenomics','👥 8 Customer Segments',
 '💰 5 Value Sources','🌍 7 Token Markets','🤝 Partnership Model',
-'🔄 Cross Incentives','🚛 Smart Transport','🗺️ 4-Phase Roadmap',
+'🔄 Cross Incentives','🚛 AI-Coordinated Collection','🌱 The 6 Ecosystem Stages',
 '🌱 OLIVIA Family','👨‍💻 Team & Technology','📈 Seed Round 2026',
 '⚠️ Risks & Mitigation','🏛️ Legal Framework',
 ]
@@ -111,7 +111,8 @@ if(seccion===0) return (
 {t:'El producto hoy',d:'App web en producción en oliviacirculab.com.ar. Registro con foto + GPS + IA (Cloudflare Workers AI). Dashboard con OLV y CO2eq. Red social activa con comunidad. Sistema de amigos y seguimiento. Admin con dMRV. Construido con USD 0 de inversión externa.',c:'#3b82f6'},
 {t:'Ecosistema de incentivos cruzados',d:'Las tres verticales de Circulab Tech (OLIVIA, PULSO/Quincena y Art of Money) se financian entre sí usando OLV como moneda interna antes de monetizar hacia afuera. Convenios con terceros que aceptan OLV acumulan activos ambientales que se convierten en USD cuando Verra certifique en 2027.',c:'#a855f7'},
 {t:'La ronda',d:'Seed 2026. Opción A: USD 500K por 10% · USD 4.5M pre. Opción B: USD 2M por 15% · USD 11.3M pre. Primer uso: CTO + auditoría + certificación Verra VM0036.',c:'#f59e0b'},
-{t:'Distrito IA y Ley 27.506',d:'Circulab Tech opera desde el Distrito de Inteligencia Artificial de Buenos Aires. Bajo la Ley de Economía del Conocimiento 27.506: ganancias al 15%, reducción 70-80% cargas patronales, FONDCE, estabilidad fiscal 10 años.',c:'#22c55e'},
+{t:'Distrito IA y Ley 27.506',d:'Circulab Tech opera desde el Distrito de Inteligencia Artificial de Buenos Aires. Bajo la Ley de Economía del Conocimiento 27.506: ganancias al 15%, reducción 70-80% cargas patronales, FONDCE, estabilidad fiscal 10 años. Cada USD 1 invertido vale USD 1.4 efectivos.',c:'#22c55e'},
+{t:lang==='es'?'Fundamentos científicos':'Scientific foundations',d:lang==='es'?'Ostrom (Nobel 2009): comunidades con monitoreo verificable gestionan mejor los bienes comunes. Fuller: la contaminación son recursos sin cosechar. Prigogine (Nobel 1977): sistemas vivos hacia menor entropía. Maturana y Varela: autopoiesis — sistemas que se producen a sí mismos. OLIVIA aplica estos principios a la economía circular urbana.':'Ostrom (Nobel 2009): communities with verifiable monitoring manage commons better. Fuller: pollution is resources not harvested. Prigogine (Nobel 1977): living systems toward lower entropy. Maturana & Varela: autopoiesis — systems that produce themselves. OLIVIA applies these principles to urban circular economy.',c:'#3b82f6'},
 ]:[
 {t:'The Problem',d:'6,000t of waste/day in Buenos Aires alone. 85% goes to landfill unsorted. USD 0 captured in citizen carbon. A USD 4.5B LATAM market completely untouched.',c:'#ef4444'},
 {t:'The Solution',d:'OLIVIA digitalizes, AI-verifies and certifies citizen recycling. Each kilo generates OLV tokens that become certifiable carbon credits under different international standards per material type.',c:'#22c55e'},
@@ -506,7 +507,11 @@ if(seccion===11) return (
 
 if(seccion===12) return (
 <div>
-<div style={s.titulo}>{lang==='es'?'Roadmap — Las 4 fases':'4-Phase Roadmap'}</div>
+<div style={s.titulo}>{lang==='es'?'Los 6 tramos del ecosistema':'The 6 Ecosystem Stages'}</div>
+<div style={{...s.highlight,marginBottom:16}}>
+<div style={s.verde}>{lang==='es'?'Como un árbol — de semilla a selva':'Like a tree — from seed to jungle'}</div>
+<div style={s.p}>{lang==='es'?'Los que entran hoy en Semilla cobran primero en Árbol. En Fase 1 los OLV no tienen valor monetario. El mercado los compra en Fase 3 si se logra la certificación Verra. OLIVIA no paga — facilita.':'Those who enter today in Seed earn first in Tree. In Phase 1 OLV have no monetary value. The market buys them in Phase 3 if Verra certification is achieved. OLIVIA doesn\'t pay — it facilitates.'}</div>
+</div>
 {(lang==='es'?[
 {fase:'Fase 1',año:'2026 · Activa ahora',color:'#22c55e',items:['Piloto dMRV en CABA con usuarios reales','App web con verificación IA (Cloudflare Workers AI)','Tokens OLV acumulándose desde el día 1','Red social OLIVIA activa con comunidad','Sistema de amigos y seguimiento','Admin con CRM y validación dMRV','Encuesta de mercado con datos reales']},
 {fase:'Fase 2',año:'Q4 2026',color:'#3b82f6',items:['Primeros convenios con empresas partner','OLV canjeables por servicios reales','Módulo de transporte con rutas IA','3 consorcios piloto activos en CABA','Wallet empresarial para partners','Primeros nodos de validación ciudadana']},
@@ -619,6 +624,7 @@ if(seccion===15) return (
 {(lang==='es'?[
 {t:'Estructura del deal',d:'Equity directo. Sin convertible note. Sin intereses. Sin ratchets. Dual class shares: Clase A fundadores (10 votos/acción) · Clase B inversores (1 voto/acción). Liquidation preference 1× no participante estándar.'},
 {t:'Sin costos fijos hasta inversión comprometida',d:'Circulab Tech no incurrirá en gastos fijos hasta que la inversión esté formalmente comprometida y los fondos disponibles. Hasta ese momento el costo operativo es USD 0.'},
+{t:lang==='es'?'Garantías para el inversor':'Investor guarantees',d:lang==='es'?'Seat en el board · Reporting mensual verificado · Milestone-based disbursement · Anti-dilution protection · Tag-along rights · Auditoría de código mes 1-2 post-inversión · Sin costos fijos hasta inversión comprometida.':'Board seat · Verified monthly reporting · Milestone-based disbursement · Anti-dilution protection · Tag-along rights · Code audit months 1-2 post-investment · No fixed costs until committed.'},
 {t:'Ventajas fiscales — Ley 27.506',d:'Ganancias al 15% · Reducción 70-80% cargas patronales · FONDCE · Estabilidad fiscal 10 años. Circulab Tech opera desde el Distrito de Inteligencia Artificial de Buenos Aires.'},
 ]:[
 {t:'Deal structure',d:'Direct equity. No convertible note. No interest. No ratchets. Dual class shares: Class A founders (10 votes/share) · Class B investors (1 vote/share). Standard 1× non-participating liquidation preference.'},
