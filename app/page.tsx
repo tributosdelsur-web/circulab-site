@@ -106,13 +106,13 @@ export default function Landing() {
   }
 
   const RESIDUOS = [
-    {icon:'🌿',tipo:es?'Orgánico':'Organic',olv:'180 OLV/kg',usd_f1:'USD 0',usd_f2:'Canje',usd_f3:'USD 0.022/OLV',bolsa:'Verra VM0036',color:'#22c55e'},
-    {icon:'♻️',tipo:es?'Plástico':'Plastic',olv:'150 OLV/kg',usd_f1:'USD 0',usd_f2:'Canje',usd_f3:'USD 0.022/OLV',bolsa:'Gold Standard',color:'#3b82f6'},
-    {icon:'🔩',tipo:es?'Metal':'Metal',olv:'800 OLV/kg',usd_f1:'USD 0',usd_f2:'Canje',usd_f3:'USD 0.022/OLV',bolsa:'CAR',color:'#ef4444'},
-    {icon:'👕',tipo:es?'Textil':'Textile',olv:'550 OLV/kg',usd_f1:'USD 0',usd_f2:'Canje',usd_f3:'USD 0.022/OLV',bolsa:'GS Textile',color:'#ec4899'},
-    {icon:'🛢️',tipo:es?'Aceite':'Oil',olv:'250 OLV/kg',usd_f1:'USD 0',usd_f2:'Canje',usd_f3:'USD 0.022/OLV',bolsa:'Verra AMS',color:'#f97316'},
-    {icon:'📄',tipo:es?'Papel':'Paper',olv:'90 OLV/kg',usd_f1:'USD 0',usd_f2:'Canje',usd_f3:'USD 0.022/OLV',bolsa:'Gold Standard',color:'#f59e0b'},
-    {icon:'🍾',tipo:es?'Vidrio':'Glass',olv:'30 OLV/kg',usd_f1:'USD 0',usd_f2:'Canje',usd_f3:'USD 0.022/OLV',bolsa:'Verra',color:'#a855f7'},
+    {icon:'🌿',tipo:es?'Orgánico':'Organic',olv:'180 OLV/kg',usd_f1:'USD 0',usd_f2:'Canje',usd_f3:'USD 0.005/kg',bolsa:'Verra VM0036',color:'#22c55e'},
+    {icon:'♻️',tipo:es?'Plástico':'Plastic',olv:'150 OLV/kg',usd_f1:'USD 0',usd_f2:'Canje',usd_f3:'USD 0.004/kg',bolsa:'Gold Standard',color:'#3b82f6'},
+    {icon:'🔩',tipo:es?'Metal':'Metal',olv:'800 OLV/kg',usd_f1:'USD 0',usd_f2:'Canje',usd_f3:'USD 0.018/kg',bolsa:'CAR',color:'#ef4444'},
+    {icon:'👕',tipo:es?'Textil':'Textile',olv:'550 OLV/kg',usd_f1:'USD 0',usd_f2:'Canje',usd_f3:'USD 0.012/kg',bolsa:'GS Textile',color:'#ec4899'},
+    {icon:'🛢️',tipo:es?'Aceite':'Oil',olv:'250 OLV/kg',usd_f1:'USD 0',usd_f2:'Canje',usd_f3:'USD 0.006/kg',bolsa:'Verra AMS',color:'#f97316'},
+    {icon:'📄',tipo:es?'Papel':'Paper',olv:'90 OLV/kg',usd_f1:'USD 0',usd_f2:'Canje',usd_f3:'USD 0.003/kg',bolsa:'Gold Standard',color:'#f59e0b'},
+    {icon:'🍾',tipo:es?'Vidrio':'Glass',olv:'30 OLV/kg',usd_f1:'USD 0',usd_f2:'Canje',usd_f3:'USD 0.001/kg',bolsa:'Verra',color:'#a855f7'},
   ]
 
   const CLIENTES = [
@@ -241,7 +241,7 @@ export default function Landing() {
           <div style={{height:8,background:dark?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.08)',borderRadius:99,marginBottom:8}}>
             <div style={{height:'100%',width:`${Math.min((stats.co2/100000)*100,100)}%`,background:'linear-gradient(90deg,#22c55e,#3b82f6)',borderRadius:99,transition:'width 1s'}} />
           </div>
-          <div style={{fontSize:10,color:sub}}>{es?'Meta: 100 tCO2eq · Los que empiezan hoy cobran desde el día 1 de Fase 3':'Goal: 100 tCO2eq · Early starters earn from Phase 3 day 1'}</div>
+          <div style={{fontSize:10,color:sub}}>{es?'Meta: 100 tCO2eq · Los que empiezan hoy cobran desde Árbol':'Goal: 100 tCO2eq · Early starters earn from Phase 3 day 1'}</div>
         </div>
 
         <div style={{display:'flex',gap:10,justifyContent:'center',flexWrap:'wrap'}}>
@@ -373,7 +373,7 @@ export default function Landing() {
           {[
             {num:'01',icon:'📸',t:es?'Fotografiás el residuo':'You photograph the waste',d:es?'La IA analiza el tipo y el peso con Cloudflare AI Vision. Con una moneda de $10 al lado, la estimación es precisa.':'AI analyzes type and weight with Cloudflare AI Vision. With a $10 coin for reference, estimates are precise.',c:'#22c55e'},
             {num:'02',icon:'📍',t:es?'Confirmás la disposición':'You confirm disposal',d:es?'Llevás el residuo al punto verde o compostás en casa. La segunda foto con GPS activa tus OLV.':'Take waste to a green point or compost at home. The second photo with GPS activates your OLV.',c:'#3b82f6'},
-            {num:'03',icon:'🪙',t:es?'Acumulás tokens OLV':'You accumulate OLV tokens',d:es?'Cada kilo verificado genera tokens OLV — activos ambientales certificados. En Fase 1 no tienen valor monetario. En Fase 2 se canjean. En Fase 3 se convierten en dinero real.':'Each verified kilo generates OLV tokens — certified environmental assets. In Phase 1 no monetary value. Phase 2: redemptions. Phase 3: real money.',c:'#f59e0b'},
+            {num:'03',icon:'🪙',t:es?'Acumulás tokens OLV':'You accumulate OLV tokens',d:es?'Cada kilo verificado genera tokens OLV — activos ambientales certificados. En Semilla no tienen valor monetario. En Brote se canjean. En Árbol se convierten en dinero real.':'Each verified kilo generates OLV tokens — certified environmental assets. In Semilla no monetary value. Brote: redemptions. Árbol: real money.',c:'#f59e0b'},
             {num:'04',icon:'💰',t:es?'El mercado paga — 2027':'The market pays — 2027',d:es?'OLIVIA certifica con Verra. El mercado de carbono compra los créditos. OLIVIA facilita y distribuye. Los que empezaron antes cobran más.':'OLIVIA certifies with Verra. The carbon market buys the credits. OLIVIA facilitates and distributes. Early starters earn more.',c:'#a855f7'},
           ].map(p=>(
             <div key={p.num} style={{display:'flex',gap:12,padding:'14px',background:card,borderRadius:14,border:`1px solid ${p.c}22`,alignItems:'flex-start'}}>
@@ -410,7 +410,7 @@ export default function Landing() {
               {l:es?'Fase':'Phase',v:'',c:sub},
               {l:'🌱 Semilla',v:es?'Sin valor':'No value',c:'#22c55e'},
               {l:'🌿 Brote',v:es?'Canjes':'Redemptions',c:'#3b82f6'},
-              {l:'🌳 Árbol',v:'USD 0.022',c:'#f59e0b'},
+              {l:'🌳 Árbol',v:'USD/kg según residuo',c:'#f59e0b'},
             ].map((f,i)=>(
               <div key={i} style={{textAlign:'center',padding:'6px 4px',borderRadius:8,background:i>0?`rgba(${i===1?'34,197,94':i===2?'59,130,246':'245,158,11'},0.08)`:'transparent'}}>
                 <div style={{fontSize:9,fontWeight:700,color:f.c,lineHeight:1.3}}>{f.l}</div>
@@ -419,7 +419,7 @@ export default function Landing() {
             ))}
           </div>
           <div style={{fontSize:10,color:sub,textAlign:'center',fontStyle:'italic'}}>
-            {es?'USD 0.022 = valor estimado por OLV en Fase 3 · Verra VCS USD 22/t · 25% para el ciudadano':'USD 0.022 = estimated OLV value in Phase 3 · Verra VCS USD 22/t · 25% for the citizen'}
+            {es?'Valor neto por kg · Lo que vos recibís en Árbol si Verra certifica':'USD 0.022 = estimated OLV value in Phase 3 · Verra VCS USD 22/t · 25% for the citizen'}
           </div>
         </div>
 
@@ -435,7 +435,7 @@ export default function Landing() {
               </div>
               <div style={{textAlign:'right'}}>
                 <div style={{fontSize:13,fontWeight:800,color:r.color}}>{r.olv}</div>
-                <div style={{fontSize:10,color:'#f59e0b',fontWeight:700}}>≈ {r.usd_f3} · Fase 3</div>
+                <div style={{fontSize:10,color:'#f59e0b',fontWeight:700}}>≈ {r.usd_f3} · Árbol</div>
               </div>
             </div>
           ))}
@@ -456,14 +456,14 @@ export default function Landing() {
         </p>
         <div style={{background:'rgba(245,158,11,0.08)',border:'1px solid rgba(245,158,11,0.2)',borderRadius:10,padding:'10px',textAlign:'center',marginBottom:16}}>
           <span style={{fontSize:12,color:'#f59e0b',fontWeight:700}}>
-            {es?'⚠️ En Fase 1 los OLV no tienen valor monetario. En Fase 2 se canjean por servicios. En Fase 3, si se logra la certificación Verra, el mercado los compra. OLIVIA no paga — facilita.':'⚠️ In Phase 1 OLV have no monetary value. In Phase 2 they redeem for services. In Phase 3, if Verra certification is achieved, the market buys them. OLIVIA doesn\'t pay — it facilitates.'}
+            {es?'⚠️ En Semilla los OLV no tienen valor monetario. En Brote se canjean por servicios. En Árbol, si se logra la certificación Verra, el mercado los compra. OLIVIA no paga — facilita.':'⚠️ In Semilla OLV have no monetary value. In Brote they redeem for services. In Árbol, if Verra certification is achieved, the market buys them. OLIVIA doesn\'t pay — it facilitates.'}
           </span>
         </div>
         <div style={{display:'flex',flexDirection:'column',gap:8}}>
           {[
-            {icon:'🌱',t:'SEMILLA · 2026',d:es?'Fase 1 ACTIVA · OLV sin valor monetario · Construís historial · Los que empiezan hoy cobran primero en Fase 3':'Phase 1 ACTIVE · OLV no monetary value · Build history · Early starters earn first in Phase 3',c:'#22c55e',activo:true},
-            {icon:'🌿',t:'BROTE · Q4 2026',d:es?'Fase 2 · OLV canjeables por salud, transporte, apps · Convenios con empresas partner':'Phase 2 · OLV redeemable for health, transport, apps · Partner company deals',c:'#3b82f6',activo:false},
-            {icon:'🌳',t:'ÁRBOL · 2027 💰',d:es?'Fase 3 · Si se logra certificación Verra VCS · USD 22/t · 25% para el vecino · OLIVIA no paga — el mercado sí':'Phase 3 · If Verra VCS certification achieved · USD 22/t · 25% for the citizen · OLIVIA doesn\'t pay — the market does',c:'#f59e0b',activo:false},
+            {icon:'🌱',t:'SEMILLA · 2026',d:es?'Semilla ACTIVA · OLV sin valor monetario · Construís historial · Los que empiezan hoy cobran primero en Árbol':'Semilla ACTIVE · OLV no monetary value · Build history · Early starters earn first in Árbol',c:'#22c55e',activo:true},
+            {icon:'🌿',t:'BROTE · Q4 2026',d:es?'Brote · OLV canjeables por salud, transporte, apps · Convenios con empresas partner':'Phase 2 · OLV redeemable for health, transport, apps · Partner company deals',c:'#3b82f6',activo:false},
+            {icon:'🌳',t:'ÁRBOL · 2027 💰',d:es?'Árbol · Si se logra certificación Verra VCS · Valor neto por kg al ciudadano · OLIVIA no paga — el mercado sí':'Phase 3 · If Verra VCS certification achieved · USD 22/t · 25% for the citizen · OLIVIA doesn\'t pay — the market does',c:'#f59e0b',activo:false},
             {icon:'🌲',t:'BOSQUE · 2028',d:es?'Artículo 6.4 del Acuerdo de París · USD 90/t · Corredor AR MX CO BR CH DO':'Paris Agreement Article 6.4 · USD 90/t · AR MX CO BR CH DO corridor',c:'#a855f7',activo:false},
             {icon:'🏔️',t:'SELVA · 2029',d:es?'OLIVIA Ocean + Waters + Space · PULSO estándar LATAM':'OLIVIA Ocean + Waters + Space · PULSO LATAM standard',c:'#ec4899',activo:false},
             {icon:'🌊',t:'SUMIDERO · 2030+',d:es?'Net positive verificado · El sistema absorbe más CO2 del que genera · Infraestructura climática global':'Verified net positive · System absorbs more CO2 than it generates · Global climate infrastructure',c:'#06b6d4',activo:false},
@@ -529,7 +529,7 @@ export default function Landing() {
         <div style={{background:'rgba(59,130,246,0.06)',border:'2px solid rgba(59,130,246,0.3)',borderRadius:14,padding:'16px',marginBottom:14}}>
           <div style={{fontSize:12,color:'#3b82f6',fontWeight:700,marginBottom:4}}>🏢 {es?'Consorcios — el cliente ancla':'Buildings — the anchor client'}</div>
           <div style={{fontSize:10,color:'#f59e0b',marginBottom:8,lineHeight:1.5}}>
-            {es?'⚠️ Estos valores son el ingreso estimado que podría recibir tu consorcio desde Fase 3 (2027) — no lo que OLIVIA cobra. En Fase 1 no hay costo ni cobro.':'⚠️ These values are the estimated income your building could receive from Phase 3 (2027) — not what OLIVIA charges. In Phase 1 there is no cost or payment.'}
+            {es?'⚠️ Estos valores son el ingreso estimado que podría recibir tu consorcio desde Árbol (2027) — no lo que OLIVIA cobra. En Semilla no hay costo ni cobro.':'⚠️ These values are the estimated income your building could receive from Phase 3 (2027) — not what OLIVIA charges. In Phase 1 there is no cost or payment.'}
           </div>
           <div style={{display:'flex',flexDirection:'column',gap:6,marginBottom:10}}>
             {[
