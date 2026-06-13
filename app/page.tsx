@@ -267,9 +267,7 @@ export default function Landing() {
           <div style={{display:'inline-flex',alignItems:'center',gap:6,background:'rgba(34,197,94,0.1)',border:'1px solid rgba(34,197,94,0.3)',borderRadius:20,padding:'5px 14px',fontSize:11,color:'#22c55e',fontWeight:700}}>
             🌱 {es?'Tramo Semilla · 2026 · Distrito IA Buenos Aires':'Seed Stage · 2026 · AI District Buenos Aires'}
           </div>
-          <div style={{display:'inline-flex',alignItems:'center',gap:6,background:'rgba(34,197,94,0.08)',border:'1px solid rgba(34,197,94,0.25)',borderRadius:20,padding:'5px 14px',fontSize:11,color:'#22c55e',fontWeight:700}}>
-            ✅ {es?'Verra validó dMRV · Feb 2026':'Verra validated dMRV · Feb 2026'}
-          </div>
+
           <div style={{display:'inline-flex',alignItems:'center',gap:6,background:'rgba(245,158,11,0.08)',border:'1px solid rgba(245,158,11,0.25)',borderRadius:20,padding:'5px 14px',fontSize:11,color:'#f59e0b',fontWeight:700}}>
             🚀 {es?'USD 0 de inversión externa':'USD 0 external investment'}
           </div>
