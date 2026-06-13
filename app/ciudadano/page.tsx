@@ -207,7 +207,7 @@ export default function Ciudadano() {
             <span style={{fontSize:10,fontWeight:700,border:'1px solid #22c55e',color:'#22c55e',padding:'3px 10px',borderRadius:20}}>🌱 {es?'Tramo Semilla · 2026':'Seed Stage · 2026'}</span>
             <span style={{fontSize:10,fontWeight:700,border:'1px solid #3b82f6',color:'#3b82f6',padding:'3px 10px',borderRadius:20}}>{es?'Distrito IA · Buenos Aires':'AI District · Buenos Aires'}</span>
           </div>
-          <h1 style={{fontSize:28,fontWeight:900,lineHeight:1.15,marginBottom:12,letterSpacing:'-0.02em'}}>
+          <h1 style={{fontSize:36,fontWeight:900,lineHeight:1.15,marginBottom:12,letterSpacing:'-0.02em',textAlign:'center'}}>
             <span style={{color:text}}>{es?'Tu residuo vale.':'Your waste matters.'}</span><br/>
             <span style={{color:'#22c55e',fontStyle:'italic'}}>{es?'Tu árbol crece.':'Your tree grows.'}</span><br/>
             <span style={{color:text}}>{es?'Tu dinero llega.':'Your money arrives.'}</span>
@@ -666,7 +666,9 @@ export default function Ciudadano() {
 
       {/* FOOTER */}
       <footer style={{padding:'20px 16px',borderTop:`1px solid ${border}`,textAlign:'center',marginTop:8}}>
-        <img src="/logoOC.png" alt="OLIVIA Circulab" style={{width:48,height:48,objectFit:'contain',marginBottom:8,opacity:0.7}} />
+        <div style={{display:'flex',justifyContent:'center',marginBottom:8}}>
+          <img src="/logoOC.png" alt="OLIVIA Circulab" style={{width:48,height:48,objectFit:'contain',opacity:0.7}} />
+        </div>
         <div style={{fontSize:10,color:sub,marginBottom:4}}>
           {es?'Oficina Latinoamericana de Información para la Valorización e Inteligencia Ambiental':'Latin American Office for Environmental Valuation and Intelligence Information'}
         </div>
@@ -678,10 +680,13 @@ export default function Ciudadano() {
             {l:'Pitch',h:'/pitch',c:'#a855f7'},
             {l:'Alianzas',h:'/alianzas',c:'#22c55e'},
             {l:'Privacidad',h:'/privacidad',c:sub},
+            {l:'Términos',h:'/terminos',c:sub},
+            {l:'Contacto',h:'mailto:hola@oliviacirculab.com.ar',c:'#22c55e'},
           ].map(n=>(
             <a key={n.l} href={n.h} style={{fontSize:11,color:n.c,textDecoration:'none',fontWeight:600}}>{n.l}</a>
           ))}
         </div>
+        <div style={{fontSize:10,color:sub,marginTop:8}}>hola@oliviacirculab.com.ar</div>
       </footer>
 
       {/* POPUP ENCUESTA — 30 segundos después de cerrar el modal */}
