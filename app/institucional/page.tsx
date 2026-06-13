@@ -72,16 +72,7 @@ export default function Institucional() {
       }}>
         <div style={{maxWidth:800,margin:'0 auto'}}>
 
-          {/* LOGO GRANDE + NOMBRE INSTITUCIONAL */}
-          <div style={{textAlign:'center',marginBottom:36}}>
-            <img src="/logoOC.png" alt="OLIVIA Circulab"
-              style={{width:120,height:120,objectFit:'contain',display:'block',margin:'0 auto 12px'}} />
-            <div style={{fontSize:10,color:sub,lineHeight:1.6,fontStyle:'italic',maxWidth:480,margin:'0 auto'}}>
-              {es?'Oficina Latinoamericana de Información para la Valorización e Inteligencia Ambiental':'Latin American Office for Environmental Valuation and Intelligence Information'}
-            </div>
-          </div>
-
-          <div style={{display:'flex',flexWrap:'wrap',gap:8,marginBottom:20,justifyContent:'center'}}>
+<div style={{display:'flex',flexWrap:'wrap',gap:8,marginBottom:20,justifyContent:'center'}}>
             {[
               'AI-Native Ecosystems',
               'Buenos Aires Sandbox',

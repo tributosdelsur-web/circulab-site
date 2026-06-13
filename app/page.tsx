@@ -187,7 +187,7 @@ export default function Landing() {
       {/* NAV */}
       <nav style={{padding:'12px 20px',borderBottom:`1px solid ${border}`,display:'flex',alignItems:'center',justifyContent:'space-between',background:dark?'rgba(8,12,22,0.98)':'rgba(240,244,248,0.98)',backdropFilter:'blur(10px)',position:'sticky',top:0,zIndex:100}}>
         <div style={{display:'flex',alignItems:'center',gap:8}}>
-          <div style={{width:36,height:36,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:10,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:16,color:'white'}}>O</div>
+          <img src="/logoOC.png" alt="OLIVIA" style={{width:40,height:40,objectFit:'contain',borderRadius:8}} />
           <div>
             <div style={{fontSize:14,fontWeight:900,color:text}}>OLIVIA Circulab</div>
             <div style={{fontSize:9,color:'#22c55e',textTransform:'uppercase',letterSpacing:'0.05em'}}>Circulab Tech</div>
