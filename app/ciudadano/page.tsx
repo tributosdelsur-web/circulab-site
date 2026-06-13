@@ -491,7 +491,7 @@ export default function Ciudadano() {
           <div style={{background:'rgba(59,130,246,0.06)',border:'2px solid rgba(59,130,246,0.3)',borderRadius:14,padding:'16px',marginBottom:12}}>
             <div style={{fontSize:12,color:'#3b82f6',fontWeight:700,marginBottom:4}}>🏢 {es?'Consorcios — el cliente ancla':'Buildings — the anchor client'}</div>
             <div style={{fontSize:10,color:'#f59e0b',marginBottom:10,lineHeight:1.5}}>
-              {es?'📊 Simulación de cuánto podría recibir tu consorcio desde Árbol 2027. OLIVIA no paga — el mercado de carbono sí. En Semilla no hay costo ni cobro.':'📊 Simulation of what your building could receive from Árbol 2027. OLIVIA does not pay — the carbon market does. In Semilla there is no cost or payment.'}
+              {es?'📊 Simulación de cuánto podría recibir tu consorcio desde Árbol 2027. OLIVIA no paga — el mercado de carbono sí.':'📊 Simulation of what your building could receive from Árbol 2027. OLIVIA does not pay — the carbon market does.'}
             </div>
             <div style={{display:'flex',flexDirection:'column',gap:6,marginBottom:10}}>
               {[
