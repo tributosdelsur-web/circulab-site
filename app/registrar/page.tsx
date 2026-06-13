@@ -187,7 +187,7 @@ export default function Registrar() {
    const {data: residuo} = await supabase.from('residuos').insert({
      usuario_id: uid,
      tipo: tipo.v,
-     kg: kg_real,
+     kg: (unidad==="g"?kg/1000:kg),
      foto_url,
      foto_entrega_url,
      lat_origen: latOrigen,
@@ -219,7 +219,7 @@ export default function Registrar() {
    const olv_ganados = 20
    await supabase.from('posts').insert({
      usuario_id: uid,
-     contenido: `Acabo de registrar ${kg_real}kg de ${tipo?.l} 🌿 Gané ${resultado?.olv} OLV pendientes · ${resultado?.co2}kg CO2eq evitados`,
+     contenido: `Acabo de registrar ${(unidad==="g"?kg/1000:kg)}kg de ${tipo?.l} 🌿 Gané ${resultado?.olv} OLV pendientes · ${resultado?.co2}kg CO2eq evitados`,
      foto_url: resultado?.foto_url||null,
      tipo: 'accion',
      olv_ganados
@@ -235,7 +235,7 @@ export default function Registrar() {
  }
 
  async function compartirEnRedes() {
-   const texto = `Acabo de registrar ${kg_real}kg de ${tipo?.l} en OLIVIA Circulab 🌿\n\nGané ${resultado?.olv} OLV · ${resultado?.co2}kg CO2eq evitados\n\n¿Vos también reciclás? → oliviacirculab.com.ar\n\n#OliviaCirculab #ReFi #Reciclaje #CABA`
+   const texto = `Acabo de registrar ${(unidad==="g"?kg/1000:kg)}kg de ${tipo?.l} en OLIVIA Circulab 🌿\n\nGané ${resultado?.olv} OLV · ${resultado?.co2}kg CO2eq evitados\n\n¿Vos también reciclás? → oliviacirculab.com.ar\n\n#OliviaCirculab #ReFi #Reciclaje #CABA`
    if(navigator.share) {
      try {
        await navigator.share({
