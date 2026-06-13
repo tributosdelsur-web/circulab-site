@@ -368,7 +368,7 @@ export default function Landing() {
             <div style={{fontSize:11,color:'#ef4444',fontWeight:700,marginBottom:8,textAlign:'center'}}>{es?'⚠️ El negocio del enterramiento':'⚠️ The landfill business'}</div>
             <div style={{borderRadius:16,overflow:'hidden',border:'1px solid rgba(239,68,68,0.3)',background:'#000'}}>
               <video controls playsInline style={{width:'100%',display:'block',maxHeight:320,objectFit:'cover'}} preload="metadata">
-                <source src="/CIRCULAB1.mp4" type="video/mp4" />
+                <source src="/ciudadano/CIRCULAB1.mp4" type="video/mp4" />
               </video>
             </div>
             <div style={{fontSize:11,color:sub,textAlign:'center',marginTop:8,fontStyle:'italic'}}>

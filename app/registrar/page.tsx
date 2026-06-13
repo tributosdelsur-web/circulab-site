@@ -82,7 +82,6 @@ export default function Registrar() {
  const [disposicion, setDisposicion] = useState('')
  const [kg, setKg] = useState(1)
   const [unidad, setUnidad] = useState<'kg'|'g'>('g')
-  const [unidad, setUnidad] = useState<'kg'|'g'>('kg')
  const [fotoOrigen, setFotoOrigen] = useState<File|null>(null)
  const [fotoOrigenPreview, setFotoOrigenPreview] = useState<string|null>(null)
  const [fotoEntrega, setFotoEntrega] = useState<File|null>(null)
