@@ -81,6 +81,8 @@ export default function Registrar() {
  const [puntoEntrega, setPuntoEntrega] = useState('')
  const [disposicion, setDisposicion] = useState('')
  const [kg, setKg] = useState(1)
+  const [unidad, setUnidad] = useState<'kg'|'g'>('g')
+  const [unidad, setUnidad] = useState<'kg'|'g'>('kg')
  const [fotoOrigen, setFotoOrigen] = useState<File|null>(null)
  const [fotoOrigenPreview, setFotoOrigenPreview] = useState<string|null>(null)
  const [fotoEntrega, setFotoEntrega] = useState<File|null>(null)
@@ -186,7 +188,7 @@ export default function Registrar() {
    const {data: residuo} = await supabase.from('residuos').insert({
      usuario_id: uid,
      tipo: tipo.v,
-     kg,
+     kg: kg_real,
      foto_url,
      foto_entrega_url,
      lat_origen: latOrigen,
@@ -218,7 +220,7 @@ export default function Registrar() {
    const olv_ganados = 20
    await supabase.from('posts').insert({
      usuario_id: uid,
-     contenido: `Acabo de registrar ${kg}kg de ${tipo?.l} 🌿 Gané ${resultado?.olv} OLV pendientes · ${resultado?.co2}kg CO2eq evitados`,
+     contenido: `Acabo de registrar ${kg_real}kg de ${tipo?.l} 🌿 Gané ${resultado?.olv} OLV pendientes · ${resultado?.co2}kg CO2eq evitados`,
      foto_url: resultado?.foto_url||null,
      tipo: 'accion',
      olv_ganados
@@ -234,7 +236,7 @@ export default function Registrar() {
  }
 
  async function compartirEnRedes() {
-   const texto = `Acabo de registrar ${kg}kg de ${tipo?.l} en OLIVIA Circulab 🌿\n\nGané ${resultado?.olv} OLV · ${resultado?.co2}kg CO2eq evitados\n\n¿Vos también reciclás? → oliviacirculab.com.ar\n\n#OliviaCirculab #ReFi #Reciclaje #CABA`
+   const texto = `Acabo de registrar ${kg_real}kg de ${tipo?.l} en OLIVIA Circulab 🌿\n\nGané ${resultado?.olv} OLV · ${resultado?.co2}kg CO2eq evitados\n\n¿Vos también reciclás? → oliviacirculab.com.ar\n\n#OliviaCirculab #ReFi #Reciclaje #CABA`
    if(navigator.share) {
      try {
        await navigator.share({
@@ -336,7 +338,7 @@ export default function Registrar() {
              </button>
            )}
            <a href="/dashboard" style={{display:'flex',alignItems:'center',gap:8,textDecoration:'none'}}>
-             <div style={{width:32,height:32,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:14,color:'white'}}>O</div>
+             <img src="/logoOC.png" alt="OLIVIA" style={{width:36,height:36,objectFit:'contain',borderRadius:8}} />
              <span style={{fontSize:13,fontWeight:800,color:'#f1f5f9'}}>OLIVIA Circulab</span>
            </a>
          </div>
@@ -435,9 +437,10 @@ export default function Registrar() {
            )}
 
            {/* Peso */}
+          {/* Toggle unidad */}
            <div style={{marginBottom:20}}>
              <div style={{fontSize:12,color:'#94a3b8',marginBottom:8,textTransform:'uppercase',letterSpacing:'0.05em'}}>
-               Peso estimado: {kg}kg · {Math.round(tipo.factor*kg*100)} OLV estimados
+               Peso estimado: {unidad==='g'?(kg+'g · '+(kg/1000).toFixed(3)+'kg'):(kg+'kg')} · {Math.round(tipo.factor*(unidad==='g'?kg/1000:kg)*100)} OLV estimados
              </div>
              <input type="range" min={0.5} max={50} step={0.5} value={kg}
                onChange={e=>setKg(Number(e.target.value))}
@@ -591,7 +594,7 @@ export default function Registrar() {
              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10,marginBottom:12}}>
                {[
                  {l:'Tipo',v:`${tipo.icon} ${tipo.l}`},
-                 {l:'Peso',v:`${kg}kg`},
+                 {l:'Peso',v:unidad==='g'?`${kg}g (${(kg/1000).toFixed(3)}kg)`:`${kg}kg`},
                  {l:'OLV estimados',v:`${Math.round(tipo.factor*kg*100)} OLV`},
                  {l:'CO2eq',v:`${(tipo.factor*kg).toFixed(2)}kg`},
                ].map(i=>(

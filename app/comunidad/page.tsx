@@ -349,7 +349,7 @@ function ComunidadContent() {
       {/* Header */}
       <div style={{padding:'12px 16px',borderBottom:'1px solid rgba(255,255,255,0.06)',display:'flex',alignItems:'center',justifyContent:'space-between',position:'sticky',top:0,background:'rgba(10,14,26,0.97)',backdropFilter:'blur(10px)',zIndex:100}}>
         <a href="/" style={{display:'flex',alignItems:'center',gap:8,textDecoration:'none'}}>
-          <div style={{width:32,height:32,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:14,color:'white'}}>O</div>
+          <img src="/logoOC.png" alt="OLIVIA" style={{width:36,height:36,objectFit:'contain',borderRadius:8}} />
           <div>
             <div style={{fontSize:13,fontWeight:800,color:'#f1f5f9'}}>OLIVIA</div>
             <div style={{fontSize:9,color:'#22c55e',textTransform:'uppercase'}}>Comunidad</div>
