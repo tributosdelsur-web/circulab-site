@@ -273,7 +273,7 @@ export default function Landing() {
         <h1 style={{fontSize:34,fontWeight:900,lineHeight:1.15,marginBottom:16,letterSpacing:'-0.02em'}}>
           <span style={{color:'#22c55e'}}>{es?'La batalla más importante':'The most important battle'}</span><br/>
           <span style={{color:text}}>{es?'de nuestro tiempo':'of our time'}</span><br/>
-          <span style={{color:'#f59e0b',fontStyle:'italic'}}>{es?'es el calentamiento global.':'is global warming.'}</span><br/><span style={{color:text,fontSize:26,fontWeight:700}}>{es?'El planeta no espera.':'The planet won\'t wait.'}</span><br/><span style={{color:text,fontSize:26,fontWeight:700}}>{es?'Tu barrio tampoco.':'Neither will your neighborhood.'}</span>
+          <span style={{color:'#f59e0b'}}>{es?'es el calentamiento global.':'is global warming.'}</span><br/><span style={{color:'#3b82f6'}}>{es?'El planeta no espera.':'The planet won\'t wait.'}</span><br/><span style={{color:'#a855f7'}}>{es?'Tu barrio tampoco.':'Neither will your neighborhood.'}</span>
         </h1>
 
         <p style={{fontSize:14,color:sub,lineHeight:1.7,marginBottom:20}}>
