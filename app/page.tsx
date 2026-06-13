@@ -238,6 +238,28 @@ export default function Landing() {
         </div>
       )}
 
+
+      {/* ═══ SECCIÓN LOGO OLIVIA ═══ */}
+      <section style={{padding:'40px 20px 0',maxWidth:580,margin:'0 auto',textAlign:'center'}}>
+        <img 
+          src="/logoOC.png" 
+          alt="OLIVIA Circulab" 
+          style={{
+            width:'100%',
+            maxWidth:320,
+            height:'auto',
+            display:'block',
+            margin:'0 auto 16px'
+          }} 
+        />
+        <div style={{fontSize:13,color:'#22c55e',fontWeight:700,letterSpacing:'0.04em',marginBottom:4}}>
+          OLIVIA Circulab
+        </div>
+        <div style={{fontSize:11,color:sub,lineHeight:1.6,maxWidth:400,margin:'0 auto'}}>
+          {es?'Oficina Latinoamericana de Información para la Valorización e Inteligencia Ambiental':'Latin American Office for Environmental Valuation and Intelligence Information'}
+        </div>
+      </section>
+
       {/* ═══ SECCIÓN 1 — HERO ═══ */}
       <section style={{padding:'48px 20px 32px',maxWidth:580,margin:'0 auto',textAlign:'center'}}>
         {/* BADGES */}
