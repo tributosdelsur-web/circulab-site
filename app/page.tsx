@@ -611,7 +611,7 @@ export default function Landing() {
       <section style={{padding:'32px 20px',maxWidth:580,margin:'0 auto',borderTop:`1px solid ${border}`}}>
         <div style={{fontSize:11,color:'#22c55e',textTransform:'uppercase',letterSpacing:'0.1em',textAlign:'center',marginBottom:6}}>{es?'Comunidad':'Community'}</div>
         <h2 style={{fontSize:22,fontWeight:900,textAlign:'center',marginBottom:6,color:text}}>{es?'Invitá a tus amigos':'Invite your friends'}</h2>
-        <p style={{fontSize:12,color:sub,textAlign:'center',marginBottom:16}}>{es?'⭐ +200 OLV Bonus por cada amigo que se registre':'⭐ +200 OLV Bonus for every friend who registers'}</p>
+        <p style={{fontSize:12,color:sub,textAlign:'center',marginBottom:16}}>{es?'⭐ +50 OLV Bonus por cada amigo que se registre':'⭐ +50 OLV Bonus for every friend who registers'}</p>
         <div style={{display:'flex',flexDirection:'column',gap:8}}>
           <a href={`https://wa.me/?text=${encodeURIComponent(es?'Estoy reciclando con OLIVIA Circulab y ganando OLV reales 🌿 Uníte acá: https://oliviacirculab.com.ar':'I\'m recycling with OLIVIA Circulab and earning real OLV 🌿 Join here: https://oliviacirculab.com.ar')}`}
             target="_blank" style={{display:'flex',alignItems:'center',gap:10,padding:'12px 14px',borderRadius:10,background:'rgba(37,211,102,0.1)',border:'1px solid rgba(37,211,102,0.3)',textDecoration:'none'}}>
