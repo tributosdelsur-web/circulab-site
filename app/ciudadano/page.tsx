@@ -5,6 +5,7 @@ export default function Ciudadano() {
   const [lang, setLang] = useState<'es'|'en'>('es')
   const [tema, setTema] = useState<'light'|'dark'|'color'>('dark')
   const [popup, setPopup] = useState(false)
+  const [videoModal, setVideoModal] = useState(true)
 
   const bg = tema==='dark'?'#0a0e1a':tema==='color'?'#f4ece1':'#faf7f2'
   const text = tema==='dark'?'#f1f5f9':tema==='color'?'#2c3e50':'#0d0d0d'
@@ -12,60 +13,168 @@ export default function Ciudadano() {
   const card = tema==='dark'?'#111827':tema==='color'?'#fdfaf6':'#ffffff'
   const border = tema==='dark'?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.07)'
   const sub = tema==='dark'?'#94a3b8':'#64748b'
-
   const es = lang==='es'
 
-  useEffect(()=>{
-    const timer = setTimeout(()=>setPopup(true), 8000)
-    return ()=>clearTimeout(timer)
-  },[])
+  useEffect(()=>{ }, [])
 
-  function generarStory() {
+  function cerrarModal() {
+    setVideoModal(false)
+    setTimeout(()=>setPopup(true), 30000)
+  }
+
+  function compartirWA() {
+    const url = 'https://oliviacirculab.com.ar/ciudadano'
+    const txt = es
+      ?`El negocio del enterramiento factura millones. Vos no ves un peso. OLIVIA lo cambia 🌿 ${url}`
+      :`The landfill business earns millions. You see nothing. OLIVIA changes that 🌿 ${url}`
+    window.open('https://wa.me/?text='+encodeURIComponent(txt))
+  }
+
+  async function generarStoryEnterramiento() {
     const canvas = document.createElement('canvas')
-    canvas.width = 1080
-    canvas.height = 1920
+    canvas.width = 1080; canvas.height = 1920
     const ctx = canvas.getContext('2d')!
-    ctx.fillStyle = '#0a1a0a'
-    ctx.fillRect(0,0,1080,1920)
-    ctx.fillStyle = '#22c55e'
-    ctx.font = 'bold 80px system-ui'
+    const grad = ctx.createLinearGradient(0,0,0,1920)
+    grad.addColorStop(0,'#0a1a0a'); grad.addColorStop(1,'#0a0e1a')
+    ctx.fillStyle = grad; ctx.fillRect(0,0,1080,1920)
     ctx.textAlign = 'center'
-    ctx.fillText('OLIVIA Circulab', 540, 400)
-    ctx.fillStyle = '#f1f5f9'
-    ctx.font = '60px system-ui'
-    ctx.fillText(es?'Tu residuo vale':'Your waste matters', 540, 560)
-    ctx.fillText(es?'dinero real 💰':'real money 💰', 540, 640)
-    ctx.fillStyle = '#22c55e'
-    ctx.font = 'bold 120px system-ui'
-    ctx.fillText('🌿', 540, 900)
-    ctx.fillStyle = '#94a3b8'
-    ctx.font = '50px system-ui'
-    ctx.fillText('circulab-site.vercel.app', 540, 1600)
-    canvas.toBlob(blob=>{
-      const url = URL.createObjectURL(blob!)
+    ctx.fillStyle = '#ef4444'; ctx.font = 'bold 80px system-ui'
+    ctx.fillText(es?'6.000 toneladas':'6,000 tons', 540, 380)
+    ctx.fillStyle = '#f1f5f9'; ctx.font = 'bold 58px system-ui'
+    ctx.fillText(es?'por día van al relleno.':'per day go to landfill.', 540, 480)
+    ctx.fillStyle = '#f59e0b'; ctx.font = 'bold 54px system-ui'
+    ctx.fillText(es?'¿Y si eso cambiara?':'What if that changed?', 540, 600)
+    ctx.fillStyle = '#94a3b8'; ctx.font = '44px system-ui'
+    ctx.fillText(es?'En las ciudades que funcionan,':'In cities that work,', 540, 900)
+    ctx.fillText(es?'el vecino cobra por reciclar.':'citizens get paid to recycle.', 540, 960)
+    ctx.fillStyle = '#22c55e'; ctx.font = 'bold 52px system-ui'
+    ctx.fillText('OLIVIA lo hace en LATAM.', 540, 1060)
+    ctx.fillStyle = '#22c55e'; ctx.font = 'bold 48px system-ui'
+    ctx.fillText('🌿 OLIVIA Circulab', 540, 1280)
+    ctx.fillStyle = '#f1f5f9'; ctx.font = '40px system-ui'
+    ctx.fillText(es?'Ver el video completo →':'Watch the full video →', 540, 1380)
+    ctx.fillStyle = '#22c55e'; ctx.beginPath()
+    ctx.roundRect(140,1500,800,120,30); ctx.fill()
+    ctx.fillStyle = '#0a1a0a'; ctx.font = 'bold 40px system-ui'
+    ctx.fillText('oliviacirculab.com.ar/ciudadano', 540, 1575)
+    canvas.toBlob(async(blob)=>{
+      if(!blob) return
+      const file = new File([blob],'olivia-enterramiento-story.png',{type:'image/png'})
+      const txt = es?'El negocio del enterramiento. OLIVIA lo cambia 🌿 https://oliviacirculab.com.ar/ciudadano':'The landfill business. OLIVIA changes it 🌿 https://oliviacirculab.com.ar/ciudadano'
+      if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
+        try{await navigator.share({files:[file],title:'OLIVIA Circulab',text:txt});return}catch(e){}
+      }
+      const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
-      a.href = url
-      a.download = 'olivia-story.png'
-      a.click()
-    })
+      a.href=url; a.download='olivia-enterramiento-story.png'; a.click()
+      alert(es?'📸 Imagen descargada\nAbrí Instagram → Nueva Story → Galería':'📸 Image downloaded\nOpen Instagram → New Story → Gallery')
+    },'image/png')
+  }
+
+  async function generarStoryInvitar() {
+    const canvas = document.createElement('canvas')
+    canvas.width = 1080; canvas.height = 1920
+    const ctx = canvas.getContext('2d')!
+    const grad = ctx.createLinearGradient(0,0,0,1920)
+    grad.addColorStop(0,'#0a1a0a'); grad.addColorStop(1,'#0a0e1a')
+    ctx.fillStyle = grad; ctx.fillRect(0,0,1080,1920)
+    ctx.textAlign = 'center'
+    ctx.fillStyle = '#22c55e'; ctx.font = 'bold 64px system-ui'
+    ctx.fillText('🌿 OLIVIA Circulab', 540, 300)
+    ctx.fillStyle = '#f1f5f9'; ctx.font = 'bold 80px system-ui'
+    ctx.fillText(es?'Me sumé al':'I joined', 540, 620)
+    ctx.fillText(es?'reciclaje que paga 💰':'recycling that pays 💰', 540, 720)
+    ctx.font = '52px system-ui'
+    ctx.fillText(es?'Uníte gratis →':'Join for free →', 540, 1100)
+    ctx.fillStyle = '#22c55e'; ctx.beginPath()
+    ctx.roundRect(140,1350,800,140,35); ctx.fill()
+    ctx.fillStyle = '#0a1a0a'; ctx.font = 'bold 48px system-ui'
+    ctx.fillText('oliviacirculab.com.ar', 540, 1438)
+    ctx.fillStyle = '#64748b'; ctx.font = '38px system-ui'
+    ctx.fillText(es?'Tu residuo vale dinero real':'Your waste is worth real money', 540, 1720)
+    canvas.toBlob(async(blob)=>{
+      if(!blob) return
+      const file = new File([blob],'olivia-story.png',{type:'image/png'})
+      const txt = es?'Sumate a OLIVIA Circulab 🌿 https://oliviacirculab.com.ar/ciudadano':'Join OLIVIA Circulab 🌿 https://oliviacirculab.com.ar/ciudadano'
+      if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
+        try{await navigator.share({files:[file],title:'OLIVIA Circulab',text:txt});return}catch(e){}
+      }
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href=url; a.download='olivia-story.png'; a.click()
+      alert(es?'📸 Imagen descargada\nAbrí Instagram → Nueva Story → Galería':'📸 Image downloaded\nOpen Instagram → New Story → Gallery')
+    },'image/png')
   }
 
   const TRAMOS = [
-    {icon:'🌱',t:es?'SEMILLA · 2026':'SEED · 2026',d:es?'Registrás residuos · Acumulás OLV · Construís historial · Los que empiezan hoy cobran más':'Register waste · Accumulate OLV · Build history · Early starters earn more',c:'#22c55e',activo:true},
-    {icon:'🌿',t:es?'BROTE · Q4 2026':'SPROUT · Q4 2026',d:es?'OLV canjeables · Salud, transporte, apps y créditos de IA':'OLV redeemable · Health, transport, apps and AI credits',c:'#3b82f6',activo:false},
-    {icon:'🌳',t:es?'ÁRBOL · 2027 💰':'TREE · 2027 💰',d:es?'Primer pago real USD · Verra VCS · Reforestación REDD+ con biomasa OLIVIA':'First real USD payment · Verra VCS · REDD+ reforestation with OLIVIA biomass',c:'#f59e0b',activo:false},
-    {icon:'🌲',t:es?'BOSQUE · 2028':'FOREST · 2028',d:es?'Art. 6.4 París · USD 90/t · Corredor AR MX CO BR CH DO':'Art. 6.4 Paris · USD 90/t · AR MX CO BR CH DO corridor',c:'#a855f7',activo:false},
-    {icon:'🏔️',t:es?'SELVA · 2029':'JUNGLE · 2029',d:es?'OLIVIA Ocean + Waters + Space · PULSO estándar LATAM':'OLIVIA Ocean + Waters + Space · PULSO LATAM standard',c:'#ec4899',activo:false},
-    {icon:'🌊',t:es?'SUMIDERO · 2030+':'SINK · 2030+',d:es?'Net positive verificado · El sistema absorbe más CO2 del que genera':'Verified net positive · System absorbs more CO2 than it generates',c:'#06b6d4',activo:false},
+    {icon:'🌱',t:es?'SEMILLA · 2026':'SEED · 2026',d:es?'ACTIVA · OLV sin valor monetario · Construís historial · Los que empiezan hoy cobran primero en Árbol':'ACTIVE · OLV no monetary value · Build history · Early starters earn first in Árbol',c:'#22c55e',activo:true},
+    {icon:'🌿',t:es?'BROTE · Q4 2026':'SPROUT · Q4 2026',d:es?'OLV canjeables · Salud, transporte, apps y créditos de IA · Convenios con partners':'OLV redeemable · Health, transport, apps and AI credits · Partner deals',c:'#3b82f6',activo:false},
+    {icon:'🌳',t:es?'ÁRBOL · 2027 💰':'TREE · 2027 💰',d:es?'Si Verra VCS certifica · Valor neto por kg al ciudadano · OLIVIA no paga — el mercado sí · 6.329 OLV = USD 1 · ✅ Verra validó el método dMRV en Feb 2026 — el camino técnico está abierto':'If Verra VCS certifies · Net value per kg to citizen · 6.329 OLV = USD 1 · ✅ Verra validated the dMRV method in Feb 2026',c:'#f59e0b',activo:false},
+    {icon:'🌲',t:es?'BOSQUE · 2028':'FOREST · 2028',d:es?'Art. 6.4 París · 2.198 OLV = USD 1 · Corredor AR MX CO BR CH DO':'Art. 6.4 Paris · 2.198 OLV = USD 1 · AR MX CO BR CH DO corridor',c:'#a855f7',activo:false},
+    {icon:'🏔️',t:es?'SELVA · 2029':'JUNGLE · 2029',d:es?'OLIVIA Ocean + Waters + Space · 1.429 OLV = USD 1':'OLIVIA Ocean + Waters + Space · 1.429 OLV = USD 1',c:'#ec4899',activo:false},
+    {icon:'🌊',t:es?'SUMIDERO · 2030+':'SINK · 2030+',d:es?'Net positive verificado · 952 OLV = USD 1 · Infraestructura climática global':'Verified net positive · 952 OLV = USD 1 · Global climate infrastructure',c:'#06b6d4',activo:false},
+  ]
+
+  const OLV_TRAMOS = [
+    {tramo:'🌱 Semilla',año:'2026',olv:es?'Sin valor · acumulás':'No value · accumulate',c:'#22c55e'},
+    {tramo:'🌿 Brote',año:'2026',olv:es?'Solo canje interno':'Internal exchange only',c:'#3b82f6'},
+    {tramo:'🌳 Árbol',año:'2027',olv:'6.329 OLV = USD 1',c:'#f59e0b'},
+    {tramo:'🌲 Bosque',año:'2028',olv:'2.198 OLV = USD 1',c:'#a855f7'},
+    {tramo:'🏔️ Selva',año:'2029',olv:'1.429 OLV = USD 1',c:'#ec4899'},
+    {tramo:'🌊 Sumidero',año:'2030+',olv:'952 OLV = USD 1',c:'#06b6d4'},
+  ]
+
+  const GANANCIAS = [
+    {icon:'🌱',titulo:es?'Solo reciclás en casa':'You recycle at home',arbol:'USD 47/año',bosque:'USD 136/año',semana:'USD 0.90/sem',color:'#22c55e',
+     detalle:es?'Residuos + agua ahorrada + transporte verde':'Waste + saved water + green transport'},
+    {icon:'🏘️',titulo:es?'Organizás tu edificio':'You organize your building',arbol:'USD 117/año',bosque:'USD 339/año',semana:'USD 2.25/sem',color:'#3b82f6',
+     detalle:es?'Vos + coordinás 20 familias':'You + coordinate 20 families'},
+    {icon:'🍃',titulo:es?'Limpiás tu barrio':'You clean your neighborhood',arbol:'USD 115-289/año',bosque:'USD 333-836/año',semana:'USD 2.21-5.55/sem',color:'#22c55e',
+     detalle:es?'Hojas · ramas · residuos verdes del espacio público':'Leaves · branches · green urban waste'},
+    {icon:'🌍',titulo:es?'Coordinás tu zona':'You coordinate your zone',arbol:'USD 257/año',bosque:'USD 745/año',semana:'USD 4.94/sem',color:'#a855f7',
+     detalle:es?'5-8 edificios · 150-200 familias · 5% bonus zonal':'5-8 buildings · 150-200 families · 5% zone bonus'},
   ]
 
   return (
     <div style={{minHeight:'100vh',background:bg,color:text,fontFamily:'system-ui',transition:'all 0.3s',overflowX:'hidden'}}>
 
+      {/* MODAL VIDEO ENTERRAMIENTO — CIRCULAB1.mp4 — horizontal — genera imagen para Story */}
+      {videoModal&&(
+        <div style={{position:'fixed',inset:0,background:'rgba(0,0,0,0.96)',zIndex:9999,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',padding:16}}>
+          <div style={{width:'100%',maxWidth:580,position:'relative'}}>
+            <button onClick={cerrarModal} style={{position:'absolute',top:-44,right:0,background:'transparent',border:'none',color:'white',fontSize:32,cursor:'pointer',lineHeight:1,zIndex:10}}>×</button>
+            <div style={{textAlign:'center',marginBottom:12}}>
+              <span style={{fontSize:11,color:'#ef4444',fontWeight:700,background:'rgba(239,68,68,0.1)',border:'1px solid rgba(239,68,68,0.3)',borderRadius:20,padding:'4px 12px'}}>
+                ⚠️ {es?'El negocio del enterramiento':'The landfill business'}
+              </span>
+            </div>
+            <div style={{borderRadius:14,overflow:'hidden',background:'#000',border:'2px solid rgba(239,68,68,0.3)'}}>
+              <video autoPlay muted controls playsInline style={{width:'100%',display:'block',maxHeight:'50vh',objectFit:'contain'}}>
+                <source src="/CIRCULAB1.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div style={{display:'flex',gap:8,marginTop:12,justifyContent:'center',flexWrap:'wrap'}}>
+              <button onClick={compartirWA}
+                style={{display:'flex',alignItems:'center',gap:6,padding:'10px 16px',borderRadius:10,background:'rgba(37,211,102,0.15)',border:'1px solid rgba(37,211,102,0.4)',cursor:'pointer',color:'#25d366',fontSize:12,fontWeight:700}}>
+                💬 WhatsApp
+              </button>
+              <button onClick={generarStoryEnterramiento}
+                style={{display:'flex',alignItems:'center',gap:6,padding:'10px 16px',borderRadius:10,background:'rgba(131,58,180,0.15)',border:'1px solid rgba(131,58,180,0.4)',cursor:'pointer',color:'#a855f7',fontSize:12,fontWeight:700}}>
+                📸 {es?'Story (imagen vertical)':'Story (vertical image)'}
+              </button>
+              <button onClick={cerrarModal}
+                style={{display:'flex',alignItems:'center',gap:6,padding:'10px 16px',borderRadius:10,background:'rgba(255,255,255,0.06)',border:'1px solid rgba(255,255,255,0.1)',cursor:'pointer',color:'#94a3b8',fontSize:12}}>
+                {es?'Seguir leyendo →':'Continue →'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* NAV */}
       <nav style={{padding:'10px 16px',borderBottom:`1px solid ${border}`,display:'flex',alignItems:'center',justifyContent:'space-between',background:bg,position:'sticky',top:0,zIndex:100,backdropFilter:'blur(10px)'}}>
         <a href="/" style={{display:'flex',alignItems:'center',gap:8,textDecoration:'none'}}>
-          <div style={{width:32,height:32,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:14,color:'white',flexShrink:0}}>O</div>
+          <img src="/logoOC.png" alt="OLIVIA Circulab" style={{width:36,height:36,objectFit:'contain',borderRadius:8}} />
           <div>
             <div style={{fontSize:12,fontWeight:800,color:text,lineHeight:1.2}}>OLIVIA Circulab</div>
             <div style={{fontSize:9,color:accent,textTransform:'uppercase',letterSpacing:'0.06em'}}>Circulab Tech</div>
@@ -92,32 +201,22 @@ export default function Ciudadano() {
 
       <div style={{maxWidth:640,margin:'0 auto',padding:'0 16px'}}>
 
-        {/* HERO — VIDEO PROMINENTE */}
+        {/* HERO */}
         <section style={{padding:'24px 0 16px'}}>
           <div style={{display:'flex',flexWrap:'wrap',gap:6,marginBottom:14}}>
             <span style={{fontSize:10,fontWeight:700,border:'1px solid #22c55e',color:'#22c55e',padding:'3px 10px',borderRadius:20}}>🌱 {es?'Tramo Semilla · 2026':'Seed Stage · 2026'}</span>
             <span style={{fontSize:10,fontWeight:700,border:'1px solid #3b82f6',color:'#3b82f6',padding:'3px 10px',borderRadius:20}}>{es?'Distrito IA · Buenos Aires':'AI District · Buenos Aires'}</span>
           </div>
-
           <h1 style={{fontSize:28,fontWeight:900,lineHeight:1.15,marginBottom:12,letterSpacing:'-0.02em'}}>
             <span style={{color:text}}>{es?'Tu residuo vale.':'Your waste matters.'}</span><br/>
             <span style={{color:'#22c55e',fontStyle:'italic'}}>{es?'Tu árbol crece.':'Your tree grows.'}</span><br/>
             <span style={{color:text}}>{es?'Tu dinero llega.':'Your money arrives.'}</span>
           </h1>
-
           <p style={{fontSize:13,color:sub,lineHeight:1.7,marginBottom:16}}>
-            {es?'Cada kilo de residuo verificado con IA genera tokens OLV que en 2027 se convierten en créditos de carbono certificados y dinero real en tu cuenta.':'Each AI-verified kilo of waste generates OLV tokens that in 2027 become certified carbon credits and real money in your account.'}
+            {es?'Cada kilo de residuo verificado con IA genera OLV Verdes que en 2027 se convierten en créditos de carbono certificados y dinero real en tu cuenta.':'Each AI-verified kilo of waste generates Green OLV that in 2027 become certified carbon credits and real money in your account.'}
           </p>
-
-          {/* VIDEO */}
-          <div style={{borderRadius:14,overflow:'hidden',border:`1px solid ${border}`,marginBottom:16,background:'#000'}}>
-            <video controls style={{width:'100%',display:'block'}} preload="metadata" poster="">
-              <source src="/ciudadano/CIRCULAB1.mp4" type="video/mp4" />
-            </video>
-          </div>
-
           <div style={{display:'flex',gap:10,flexWrap:'wrap'}}>
-            <a href="/registro" style={{flex:1,background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',padding:'13px',borderRadius:10,fontSize:13,fontWeight:700,textDecoration:'none',textAlign:'center',boxShadow:'0 0 20px rgba(34,197,94,0.3)'}}>
+            <a href="/registro" style={{flex:1,background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',padding:'13px',borderRadius:10,fontSize:13,fontWeight:700,textDecoration:'none',textAlign:'center'}}>
               {es?'📷 Registrar Mi Residuo →':'📷 Register My Waste →'}
             </a>
             <a href="/simulador" style={{background:card,border:`1px solid ${border}`,color:text,padding:'13px 16px',borderRadius:10,fontSize:12,fontWeight:600,textDecoration:'none',textAlign:'center'}}>
@@ -126,12 +225,122 @@ export default function Ciudadano() {
           </div>
         </section>
 
-        {/* EL PROBLEMA — EL ENTERRAMIENTO */}
+        {/* OLV VERDE VS BONUS */}
+        <section style={{padding:'24px 0',borderTop:`1px solid ${border}`}}>
+          <h2 style={{fontSize:20,fontWeight:900,marginBottom:16,color:text}}>{es?'Dos tipos de OLV':'Two types of OLV'}</h2>
+          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
+            <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.3)',borderRadius:14,padding:'16px'}}>
+              <div style={{fontSize:20,marginBottom:8}}>🌿</div>
+              <div style={{fontSize:13,fontWeight:700,color:'#22c55e',marginBottom:6}}>{es?'OLV Verdes':'Green OLV'}</div>
+              <div style={{fontSize:11,color:sub,lineHeight:1.6}}>{es?'Solo de residuos verificados con IA. Estos certifica Verra. Estos paga el mercado de carbono en 2027.':'Only from AI-verified waste. Verra certifies these. The carbon market pays these in 2027.'}</div>
+            </div>
+            <div style={{background:'rgba(245,158,11,0.06)',border:'1px solid rgba(245,158,11,0.2)',borderRadius:14,padding:'16px'}}>
+              <div style={{fontSize:20,marginBottom:8}}>⭐</div>
+              <div style={{fontSize:13,fontWeight:700,color:'#f59e0b',marginBottom:6}}>{es?'OLV Bonus':'Bonus OLV'}</div>
+              <div style={{fontSize:11,color:sub,lineHeight:1.6}}>{es?'Por registrarte, referir amigos, publicar y dar likes. Canjeables por servicios en Brote. No se certifican con Verra.':'For registering, referring friends, posting and liking. Redeemable for services in Brote. Not Verra certifiable.'}</div>
+            </div>
+          </div>
+        </section>
+
+        {/* ¿CUÁNTO GANÁS Y CUÁNDO? */}
+        <section style={{padding:'24px 0',borderTop:`1px solid ${border}`}}>
+          <h2 style={{fontSize:20,fontWeight:900,marginBottom:6,color:text}}>{es?'¿Cuánto ganás y cuándo cobrás?':'How much do you earn and when?'}</h2>
+          <p style={{fontSize:12,color:sub,marginBottom:16,lineHeight:1.6}}>
+            {es?'Depende de cómo participás. Todos empiezan en Semilla.':'Depends on how you participate. Everyone starts in Semilla.'}
+          </p>
+
+          {/* 4 versiones */}
+          <div style={{display:'flex',flexDirection:'column',gap:10,marginBottom:16}}>
+            {GANANCIAS.map((g,i)=>(
+              <div key={i} style={{padding:'16px',background:card,borderRadius:14,border:`1px solid ${g.color}22`}}>
+                <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:8}}>
+                  <span style={{fontSize:28}}>{g.icon}</span>
+                  <div style={{flex:1}}>
+                    <div style={{fontSize:13,fontWeight:700,color:g.color}}>{g.titulo}</div>
+                    <div style={{fontSize:11,color:sub,marginTop:2}}>{g.detalle}</div>
+                  </div>
+                </div>
+                <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:8}}>
+                  <div style={{textAlign:'center',background:'rgba(255,255,255,0.03)',borderRadius:8,padding:'8px 4px'}}>
+                    <div style={{fontSize:9,color:sub,marginBottom:3}}>{es?'Por semana':'Per week'}</div>
+                    <div style={{fontSize:11,fontWeight:700,color:g.color}}>{g.semana}</div>
+                  </div>
+                  <div style={{textAlign:'center',background:'rgba(245,158,11,0.06)',borderRadius:8,padding:'8px 4px',border:'1px solid rgba(245,158,11,0.15)'}}>
+                    <div style={{fontSize:9,color:sub,marginBottom:3}}>🌳 Árbol 2027</div>
+                    <div style={{fontSize:11,fontWeight:700,color:'#f59e0b'}}>{g.arbol}</div>
+                  </div>
+                  <div style={{textAlign:'center',background:'rgba(168,85,247,0.06)',borderRadius:8,padding:'8px 4px',border:'1px solid rgba(168,85,247,0.15)'}}>
+                    <div style={{fontSize:9,color:sub,marginBottom:3}}>🌲 Bosque 2028</div>
+                    <div style={{fontSize:11,fontWeight:700,color:'#a855f7'}}>{g.bosque}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Tabla OLV por tramo */}
+          <div style={{background:card,border:`1px solid ${border}`,borderRadius:14,padding:'16px',marginBottom:12}}>
+            <div style={{fontSize:12,fontWeight:700,color:text,marginBottom:10}}>{es?'¿Cuántos OLV = USD 1?':'How many OLV = USD 1?'}</div>
+            <div style={{display:'flex',flexDirection:'column',gap:6}}>
+              {OLV_TRAMOS.map((t,i)=>(
+                <div key={i} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'6px 0',borderBottom:i<OLV_TRAMOS.length-1?`1px solid ${border}`:'none'}}>
+                  <div>
+                    <span style={{fontSize:11,fontWeight:700,color:t.c}}>{t.tramo}</span>
+                    <span style={{fontSize:10,color:sub,marginLeft:6}}>{t.año}</span>
+                  </div>
+                  <span style={{fontSize:11,fontWeight:700,color:t.c}}>{t.olv}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Tu calendario */}
+          <div style={{background:'rgba(34,197,94,0.04)',border:'1px solid rgba(34,197,94,0.15)',borderRadius:12,padding:'14px',marginBottom:12}}>
+            <div style={{fontSize:12,fontWeight:700,color:'#22c55e',marginBottom:8}}>{es?'📅 Tu calendario de cobro':'📅 Your payment calendar'}</div>
+            <div style={{display:'flex',flexDirection:'column',gap:6}}>
+              {[
+                {periodo:'HOY · Semilla 2026',desc:es?'Acumulás OLV Verdes gratis · construís historial':'Accumulate Green OLV free · build history',c:'#22c55e'},
+                {periodo:'Q4 2026 · Brote',desc:es?'Canjeás OLV por servicios de partners':'Redeem OLV for partner services',c:'#3b82f6'},
+                {periodo:'2027 · Árbol 💰',desc:es?'Primer pago en USD si Verra certifica':'First USD payment if Verra certifies',c:'#f59e0b'},
+                {periodo:'2028 · Bosque 💰💰',desc:es?'El salto — Art. 6.4 París · hasta 3x más':'The leap — Art. 6.4 Paris · up to 3x more',c:'#a855f7'},
+              ].map((item,i)=>(
+                <div key={i} style={{display:'flex',gap:10,alignItems:'flex-start'}}>
+                  <div style={{width:8,height:8,borderRadius:'50%',background:item.c,flexShrink:0,marginTop:4}}/>
+                  <div>
+                    <div style={{fontSize:11,fontWeight:700,color:item.c}}>{item.periodo}</div>
+                    <div style={{fontSize:10,color:sub}}>{item.desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Argumento primer movedor */}
+          <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,padding:'14px',marginBottom:12}}>
+            <div style={{fontSize:12,fontWeight:700,color:'#22c55e',marginBottom:6}}>💡 {es?'El argumento del primer movedor':'The first mover argument'}</div>
+            <div style={{fontSize:11,color:sub,lineHeight:1.7}}>
+              {es?'Los que entran HOY en Semilla acumulan OLV cuando valen cero. Cuando llegue Árbol 2027 ya tienen 2 años de ventaja. No es especulación — cada OLV tiene un residuo real verificado con IA detrás.':'Those who enter NOW in Semilla accumulate OLV when worth zero. When Árbol 2027 arrives they have 2 years of advantage. Not speculation — each OLV has a real AI-verified waste behind it.'}
+            </div>
+          </div>
+
+          {/* Disclaimer */}
+          <div style={{background:'rgba(245,158,11,0.04)',border:'1px solid rgba(245,158,11,0.15)',borderRadius:10,padding:'12px',marginBottom:16}}>
+            <div style={{fontSize:10,color:sub,lineHeight:1.6,fontStyle:'italic'}}>
+              {es?'⚠️ Los valores son estimados y dependen de: (1) la conducta responsable del ciudadano al registrar y entregar sus residuos, (2) las certificaciones que se obtengan con Verra VCS, Gold Standard, Climate Action Reserve, GS Textile Exchange y demás certificadoras por tipo de material, y (3) el precio real de venta de los créditos en el mercado voluntario (Verra VCS, Gold Standard), en el mercado regulado (Art. 6.4 del Acuerdo de París) y en los mercados corporativos ESG al momento de la liquidación. OLIVIA crea el sistema, lo valida, lo certifica y permite que todos lo utilicemos. El sistema es de todos. OLIVIA no paga — el mercado paga.':'⚠️ Values are estimates and depend on: (1) responsible citizen behavior when registering and delivering waste, (2) certifications obtained with Verra VCS, Gold Standard, Climate Action Reserve, GS Textile Exchange and other certifiers per material type, and (3) the real sale price of credits in the voluntary market (Verra VCS, Gold Standard), regulated market (Paris Agreement Art. 6.4) and ESG corporate markets at liquidation. OLIVIA creates, validates and certifies the system so everyone can use it. The system belongs to everyone. OLIVIA does not pay — the market pays.'}
+            </div>
+          </div>
+
+          <div style={{textAlign:'center'}}>
+            <a href="/simulador" style={{background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',padding:'14px 28px',borderRadius:12,fontSize:14,fontWeight:700,textDecoration:'none',display:'inline-block'}}>
+              {es?'¿Cuál sos vos? Calculá →':'Which are you? Calculate →'}
+            </a>
+          </div>
+        </section>
+
+        {/* EL PROBLEMA */}
         <section style={{padding:'24px 0',borderTop:`1px solid ${border}`}}>
           <div style={{background:'rgba(239,68,68,0.06)',border:'1px solid rgba(239,68,68,0.2)',borderRadius:14,padding:'20px'}}>
-            <div style={{fontSize:11,color:'#ef4444',fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:10}}>
-              {es?'El problema':'The problem'}
-            </div>
+            <div style={{fontSize:11,color:'#ef4444',fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:10}}>{es?'El problema':'The problem'}</div>
             <h2 style={{fontSize:22,fontWeight:900,marginBottom:12,lineHeight:1.2,color:text}}>
               {es?'El negocio de enterrar tu basura factura millones. Vos no ves un peso.':'The business of burying your trash earns millions. You don\'t see a cent.'}
             </h2>
@@ -148,9 +357,9 @@ export default function Ciudadano() {
                 </div>
               ))}
             </div>
-            <p style={{fontSize:12,color:sub,lineHeight:1.7,fontStyle:'italic'}}>
-              {es?'"Te enseñaron a mezclar todo para que el sistema facture por peso enterrado. OLIVIA rompe ese ciclo — y te da tu parte."':'"They taught you to mix everything so the system earns by buried weight. OLIVIA breaks that cycle — and gives you your share."'}
-            </p>
+            <div style={{fontSize:12,color:'#22c55e',fontWeight:700,textAlign:'center'}}>
+              {es?'OLIVIA no paga — facilita la infraestructura para que el mercado pague.':'OLIVIA doesn\'t pay — it facilitates the infrastructure for the market to pay.'}
+            </div>
           </div>
         </section>
 
@@ -163,11 +372,6 @@ export default function Ciudadano() {
             <div style={{fontSize:12,color:sub,textAlign:'center',marginBottom:16,lineHeight:1.6,fontStyle:'italic'}}>
               {es?'"Solo hay recursos sin infraestructura. OLIVIA es esa infraestructura."':'"Only resources without infrastructure. OLIVIA is that infrastructure."'}
             </div>
-            <div style={{fontSize:12,color:sub,textAlign:'center',marginBottom:16}}>
-              {es?'Un sistema que se alimenta a sí mismo haciendo el bien — como en la naturaleza, nada se pierde.':'A system that feeds itself by doing good — like in nature, nothing is lost.'}
-            </div>
-
-            {/* CICLO */}
             <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:8,marginBottom:14}}>
               {[
                 {icon:'🏠',l:es?'Vos separás':'You sort',s:es?'Foto + GPS':'Photo + GPS'},
@@ -182,10 +386,9 @@ export default function Ciudadano() {
                 </div>
               ))}
             </div>
-
             <div style={{padding:'10px',background:'rgba(245,158,11,0.08)',border:'1px solid rgba(245,158,11,0.2)',borderRadius:10,textAlign:'center'}}>
               <span style={{fontSize:11,color:'#f59e0b',fontWeight:700}}>
-                {es?'💰 Los que entran hoy en Semilla cobran primero en Árbol — 2027':'💰 Those who enter today in Seed earn first in Tree — 2027'}
+                {es?'💰 Los que entran hoy en Semilla cobran primero en Árbol — 2027':'💰 Those who enter today in Semilla earn first in Árbol — 2027'}
               </span>
             </div>
           </div>
@@ -194,10 +397,7 @@ export default function Ciudadano() {
         {/* LOS 6 TRAMOS */}
         <section style={{padding:'24px 0',borderTop:`1px solid ${border}`}}>
           <div style={{fontSize:11,color:'#22c55e',fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:6}}>Roadmap</div>
-          <h2 style={{fontSize:20,fontWeight:900,marginBottom:6,color:text}}>{es?'Los 6 tramos del ecosistema':'The 6 ecosystem stages'}</h2>
-          <p style={{fontSize:12,color:sub,marginBottom:16,lineHeight:1.6}}>
-            {es?'Como un árbol — de semilla a selva. Los que entran hoy cobran primero.':'Like a tree — from seed to jungle. Those who enter today earn first.'}
-          </p>
+          <h2 style={{fontSize:20,fontWeight:900,marginBottom:16,color:text}}>{es?'Los 6 tramos del ecosistema':'The 6 ecosystem stages'}</h2>
           <div style={{display:'flex',flexDirection:'column',gap:8}}>
             {TRAMOS.map((tr,i)=>(
               <div key={i} style={{borderLeft:`4px solid ${tr.c}`,padding:'10px 14px',background:tr.activo?`${tr.c}0f`:card,borderRadius:'0 10px 10px 0',display:'flex',justifyContent:'space-between',alignItems:'center',gap:8}}>
@@ -215,18 +415,16 @@ export default function Ciudadano() {
         <section style={{padding:'24px 0',borderTop:`1px solid ${border}`}}>
           <div style={{fontSize:11,color:'#3b82f6',fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:6}}>{es?'Ecosistema':'Ecosystem'}</div>
           <h2 style={{fontSize:20,fontWeight:900,marginBottom:6,color:text}}>{es?'Un sistema que se produce a sí mismo':'A system that produces itself'}</h2>
-          <p style={{fontSize:12,color:sub,marginBottom:16}}>{es?'Tus OLV conectan todas las verticales':'Your OLV tokens connect all verticals'}</p>
+          <p style={{fontSize:12,color:sub,marginBottom:16}}>{es?'Tus OLV conectan todas las verticales':'Your OLV connect all verticals'}</p>
           <div style={{display:'flex',flexDirection:'column',gap:8}}>
             {[
-              es?'🌿 Reciclás → OLV → pagás el transporte con los mismos OLV que ganaste':'🌿 Recycle → OLV → pay for transport with the same OLV you earned',
+              es?'🌿 Reciclás → OLV Verdes → pagás el transporte con los mismos OLV que ganaste':'🌿 Recycle → Green OLV → pay for transport with the same OLV you earned',
               es?'🌳 OLV para plantar árboles → el árbol genera REDD+ → parte vuelve a vos':'🌳 OLV to plant trees → tree generates REDD+ → part returns to you',
               es?'👥 OLV sube tu PULSO → mejor PULSO → mejor tasa en AOM → más capital hoy':'👥 OLV raises your PULSO → better PULSO → better AOM rate → more capital today',
               es?'🏥 Canjeás OLV por salud → clínica acumula OLV → los convierte en USD 2027':'🏥 Redeem OLV for health → clinic accumulates OLV → converts to USD 2027',
               es?'🤖 Reciclás más → canjeás OLV por créditos de IA (Claude, Gemini, etc)':'🤖 Recycle more → redeem OLV for AI credits (Claude, Gemini, etc)',
             ].map((inc,i)=>(
-              <div key={i} style={{background:card,border:`1px solid ${border}`,borderRadius:10,padding:'10px 14px',fontSize:11,color:sub,lineHeight:1.6}}>
-                {inc}
-              </div>
+              <div key={i} style={{background:card,border:`1px solid ${border}`,borderRadius:10,padding:'10px 14px',fontSize:11,color:sub,lineHeight:1.6}}>{inc}</div>
             ))}
           </div>
         </section>
@@ -238,8 +436,8 @@ export default function Ciudadano() {
           <div style={{display:'flex',flexDirection:'column',gap:12}}>
             {[
               {img:'/ciudadano/metamorfosis.jpg',nombre:'OLIVIA Circulab',desc:es?'Residuos → compost → reforestación → créditos de carbono → dinero real':'Waste → compost → reforestation → carbon credits → real money',color:'#22c55e',href:'/registro'},
-              {img:'/ciudadano/pulso.jpg',nombre:'Quincena · PULSO',desc:es?'Roscas digitales → score crediticio → acceso al crédito formal · AR MX CO BR CH DO':'Digital savings circles → credit score → formal credit · AR MX CO BR CH DO',color:'#3b82f6',href:'/quincena'},
-              {img:'/ciudadano/aom.jpg',nombre:'Art of Money',desc:es?'Regalías musicales y deportivas → adelanto de capital hoy · Más OLV = mejor tasa':'Music and sports royalties → capital advance today · More OLV = better rate',color:'#a855f7',href:'/aom'},
+              {img:'/ciudadano/pulso.jpg',nombre:'Quincena · PULSO',desc:es?'Roscas digitales → score crediticio → acceso al crédito formal · AR MX CO BR CH DO · Más OLV = mejor PULSO':'Digital savings circles → credit score → formal credit · AR MX CO BR CH DO · More OLV = better PULSO',color:'#3b82f6',href:'/quincena'},
+              {img:'/ciudadano/aom.jpg',nombre:'Art of Money',desc:es?'Regalías musicales y deportivas → capital hoy · Más OLV → más puertas si sos creador':'Music and sports royalties → capital today · More OLV → more doors if you\'re a creator',color:'#a855f7',href:'/aom'},
             ].map(v=>(
               <div key={v.nombre} style={{background:card,border:`1px solid ${border}`,borderRadius:14,overflow:'hidden',display:'flex',gap:0}}>
                 <img src={v.img} alt={v.nombre} style={{width:90,objectFit:'cover',filter:'grayscale(100%)',flexShrink:0}}
@@ -248,9 +446,7 @@ export default function Ciudadano() {
                 <div style={{padding:'14px',flex:1}}>
                   <div style={{fontSize:12,fontWeight:700,color:v.color,marginBottom:4}}>{v.nombre}</div>
                   <div style={{fontSize:11,color:sub,lineHeight:1.5,marginBottom:8}}>{v.desc}</div>
-                  <a href={v.href} style={{fontSize:11,color:v.color,fontWeight:700,textDecoration:'none'}}>
-                    {es?'Explorar →':'Explore →'}
-                  </a>
+                  <a href={v.href} style={{fontSize:11,color:v.color,fontWeight:700,textDecoration:'none'}}>{es?'Explorar →':'Explore →'}</a>
                 </div>
               </div>
             ))}
@@ -263,8 +459,8 @@ export default function Ciudadano() {
           <h2 style={{fontSize:20,fontWeight:900,marginBottom:16,color:text}}>{es?'Construido en nuestra cocina':'Built in our kitchen'}</h2>
           <div style={{display:'flex',flexDirection:'column',gap:12}}>
             {[
-              {foto:'/founders/founder-jp.jpg',nombre:'Juan Pablo Sanguinetti de Zapata',rol:es?'CEO & Founder':'CEO & Founder',desc:es?'Director de teatro chileno y abogado. Product builder con IA. Arquitecto del ecosistema Circulab. Diseñó OLIVIA viviendo la fricción del reciclaje en su propia cocina.':'Chilean theater director and lawyer. AI product builder. Architect of the Circulab ecosystem. Designed OLIVIA living the friction of recycling in his own kitchen.',color:'#22c55e'},
-              {foto:'/founders/founder-mileidy.jpg',nombre:'Mileidy Zapata de Sanguinetti',rol:es?'COO & Co-founder':'COO & Co-founder',desc:es?'Madre, bailarina y coreógrafa dominicana. Representante de la sabiduría ancestral y la economía del cuidado. Junto a OLIVIA y Santino Eloy, el piloto comenzó en casa.':'Mother, dancer and Dominican choreographer. Representative of ancestral wisdom and the care economy. Together with OLIVIA and Santino Eloy, the pilot started at home.',color:'#3b82f6'},
+              {foto:'/founders/founder-jp.jpg',nombre:'Juan Pablo Sanguinetti de Zapata',rol:'CEO & Founder',desc:es?'Director de teatro chileno y abogado. Product builder con IA. Arquitecto del ecosistema Circulab.':'Chilean theater director and lawyer. AI product builder. Architect of the Circulab ecosystem.',color:'#22c55e'},
+              {foto:'/founders/founder-mileidy.jpg',nombre:'Mileidy Zapata de Sanguinetti',rol:'COO & Co-founder',desc:es?'Madre, bailarina y coreógrafa dominicana. Economía del cuidado y branding estratégico.':'Mother, dancer and Dominican choreographer. Care economy and strategic branding.',color:'#3b82f6'},
             ].map(f=>(
               <div key={f.nombre} style={{background:card,border:`1px solid ${border}`,borderRadius:12,padding:'16px'}}>
                 <div style={{display:'flex',gap:12,alignItems:'center',marginBottom:10}}>
@@ -305,32 +501,26 @@ export default function Ciudadano() {
         {/* COMPARTIR */}
         <section style={{padding:'24px 0',borderTop:`1px solid ${border}`}}>
           <h2 style={{fontSize:20,fontWeight:900,marginBottom:6,color:text}}>{es?'Compartí OLIVIA':'Share OLIVIA'}</h2>
-          <p style={{fontSize:12,color:sub,marginBottom:16}}>{es?'+200 OLV por cada amigo que se registre con tu código':'+200 OLV for each friend who registers with your code'}</p>
+          <p style={{fontSize:12,color:sub,marginBottom:16}}>{es?'⭐ +50 OLV Bonus por cada amigo que se registre':'⭐ +50 Bonus OLV for each friend who registers'}</p>
           <div style={{display:'flex',flexDirection:'column',gap:10}}>
-            <a href={`https://wa.me/?text=${encodeURIComponent(es?'Mirá este video — tu basura vale dinero real 🌿 circulab-site.vercel.app/ciudadano':'Check this out — your trash is worth real money 🌿 circulab-site.vercel.app/ciudadano')}`}
-              target="_blank"
-              style={{display:'flex',alignItems:'center',gap:12,padding:'14px',borderRadius:12,background:'rgba(37,211,102,0.08)',border:'1px solid rgba(37,211,102,0.3)',textDecoration:'none'}}>
+            <a href={`https://wa.me/?text=${encodeURIComponent(es?'Mirá esto — tu basura vale dinero real 🌿 https://oliviacirculab.com.ar/ciudadano':'Check this out — your trash is worth real money 🌿 https://oliviacirculab.com.ar/ciudadano')}`}
+              target="_blank" style={{display:'flex',alignItems:'center',gap:12,padding:'14px',borderRadius:12,background:'rgba(37,211,102,0.08)',border:'1px solid rgba(37,211,102,0.3)',textDecoration:'none'}}>
               <span style={{fontSize:22}}>💬</span>
               <div>
                 <div style={{fontSize:13,fontWeight:700,color:'#25d366'}}>WhatsApp</div>
                 <div style={{fontSize:10,color:sub}}>{es?'Compartir con mensaje pregrabado':'Share with pre-written message'}</div>
               </div>
             </a>
-
-            <button onClick={generarStory}
-              style={{display:'flex',alignItems:'center',gap:12,padding:'14px',borderRadius:12,background:'rgba(131,58,180,0.08)',border:'1px solid rgba(131,58,180,0.3)',cursor:'pointer',textAlign:'left'}}>
+            <button onClick={generarStoryInvitar} style={{display:'flex',alignItems:'center',gap:12,padding:'14px',borderRadius:12,background:'rgba(131,58,180,0.08)',border:'1px solid rgba(131,58,180,0.3)',cursor:'pointer',textAlign:'left',width:'100%'}}>
               <span style={{fontSize:22}}>📸</span>
               <div>
                 <div style={{fontSize:13,fontWeight:700,color:'#833ab4'}}>{es?'Story Instagram':'Instagram Story'}</div>
-                <div style={{fontSize:10,color:sub}}>{es?'Descargar imagen 1080×1920 lista para subir':'Download 1080×1920 image ready to post'}</div>
+                <div style={{fontSize:10,color:sub}}>{es?'Imagen vertical lista para subir':'Vertical image ready to post'}</div>
               </div>
             </button>
-
             <button onClick={()=>{
-              const txt = es
-                ?'Estoy reciclando con OLIVIA Circulab y ganando OLV reales 🌿 Uníte: circulab-site.vercel.app/ciudadano'
-                :'I am recycling with OLIVIA Circulab and earning real OLV 🌿 Join: circulab-site.vercel.app/ciudadano'
-              if(navigator.share){navigator.share({title:'OLIVIA Circulab',text:txt,url:'https://circulab-site.vercel.app/ciudadano'})}
+              const txt = es?'Estoy reciclando con OLIVIA Circulab y ganando OLV reales 🌿 Uníte: https://oliviacirculab.com.ar/ciudadano':'I am recycling with OLIVIA Circulab and earning real OLV 🌿 Join: https://oliviacirculab.com.ar/ciudadano'
+              if(navigator.share){navigator.share({title:'OLIVIA Circulab',text:txt,url:'https://oliviacirculab.com.ar/ciudadano'})}
               else{navigator.clipboard.writeText(txt);alert(es?'Copiado ✓':'Copied ✓')}
             }} style={{display:'flex',alignItems:'center',gap:12,padding:'14px',borderRadius:12,background:card,border:`1px solid ${border}`,cursor:'pointer',textAlign:'left'}}>
               <span style={{fontSize:22}}>📤</span>
@@ -346,6 +536,10 @@ export default function Ciudadano() {
 
       {/* FOOTER */}
       <footer style={{padding:'20px 16px',borderTop:`1px solid ${border}`,textAlign:'center',marginTop:8}}>
+        <img src="/logoOC.png" alt="OLIVIA Circulab" style={{width:48,height:48,objectFit:'contain',marginBottom:8,opacity:0.7}} />
+        <div style={{fontSize:10,color:sub,marginBottom:4}}>
+          {es?'Oficina Latinoamericana de Información para la Valorización e Inteligencia Ambiental':'Latin American Office for Environmental Valuation and Intelligence Information'}
+        </div>
         <div style={{fontSize:10,color:sub,marginBottom:10}}>© 2026 Circulab Tech · Distrito IA · Buenos Aires</div>
         <div style={{display:'flex',gap:14,justifyContent:'center',flexWrap:'wrap'}}>
           {[
@@ -360,7 +554,7 @@ export default function Ciudadano() {
         </div>
       </footer>
 
-      {/* POPUP ENCUESTA */}
+      {/* POPUP ENCUESTA — 30 segundos después de cerrar el modal */}
       {popup&&(
         <div style={{position:'fixed',inset:0,background:'rgba(0,0,0,0.85)',zIndex:9999,display:'flex',alignItems:'center',justifyContent:'center',padding:20,backdropFilter:'blur(8px)'}}>
           <div style={{background:'#111827',border:'1px solid rgba(34,197,94,0.3)',borderRadius:20,padding:'28px 24px',maxWidth:380,width:'100%',textAlign:'center',position:'relative'}}>
@@ -375,7 +569,7 @@ export default function Ciudadano() {
                 <span key={tag} style={{fontSize:10,color:'#64748b',background:'rgba(255,255,255,0.04)',padding:'3px 10px',borderRadius:20}}>{tag}</span>
               ))}
             </div>
-            <a href="/encuesta" style={{display:'block',background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',padding:'13px 24px',borderRadius:12,fontSize:14,fontWeight:700,textDecoration:'none',marginBottom:10,boxShadow:'0 0 20px rgba(34,197,94,0.25)'}}>
+            <a href="/encuesta" style={{display:'block',background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',padding:'13px 24px',borderRadius:12,fontSize:14,fontWeight:700,textDecoration:'none',marginBottom:10}}>
               {es?'Responder encuesta →':'Take the survey →'}
             </a>
             <button onClick={()=>setPopup(false)} style={{background:'transparent',border:'none',color:'#64748b',fontSize:12,cursor:'pointer',textDecoration:'underline'}}>

@@ -11,16 +11,15 @@ export default function Institucional() {
   const card = dark?'#0f0f0f':'#ffffff'
   const border = dark?'rgba(255,255,255,0.07)':'rgba(0,0,0,0.07)'
   const sub = dark?'#9ca3af':'#6b7280'
-
   const es = lang==='es'
 
   const TRAMOS = [
     {icon:'🌱',l:es?'SEMILLA · 2026':'SEED · 2026',d:es?'Piloto dMRV activo · OLV acumulándose · Historial para Verra · Product-market fit':'Active dMRV pilot · OLV accumulating · Verra history building · Product-market fit',c:'#22c55e',activo:true},
     {icon:'🌿',l:es?'BROTE · Q4 2026':'SPROUT · Q4 2026',d:es?'OLV canjeables · Convenios partner · 3 consorcios piloto · Serie A Q1 2027':'OLV redeemable · Partner deals · 3 pilot buildings · Series A Q1 2027',c:'#3b82f6',activo:false},
-    {icon:'🌳',l:es?'ÁRBOL · 2027 💰':'TREE · 2027 💰',d:es?'Certificación Verra VCS · Primer pago USD · Reforestación REDD+ · Gold Standard plástico':'Verra VCS certification · First USD payment · REDD+ reforestation · Gold Standard plastic',c:'#f59e0b',activo:false},
-    {icon:'🌲',l:es?'BOSQUE · 2028':'FOREST · 2028',d:es?'Art. 6.4 París · USD 90/t · AR MX CO BR CH DO · OLIVIA Exchange blockchain':'Art. 6.4 Paris · USD 90/t · AR MX CO BR CH DO · OLIVIA Exchange blockchain',c:'#a855f7',activo:false},
-    {icon:'🏔️',l:es?'SELVA · 2029':'JUNGLE · 2029',d:es?'OLIVIA Ocean + Waters + Space · PULSO estándar LATAM · AOM en todos los mercados de regalías':'OLIVIA Ocean + Waters + Space · PULSO LATAM standard · AOM in all royalty markets',c:'#ec4899',activo:false},
-    {icon:'🌊',l:es?'SUMIDERO · 2030+':'SINK · 2030+',d:es?'Net positive verificado · El sistema absorbe más CO2 del que genera · Infraestructura climática global':'Verified net positive · System absorbs more CO2 than it generates · Global climate infrastructure',c:'#06b6d4',activo:false},
+    {icon:'🌳',l:es?'ÁRBOL · 2027 💰':'TREE · 2027 💰',d:es?'Certificación Verra VCS · Primer pago USD · ✅ Verra validó el método dMRV en Feb 2026 — certeza técnica confirmada · 6.329 OLV = USD 1':'Verra VCS certification · First USD payment · ✅ Verra validated dMRV method Feb 2026 — technical certainty confirmed · 6.329 OLV = USD 1',c:'#f59e0b',activo:false},
+    {icon:'🌲',l:es?'BOSQUE · 2028':'FOREST · 2028',d:es?'Art. 6.4 París · 2.198 OLV = USD 1 · Corredor AR MX CO BR CH DO · OLIVIA Exchange blockchain':'Art. 6.4 Paris · 2.198 OLV = USD 1 · AR MX CO BR CH DO · OLIVIA Exchange blockchain',c:'#a855f7',activo:false},
+    {icon:'🏔️',l:es?'SELVA · 2029':'JUNGLE · 2029',d:es?'OLIVIA Ocean + Waters + Space · 1.429 OLV = USD 1 · PULSO estándar LATAM':'OLIVIA Ocean + Waters + Space · 1.429 OLV = USD 1 · PULSO LATAM standard',c:'#ec4899',activo:false},
+    {icon:'🌊',l:es?'SUMIDERO · 2030+':'SINK · 2030+',d:es?'Net positive verificado · 952 OLV = USD 1 · Infraestructura climática global':'Verified net positive · 952 OLV = USD 1 · Global climate infrastructure',c:'#06b6d4',activo:false},
   ]
 
   const GARANTIAS = [
@@ -32,7 +31,7 @@ export default function Institucional() {
     {icon:'✅',t:es?'Sin costos fijos hasta inversión comprometida':'No fixed costs until investment committed'},
     {icon:'🔍',t:es?'Auditoría de código mes 1-2':'Code audit months 1-2'},
     {icon:'📋',t:es?'Estabilidad fiscal 10 años · Ley 27.506':'10-year fiscal stability · Law 27.506'},
-    {icon:'💎',t:es?'Cada USD 1 = USD 1.4 efectivos':'Every USD 1 = USD 1.4 effective'},
+    {icon:'💎',t:es?'Cada USD 1 = USD 1.4 efectivos · Riesgo técnico reducido: Verra validó dMRV Feb 2026':'Every USD 1 = USD 1.4 effective · Technical risk reduced: Verra validated dMRV Feb 2026'},
   ]
 
   return (
@@ -41,7 +40,7 @@ export default function Institucional() {
       {/* NAV */}
       <nav style={{position:'sticky',top:0,zIndex:50,backdropFilter:'blur(16px)',background:dark?'rgba(5,5,5,0.9)':'rgba(247,245,241,0.9)',borderBottom:`1px solid ${border}`,padding:'12px 20px',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
         <div style={{display:'flex',alignItems:'center',gap:10}}>
-          <div style={{width:30,height:30,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:13,color:'white',flexShrink:0}}>O</div>
+          <img src="/logoOC.png" alt="OLIVIA Circulab" style={{width:32,height:32,objectFit:'contain',borderRadius:6}} />
           <div>
             <div style={{fontSize:12,fontWeight:700,color:text,textTransform:'uppercase',letterSpacing:'0.05em'}}>Circulab Tech</div>
             <div style={{fontSize:9,color:sub,textTransform:'uppercase',letterSpacing:'0.15em',fontFamily:'monospace'}}>
@@ -64,20 +63,31 @@ export default function Institucional() {
         </div>
       </nav>
 
-      {/* HERO con grid */}
+      {/* HERO con logo + grid */}
       <section style={{
-        padding:'80px 24px 60px',
+        padding:'60px 24px 60px',
         backgroundImage:`linear-gradient(${border} 1px,transparent 1px),linear-gradient(90deg,${border} 1px,transparent 1px)`,
         backgroundSize:'50px 50px',
         position:'relative'
       }}>
         <div style={{maxWidth:800,margin:'0 auto'}}>
-          <div style={{display:'flex',flexWrap:'wrap',gap:8,marginBottom:20}}>
+
+          {/* LOGO GRANDE + NOMBRE INSTITUCIONAL */}
+          <div style={{textAlign:'center',marginBottom:36}}>
+            <img src="/logoOC.png" alt="OLIVIA Circulab"
+              style={{width:120,height:120,objectFit:'contain',display:'block',margin:'0 auto 12px'}} />
+            <div style={{fontSize:10,color:sub,lineHeight:1.6,fontStyle:'italic',maxWidth:480,margin:'0 auto'}}>
+              {es?'Oficina Latinoamericana de Información para la Valorización e Inteligencia Ambiental':'Latin American Office for Environmental Valuation and Intelligence Information'}
+            </div>
+          </div>
+
+          <div style={{display:'flex',flexWrap:'wrap',gap:8,marginBottom:20,justifyContent:'center'}}>
             {[
               'AI-Native Ecosystems',
               'Buenos Aires Sandbox',
               'LATAM Infrastructure',
               es?'Ley 27.506 · 1.4x':'Law 27.506 · 1.4x',
+              es?'🚀 USD 0 inversión externa':'🚀 USD 0 external investment',
             ].map((tag,i)=>(
               <span key={i} style={{border:`1px solid ${border}`,borderRadius:20,padding:'5px 12px',fontSize:10,textTransform:'uppercase',letterSpacing:'0.1em',fontWeight:500,background:dark?'rgba(255,255,255,0.03)':'rgba(0,0,0,0.03)'}}>
                 {tag}
@@ -119,10 +129,42 @@ export default function Institucional() {
                 {label:es?'01 / Autopoiesis Urbana':'01 / Urban Autopoiesis',desc:es?'En la naturaleza no hay basura — solo recursos sin infraestructura. OLIVIA es esa infraestructura. Un sistema que se produce a sí mismo convirtiendo el desorden urbano en activos verificables.':'In nature there is no waste — only resources without infrastructure. OLIVIA is that infrastructure. A system that produces itself by converting urban disorder into verifiable assets.'},
                 {label:es?'02 / Bienes Meritorios Monetizados':'02 / Monetized Merit Goods',desc:es?'Reciclar, reforestar, participar en roscas, crear arte — bienes meritorios sub-consumidos porque el mercado no los precia. OLIVIA les asigna precio a través del token OLV.':'Recycling, reforesting, joining savings circles, creating art — under-consumed merit goods because the market fails to price them. OLIVIA assigns price through the OLV token.'},
                 {label:es?'03 / Multiplicador 1.4x · Ley 27.506':'03 / 1.4x Multiplier · Law 27.506',desc:es?'Cada USD 1 invertido en Circulab Tech vale USD 1.4 efectivos: ganancias al 15%, reducción 70-80% cargas patronales, FONDCE, estabilidad fiscal 10 años. Distrito IA Buenos Aires.':'Every USD 1 invested in Circulab Tech is worth USD 1.4 effective: 15% income tax, 70-80% payroll reduction, FONDCE, 10-year fiscal stability. Buenos Aires AI District.'},
+                {label:es?'04 / Riesgo técnico reducido':'04 / Reduced technical risk',desc:es?'En febrero 2026 Verra aprobó los primeros créditos bajo dMRV de alta frecuencia. Esto valida exactamente el modelo de OLIVIA. El riesgo técnico pasó de ALTO a MEDIO.':'In February 2026 Verra approved the first credits under high-frequency dMRV. This validates exactly the OLIVIA model. Technical risk moved from HIGH to MEDIUM.'},
               ].map((item,i)=>(
                 <div key={i} style={{borderLeft:`3px solid ${accent}`,paddingLeft:14}}>
                   <div style={{fontSize:10,fontWeight:700,color:accent,textTransform:'uppercase',letterSpacing:'0.1em',fontFamily:'monospace',marginBottom:4}}>{item.label}</div>
                   <p style={{fontSize:12,color:sub,lineHeight:1.6,margin:0}}>{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* POSICIONAMIENTO COMPETITIVO */}
+      <section style={{background:dark?'#0a1a0a':'#f0fdf4',padding:'32px 24px'}}>
+        <div style={{maxWidth:900,margin:'0 auto'}}>
+          <p style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:sub,marginBottom:12,textAlign:'center'}}>[ {es?'Posicionamiento':'Positioning'} ]</p>
+          <h2 style={{fontSize:20,fontWeight:700,textAlign:'center',marginBottom:20,color:text}}>
+            {es?'OLIVIA en el ecosistema':'OLIVIA in the ecosystem'}
+          </h2>
+          <div style={{background:card,border:`1px solid ${border}`,borderRadius:16,padding:'20px',marginBottom:16}}>
+            <p style={{fontSize:13,color:sub,lineHeight:1.7,marginBottom:16,textAlign:'center',fontStyle:'italic'}}>
+              {es?'"OLIVIA activa al ciudadano. MUTA digitalizó la industria. Glacier automatizó las plantas. Somos la capa que faltaba: el ciudadano conectado al mercado de carbono internacional."':'"OLIVIA activates the citizen. MUTA digitalized industry. Glacier automated plants. We are the missing layer: the citizen connected to the international carbon market."'}
+            </p>
+            <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:10}}>
+              {[
+                {feat:es?'Ciudadano directo':'Direct citizen',olivia:'✅',otros:es?'❌ MUTA/Glacier':'❌ MUTA/Glacier'},
+                {feat:es?'Créditos carbono reales':'Real carbon credits',olivia:'✅',otros:es?'❌ MUTA (solo trazabilidad)':'❌ MUTA (traceability only)'},
+                {feat:'dMRV ciudadano',olivia:'✅',otros:es?'❌ Nadie en LATAM':'❌ Nobody in LATAM'},
+                {feat:es?'3 verticales integradas':'3 integrated verticals',olivia:'✅',otros:es?'❌ Ninguno':'❌ None'},
+              ].map((row,i)=>(
+                <div key={i} style={{background:dark?'rgba(255,255,255,0.02)':'rgba(0,0,0,0.02)',borderRadius:10,padding:'10px 12px',border:`1px solid ${border}`}}>
+                  <div style={{fontSize:10,color:sub,marginBottom:4}}>{row.feat}</div>
+                  <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                    <span style={{fontSize:12,fontWeight:700,color:'#22c55e'}}>OLIVIA {row.olivia}</span>
+                    <span style={{fontSize:10,color:sub}}>{row.otros}</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -140,19 +182,56 @@ export default function Institucional() {
 
       <div style={{maxWidth:900,margin:'0 auto',padding:'0 20px'}}>
 
-        {/* EN LA NATURALEZA */}
+        {/* EL MODELO OLV */}
         <section style={{padding:'48px 0 32px'}}>
+          <div style={{textAlign:'center',marginBottom:20}}>
+            <p style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:sub,marginBottom:8}}>[ {es?'El Modelo OLV':'The OLV Model'} ]</p>
+            <h2 style={{fontSize:26,fontWeight:900}}>{es?'El modelo de retención más poderoso':'The most powerful retention model'}</h2>
+          </div>
+          <div style={{background:card,border:`1px solid ${border}`,borderRadius:16,padding:'24px',marginBottom:16}}>
+            <p style={{fontSize:13,color:sub,lineHeight:1.7,marginBottom:16,fontStyle:'italic'}}>
+              {es?'"Los usuarios acumulan OLV cuando valen cero. El mercado los compra en 2027. Eso crea el modelo de retención más poderoso: el usuario ya invirtió su tiempo y sus residuos. Espera el retorno. No se va."':'"Users accumulate OLV when worth zero. The market buys them in 2027. That creates the most powerful retention model: the user already invested their time and waste. They wait for the return. They don\'t leave."'}
+            </p>
+            <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10,marginBottom:16}}>
+              {[
+                {tramo:'🌳 Árbol 2027',olv:'6.329 OLV = USD 1',c:'#f59e0b'},
+                {tramo:'🌲 Bosque 2028',olv:'2.198 OLV = USD 1',c:'#a855f7'},
+                {tramo:'🌊 Sumidero 2030+',olv:'952 OLV = USD 1',c:'#06b6d4'},
+              ].map((t,i)=>(
+                <div key={i} style={{textAlign:'center',background:dark?'rgba(255,255,255,0.02)':'rgba(0,0,0,0.02)',borderRadius:10,padding:'12px',border:`1px solid ${t.c}22`}}>
+                  <div style={{fontSize:11,fontWeight:700,color:t.c,marginBottom:4}}>{t.tramo}</div>
+                  <div style={{fontSize:11,color:sub}}>{t.olv}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,padding:'14px'}}>
+              <div style={{fontSize:12,fontWeight:700,color:'#22c55e',marginBottom:8}}>{es?'Proyección de escala LATAM':'LATAM scale projection'}</div>
+              <div style={{display:'flex',flexDirection:'column',gap:6}}>
+                {[
+                  es?'1.000 familias activas → USD 47.000/año en Árbol':'1,000 active families → USD 47,000/year in Árbol',
+                  es?'100.000 familias → USD 4.7M/año en Árbol':'100,000 families → USD 4.7M/year in Árbol',
+                  es?'1.000.000 familias → USD 47M/año en Árbol · USD 136M/año en Bosque':'1,000,000 families → USD 47M/year in Árbol · USD 136M/year in Bosque',
+                ].map((item,i)=>(
+                  <div key={i} style={{fontSize:11,color:sub,paddingLeft:12,borderLeft:'2px solid rgba(34,197,94,0.3)'}}>{item}</div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* EN LA NATURALEZA */}
+        <section style={{padding:'32px 0',borderTop:`1px solid ${border}`}}>
           <div style={{background:dark?'rgba(34,197,94,0.06)':'rgba(34,197,94,0.04)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:16,padding:'24px'}}>
             <div style={{fontSize:22,fontWeight:900,color:'#22c55e',marginBottom:8,textAlign:'center',lineHeight:1.3}}>
               {es?'"En la naturaleza no hay basura."':'"In nature there is no waste."'}
             </div>
             <div style={{fontSize:13,color:sub,textAlign:'center',marginBottom:20,lineHeight:1.6,fontStyle:'italic'}}>
-              {es?'"Solo hay recursos sin infraestructura. OLIVIA es esa infraestructura. Un sistema que se produce a sí mismo haciendo el bien."':'"Only resources without infrastructure. OLIVIA is that infrastructure. A system that produces itself by doing good."'}
+              {es?'"Solo hay recursos sin infraestructura. OLIVIA es esa infraestructura."':'"Only resources without infrastructure. OLIVIA is that infrastructure."'}
             </div>
             <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:12}}>
               {[
                 {icon:'🏛️',t:es?'Elinor Ostrom · Nobel 2009':'Elinor Ostrom · Nobel 2009',d:es?'Las comunidades gestionan mejor los bienes comunes con monitoreo verificable. OLIVIA es ese monitoreo.':'Communities manage commons better with verifiable monitoring. OLIVIA is that monitoring.'},
-                {icon:'♻️',t:'Buckminster Fuller',d:es?'"Pollution is nothing but resources we\'re not harvesting." OLIVIA convierte esa contaminación en activo financiero.':'"Pollution is nothing but resources we\'re not harvesting." OLIVIA converts that pollution into financial assets.'},
+                {icon:'♻️',t:'Buckminster Fuller',d:es?'"La contaminación son recursos que no estamos cosechando." OLIVIA convierte esa contaminación en activo financiero.':'"Pollution is nothing but resources we\'re not harvesting." OLIVIA converts that pollution into financial assets.'},
                 {icon:'🔄',t:es?'Flywheel imparable':'Unstoppable flywheel',d:es?'Más usuarios → más OLV → más usos → más datos para Verra → precio más alto → más usuarios':'More users → more OLV → more uses → more Verra data → higher price → more users'},
               ].map((item,i)=>(
                 <div key={i} style={{background:card,border:`1px solid ${border}`,borderRadius:12,padding:'14px'}}>
@@ -175,15 +254,12 @@ export default function Institucional() {
                 {es?'Un sistema.':'One system.'}
               </span>
             </h2>
-            <p style={{fontSize:12,color:sub,marginTop:8,maxWidth:500,margin:'8px auto 0'}}>
-              {es?'Cada componente opera autónomamente pero converge en el Protocolo PULSO — la capa transversal de incentivos y reputación digital.':'Each component operates autonomously but converges in the PULSO Protocol — the transversal layer of digital incentives and reputation.'}
-            </p>
           </div>
           <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:16}}>
             {[
               {img:'/ciudadano/metamorfosis.jpg',nombre:'OLIVIA Circulab',desc:es?'Validación física y dMRV. Convierte residuos domésticos en activos ambientales verificables bajo protocolos Verra, Gold Standard y CAR.':'Physical validation and dMRV. Converts household waste into verifiable environmental assets under Verra, Gold Standard and CAR protocols.',href:'/registro',color:'#22c55e'},
               {img:'/ciudadano/pulso.jpg',nombre:es?'Quincena · PULSO':'Quincena · PULSO',desc:es?'Finanzas inclusivas. Digitaliza ROSCAs y expande capacidades crediticias del sector informal en corredor AR MX CO BR CH DO.':'Inclusive finance. Digitalizes ROSCAs and expands credit capabilities across AR MX CO BR CH DO.',href:'/quincena',color:'#3b82f6'},
-              {img:'/ciudadano/aom.jpg',nombre:'Art of Money',desc:es?'Tokenización RWA. Transforma regalías musicales, deportivas y literarias en colateral líquido. Más OLV = mejor tasa.':'RWA tokenization. Transforms music, sports and literary royalties into liquid collateral. More OLV = better rate.',href:'/aom',color:'#a855f7'},
+              {img:'/ciudadano/aom.jpg',nombre:'Art of Money',desc:es?'Tokenización RWA. Transforma regalías musicales, deportivas y literarias en acceso a financiamiento. Más OLV = mejor tasa.':'RWA tokenization. Transforms music, sports and literary royalties into financing access. More OLV = better rate.',href:'/aom',color:'#a855f7'},
             ].map(v=>(
               <div key={v.nombre} style={{background:card,border:`1px solid ${border}`,borderRadius:14,overflow:'hidden'}}>
                 <img src={v.img} alt={v.nombre} style={{width:'100%',height:160,objectFit:'cover',filter:'grayscale(100%)',transition:'0.5s',display:'block'}}
@@ -205,9 +281,7 @@ export default function Institucional() {
         <section style={{padding:'32px 0',borderTop:`1px solid ${border}`}}>
           <div style={{textAlign:'center',marginBottom:24}}>
             <p style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:sub,marginBottom:8}}>[ {es?'Cronograma':'Timeline'} ]</p>
-            <h2 style={{fontSize:28,fontWeight:900,fontFamily:'Georgia,serif',fontStyle:'italic'}}>
-              {es?'Los 6 tramos del ecosistema':'The 6 ecosystem stages'}
-            </h2>
+            <h2 style={{fontSize:28,fontWeight:900,fontFamily:'Georgia,serif',fontStyle:'italic'}}>{es?'Los 6 tramos del ecosistema':'The 6 ecosystem stages'}</h2>
           </div>
           <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:12}}>
             {TRAMOS.map((tramo,i)=>(
@@ -228,7 +302,6 @@ export default function Institucional() {
             <p style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:sub,marginBottom:8}}>[ {es?'Ronda Seed 2026':'Seed Round 2026'} ]</p>
             <h2 style={{fontSize:28,fontWeight:900,fontFamily:'Georgia,serif',fontStyle:'italic'}}>{es?'Garantías para el inversor':'Investor guarantees'}</h2>
           </div>
-
           <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10,marginBottom:20}}>
             {GARANTIAS.map((g,i)=>(
               <div key={i} style={{background:card,border:`1px solid ${border}`,borderRadius:10,padding:'12px',display:'flex',gap:8,alignItems:'flex-start'}}>
@@ -237,7 +310,6 @@ export default function Institucional() {
               </div>
             ))}
           </div>
-
           <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,marginBottom:16}}>
             <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,padding:'18px',textAlign:'center'}}>
               <div style={{fontSize:10,color:sub,marginBottom:4}}>{es?'Opción A':'Option A'}</div>
@@ -250,11 +322,25 @@ export default function Institucional() {
               <div style={{fontSize:11,color:sub,marginTop:4}}>15% equity · USD 11.3M pre-money</div>
             </div>
           </div>
-
           <div style={{background:'rgba(34,197,94,0.04)',border:'1px solid rgba(34,197,94,0.15)',borderRadius:10,padding:'12px',marginBottom:16,textAlign:'center'}}>
             <div style={{fontSize:11,color:sub,lineHeight:1.6}}>
               {es?'Sin costos fijos hasta inversión comprometida · Equity directo · Sin ratchets · Sin intereses · Ley 27.506 · Estabilidad fiscal 10 años':'No fixed costs until committed · Direct equity · No ratchets · No interest · Law 27.506 · 10-year fiscal stability'}
             </div>
+          </div>
+
+          {/* DOCUMENTOS */}
+          <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10,marginBottom:16}}>
+            {[
+              {icon:'📄',label:'Whitepaper',sub:es?'Con NDA':'With NDA',href:'/whitepaper',color:'#3b82f6'},
+              {icon:'📋',label:'One Pager',sub:es?'Resumen ejecutivo':'Executive summary',href:'/onepager',color:'#f59e0b'},
+              {icon:'📊',label:'Pitch Deck',sub:es?'Acceso con datos':'Data-gated access',href:'/pitch',color:'#a855f7'},
+            ].map(d=>(
+              <a key={d.label} href={d.href} style={{background:card,border:`1px solid ${d.color}33`,borderRadius:12,padding:'14px',textAlign:'center',textDecoration:'none',display:'block'}}>
+                <div style={{fontSize:24,marginBottom:6}}>{d.icon}</div>
+                <div style={{fontSize:11,fontWeight:700,color:d.color}}>{d.label}</div>
+                <div style={{fontSize:9,color:sub,marginTop:3}}>{d.sub}</div>
+              </a>
+            ))}
           </div>
 
           <div style={{textAlign:'center'}}>
@@ -274,11 +360,14 @@ export default function Institucional() {
             <h2 style={{fontSize:28,fontWeight:900,fontFamily:'Georgia,serif',fontStyle:'italic'}}>
               {es?'Construido desde el Sur Global.':'Built from the Global South.'}
             </h2>
+            <div style={{marginTop:8,fontSize:12,color:sub,fontStyle:'italic'}}>
+              {es?'"Una app creada en una cocina. Para todos nuestros hijos. 🌿"':'"An app created in a kitchen. For all our children. 🌿"'}
+            </div>
           </div>
           <div style={{display:'flex',flexDirection:'column',gap:14}}>
             {[
               {foto:'/founders/founder-jp.jpg',nombre:'Juan Pablo Sanguinetti de Zapata',rol:es?'Founder & Vision Lead':'Founder & Vision Lead',desc:es?'Abogado y director de teatro chileno. Product builder con IA. Diseñó el motor de confianza de Circulab viviendo la fricción del reciclaje en su propia cocina. Especialidad en medio ambiente, tributación, propiedad intelectual y dMRV.':'Lawyer and Chilean theater director. AI product builder. Designed the Circulab trust engine by living the friction of recycling in his own kitchen. Expertise in environmental law, taxation, IP and dMRV.',color:'#22c55e'},
-              {foto:'/founders/founder-mileidy.jpg',nombre:'Mileidy Zapata de Sanguinetti',rol:es?'Co-Founder & Operations':'Co-Founder & Operations',desc:es?'Bailarina y coreógrafa dominicana. Experta en economía del cuidado y branding estratégico. Traduce complejidad tecnológica en adopción ciudadana. Junto a OLIVIA y Santino Eloy, el piloto comenzó en casa.':'Dominican dancer and choreographer. Expert in care economy and strategic branding. Translates technological complexity into citizen adoption. Together with OLIVIA and Santino Eloy, the pilot started at home.',color:'#3b82f6'},
+              {foto:'/founders/founder-mileidy.jpg',nombre:'Mileidy Zapata de Sanguinetti',rol:es?'Co-Founder & Operations':'Co-Founder & Operations',desc:es?'Bailarina y coreógrafa dominicana. Experta en economía del cuidado y branding estratégico. Traduce complejidad tecnológica en adopción ciudadana.':'Dominican dancer and choreographer. Expert in care economy and strategic branding. Translates technological complexity into citizen adoption.',color:'#3b82f6'},
             ].map(f=>(
               <div key={f.nombre} style={{background:card,border:`1px solid ${border}`,borderRadius:14,padding:'20px'}}>
                 <div style={{display:'flex',gap:14,alignItems:'center',marginBottom:12}}>
@@ -313,9 +402,13 @@ export default function Institucional() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{padding:'24px',borderTop:`1px solid ${border}`,display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:12}}>
+      <footer style={{padding:'24px',borderTop:`1px solid ${border}`,display:'flex',flexDirection:'column',alignItems:'center',gap:12}}>
+        <img src="/logoOC.png" alt="OLIVIA Circulab" style={{width:48,height:48,objectFit:'contain',opacity:0.7}} />
+        <div style={{fontSize:10,color:sub,textAlign:'center',lineHeight:1.5}}>
+          {es?'Oficina Latinoamericana de Información para la Valorización e Inteligencia Ambiental':'Latin American Office for Environmental Valuation and Intelligence Information'}
+        </div>
         <div style={{fontSize:10,color:sub,fontFamily:'monospace',fontWeight:700}}>Circulab Tech © 2026 · Distrito IA · Buenos Aires, Argentina</div>
-        <div style={{display:'flex',gap:14,flexWrap:'wrap'}}>
+        <div style={{display:'flex',gap:14,flexWrap:'wrap',justifyContent:'center'}}>
           {[
             {l:'Whitepaper',h:'/whitepaper',c:'#3b82f6'},
             {l:'One Pager',h:'/onepager',c:'#f59e0b'},
