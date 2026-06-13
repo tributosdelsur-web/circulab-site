@@ -131,8 +131,8 @@ function ComunidadContent() {
       const {data} = supabase.storage.from('residuos-fotos').getPublicUrl(nombre)
       foto_url = data.publicUrl
     }
-    await supabase.from('posts').insert({usuario_id:uid,contenido:nuevoPost,foto_url,video_url:videoUrl||null,tipo:'accion',olv_ganados:20})
-    await supabase.from('wallet_transacciones').insert({usuario_id:uid,tipo:'post',monto_olv:20,descripcion:'Post publicado en la comunidad'})
+    await supabase.from('posts').insert({usuario_id:uid,contenido:nuevoPost,foto_url,video_url:videoUrl||null,tipo:'accion',olv_ganados:10})
+    await supabase.from('wallet_transacciones').insert({usuario_id:uid,tipo:'bonus_post',monto_olv:10,descripcion:'⭐ OLV Bonus · Post publicado en la comunidad'})
     setNuevoPost('')
     setNuevaFoto(null)
     setVideoUrl('')
@@ -147,7 +147,7 @@ function ComunidadContent() {
     await supabase.storage.from('residuos-fotos').upload(nombre,file)
     const {data} = supabase.storage.from('residuos-fotos').getPublicUrl(nombre)
     await supabase.from('stories').insert({usuario_id:uid,foto_url:data.publicUrl,texto:''})
-    await supabase.from('wallet_transacciones').insert({usuario_id:uid,tipo:'story',monto_olv:10,descripcion:'Story publicada'})
+    await supabase.from('wallet_transacciones').insert({usuario_id:uid,tipo:'bonus_story',monto_olv:10,descripcion:'⭐ OLV Bonus · Story publicada'})
     cargarFeed()
   }
 
@@ -167,8 +167,8 @@ function ComunidadContent() {
         await supabase.from('wallet_transacciones').insert({
           usuario_id:postOwnerId,
           tipo:'like_recibido',
-          monto_olv:5,
-          descripcion:'Like recibido en tu post'
+          monto_olv:2,
+          descripcion:'⭐ OLV Bonus · Like recibido en tu post'
         })
       }
     }
@@ -183,7 +183,7 @@ function ComunidadContent() {
     if(!uid){window.location.href='/login';return}
     if(!comentarioTexto) return
     await supabase.from('comentarios').insert({post_id:postId,usuario_id:uid,texto:comentarioTexto})
-    await supabase.from('wallet_transacciones').insert({usuario_id:uid,tipo:'comentario',monto_olv:5,descripcion:'Comentario publicado'})
+    await supabase.from('wallet_transacciones').insert({usuario_id:uid,tipo:'bonus_comentario',monto_olv:5,descripcion:'⭐ OLV Bonus · Comentario publicado'})
     setComentarioTexto('')
     cargarComentarios(postId)
   }

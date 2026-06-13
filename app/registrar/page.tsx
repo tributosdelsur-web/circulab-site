@@ -216,7 +216,8 @@ export default function Registrar() {
  async function publicarEnOlivia() {
    if(!uid) return
    setPublicandoOlivia(true)
-   const olv_ganados = 20
+   const kg_final = unidad==="g"?kg/1000:kg
+   const olv_ganados = Math.round(tipo.factor * kg_final * 100)
    await supabase.from('posts').insert({
      usuario_id: uid,
      contenido: `Acabo de registrar ${(unidad==="g"?kg/1000:kg)}kg de ${tipo?.l} 🌿 Gané ${resultado?.olv} OLV pendientes · ${resultado?.co2}kg CO2eq evitados`,
@@ -228,7 +229,8 @@ export default function Registrar() {
      usuario_id: uid,
      tipo: 'post',
      monto_olv: olv_ganados,
-     descripcion: 'Post publicado en la comunidad OLIVIA'
+     tipo_olv: 'verde',
+     descripcion: '🌿 OLV Verde · Residuo verificado con IA · ' + tipo.l
    })
    setPublicadoOlivia(true)
    setPublicandoOlivia(false)
