@@ -150,7 +150,7 @@ export default function Ciudadano() {
             </div>
             <div style={{borderRadius:14,overflow:'hidden',background:'#000',border:'2px solid rgba(239,68,68,0.3)'}}>
               <video autoPlay muted controls playsInline style={{width:'100%',display:'block',maxHeight:'50vh',objectFit:'contain'}}>
-                <source src="/CIRCULAB1.mp4" type="video/mp4" />
+                <source src="/ciudadano/CIRCULAB1.mp4" type="video/mp4" />
               </video>
             </div>
             <div style={{display:'flex',gap:8,marginTop:12,justifyContent:'center',flexWrap:'wrap'}}>

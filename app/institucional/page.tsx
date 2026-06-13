@@ -393,7 +393,7 @@ export default function Institucional() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{padding:'24px',borderTop:`1px solid ${border}`,display:'flex',flexDirection:'column',alignItems:'center',gap:12}}>
+      <footer style={{padding:'24px',borderTop:`1px solid ${border}`,display:'flex',flexDirection:'column',alignItems:'center',gap:12,textAlign:'center'}}>
         <img src="/logoOC.png" alt="OLIVIA Circulab" style={{width:48,height:48,objectFit:'contain',opacity:0.7}} />
         <div style={{fontSize:10,color:sub,textAlign:'center',lineHeight:1.5}}>
           {es?'Oficina Latinoamericana de Información para la Valorización e Inteligencia Ambiental':'Latin American Office for Environmental Valuation and Intelligence Information'}

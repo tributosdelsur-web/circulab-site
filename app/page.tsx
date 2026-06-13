@@ -633,8 +633,8 @@ export default function Landing() {
 
       {/* FOOTER */}
       <footer style={{padding:'32px 20px',borderTop:`1px solid ${border}`,textAlign:'center',maxWidth:580,margin:'0 auto'}}>
-        <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:8,marginBottom:8}}>
-          <div style={{width:28,height:28,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:12,color:'white'}}>O</div>
+        <div style={{textAlign:'center',marginBottom:8}}>
+          <img src="/logoOC.png" alt="OLIVIA Circulab" style={{width:56,height:56,objectFit:'contain',margin:'0 auto 6px',display:'block'}} />
           <span style={{fontSize:13,fontWeight:800,color:text}}>OLIVIA Circulab</span>
         </div>
         <div style={{fontSize:10,color:sub,marginBottom:12,lineHeight:1.5}}>
