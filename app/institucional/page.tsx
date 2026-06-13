@@ -39,14 +39,14 @@ export default function Institucional() {
 
       {/* NAV */}
       <nav style={{position:'sticky',top:0,zIndex:50,backdropFilter:'blur(16px)',background:dark?'rgba(5,5,5,0.9)':'rgba(247,245,241,0.9)',borderBottom:`1px solid ${border}`,padding:'12px 20px',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-        <div style={{display:'flex',alignItems:'center',gap:10}}>
+        <a href="/" style={{display:'flex',alignItems:'center',gap:10,textDecoration:'none'}}>
           <img src="/logoOC.png" alt="OLIVIA Circulab" style={{width:32,height:32,objectFit:'contain',borderRadius:6}} />
           <div>
             <div style={{fontSize:12,fontWeight:700,color:text,textTransform:'uppercase',letterSpacing:'0.05em'}}>Circulab Tech</div>
             <div style={{fontSize:9,color:sub,textTransform:'uppercase',letterSpacing:'0.15em',fontFamily:'monospace'}}>
               {es?'Infraestructura IA Urbana':'Urban AI Infrastructure'}
             </div>
-          </div>
+          </a>
         </div>
         <div style={{display:'flex',gap:6,alignItems:'center'}}>
           <a href="/pitch" style={{background:accent,color:dark?'#050505':'white',padding:'6px 14px',borderRadius:20,fontSize:10,fontWeight:700,textDecoration:'none',textTransform:'uppercase',letterSpacing:'0.06em'}}>
