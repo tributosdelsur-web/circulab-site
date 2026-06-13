@@ -438,21 +438,47 @@ export default function Registrar() {
            )}
 
            {/* Peso */}
-          {/* Toggle unidad */}
            <div style={{marginBottom:20}}>
-             <div style={{fontSize:12,color:'#94a3b8',marginBottom:8,textTransform:'uppercase',letterSpacing:'0.05em'}}>
-               Peso estimado: {unidad==='g'?(kg+'g · '+(kg/1000).toFixed(3)+'kg'):(kg+'kg')} · {Math.round(tipo.factor*(unidad==='g'?kg/1000:kg)*100)} OLV estimados
+             <div style={{fontSize:12,color:'#94a3b8',marginBottom:10,textTransform:'uppercase',letterSpacing:'0.05em'}}>
+               Peso estimado
              </div>
-             <input type="range" min={0.5} max={50} step={0.5} value={kg}
-               onChange={e=>setKg(Number(e.target.value))}
-               style={{width:'100%',accentColor:'#22c55e',cursor:'pointer'}} />
-             <div style={{display:'flex',justifyContent:'space-between',fontSize:10,color:'#64748b',marginTop:4}}>
-               <span>0.5kg</span>
-               <span style={{color:'#22c55e',fontWeight:700}}>{kg}kg = {Math.round(tipo.factor*kg*100)} OLV</span>
-               <span>50kg</span>
+             <div style={{display:'flex',gap:8,marginBottom:14}}>
+               <button onClick={()=>{if(unidad==='kg'){setKg(Math.min(Math.round(kg*1000),9999));setUnidad('g')}}} 
+                 style={{padding:'8px 20px',borderRadius:10,border:'none',cursor:'pointer',fontSize:13,fontWeight:700,
+                 background:unidad==='g'?'#22c55e':'rgba(255,255,255,0.06)',color:unidad==='g'?'white':'#64748b'}}>
+                 Gramos
+               </button>
+               <button onClick={()=>{if(unidad==='g'){setKg(Math.max(Number((kg/1000).toFixed(1)),0.1));setUnidad('kg')}}}
+                 style={{padding:'8px 20px',borderRadius:10,border:'none',cursor:'pointer',fontSize:13,fontWeight:700,
+                 background:unidad==='kg'?'#22c55e':'rgba(255,255,255,0.06)',color:unidad==='kg'?'white':'#64748b'}}>
+                 Kilos
+               </button>
+               <span style={{fontSize:11,color:'#64748b',display:'flex',alignItems:'center',marginLeft:4}}>
+                 {unidad==='g'?'para residuos chicos':'para bolsas y cajas'}
+               </span>
              </div>
-             <div style={{fontSize:10,color:'#64748b',marginTop:8,padding:'8px',background:'rgba(255,255,255,0.02)',borderRadius:8}}>
-               Referencias: Cubeta 30L llena = 15-20kg · Bolsa mediana = 1-2kg · Bolsa chica = 0.5-1kg
+             <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:12}}>
+               <input type="number"
+                 min={unidad==='g'?10:0.1}
+                 max={unidad==='g'?9999:50}
+                 step={unidad==='g'?10:0.1}
+                 value={kg}
+                 onChange={e=>setKg(Number(e.target.value))}
+                 style={{flex:1,padding:'12px 16px',borderRadius:10,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:18,fontWeight:700,textAlign:'center',outline:'none'}}
+               />
+               <span style={{fontSize:16,fontWeight:700,color:'#94a3b8',minWidth:32}}>{unidad}</span>
+             </div>
+             <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:10,padding:'10px 14px',textAlign:'center'}}>
+               <span style={{fontSize:13,fontWeight:700,color:'#22c55e'}}>
+                 🌿 {Math.round(tipo.factor*(unidad==='g'?kg/1000:kg)*100)} OLV Verdes estimados
+               </span>
+               <div style={{fontSize:10,color:'#64748b',marginTop:4}}>
+                 {unidad==='g'?kg+'g = '+(kg/1000).toFixed(3)+' kg':kg+' kg'}
+               </div>
+             </div>
+             <div style={{fontSize:10,color:'#64748b',marginTop:10,padding:'8px',background:'rgba(255,255,255,0.02)',borderRadius:8,lineHeight:1.7}}>
+               🥛 1 botella plástica = 30g · 🗞️ 1 diario = 200g · 🛍️ 1 bolsa llena = 500g<br/>
+               🌿 1 bolsa orgánico = 300g · 🔩 3 latas aluminio = 100g · 📦 1 caja cartón = 150g
              </div>
            </div>
 
