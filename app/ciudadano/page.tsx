@@ -491,7 +491,7 @@ export default function Ciudadano() {
           <div style={{background:'rgba(59,130,246,0.06)',border:'2px solid rgba(59,130,246,0.3)',borderRadius:14,padding:'16px',marginBottom:12}}>
             <div style={{fontSize:12,color:'#3b82f6',fontWeight:700,marginBottom:4}}>🏢 {es?'Consorcios — el cliente ancla':'Buildings — the anchor client'}</div>
             <div style={{fontSize:10,color:'#f59e0b',marginBottom:10,lineHeight:1.5}}>
-              {es?'⚠️ Estimado desde Árbol 2027 — no lo que OLIVIA cobra. En Semilla no hay costo ni cobro.':'⚠️ Estimated from Árbol 2027 — not what OLIVIA charges. In Semilla there is no cost or payment.'}
+              {es?'📊 Simulación de cuánto podría recibir tu consorcio desde Árbol 2027. OLIVIA no paga — el mercado de carbono sí. En Semilla no hay costo ni cobro.':'📊 Simulation of what your building could receive from Árbol 2027. OLIVIA does not pay — the carbon market does. In Semilla there is no cost or payment.'}
             </div>
             <div style={{display:'flex',flexDirection:'column',gap:6,marginBottom:10}}>
               {[
@@ -520,22 +520,22 @@ export default function Ciudadano() {
 
           <div style={{display:'flex',flexDirection:'column',gap:6}}>
             {[
-              {num:'01',tipo:es?'Ciudadano libre':'Individual citizen',dist:es?'Vos 35% · Recolector 10% · Reserva 5% · OLIVIA 50%':'You 35% · Collector 10% · Reserve 5% · OLIVIA 50%',color:'#22c55e'},
-              {num:'02',tipo:es?'Ciudadano Comunitario':'Community Citizen',dist:es?'Vos 35% · Municipio 10% · Reserva 5% · OLIVIA 50%':'You 35% · Municipality 10% · Reserve 5% · OLIVIA 50%',color:'#22c55e'},
-              {num:'03',tipo:es?'Verdulería / Feria':'Market / Store',dist:es?'Negocio 30% · Recolector 15% · Reserva 5% · OLIVIA 50%':'Business 30% · Collector 15% · Reserve 5% · OLIVIA 50%',color:'#22c55e'},
-              {num:'04',tipo:es?'Colegio / Institución':'School / Institution',dist:es?'Institución 30% · Recolector 15% · Reserva 5% · OLIVIA 50%':'Institution 30% · Collector 15% · Reserve 5% · OLIVIA 50%',color:'#3b82f6'},
-              {num:'05',tipo:es?'Consorcio / Edificio':'Building / Condo',dist:es?'Consorcio 20% · Vecino 15% · Recolector 10% · Reserva 5% · OLIVIA 50%':'Building 20% · Neighbor 15% · Collector 10% · Reserve 5% · OLIVIA 50%',color:'#3b82f6'},
-              {num:'06',tipo:es?'Restaurante / Hotel':'Restaurant / Hotel',dist:es?'Negocio 30% · Recolector 15% · Reserva 5% · OLIVIA 50%':'Business 30% · Collector 15% · Reserve 5% · OLIVIA 50%',color:'#f59e0b'},
-              {num:'07',tipo:es?'Casino / Comedor':'Casino / Canteen',dist:es?'Negocio 28% · Recolector 17% · Reserva 5% · OLIVIA 50%':'Business 28% · Collector 17% · Reserve 5% · OLIVIA 50%',color:'#f59e0b'},
-              {num:'08',tipo:es?'Empresa RSE':'CSR Company',dist:es?'Ciudadanos 25% · Recolector 20% · Reserva 5% · OLIVIA 50%':'Citizens 25% · Collector 20% · Reserve 5% · OLIVIA 50%',color:'#a855f7'},
-              {num:'09',tipo:es?'Municipio':'Municipality',dist:es?'Ciudadanos 20% · Municipio 15% · Recolector 10% · Reserva 5% · OLIVIA 50%':'Citizens 20% · Municipality 15% · Collector 10% · Reserve 5% · OLIVIA 50%',color:'#a855f7'},
+              {num:'01',tipo:es?'Ciudadano libre':'Individual citizen',desc:es?'Reciclás desde tu casa y acumulás OLV Verdes verificados con IA':'You recycle from home and accumulate AI-verified Green OLV',color:'#22c55e'},
+              {num:'02',tipo:es?'Ciudadano Comunitario':'Community Citizen',desc:es?'Recolectás hojas, ramas y residuos verdes del espacio público de tu barrio':'You collect leaves, branches and green waste from your neighborhood public space',color:'#22c55e'},
+              {num:'03',tipo:es?'Verdulería / Feria':'Market / Store',desc:es?'Alto volumen orgánico diario — registrás vos mismo desde la app':'High daily organic volume — you register yourself from the app',color:'#22c55e'},
+              {num:'04',tipo:es?'Colegio / Institución':'School / Institution',desc:es?'Reciclaje educativo con impacto verificable para toda la comunidad escolar':'Educational recycling with verifiable impact for the entire school community',color:'#3b82f6'},
+              {num:'05',tipo:es?'Consorcio / Edificio':'Building / Condo',desc:es?'El consorcio coordina a los vecinos y recibe ingresos adicionales desde Árbol 2027':'The building coordinates neighbors and receives additional income from Árbol 2027',color:'#3b82f6'},
+              {num:'06',tipo:es?'Restaurante / Hotel':'Restaurant / Hotel',desc:es?'Alto volumen de orgánico y aceite — SaaS mensual + créditos de carbono verificados':'High volume of organic and oil — monthly SaaS + verified carbon credits',color:'#f59e0b'},
+              {num:'07',tipo:es?'Casino / Comedor':'Casino / Canteen',desc:es?'Mayor volumen aún — contrato específico con reporting mensual de impacto':'Even higher volume — specific contract with monthly impact reporting',color:'#f59e0b'},
+              {num:'08',tipo:es?'Empresa RSE':'CSR Company',desc:es?'Compra créditos para compensar su huella y activa a sus empleados como recicladores':'Buys credits to offset footprint and activates employees as recyclers',color:'#a855f7'},
+              {num:'09',tipo:es?'Municipio':'Municipality',desc:es?'OLIVIA como infraestructura pública — vecinos reciclan y el municipio certifica su impacto':'OLIVIA as public infrastructure — citizens recycle and the municipality certifies its impact',color:'#a855f7'},
             ].map(c=>(
-              <div key={c.num} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'10px 14px',background:card,borderRadius:10,border:`1px solid ${c.color}22`}}>
-                <div style={{display:'flex',alignItems:'center',gap:8}}>
-                  <div style={{width:24,height:24,borderRadius:6,background:c.color,display:'flex',alignItems:'center',justifyContent:'center',fontSize:9,fontWeight:700,color:'white',flexShrink:0}}>{c.num}</div>
-                  <span style={{fontSize:12,color:text,fontWeight:600}}>{c.tipo}</span>
+              <div key={c.num} style={{padding:'10px 14px',background:card,borderRadius:10,border:`1px solid ${c.color}22`,display:'flex',gap:10,alignItems:'flex-start'}}>
+                <div style={{width:24,height:24,borderRadius:6,background:c.color,display:'flex',alignItems:'center',justifyContent:'center',fontSize:9,fontWeight:700,color:'white',flexShrink:0,marginTop:2}}>{c.num}</div>
+                <div>
+                  <div style={{fontSize:12,color:text,fontWeight:700,marginBottom:3}}>{c.tipo}</div>
+                  <div style={{fontSize:11,color:sub,lineHeight:1.5}}>{c.desc}</div>
                 </div>
-                <div style={{fontSize:9,color:sub,textAlign:'right',maxWidth:160,lineHeight:1.4}}>{c.dist}</div>
               </div>
             ))}
           </div>
