@@ -256,7 +256,7 @@ export default function Landing() {
         <h1 style={{fontSize:34,fontWeight:900,lineHeight:1.15,marginBottom:16,letterSpacing:'-0.02em'}}>
           <span style={{color:'#22c55e'}}>{es?'La batalla más importante':'The most important battle'}</span><br/>
           <span style={{color:text}}>{es?'de nuestro tiempo':'of our time'}</span><br/>
-          <span style={{color:'#f59e0b',fontStyle:'italic'}}>{es?'es el calentamiento global.':'is global warming.'}</span>
+          <span style={{color:'#f59e0b',fontStyle:'italic'}}>{es?'es el calentamiento global.':'is global warming.'}</span><br/><span style={{color:text,fontSize:26,fontWeight:700}}>{es?'El planeta no espera.':'The planet won\'t wait.'}</span><br/><span style={{color:text,fontSize:26,fontWeight:700}}>{es?'Tu barrio tampoco.':'Neither will your neighborhood.'}</span>
         </h1>
 
         <p style={{fontSize:14,color:sub,lineHeight:1.7,marginBottom:20}}>
@@ -355,7 +355,7 @@ export default function Landing() {
               </video>
             </div>
             <div style={{fontSize:11,color:sub,textAlign:'center',marginTop:8,fontStyle:'italic'}}>
-              {es?'"San Francisco ya lo hace. Buenos Aires también."':'"San Francisco already does it. Buenos Aires too."'}
+              {es?'En las ciudades que funcionan, el vecino cobra por reciclar. OLIVIA lo hace en LATAM.':'In cities that work, citizens get paid to recycle. OLIVIA brings that to LATAM.'}
             </div>
           </div>
         </div>
