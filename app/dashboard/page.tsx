@@ -419,6 +419,7 @@ function DashboardContent() {
               <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:8}}>
                 {[
                   {l:'Nivel',v:usuario?.nivel||1,c:'#3b82f6'},
+                  {l:'Perfil',v:usuario?.perfil==='coordinador_edificio'?'Coord. Edificio':usuario?.perfil==='comunitario'?'Comunitario':usuario?.perfil==='coordinador_zonal'?'Coord. Zonal':'Reciclador',c:'#22c55e'},
                   {l:'OLV suman',v:`+${olv_verificados}`,c:'#22c55e'},
                   {l:'Roscas',v:0,c:'#a855f7'},
                 ].map(k=>(

@@ -47,6 +47,10 @@ export default function Admin() {
  const [leads, setLeads] = useState<any[]>([])
  const [ndas, setNdas] = useState<any[]>([])
  const [feedback, setFeedback] = useState<any[]>([])
+  const [postulaciones, setPostulaciones] = useState<any[]>([])
+  const [inversoresCRM, setInversoresCRM] = useState<any[]>([])
+  const [nuevaPostulacion, setNuevaPostulacion] = useState({fondo_nombre:'',tipo:'vc',estado:'pendiente',deadline:'',monto_potencial:'',contacto:'',notas:'',next_step:'',url:''})
+  const [nuevoInversor, setNuevoInversor] = useState({nombre:'',empresa:'',email:'',cargo:'',estado:'frio',origen:'linkedin',monto_potencial:'',notas:'',next_step:''})
  const [whitepapers, setWhitepapers] = useState<any[]>([])
  const [onepagers, setOnepagers] = useState<any[]>([])
   const [leadsAOM, setLeadsAOM] = useState<any[]>([])
@@ -71,6 +75,8 @@ export default function Admin() {
      supabase.from('leads_inversores').select('*').order('created_at',{ascending:false}),
      supabase.from('nda_firmas').select('*').order('created_at',{ascending:false}),
      supabase.from('feedback').select('*').order('created_at',{ascending:false}),
+    supabase.from('postulaciones').select('*').order('created_at',{ascending:false}),
+    supabase.from('inversores_crm').select('*').order('created_at',{ascending:false}),
      supabase.from('whitepaper_descargas').select('*').order('created_at',{ascending:false}),
      supabase.from('onepager_descargas').select('*').order('created_at',{ascending:false}),
      supabase.from('leads_aom').select('*').order('created_at',{ascending:false}),
@@ -199,6 +205,8 @@ export default function Admin() {
    {id:'comercial',l:'Comercial',icon:'💼'},
    {id:'feedback',l:`Feedback (${feedback.length})`,icon:'💬'},
    {id:'publicar',l:'Publicar',icon:'📢'},
+  {id:'postulaciones',l:`Postulaciones (${postulaciones.length})`,icon:'🎯'},
+  {id:'inversores_crm',l:`Investor CRM (${inversoresCRM.length})`,icon:'💰'},
  ]
 
  if(!auth) return (
