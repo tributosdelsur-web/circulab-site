@@ -231,15 +231,24 @@ if(seccion===4) return (
 <div style={s.rojo}>{lang==='es'?'⚠️ Una certificadora por tipo de material — nunca mixto':'⚠️ One certifier per material type — never mixed'}</div>
 <div style={s.p}>{lang==='es'?'El mercado internacional requiere estándares específicos por material. OLIVIA usa una metodología distinta para cada tipo de residuo. Los tokens OLV están taggeados por metodología para que el comprador B2B elija exactamente qué tipo de crédito compra.':'The international market requires specific standards per material. OLIVIA uses a different methodology for each waste type. OLV tokens are tagged by methodology so the B2B buyer chooses exactly which type of credit they buy.'}</div>
 </div>
+<div style={{...s.highlight,border:'1px solid rgba(34,197,94,0.2)',background:'rgba(34,197,94,0.06)',marginBottom:12}}>
+<div style={s.verde}>{lang==='es'?'Programme of Activities (PoA) — la figura clave':'Programme of Activities (PoA) — the key structure'}</div>
+<div style={s.p}>{lang==='es'?'OLIVIA opera como PoA (Programme of Activities) bajo Verra y Gold Standard. Esto permite agregar múltiples proyectos ciudadanos bajo una sola certificación, reduciendo el costo de auditoría y haciendo viable la escala mínima de ~500t/año requerida por las certificadoras. El hito Verra dMRV de febrero 2026 valida exactamente este modelo para datos ciudadanos de alta frecuencia.':'OLIVIA operates as a PoA (Programme of Activities) under Verra and Gold Standard. This allows aggregating multiple citizen projects under a single certification, reducing audit costs and making viable the minimum scale of ~500t/year required by certifiers. The Verra dMRV milestone of February 2026 validates exactly this model for high-frequency citizen data.'}</div>
+</div>
+<div style={{...s.highlight,border:'1px solid rgba(245,158,11,0.2)',background:'rgba(245,158,11,0.06)',marginBottom:12}}>
+<div style={{fontSize:11,fontWeight:700,color:'#f59e0b',marginBottom:6}}>{lang==='es'?'Artículo 6.4 del Acuerdo de París — Bosque 2028+':'Paris Agreement Article 6.4 — Bosque 2028+'}</div>
+<div style={s.p}>{lang==='es'?'El tramo Bosque 2028 contempla el acceso al mercado regulado de la ONU (PACM · Art. 6.4). Para que esto ocurra se requiere que se den una o más de las siguientes condiciones: (a) que Argentina presente su NDC 3.0 y adhiera al mecanismo PACM, (b) que OLIVIA expanda al corredor LATAM (Chile · Colombia · Perú · Costa Rica) que ya participan en Art. 6 y registre proyectos en esos países, o (c) que se apruebe una metodología PACM específica para reciclaje doméstico urbano (actualmente en desarrollo). El mercado voluntario Verra VCS (Árbol 2027) no requiere ninguna de estas condiciones y es el camino principal de certificación. La tokenización de créditos Verra VCS se puede realizar desde Argentina con Toucan Protocol o Moss.earth sin autorización estatal.':'The Bosque 2028 stage contemplates access to the UN regulated market (PACM · Art. 6.4). For this to occur, one or more of the following conditions must be met: (a) Argentina presents its NDC 3.0 and joins the PACM mechanism, (b) OLIVIA expands to the LATAM corridor (Chile · Colombia · Peru · Costa Rica) that already participate in Art. 6 and registers projects there, or (c) a specific PACM methodology for urban household recycling is approved (currently in development). The Verra VCS voluntary market (Árbol 2027) does not require any of these conditions and is the main certification path. Tokenization of Verra VCS credits can be done from Argentina with Toucan Protocol or Moss.earth without state authorization.'}</div>
+</div>
 <div style={{display:'flex',flexDirection:'column',gap:8,marginBottom:16}}>
 {[
-{icon:'🌿',tipo:lang==='es'?'Orgánico':'Organic',cert:'Verra VCS VM0036',factor:'1.8 kg CO2eq/kg',precio:'USD 22/t',color:'#22c55e',fase:lang==='es'?'Fase 3a · 2027':'Phase 3a · 2027'},
-{icon:'♻️',tipo:lang==='es'?'Plástico':'Plastic',cert:'Gold Standard AMS-III.BA',factor:'1.5 kg CO2eq/kg',precio:'USD 20/t',color:'#3b82f6',fase:lang==='es'?'Fase 3b · 2027':'Phase 3b · 2027'},
-{icon:'📄',tipo:lang==='es'?'Papel':'Paper',cert:'Gold Standard AMS-III.AJ',factor:'0.9 kg CO2eq/kg',precio:'USD 18/t',color:'#f59e0b',fase:lang==='es'?'Fase 3b · 2027':'Phase 3b · 2027'},
-{icon:'🔩',tipo:lang==='es'?'Metal':'Metal',cert:'Climate Action Reserve',factor:'8.0 kg CO2eq/kg',precio:'USD 35/t',color:'#ef4444',fase:lang==='es'?'Fase 3c · 2028':'Phase 3c · 2028'},
-{icon:'🛢️',tipo:lang==='es'?'Aceite':'Oil',cert:'Verra AMS-III.AK',factor:'2.5 kg CO2eq/kg',precio:'USD 25/t',color:'#f97316',fase:lang==='es'?'Fase 3c · 2028':'Phase 3c · 2028'},
-{icon:'👕',tipo:lang==='es'?'Textil':'Textile',cert:'GS Textile Exchange',factor:'5.5 kg CO2eq/kg',precio:'USD 28/t',color:'#ec4899',fase:lang==='es'?'Fase 3c · 2028':'Phase 3c · 2028'},
-{icon:'🍾',tipo:lang==='es'?'Vidrio':'Glass',cert:'Verra Registry',factor:'0.3 kg CO2eq/kg',precio:'USD 15/t',color:'#a855f7',fase:lang==='es'?'Fase 4 · 2028':'Phase 4 · 2028'},
+{icon:'🌿',tipo:lang==='es'?'Orgánico':'Organic',cert:'Verra AMS-III.AJ + VMR0007',factor:'1.8 kg CO2eq/kg',precio:'USD 22/t',color:'#22c55e',fase:lang==='es'?'Árbol 2027':'Árbol 2027'},
+{icon:'♻️',tipo:lang==='es'?'Plástico':'Plastic',cert:'GS Solid Waste v1.0',factor:'1.5 kg CO2eq/kg',precio:'USD 20/t',color:'#3b82f6',fase:lang==='es'?'Árbol 2027':'Árbol 2027'},
+{icon:'📄',tipo:lang==='es'?'Papel':'Paper',cert:'Gold Standard AMS-III.AJ',factor:'0.9 kg CO2eq/kg',precio:'USD 18/t',color:'#f59e0b',fase:lang==='es'?'Árbol 2027':'Árbol 2027'},
+{icon:'🔩',tipo:lang==='es'?'Metal':'Metal',cert:'Verra AMS-III.AJ',factor:'8.0 kg CO2eq/kg',precio:'USD 35/t',color:'#ef4444',fase:lang==='es'?'Árbol 2027':'Árbol 2027'},
+{icon:'🛢️',tipo:lang==='es'?'Aceite':'Oil',cert:'Verra AMS-III.AK (solo si va a planta biodiesel)',factor:'2.5 kg CO2eq/kg',precio:'USD 25/t',color:'#f97316',fase:lang==='es'?'Bosque 2028':'Bosque 2028'},
+{icon:'👕',tipo:lang==='es'?'Textil':'Textile',cert:lang==='es'?'Sin metodología madura · En desarrollo':'No mature methodology · In development',factor:'5.5 kg CO2eq/kg',precio:lang==='es'?'TBD':'TBD',color:'#ec4899',fase:lang==='es'?'Pendiente':'Pending'},
+{icon:'🍾',tipo:lang==='es'?'Vidrio':'Glass',cert:'Verra AMS-III.AJ',factor:'0.3 kg CO2eq/kg',precio:'USD 15/t',color:'#a855f7',fase:lang==='es'?'Árbol 2027':'Árbol 2027'},
+{icon:'🍃',tipo:lang==='es'?'Hojas/Ramas':'Leaves/Branches',cert:'GS Solid Waste v1.0',factor:'2.1 kg CO2eq/kg',precio:'USD 20/t',color:'#22c55e',fase:lang==='es'?'Árbol 2027':'Árbol 2027'},
 ].map(r=>(
 <div key={r.tipo} style={{...s.card,borderLeft:`3px solid ${r.color}`}}>
 <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',flexWrap:'wrap',gap:8}}>
@@ -265,20 +274,42 @@ if(seccion===4) return (
 if(seccion===5) return (
 <div>
 <div style={s.titulo}>{lang==='es'?'Tokenómica OLV':'OLV Tokenomics'}</div>
+<div style={{...s.highlight,border:'1px solid rgba(34,197,94,0.2)',background:'rgba(34,197,94,0.06)',marginBottom:12}}>
+<div style={s.verde}>{lang==='es'?'OLV Verde vs OLV Bonus':'Green OLV vs Bonus OLV'}</div>
+<div style={s.p}>{lang==='es'?'🌿 OLV Verdes: generados únicamente por residuos verificados con IA + GPS. Estos certifica Verra. Estos paga el mercado de carbono en 2027. Valor: según kg × factor CO2eq × precio de mercado × % ciudadano. ⭐ OLV Bonus: por registrarse (100), referir amigos (50), publicar (10), like recibido (2), completar perfil (25). Canjeables por servicios en Brote. No se certifican con Verra.':'🌿 Green OLV: generated only by AI + GPS verified waste. Verra certifies these. The carbon market pays these in 2027. Value: based on kg × CO2eq factor × market price × citizen %. ⭐ Bonus OLV: for registering (100), referring friends (50), posting (10), receiving likes (2), completing profile (25). Redeemable for services in Brote. Not Verra certifiable.'}</div>
+</div>
+<div style={{...s.highlight,border:'1px solid rgba(168,85,247,0.2)',background:'rgba(168,85,247,0.06)',marginBottom:12}}>
+<div style={{fontSize:11,fontWeight:700,color:'#a855f7',marginBottom:6}}>{lang==='es'?'¿Cuántos OLV = USD 1?':'How many OLV = USD 1?'}</div>
+<div style={{display:'flex',flexDirection:'column',gap:4}}>
+{[
+{tramo:'🌱 Semilla 2026',olv:lang==='es'?'Sin valor · acumulás':'No value · accumulate',c:'#22c55e'},
+{tramo:'🌿 Brote 2026',olv:lang==='es'?'Solo canje interno':'Internal exchange only',c:'#3b82f6'},
+{tramo:'🌳 Árbol 2027',olv:'6.329 OLV = USD 1',c:'#f59e0b'},
+{tramo:'🌲 Bosque 2028',olv:'2.198 OLV = USD 1',c:'#a855f7'},
+{tramo:'🏔️ Selva 2029',olv:'1.429 OLV = USD 1',c:'#ec4899'},
+{tramo:'🌊 Sumidero 2030+',olv:'952 OLV = USD 1',c:'#06b6d4'},
+].map((t,i)=>(
+<div key={i} style={{display:'flex',justifyContent:'space-between',padding:'4px 0',borderBottom:'1px solid rgba(255,255,255,0.04)'}}>
+<span style={{fontSize:11,color:t.c,fontWeight:700}}>{t.tramo}</span>
+<span style={{fontSize:11,color:t.c}}>{t.olv}</span>
+</div>
+))}
+</div>
+</div>
 <div style={s.highlight}>
 <div style={s.verde}>OLV ≠ PULSO</div>
 <div style={s.p}>{lang==='es'?'OLV (Olivia Coins) es el token económico — representa activos ambientales verificados. PULSO es el score de reputación crediticia — se construye con comportamiento. Son distintos y complementarios.':'OLV (Olivia Coins) is the economic token — represents verified environmental assets. PULSO is the credit reputation score — built with behavior. They are distinct and complementary.'}</div>
 </div>
 {(lang==='es'?[
 {t:'Generación de OLV',d:'Fórmula: kg × factor CO2eq del material × 100 = OLV. Ejemplo: 1 kg de metal × 8.0 × 100 = 800 OLV. Se acreditan cuando el admin valida la foto de entrega — nunca la de origen.',c:'#22c55e'},
-{t:'Las 3 capas de valor OLV',d:'Capa 1 — Utilidad (Fase 1-2): historial ambiental verificado, canjeables por servicios de empresas partner. Capa 2 — Carbono (Fase 3): conversión a créditos Verra/GS, USD reales. Capa 3 — Financiero (Fase 4): intercambiables en mercados Art. 6.4, USD 90/t.',c:'#3b82f6'},
-{t:'Distribución del crédito',d:'50% OLIVIA Circulab · 25% ciudadano generador · 15% recolector/cooperativa · 10% fondo de reserva ecosistema.',c:'#f59e0b'},
+{t:'Las 3 capas de valor OLV',d:'Capa 1 — Utilidad (Semilla/Brote): historial ambiental verificado, canjeables por servicios de empresas partner. Capa 2 — Carbono (Árbol 2027): conversión a créditos Verra VCS voluntario, USD reales, sin requerir autorización estatal. Capa 3 — Financiero (Bosque 2028+): acceso al mercado regulado Art. 6.4 de la ONU, sujeto a adhesión de Argentina o expansión al corredor LATAM (Chile · Colombia · Perú). Tokenización Verra VCS posible desde Argentina con Toucan/Moss sin autorización estatal.',c:'#3b82f6'},
+{t:'Distribución del crédito',d:'50% OLIVIA Circulab · 35% ciudadano generador · 10% recolector/cooperativa · 5% fondo de reserva ecosistema. En consorcios: consorcio 20% + vecino 15% + recolector 10% + reserva 5% + OLIVIA 50%.',c:'#f59e0b'},
 {t:'Los que empiezan hoy',d:'Los OLV acumulados en Fase 1 mantienen su valor en Fase 3. Un usuario que acumula 50.000 OLV en 18 meses tiene un historial más valioso que quien empieza en Fase 3. El tiempo de participación es el activo más valioso.',c:'#a855f7'},
 {t:'Convenios como inversión diferida',d:'Las empresas partner que aceptan OLV reciben una cuenta por cobrar en activos ambientales. Cuando OLIVIA certifique en 2027, convierten sus OLV en dinero real. No es descuento — es inversión.',c:'#22c55e'},
 ]:[
 {t:'OLV generation',d:'Formula: kg × material CO2eq factor × 100 = OLV. Example: 1 kg metal × 8.0 × 100 = 800 OLV. Credited when admin validates delivery photo — never origin photo.',c:'#22c55e'},
-{t:'3 OLV value layers',d:'Layer 1 — Utility (Phase 1-2): verified environmental history, redeemable for partner services. Layer 2 — Carbon (Phase 3): conversion to Verra/GS credits, real USD. Layer 3 — Financial (Phase 4): tradeable in Art. 6.4 markets, USD 90/t.',c:'#3b82f6'},
-{t:'Credit distribution',d:'50% OLIVIA Circulab · 25% generating citizen · 15% collector/cooperative · 10% ecosystem reserve fund.',c:'#f59e0b'},
+{t:'3 OLV value layers',d:'Layer 1 — Utility (Semilla/Brote): verified environmental history, redeemable for partner services. Layer 2 — Carbon (Árbol 2027): conversion to Verra VCS voluntary credits, real USD, no state authorization required. Layer 3 — Financial (Bosque 2028+): access to UN regulated market Art. 6.4, subject to Argentina joining or LATAM corridor expansion (Chile · Colombia · Peru). Verra VCS tokenization possible from Argentina with Toucan/Moss without state authorization.',c:'#3b82f6'},
+{t:'Credit distribution',d:'50% OLIVIA Circulab · 35% generating citizen · 10% collector/cooperative · 5% ecosystem reserve fund. In buildings: building 20% + neighbor 15% + collector 10% + reserve 5% + OLIVIA 50%.',c:'#f59e0b'},
 {t:'Those who start today',d:'OLV accumulated in Phase 1 maintain their value in Phase 3. A user who accumulates 50,000 OLV in 18 months has a more valuable history than someone starting in Phase 3.',c:'#a855f7'},
 {t:'Partnerships as deferred investment',d:'Partner companies that accept OLV receive a receivable in environmental assets. When OLIVIA certifies in 2027, they convert OLV to real money. Not a discount — an investment.',c:'#22c55e'},
 ]).map(i=>(
