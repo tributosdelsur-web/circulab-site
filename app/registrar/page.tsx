@@ -594,10 +594,14 @@ export default function Registrar() {
                  style={{width:'100%',padding:'32px',borderRadius:14,border:`2px dashed ${disposicion==='punto_verde'?'rgba(59,130,246,0.4)':'rgba(34,197,94,0.4)'}`,background:disposicion==='punto_verde'?'rgba(59,130,246,0.04)':'rgba(34,197,94,0.04)',color:disposicion==='punto_verde'?'#3b82f6':'#22c55e',fontSize:14,fontWeight:700,cursor:'pointer',marginBottom:12}}>
                  📷 Tocar para sacar foto
                </button>
-               <div style={{fontSize:10,color:'#64748b',textAlign:'center',padding:'8px',lineHeight:1.5}}>
+               <div style={{fontSize:10,color:'#f59e0b',textAlign:'center',padding:'8px',lineHeight:1.6,background:'rgba(245,158,11,0.06)',borderRadius:8,border:'1px solid rgba(245,158,11,0.2)'}}>
                  ⚠️ Sin esta foto tus OLV quedan como Bonus, no como Verdes.
-                 Los OLV Verdes son los que certifica Verra.
+                 Los OLV Verdes son los que certifica Verra y paga el mercado.
                </div>
+               <button onClick={siguiente}
+                 style={{width:'100%',marginTop:10,padding:'11px',borderRadius:10,border:'1px solid rgba(255,255,255,0.08)',background:'transparent',color:'#64748b',fontSize:12,cursor:'pointer'}}>
+                 Continuar sin foto — mis OLV quedan como Bonus
+               </button>
              </div>
            )}
            <input ref={fotoEntregaRef} type="file" accept="image/*" capture="environment"
