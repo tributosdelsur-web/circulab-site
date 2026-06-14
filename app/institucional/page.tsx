@@ -240,24 +240,32 @@ export default function Institucional() {
           <div style={{textAlign:'center',marginBottom:24}}>
             <p style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:sub,marginBottom:8}}>{es?'Arquitectura del Ecosistema':'Ecosystem Architecture'}</p>
             <h2 style={{fontSize:30,fontWeight:900,fontFamily:'Georgia,serif',fontStyle:'italic'}}>
-              {es?'Tres verticales. ':'Three verticals. '}
+              {es?'Una tesis. ':'One thesis. '}
               <span style={{background:`linear-gradient(90deg,${accent},#22c55e)`,WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',fontFamily:'Inter,system-ui',fontStyle:'normal'}}>
-                {es?'Un sistema.':'One system.'}
+                {es?'Tres momentos.':'Three moments.'}
               </span>
             </h2>
           </div>
+          <div style={{background:'rgba(34,197,94,0.04)',border:'1px solid rgba(34,197,94,0.15)',borderRadius:12,padding:'16px 20px',marginBottom:24,textAlign:'center'}}>
+            <p style={{fontSize:12,color:'#94a3b8',lineHeight:1.7,margin:0}}>
+              {es
+                ? 'OLIVIA Circular es el único producto con código activo en 2026. No se escribe una sola línea de código en Quincena PULSO ni en Art of Money hasta que OLIVIA Circular emita su primer crédito certificado por Verra. Esa disciplina de ejecución es deliberada: garantiza foco total en el hito que desbloquea todo lo demás.'
+                : 'OLIVIA Circular is the only product with active code in 2026. Not a single line of code is written in Quincena PULSO or Art of Money until OLIVIA Circular issues its first Verra-certified credit. This execution discipline is deliberate: it guarantees total focus on the milestone that unlocks everything else.'}
+            </p>
+          </div>
           <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:16}}>
             {[
-              {img:'/ciudadano/metamorfosis.jpg',nombre:'OLIVIA Circulab',desc:es?'Validación física y dMRV. Convierte residuos domésticos en activos ambientales verificables bajo protocolos Verra, Gold Standard y CAR.':'Physical validation and dMRV. Converts household waste into verifiable environmental assets under Verra, Gold Standard and CAR protocols.',href:'/registro',color:'#22c55e'},
-              {img:'/ciudadano/pulso.jpg',nombre:es?'Quincena · PULSO':'Quincena · PULSO',desc:es?'Finanzas inclusivas. Digitaliza ROSCAs y expande capacidades crediticias del sector informal en corredor AR MX CO BR CH DO.':'Inclusive finance. Digitalizes ROSCAs and expands credit capabilities across AR MX CO BR CH DO.',href:'/quincena',color:'#3b82f6'},
-              {img:'/ciudadano/aom.jpg',nombre:'Art of Money',desc:es?'Tokenización RWA. Transforma regalías musicales, deportivas y literarias en acceso a financiamiento. Más OLV = mejor tasa.':'RWA tokenization. Transforms music, sports and literary royalties into financing access. More OLV = better rate.',href:'/aom',color:'#a855f7'},
-            ].map(v=>(
-              <div key={v.nombre} style={{background:card,border:`1px solid ${border}`,borderRadius:14,overflow:'hidden'}}>
+              {img:'/ciudadano/metamorfosis.jpg',nombre:'OLIVIA Circular',badge:es?'✅ Activo · Semilla 2026':'✅ Active · Semilla 2026',desc:es?'El único producto con código activo hoy. SaaS dMRV para consorcios + verificación IA de residuos + originación de créditos de carbono bajo protocolo Verra VCS. El 100% del foco y el capital de la ronda Seed va aquí.':'The only product with active code today. dMRV SaaS for buildings + AI waste verification + carbon credit origination under Verra VCS protocol. 100% of Seed round focus and capital goes here.',href:'/registro',color:'#22c55e',locked:false},
+              {img:'/ciudadano/pulso.jpg',nombre:es?'Quincena · PULSO':'Quincena · PULSO',badge:es?'🔒 Post-certificación Verra · 2027':'🔒 Post-Verra certification · 2027',desc:es?'Infraestructura de pago para que el ciudadano cobre sus créditos de carbono sin cuenta bancaria formal. Nace cuando OLIVIA Circular emita su primer crédito Verra y el vecino necesite cobrar en USD. Cero líneas de código hasta ese hito.':'Payment infrastructure so citizens can collect their carbon credits without a formal bank account. Born when OLIVIA Circular issues its first Verra credit. Zero lines of code until that milestone.',href:'#',color:'#3b82f6',locked:true},
+              {img:'/ciudadano/aom.jpg',nombre:'Art of Money',badge:es?'🔒 Post-escala LATAM · 2028':'🔒 Post-LATAM scale · 2028',desc:es?'La misma infraestructura financiera de Quincena aplicada a creadores, artistas y deportistas. Activa cuando la plomería de Quincena ya esté funcionando. Misma tesis — nueva industria. Cero líneas de código hasta 2028.':'The same Quincena financial infrastructure applied to creators, artists and athletes. Activates when Quincena infrastructure is running. Same thesis — new industry. Zero lines of code until 2028.',href:'#',color:'#a855f7',locked:true},
+            ].map((v:any)=>(
+              <div key={v.nombre} style={{background:card,border:`1px solid ${v.locked?border:v.color+'44'}`,borderRadius:14,overflow:'hidden',opacity:v.locked?0.7:1}}>
                 <img src={v.img} alt={v.nombre} style={{width:'100%',height:160,objectFit:'cover',filter:'grayscale(100%)',transition:'0.5s',display:'block'}}
                   onMouseEnter={e=>(e.currentTarget.style.filter='grayscale(0%)')}
                   onMouseLeave={e=>(e.currentTarget.style.filter='grayscale(100%)')} />
                 <div style={{padding:'16px'}}>
                   <h3 style={{fontSize:13,fontWeight:700,textTransform:'uppercase',marginBottom:6,color:v.color}}>{v.nombre}</h3>
+                  <div style={{fontSize:9,fontWeight:700,color:v.locked?'#64748b':v.color,background:v.locked?'rgba(255,255,255,0.04)':`${v.color}15`,padding:'3px 8px',borderRadius:20,display:'inline-block',marginBottom:8,letterSpacing:'0.05em'}}>{v.badge}</div>
                   <p style={{fontSize:11,color:sub,lineHeight:1.5,marginBottom:10}}>{v.desc}</p>
                   <a href={v.href} style={{fontSize:10,fontWeight:700,color:v.color,textDecoration:'none',fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.08em'}}>
                     {es?'Explorar →':'Explore →'}
