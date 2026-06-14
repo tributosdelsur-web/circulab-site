@@ -140,11 +140,11 @@ export default function Landing() {
   }
 
   const RESIDUOS = [
-    {icon:'🌿',tipo:es?'Orgánico':'Organic',olv:'180 OLV/kg',usd_arbol:'USD 0.028/kg',usd_bosque:'USD 0.082/kg',bolsa:'Verra VM0036',color:'#22c55e'},
-    {icon:'♻️',tipo:es?'Plástico':'Plastic',olv:'150 OLV/kg',usd_arbol:'USD 0.024/kg',usd_bosque:'USD 0.068/kg',bolsa:'Gold Standard',color:'#3b82f6'},
-    {icon:'🔩',tipo:es?'Metal':'Metal',olv:'800 OLV/kg',usd_arbol:'USD 0.102/kg',usd_bosque:'USD 0.296/kg',bolsa:'CAR',color:'#ef4444'},
-    {icon:'👕',tipo:es?'Textil':'Textile',olv:'550 OLV/kg',usd_arbol:'USD 0.071/kg',usd_bosque:'USD 0.205/kg',bolsa:'GS Textile',color:'#ec4899'},
-    {icon:'🛢️',tipo:es?'Aceite':'Oil',olv:'250 OLV/kg',usd_arbol:'USD 0.035/kg',usd_bosque:'USD 0.100/kg',bolsa:'Verra AMS',color:'#f97316'},
+    {icon:'🌿',tipo:es?'Orgánico':'Organic',olv:'180 OLV/kg',usd_arbol:'USD 0.028/kg',usd_bosque:'USD 0.082/kg',bolsa:'Verra AMS-III.AJ + VMR0007',color:'#22c55e'},
+    {icon:'♻️',tipo:es?'Plástico':'Plastic',olv:'150 OLV/kg',usd_arbol:'USD 0.024/kg',usd_bosque:'USD 0.068/kg',bolsa:'GS Solid Waste v1.0',color:'#3b82f6'},
+    {icon:'🔩',tipo:es?'Metal':'Metal',olv:'800 OLV/kg',usd_arbol:'USD 0.102/kg',usd_bosque:'USD 0.296/kg',bolsa:'Verra AMS-III.AJ',color:'#ef4444'},
+    {icon:'👕',tipo:es?'Textil':'Textile',olv:'550 OLV/kg',usd_arbol:'USD 0.071/kg',usd_bosque:'USD 0.205/kg',bolsa:'Sin metodología madura',color:'#ec4899'},
+    {icon:'🛢️',tipo:es?'Aceite':'Oil',olv:'250 OLV/kg',usd_arbol:'USD 0.035/kg',usd_bosque:'USD 0.100/kg',bolsa:'Verra AMS-III.AK',color:'#f97316'},
     {icon:'📄',tipo:es?'Papel':'Paper',olv:'90 OLV/kg',usd_arbol:'USD 0.013/kg',usd_bosque:'USD 0.036/kg',bolsa:'Gold Standard',color:'#f59e0b'},
     {icon:'🍾',tipo:es?'Vidrio':'Glass',olv:'30 OLV/kg',usd_arbol:'USD 0.005/kg',usd_bosque:'USD 0.014/kg',bolsa:'Verra',color:'#a855f7'},
   ]
