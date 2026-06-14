@@ -437,8 +437,8 @@ export default function Landing() {
       {/* ═══ SECCIÓN 5 — UN ECOSISTEMA DE TRES ═══ */}
       <section style={{padding:'32px 20px',maxWidth:580,margin:'0 auto',borderTop:`1px solid ${border}`}}>
         <div style={{fontSize:11,color:'#22c55e',textTransform:'uppercase',letterSpacing:'0.1em',textAlign:'center',marginBottom:6}}>{es?'Ecosistema':'Ecosystem'}</div>
-        <h2 style={{fontSize:22,fontWeight:900,textAlign:'center',marginBottom:6,color:text}}>{es?'Un ecosistema de tres':'An ecosystem of three'}</h2>
-        <p style={{fontSize:12,color:sub,textAlign:'center',marginBottom:16}}>{es?'No son tres apps. Es un solo sistema que se retroalimenta.':'Not three apps. One system that feeds itself.'}</p>
+        <h2 style={{fontSize:22,fontWeight:900,textAlign:'center',marginBottom:6,color:text}}>{es?'Una tesis · tres momentos':'One thesis · three moments'}</h2>
+        <p style={{fontSize:12,color:sub,textAlign:'center',marginBottom:16}}>{es?'Un solo sistema que se activa por etapas. Hoy solo existe OLIVIA Circular.':'One system that activates in stages. Today only OLIVIA Circular exists.'}</p>
         <div style={{display:'flex',flexDirection:'column',gap:10,marginBottom:16}}>
           {[
             {icon:'🌿',nombre:'OLIVIA Circular',desc:es?'Reciclás y ganás OLV Verdes certificables por Verra':'You recycle and earn Green OLV certifiable by Verra',color:'#22c55e',href:'/registro'},

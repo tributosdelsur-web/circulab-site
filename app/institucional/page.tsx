@@ -79,6 +79,7 @@ export default function Institucional() {
               'LATAM Infrastructure',
               es?'Ley 27.506 · 1.4x':'Law 27.506 · 1.4x',
               es?'🚀 USD 0 inversión externa':'🚀 USD 0 external investment',
+              es?'✅ Verra validó dMRV · Feb 2026':'✅ Verra validated dMRV · Feb 2026',
             ].map((tag,i)=>(
               <span key={i} style={{border:`1px solid ${border}`,borderRadius:20,padding:'5px 12px',fontSize:10,textTransform:'uppercase',letterSpacing:'0.1em',fontWeight:500,background:dark?'rgba(255,255,255,0.03)':'rgba(0,0,0,0.03)'}}>
                 {tag}
@@ -88,19 +89,26 @@ export default function Institucional() {
 
           <h1 style={{fontSize:40,fontWeight:900,lineHeight:1,letterSpacing:'-0.03em',marginBottom:20,maxWidth:700}}>
             {es?(
-              <>Infraestructura de coordinación para ecosistemas urbanos <span style={{color:'#22c55e',fontStyle:'italic'}}>AI-native.</span></>
+              <>Infraestructura dMRV para convertir residuos urbanos en <span style={{color:'#22c55e',fontStyle:'italic'}}>activos de carbono certificados.</span></>
             ):(
-              <>Coordination infrastructure for <span style={{color:'#22c55e',fontStyle:'italic'}}>AI-native</span> urban ecosystems.</>
+              <>dMRV infrastructure to convert urban waste into <span style={{color:'#22c55e',fontStyle:'italic'}}>certified carbon assets.</span></>
             )}
           </h1>
 
           <p style={{fontSize:15,lineHeight:1.7,color:sub,marginBottom:28,maxWidth:600}}>
-            {es?'Desarrollamos la capa operacional que conecta ciudadanos, inteligencia artificial y cooperativas territoriales para monetizar los bienes meritorios de las nuevas economías urbanas emergentes.':'We develop the operational layer connecting citizens, artificial intelligence, and territorial cooperatives to monetize the merit goods of emerging urban economies.'}
+            {es?'SaaS B2B para consorcios residenciales + verificación IA de residuos + originación de créditos de carbono Verra VCS. El consorcio paga el SaaS. Los créditos de carbono son margen neto al 90%.':'B2B SaaS for residential buildings + AI waste verification + Verra VCS carbon credit origination. The building pays the SaaS. Carbon credits are 90% net margin.'}
           </p>
 
+          <div style={{display:'inline-flex',alignItems:'center',gap:8,background:'rgba(34,197,94,0.08)',border:'1px solid rgba(34,197,94,0.25)',borderRadius:30,padding:'8px 16px',marginBottom:20,flexWrap:'wrap'}}>
+            <span style={{fontSize:11,fontWeight:700,color:'#22c55e'}}>{es?'Ronda Seed abierta':'Seed Round open'}</span>
+            <span style={{fontSize:10,color:sub}}>·</span>
+            <span style={{fontSize:11,color:sub}}>USD 500K · 10% equity</span>
+            <span style={{fontSize:10,color:sub}}>·</span>
+            <span style={{fontSize:11,color:sub}}>{es?'USD 1 = USD 1.4 efectivos · Ley 27.506':'USD 1 = USD 1.4 effective · Law 27.506'}</span>
+          </div>
           <div style={{display:'flex',gap:12,flexWrap:'wrap',marginBottom:40}}>
-            <a href="/registro" style={{background:accent,color:dark?'#050505':'white',padding:'13px 28px',borderRadius:40,fontSize:11,fontWeight:700,textDecoration:'none',textTransform:'uppercase',letterSpacing:'0.08em'}}>
-              {es?'Registrar Mi Residuo':'Register My Waste'}
+            <a href="mailto:hola@oliviacirculab.com.ar?subject=Reunion%20OLIVIA%20Seed" style={{background:accent,color:dark?'#050505':'white',padding:'13px 28px',borderRadius:40,fontSize:11,fontWeight:700,textDecoration:'none',textTransform:'uppercase',letterSpacing:'0.08em'}}>
+              {es?'Agendar reunión · 20 min':'Schedule meeting · 20 min'}
             </a>
             <a href="/pitch" style={{border:`1px solid ${border}`,color:text,padding:'13px 28px',borderRadius:40,fontSize:11,fontWeight:700,textDecoration:'none',textTransform:'uppercase',letterSpacing:'0.08em'}}>
               {es?'Ver Pitch Deck':'View Pitch Deck'}
@@ -128,6 +136,28 @@ export default function Institucional() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+
+      {/* POR QUE AHORA */}
+      <section style={{padding:'32px 24px',borderTop:'1px solid rgba(34,197,94,0.15)',background:dark?'rgba(34,197,94,0.02)':'rgba(34,197,94,0.02)'}}>
+        <div style={{maxWidth:800,margin:'0 auto'}}>
+          <p style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:sub,marginBottom:16,textAlign:'center'}}>[ {es?'Por qué ahora':'Why now'} ]</p>
+          <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:12}}>
+            {[
+              {icon:'✅',title:es?'Verra validó dMRV · Feb 2026':'Verra validated dMRV · Feb 2026',desc:es?'El mercado internacional de carbono aprobó la verificación digital de alta frecuencia. Nuestro modelo pasó de hipótesis a certeza técnica. El riesgo bajó de ALTO a MEDIO.':'The international carbon market approved high-frequency digital verification. Our model moved from hypothesis to technical certainty. Risk dropped from HIGH to MEDIUM.'},
+              {icon:'🏗️',title:es?'USD 0 inversión externa · Producto activo':'USD 0 external investment · Active product',desc:es?'App en producción, IA verificando residuos, comunidad activa, admin con CRM. Todo funcionando hoy sin capital externo. Lo que otros tardan 2 años y USD 500K en construir.':'App in production, AI verifying waste, active community, admin with CRM. All running today without external capital. What others take 2 years and USD 500K to build.'},
+              {icon:'⚖️',title:es?'Ley 27.506 · 10 años de estabilidad fiscal':'Law 27.506 · 10-year fiscal stability',desc:es?'USD 1 invertido = USD 1.4 efectivos. Ganancias al 15%, reducción 70-80% cargas patronales. Ventaja fiscal única en LATAM que no existe en ningún otro país de la región.':'USD 1 invested = USD 1.4 effective. 15% income tax, 70-80% payroll reduction. Unique fiscal advantage in LATAM that exists nowhere else in the region.'},
+              {icon:'🏢',title:es?'Modelo SaaS · USD 600/mes por consorcio':'SaaS Model · USD 600/month per building',desc:es?'El consorcio paga el SaaS como gasto ordinario de expensas. Cubre el 100% del costo operativo. Los créditos de carbono generados arriba de eso son margen neto al 90%.':'The building pays the SaaS as ordinary maintenance expense. Covers 100% of operating costs. Carbon credits generated above that are 90% net margin.'},
+            ].map((item,i)=>(
+              <div key={i} style={{background:card,border:'1px solid rgba(34,197,94,0.15)',borderRadius:14,padding:'16px'}}>
+                <div style={{fontSize:20,marginBottom:8}}>{item.icon}</div>
+                <div style={{fontSize:12,fontWeight:700,color:'#22c55e',marginBottom:6,lineHeight:1.3}}>{item.title}</div>
+                <p style={{fontSize:11,color:sub,lineHeight:1.6,margin:0}}>{item.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

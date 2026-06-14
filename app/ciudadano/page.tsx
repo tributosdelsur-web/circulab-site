@@ -473,6 +473,34 @@ export default function Ciudadano() {
               </div>
             ))}
           </div>
+
+          {/* QUE PASA DESPUES */}
+          <div style={{marginTop:16,background:card,border:'1px solid rgba(34,197,94,0.2)',borderRadius:14,padding:'16px'}}>
+            <div style={{fontSize:11,fontWeight:700,color:'#22c55e',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:12}}>
+              {es?'¿Qué pasa después de que registrás?':'What happens after you register?'}
+            </div>
+            <div style={{display:'flex',flexDirection:'column',gap:8}}>
+              {[
+                {icon:'📸',step:es?'Registrás con foto + GPS':'You register with photo + GPS',detail:es?'Tus OLV quedan como pendientes hasta verificación.':'Your OLV stay pending until verification.',color:'#22c55e'},
+                {icon:'✅',step:es?'El equipo OLIVIA valida la entrega':'OLIVIA team validates the delivery',detail:es?'Confirmamos foto de entrega en punto verde o recolector. OLV se acreditan en tu wallet.':'We confirm delivery photo at green point or collector. OLV are credited to your wallet.',color:'#3b82f6'},
+                {icon:'🌿',step:es?'Acumulás OLV Verdes certificables':'You accumulate certifiable Green OLV',detail:es?'En Semilla 2026 no tienen valor monetario. Son tu historial verificado para Verra.':'In Semilla 2026 they have no monetary value. They are your verified history for Verra.',color:'#f59e0b'},
+                {icon:'💰',step:es?'Árbol 2027 · Primer pago real en USD':'Árbol 2027 · First real USD payment',detail:es?'Cuando Verra certifique, tus OLV Verdes acumulados se convierten en dinero real. Los que empezaron en Semilla cobran primero.':'When Verra certifies, your accumulated Green OLV convert to real money. Those who started in Semilla collect first.',color:'#22c55e'},
+              ].map((item,i)=>(
+                <div key={i} style={{display:'flex',gap:12,alignItems:'flex-start'}}>
+                  <div style={{width:32,height:32,borderRadius:'50%',background:'rgba(34,197,94,0.1)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:16,flexShrink:0}}>{item.icon}</div>
+                  <div style={{flex:1}}>
+                    <div style={{fontSize:12,fontWeight:700,color:item.color}}>{item.step}</div>
+                    <div style={{fontSize:11,color:sub,marginTop:2,lineHeight:1.5}}>{item.detail}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div style={{marginTop:14,padding:'10px 14px',background:'rgba(239,68,68,0.05)',border:'1px solid rgba(239,68,68,0.15)',borderRadius:10}}>
+              <div style={{fontSize:11,color:sub,lineHeight:1.6}}>
+                {es?'⚠️ OLIVIA no paga — facilita la infraestructura para que el mercado de carbono pague. En Semilla 2026 los OLV no tienen valor monetario. El valor llega con la certificación Verra en 2027.':'⚠️ OLIVIA does not pay — it provides the infrastructure for the carbon market to pay. In Semilla 2026 OLV have no monetary value. Value arrives with Verra certification in 2027.'}
+              </div>
+            </div>
+          </div>
           <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,padding:'14px',textAlign:'center'}}>
             <div style={{fontSize:12,color:'#22c55e',fontWeight:700,marginBottom:4}}>🌿 {es?'Doble crédito de carbono':'Double carbon credit'}</div>
             <div style={{fontSize:11,color:sub,lineHeight:1.6}}>
