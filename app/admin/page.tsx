@@ -68,15 +68,15 @@ export default function Admin() {
 
  async function cargar() {
    setLoading(true)
-   const [r,u,e,l,n,f,w,o] = await Promise.all([
+   const [r,u,e,l,n,f,post,crm,w,o,laom,lq,al] = await Promise.all([
      supabase.from('residuos').select('*, usuarios(nombre,apellido,consorcio,barrio)').order('created_at',{ascending:false}),
      supabase.from('usuarios').select('*').order('created_at',{ascending:false}),
      supabase.from('encuestas').select('*').order('created_at',{ascending:false}),
      supabase.from('leads_inversores').select('*').order('created_at',{ascending:false}),
      supabase.from('nda_firmas').select('*').order('created_at',{ascending:false}),
      supabase.from('feedback').select('*').order('created_at',{ascending:false}),
-    supabase.from('postulaciones').select('*').order('created_at',{ascending:false}),
-    supabase.from('inversores_crm').select('*').order('created_at',{ascending:false}),
+     supabase.from('postulaciones').select('*').order('created_at',{ascending:false}),
+     supabase.from('inversores_crm').select('*').order('created_at',{ascending:false}),
      supabase.from('whitepaper_descargas').select('*').order('created_at',{ascending:false}),
      supabase.from('onepager_descargas').select('*').order('created_at',{ascending:false}),
      supabase.from('leads_aom').select('*').order('created_at',{ascending:false}),
@@ -89,6 +89,8 @@ export default function Admin() {
    setLeads(l.data||[])
    setNdas(n.data||[])
    setFeedback(f.data||[])
+   setPostulaciones(post.data||[])
+   setInversoresCRM(crm.data||[])
    setWhitepapers(w.data||[])
    setOnepagers(o.data||[])
    setLoading(false)
