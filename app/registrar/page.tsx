@@ -494,7 +494,15 @@ export default function Registrar() {
        {paso===3&&(
          <div>
            <div style={{fontSize:18,fontWeight:900,marginBottom:4}}>Foto del residuo en origen 📷</div>
-           <div style={{fontSize:12,color:'#64748b',marginBottom:16}}>Sacá la foto antes de salir de tu casa</div>
+           <div style={{fontSize:12,color:'#64748b',marginBottom:8}}>Sacá la foto antes de salir de tu casa</div>
+           <div style={{background:'rgba(34,197,94,0.08)',border:'1px solid rgba(34,197,94,0.3)',borderRadius:10,padding:'10px',marginBottom:16,textAlign:'center'}}>
+             <span style={{fontSize:12,fontWeight:700,color:'#22c55e'}}>
+               📍 Esta foto registra tu GPS automáticamente
+             </span>
+             <div style={{fontSize:10,color:'#94a3b8',marginTop:3}}>
+               El GPS es necesario para generar OLV Verdes certificables
+             </div>
+           </div>
 
            <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,padding:'12px',marginBottom:16}}>
              <div style={{fontSize:11,fontWeight:700,color:'#22c55e',marginBottom:6}}>📸 Cómo sacar una buena foto:</div>
@@ -545,7 +553,7 @@ export default function Registrar() {
            </div>
            <div style={{fontSize:12,color:'#64748b',marginBottom:16}}>
              {disposicion==='punto_verde'
-               ?'Esta foto confirma la disposición final y activa tus OLV'
+               ?'📍 Esta foto + GPS confirma la disposición final y ACTIVA tus OLV Verdes'
                :`Foto de tu ${disposicion==='compost'?'compostaje':'lombricompostaje'} iniciado`}
            </div>
 
@@ -586,10 +594,10 @@ export default function Registrar() {
                  style={{width:'100%',padding:'32px',borderRadius:14,border:`2px dashed ${disposicion==='punto_verde'?'rgba(59,130,246,0.4)':'rgba(34,197,94,0.4)'}`,background:disposicion==='punto_verde'?'rgba(59,130,246,0.04)':'rgba(34,197,94,0.04)',color:disposicion==='punto_verde'?'#3b82f6':'#22c55e',fontSize:14,fontWeight:700,cursor:'pointer',marginBottom:12}}>
                  📷 Tocar para sacar foto
                </button>
-               <button onClick={siguiente}
-                 style={{width:'100%',padding:'12px',borderRadius:10,border:'1px solid rgba(255,255,255,0.08)',background:'transparent',color:'#64748b',fontSize:12,cursor:'pointer'}}>
-                 Saltar por ahora — subiré la foto después
-               </button>
+               <div style={{fontSize:10,color:'#64748b',textAlign:'center',padding:'8px',lineHeight:1.5}}>
+                 ⚠️ Sin esta foto tus OLV quedan como Bonus, no como Verdes.
+                 Los OLV Verdes son los que certifica Verra.
+               </div>
              </div>
            )}
            <input ref={fotoEntregaRef} type="file" accept="image/*" capture="environment"
