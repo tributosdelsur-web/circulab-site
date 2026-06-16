@@ -1355,6 +1355,152 @@ export default function Admin() {
        )}
 
 
+
+      {tab==='postulaciones'&&(
+        <div style={{display:'flex',flexDirection:'column',gap:16}}>
+          <div style={{fontSize:16,fontWeight:900}}>🎯 Fundraising Tracker</div>
+          <div style={{background:'#111827',border:'1px solid rgba(34,197,94,0.2)',borderRadius:14,padding:'16px'}}>
+            <div style={{fontSize:13,fontWeight:700,marginBottom:12,color:'#22c55e'}}>+ Nueva postulacion</div>
+            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,marginBottom:8}}>
+              <input placeholder="Nombre del fondo" id="pf_nombre" style={{padding:'8px 12px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:12,outline:'none'}} />
+              <select id="pf_tipo" style={{padding:'8px 12px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:12,outline:'none'}}>
+                <option value="vc">VC</option>
+                <option value="incubadora">Incubadora</option>
+                <option value="concurso">Concurso</option>
+                <option value="grant">Grant</option>
+                <option value="aceleradora">Aceleradora</option>
+              </select>
+              <input placeholder="Deadline (YYYY-MM-DD)" id="pf_deadline" style={{padding:'8px 12px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:12,outline:'none'}} />
+              <input placeholder="Monto potencial" id="pf_monto" style={{padding:'8px 12px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:12,outline:'none'}} />
+              <input placeholder="Contacto" id="pf_contacto" style={{padding:'8px 12px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:12,outline:'none'}} />
+              <input placeholder="URL" id="pf_url" style={{padding:'8px 12px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:12,outline:'none'}} />
+            </div>
+            <textarea placeholder="Notas" id="pf_notas" style={{width:'100%',padding:'8px 12px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:12,outline:'none',marginBottom:8,boxSizing:'border-box' as const,minHeight:60,resize:'vertical' as const}} />
+            <textarea placeholder="Next step" id="pf_nextstep" style={{width:'100%',padding:'8px 12px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:12,outline:'none',marginBottom:8,boxSizing:'border-box' as const,minHeight:40,resize:'vertical' as const}} />
+            <button onClick={async()=>{
+              const nombre = (document.getElementById('pf_nombre') as HTMLInputElement)?.value
+              if(!nombre) return
+              const tipo = (document.getElementById('pf_tipo') as HTMLSelectElement)?.value
+              const deadline = (document.getElementById('pf_deadline') as HTMLInputElement)?.value
+              const monto_potencial = (document.getElementById('pf_monto') as HTMLInputElement)?.value
+              const contacto = (document.getElementById('pf_contacto') as HTMLInputElement)?.value
+              const url = (document.getElementById('pf_url') as HTMLInputElement)?.value
+              const notas = (document.getElementById('pf_notas') as HTMLTextAreaElement)?.value
+              const next_step = (document.getElementById('pf_nextstep') as HTMLTextAreaElement)?.value
+              await supabase.from('postulaciones').insert({fondo_nombre:nombre,tipo,deadline,monto_potencial,contacto,url,notas,next_step,estado:'pendiente'})
+              const {data} = await supabase.from('postulaciones').select('*').order('created_at',{ascending:false})
+              setPostulaciones(data||[])
+            }} style={{background:'linear-gradient(135deg,#22c55e,#16a34a)',border:'none',borderRadius:8,padding:'8px 16px',color:'white',fontSize:12,fontWeight:700,cursor:'pointer'}}>
+              + Agregar
+            </button>
+          </div>
+          <div style={{display:'flex',flexDirection:'column',gap:8}}>
+            {postulaciones.length===0&&<div style={{fontSize:11,color:'#64748b',textAlign:'center' as const,padding:'20px 0'}}>Sin postulaciones aun</div>}
+            {postulaciones.map((p:any)=>(
+              <div key={p.id} style={{background:'#111827',border:'1px solid rgba(255,255,255,0.06)',borderRadius:12,padding:'14px'}}>
+                <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:8}}>
+                  <div>
+                    <div style={{fontSize:13,fontWeight:700,color:'#f1f5f9'}}>{p.fondo_nombre}</div>
+                    <div style={{fontSize:10,color:'#64748b'}}>{p.tipo} · {p.deadline||'Sin deadline'} · {p.monto_potencial||'Monto TBD'}</div>
+                  </div>
+                  <select value={p.estado} onChange={async e=>{
+                    await supabase.from('postulaciones').update({estado:e.target.value}).eq('id',p.id)
+                    const {data} = await supabase.from('postulaciones').select('*').order('created_at',{ascending:false})
+                    setPostulaciones(data||[])
+                  }} style={{padding:'4px 8px',borderRadius:6,background:p.estado==='aprobada'?'rgba(34,197,94,0.2)':p.estado==='rechazada'?'rgba(239,68,68,0.2)':p.estado==='en_proceso'?'rgba(59,130,246,0.2)':'rgba(255,255,255,0.04)',border:'none',color:p.estado==='aprobada'?'#22c55e':p.estado==='rechazada'?'#ef4444':p.estado==='en_proceso'?'#3b82f6':'#64748b',fontSize:11,fontWeight:700,cursor:'pointer'}}>
+                    <option value="pendiente">Pendiente</option>
+                    <option value="enviada">Enviada</option>
+                    <option value="en_proceso">En proceso</option>
+                    <option value="rechazada">Rechazada</option>
+                    <option value="aprobada">Aprobada</option>
+                  </select>
+                </div>
+                {p.contacto&&<div style={{fontSize:10,color:'#94a3b8',marginBottom:4}}>👤 {p.contacto}</div>}
+                {p.notas&&<div style={{fontSize:10,color:'#64748b',marginBottom:4}}>📝 {p.notas}</div>}
+                {p.next_step&&<div style={{fontSize:10,color:'#f59e0b'}}>→ {p.next_step}</div>}
+                {p.url&&<a href={p.url} target="_blank" style={{fontSize:10,color:'#3b82f6',textDecoration:'none'}}>🔗 {p.url}</a>}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {tab==='inversores_crm'&&(
+        <div style={{display:'flex',flexDirection:'column',gap:16}}>
+          <div style={{fontSize:16,fontWeight:900}}>💰 Investor CRM</div>
+          <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:8,marginBottom:8}}>
+            {[
+              {estado:'frio',label:'❄️ Frio',color:'#64748b'},
+              {estado:'contactado',label:'📧 Contactado',color:'#3b82f6'},
+              {estado:'reunion',label:'🤝 Reunion',color:'#f59e0b'},
+              {estado:'due_diligence',label:'🔍 Due Dil.',color:'#a855f7'},
+              {estado:'cerrado',label:'✅ Cerrado',color:'#22c55e'},
+            ].map(e=>(
+              <div key={e.estado} style={{background:'rgba(255,255,255,0.02)',border:'1px solid ' + e.color + '33',borderRadius:10,padding:'10px',textAlign:'center' as const}}>
+                <div style={{fontSize:10,fontWeight:700,color:e.color,marginBottom:4}}>{e.label}</div>
+                <div style={{fontSize:20,fontWeight:900,color:e.color}}>{inversoresCRM.filter((i:any)=>i.estado===e.estado).length}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{background:'#111827',border:'1px solid rgba(245,158,11,0.2)',borderRadius:14,padding:'16px'}}>
+            <div style={{fontSize:13,fontWeight:700,marginBottom:12,color:'#f59e0b'}}>+ Nuevo inversor</div>
+            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,marginBottom:8}}>
+              <input placeholder="Nombre completo" id="inv_nombre" style={{padding:'8px 12px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:12,outline:'none'}} />
+              <input placeholder="Empresa" id="inv_empresa" style={{padding:'8px 12px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:12,outline:'none'}} />
+              <input placeholder="Email" id="inv_email" style={{padding:'8px 12px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:12,outline:'none'}} />
+              <input placeholder="Monto potencial" id="inv_monto" style={{padding:'8px 12px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:12,outline:'none'}} />
+              <select id="inv_estructura" style={{padding:'8px 12px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:12,outline:'none',gridColumn:'span 2'}}>
+                <option value="por_definir">Estructura: Por definir</option>
+                <option value="directa">Inversion directa</option>
+                <option value="safe">SAFE + Cap</option>
+                <option value="milestone">Milestone-based</option>
+              </select>
+            </div>
+            <textarea placeholder="Notas y next step" id="inv_notas" style={{width:'100%',padding:'8px 12px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:12,outline:'none',marginBottom:8,boxSizing:'border-box' as const,minHeight:60,resize:'vertical' as const}} />
+            <button onClick={async()=>{
+              const nombre = (document.getElementById('inv_nombre') as HTMLInputElement)?.value
+              if(!nombre) return
+              const empresa = (document.getElementById('inv_empresa') as HTMLInputElement)?.value
+              const email = (document.getElementById('inv_email') as HTMLInputElement)?.value
+              const monto_potencial = (document.getElementById('inv_monto') as HTMLInputElement)?.value
+              const estructura_preferida = (document.getElementById('inv_estructura') as HTMLSelectElement)?.value
+              const notas = (document.getElementById('inv_notas') as HTMLTextAreaElement)?.value
+              await supabase.from('inversores_crm').insert({nombre,empresa,email,monto_potencial,estructura_preferida,notas,estado:'frio',origen:'linkedin'})
+              const {data} = await supabase.from('inversores_crm').select('*').order('created_at',{ascending:false})
+              setInversoresCRM(data||[])
+            }} style={{background:'linear-gradient(135deg,#f59e0b,#d97706)',border:'none',borderRadius:8,padding:'8px 16px',color:'white',fontSize:12,fontWeight:700,cursor:'pointer'}}>
+              + Agregar inversor
+            </button>
+          </div>
+          <div style={{display:'flex',flexDirection:'column',gap:8}}>
+            {inversoresCRM.length===0&&<div style={{fontSize:11,color:'#64748b',textAlign:'center' as const,padding:'20px 0'}}>Sin inversores aun · Agrega el primero</div>}
+            {inversoresCRM.map((inv:any)=>(
+              <div key={inv.id} style={{background:'#111827',border:'1px solid rgba(255,255,255,0.06)',borderRadius:12,padding:'14px'}}>
+                <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:8}}>
+                  <div>
+                    <div style={{fontSize:13,fontWeight:700,color:'#f1f5f9'}}>{inv.nombre}</div>
+                    <div style={{fontSize:10,color:'#64748b'}}>{inv.empresa||'Sin empresa'} · {inv.email||''}</div>
+                    {inv.monto_potencial&&<div style={{fontSize:10,color:'#f59e0b'}}>💰 {inv.monto_potencial}</div>}
+                    {inv.estructura_preferida&&inv.estructura_preferida!=='por_definir'&&<div style={{fontSize:10,color:'#a855f7'}}>📋 {inv.estructura_preferida}</div>}
+                  </div>
+                  <select value={inv.estado} onChange={async e=>{
+                    await supabase.from('inversores_crm').update({estado:e.target.value}).eq('id',inv.id)
+                    const {data} = await supabase.from('inversores_crm').select('*').order('created_at',{ascending:false})
+                    setInversoresCRM(data||[])
+                  }} style={{padding:'4px 8px',borderRadius:6,background:'rgba(255,255,255,0.04)',border:'none',color:'#f1f5f9',fontSize:10,cursor:'pointer'}}>
+                    <option value="frio">Frio</option>
+                    <option value="contactado">Contactado</option>
+                    <option value="reunion">Reunion</option>
+                    <option value="due_diligence">Due Diligence</option>
+                    <option value="cerrado">Cerrado</option>
+                  </select>
+                </div>
+                {inv.notas&&<div style={{fontSize:10,color:'#64748b'}}>{inv.notas}</div>}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       {tab==='linkedin'&&(
         <div style={{display:'flex',flexDirection:'column',gap:16}}>
           <div style={{fontSize:16,fontWeight:900}}>LinkedIn Studio</div>
