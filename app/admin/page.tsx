@@ -35,6 +35,465 @@ function exportarCSV(data: any[], nombre: string) {
  a.click()
 }
 
+
+function NewsletterEngine({usuarios,residuos}:any) {
+  const [newsletter, setNewsletter] = React.useState('')
+  const [loading, setLoading] = React.useState(false)
+  const [copiado, setCopiado] = React.useState(false)
+  const kg = residuos.reduce((a:number,r:any)=>a+Number(r.peso_kg||0),0)
+  const co2 = residuos.reduce((a:number,r:any)=>a+Number(r.co2_evitado_kg||0),0)
+  const generar = async () => {
+    setLoading(true); setNewsletter('')
+    const prompt = 'Escribe el newsletter quincenal de OLIVIA Circulab. Datos: ' + usuarios.length + ' usuarios, ' + kg.toFixed(1) + ' kg verificados, ' + co2.toFixed(1) + ' kg CO2eq. Tono cercano. Max 300 palabras.'
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:800,messages:[{role:'user',content:prompt}]})})
+      const data = await res.json()
+      setNewsletter(data.content?.[0]?.text||'Error')
+    } catch(e){setNewsletter('Error')}
+    setLoading(false)
+  }
+  return (
+    <div>
+      <button onClick={generar} disabled={loading} style={{width:'100%',background:loading?'rgba(255,255,255,0.04)':'linear-gradient(135deg,#a855f7,#7c3aed)',border:'none',borderRadius:10,padding:'12px',color:'white',fontSize:13,fontWeight:700,cursor:'pointer',marginBottom:12}}>
+        {loading?'Generando...':'Generar newsletter'}
+      </button>
+      {newsletter&&(
+        <div>
+          <div style={{background:'rgba(255,255,255,0.02)',border:'1px solid rgba(255,255,255,0.06)',borderRadius:10,padding:'14px',fontSize:12,color:'#f1f5f9',lineHeight:1.8,whiteSpace:'pre-wrap',marginBottom:8,maxHeight:300,overflowY:'auto'}}>{newsletter}</div>
+          <button onClick={()=>{navigator.clipboard.writeText(newsletter);setCopiado(true);setTimeout(()=>setCopiado(false),2000)}} style={{width:'100%',background:copiado?'rgba(34,197,94,0.2)':'rgba(255,255,255,0.06)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:8,padding:'8px',color:copiado?'#22c55e':'#94a3b8',fontSize:11,fontWeight:700,cursor:'pointer'}}>
+            {copiado?'Copiado':'Copiar texto'}
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function CommunityEngine({usuarios}:any) {
+  const [msgs, setMsgs] = React.useState<any>({})
+  const [loading, setLoading] = React.useState<any>({})
+  const generar = async (u:any) => {
+    setLoading((p:any)=>({...p,[u.id]:true}))
+    const prompt = 'Escribe un mensaje de bienvenida personalizado para ' + (u.nombre||'el usuario') + ' de OLIVIA Circulab en ' + (u.barrio||'Buenos Aires') + '. Tramo Semilla 2026. OLV acumulandose. Arbol 2027 con Verra. Maximo 80 palabras.'
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:300,messages:[{role:'user',content:prompt}]})})
+      const data = await res.json()
+      setMsgs((p:any)=>({...p,[u.id]:data.content?.[0]?.text||'Error'}))
+    } catch(e){setMsgs((p:any)=>({...p,[u.id]:'Error'}))}
+    setLoading((p:any)=>({...p,[u.id]:false}))
+  }
+  return (
+    <div style={{display:'flex',flexDirection:'column',gap:8}}>
+      {usuarios.slice(0,8).map((u:any)=>(
+        <div key={u.id} style={{background:'rgba(255,255,255,0.02)',border:'1px solid rgba(255,255,255,0.06)',borderRadius:12,padding:'12px'}}>
+          <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:msgs[u.id]?8:0}}>
+            <div>
+              <div style={{fontSize:12,fontWeight:700,color:'#f1f5f9'}}>{u.nombre} {u.apellido||''}</div>
+              <div style={{fontSize:10,color:'#64748b'}}>{u.email}</div>
+            </div>
+            <button onClick={()=>generar(u)} disabled={loading[u.id]} style={{background:'rgba(34,197,94,0.1)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:8,padding:'5px 10px',color:'#22c55e',fontSize:10,fontWeight:700,cursor:'pointer'}}>
+              {loading[u.id]?'...':'Generar'}
+            </button>
+          </div>
+          {msgs[u.id]&&<div style={{fontSize:11,color:'#94a3b8',lineHeight:1.6}}>{msgs[u.id]}</div>}
+        </div>
+      ))}
+      {usuarios.length===0&&<div style={{fontSize:11,color:'#64748b',textAlign:'center',padding:'20px 0'}}>Sin usuarios aun</div>}
+    </div>
+  )
+}
+
+function EmailSecuencia({usuarios}:any) {
+  const [tipo, setTipo] = React.useState('dia3')
+  const [email, setEmail] = React.useState('')
+  const [loading, setLoading] = React.useState(false)
+  const [copiado, setCopiado] = React.useState(false)
+  const TIPOS = [
+    {id:'dia3',label:'Dia 3 - Primer residuo',prompt:'Escribe email de seguimiento para usuario de OLIVIA que se registro hace 3 dias y no registro residuos. Tono cercano. Recordar 100 OLV Bonus. 2 minutos para registrar. CTA oliviacirculab.com.ar/registrar. Max 120 palabras. Incluir ASUNTO: al inicio.'},
+    {id:'dia7',label:'Dia 7 - Invitar vecinos',prompt:'Escribe email para usuario activo de OLIVIA hace 7 dias. Felicitarlo. Recordar +50 OLV por vecino invitado. Max 120 palabras. Incluir ASUNTO: al inicio.'},
+    {id:'dia30',label:'Mes 1 - Reporte',prompt:'Escribe email de reporte mensual para usuario de OLIVIA. Celebratorio. Un mes activo. OLV acumulandose para Verra 2027. CTA dashboard. Max 150 palabras. Incluir ASUNTO: al inicio.'},
+    {id:'verra',label:'Hito Verra Feb 2026',prompt:'Escribe email anunciando que Verra aprobo metodologia dMRV en febrero 2026. Celebracion. OLV se van a certificar. Arbol 2027 real. Max 150 palabras. Incluir ASUNTO: al inicio.'},
+  ]
+  const generar = async () => {
+    setLoading(true); setEmail('')
+    const t = TIPOS.find(x=>x.id===tipo)
+    if (!t) return
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:400,messages:[{role:'user',content:t.prompt}]})})
+      const data = await res.json()
+      setEmail(data.content?.[0]?.text||'Error')
+    } catch(e){setEmail('Error')}
+    setLoading(false)
+  }
+  return (
+    <div style={{display:'flex',flexDirection:'column',gap:10}}>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:8}}>
+        {TIPOS.map(t=>(
+          <button key={t.id} onClick={()=>setTipo(t.id)} style={{padding:'8px',borderRadius:8,border:'1px solid ' + (tipo===t.id?'#a855f7':'rgba(255,255,255,0.06)'),background:tipo===t.id?'rgba(168,85,247,0.1)':'rgba(255,255,255,0.02)',color:tipo===t.id?'#a855f7':'#64748b',fontSize:10,fontWeight:700,cursor:'pointer',textAlign:'left' as const}}>
+            {t.label}
+          </button>
+        ))}
+      </div>
+      <button onClick={generar} disabled={loading} style={{background:loading?'rgba(255,255,255,0.04)':'linear-gradient(135deg,#a855f7,#7c3aed)',border:'none',borderRadius:10,padding:'10px',color:'white',fontSize:12,fontWeight:700,cursor:'pointer'}}>
+        {loading?'Generando...':'Generar email'}
+      </button>
+      {email&&(
+        <div>
+          <div style={{background:'rgba(255,255,255,0.02)',border:'1px solid rgba(255,255,255,0.06)',borderRadius:10,padding:'12px',fontSize:11,color:'#f1f5f9',lineHeight:1.8,whiteSpace:'pre-wrap',marginBottom:8,maxHeight:200,overflowY:'auto'}}>{email}</div>
+          <button onClick={()=>{navigator.clipboard.writeText(email);setCopiado(true);setTimeout(()=>setCopiado(false),2000)}} style={{width:'100%',background:copiado?'rgba(34,197,94,0.2)':'rgba(255,255,255,0.06)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:8,padding:'6px',color:copiado?'#22c55e':'#94a3b8',fontSize:10,fontWeight:700,cursor:'pointer'}}>
+            {copiado?'Copiado':'Copiar email'}
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function CampaniaCiudadana({usuarios}:any) {
+  const [msg, setMsg] = React.useState('')
+  const [loading, setLoading] = React.useState(false)
+  const [copiado, setCopiado] = React.useState(false)
+  const [seg, setSeg] = React.useState('inactivos')
+  const prompts:any = {
+    inactivos:'Escribe un mensaje de reactivacion para usuario de OLIVIA sin actividad en 7 dias. Tono cercano. OLV esperando. 2 minutos para registrar. Max 80 palabras.',
+    upgrade:'Escribe mensaje para invitar a usuario activo a plan premium USD 1/mes de OLIVIA. Beneficios: dashboard certificado, prioridad retiro, badge. Max 80 palabras.',
+    referidos:'Escribe mensaje para motivar a usuario de OLIVIA a referir amigos. +50 OLV por amigo. Mayor volumen = mayor valor en 2027. Max 80 palabras.',
+    whatsapp:'Escribe mensaje para grupos de WhatsApp de vecinos invitando a OLIVIA Circulab. Gratis. OLV acumulando. Valor real en 2027. Max 100 palabras.',
+  }
+  const generar = async () => {
+    setLoading(true); setMsg('')
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:300,messages:[{role:'user',content:prompts[seg]}]})})
+      const data = await res.json()
+      setMsg(data.content?.[0]?.text||'Error')
+    } catch(e){setMsg('Error')}
+    setLoading(false)
+  }
+  return (
+    <div style={{display:'flex',flexDirection:'column',gap:10}}>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:8}}>
+        {[{id:'inactivos',l:'Sin actividad 7 dias'},{id:'upgrade',l:'Upgrade premium'},{id:'referidos',l:'Invitar vecinos'},{id:'whatsapp',l:'Template WhatsApp'}].map(s=>(
+          <button key={s.id} onClick={()=>setSeg(s.id)} style={{padding:'8px',borderRadius:8,border:'1px solid ' + (seg===s.id?'#22c55e':'rgba(255,255,255,0.06)'),background:seg===s.id?'rgba(34,197,94,0.1)':'transparent',color:seg===s.id?'#22c55e':'#64748b',fontSize:10,fontWeight:700,cursor:'pointer'}}>
+            {s.l}
+          </button>
+        ))}
+      </div>
+      <button onClick={generar} disabled={loading} style={{background:loading?'rgba(255,255,255,0.04)':'linear-gradient(135deg,#22c55e,#16a34a)',border:'none',borderRadius:10,padding:'10px',color:'white',fontSize:12,fontWeight:700,cursor:'pointer'}}>
+        {loading?'Generando...':'Generar mensaje'}
+      </button>
+      {msg&&(
+        <div>
+          <div style={{background:'rgba(255,255,255,0.02)',border:'1px solid rgba(255,255,255,0.06)',borderRadius:10,padding:'12px',fontSize:11,color:'#f1f5f9',lineHeight:1.8,whiteSpace:'pre-wrap',marginBottom:8}}>{msg}</div>
+          <button onClick={()=>{navigator.clipboard.writeText(msg);setCopiado(true);setTimeout(()=>setCopiado(false),2000)}} style={{width:'100%',background:copiado?'rgba(34,197,94,0.2)':'rgba(255,255,255,0.06)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:8,padding:'6px',color:copiado?'#22c55e':'#94a3b8',fontSize:10,fontWeight:700,cursor:'pointer'}}>
+            {copiado?'Copiado':'Copiar'}
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function CampaniaConsorcios({usuarios}:any) {
+  const [datos, setDatos] = React.useState({nombre:'',unidades:'100',barrio:'Palermo'})
+  const [propuesta, setPropuesta] = React.useState('')
+  const [loading, setLoading] = React.useState(false)
+  const [copiado, setCopiado] = React.useState(false)
+  const generar = async () => {
+    setLoading(true); setPropuesta('')
+    const prompt = 'Escribe una propuesta comercial para el consorcio ' + datos.nombre + ' en ' + datos.barrio + ' con ' + datos.unidades + ' unidades. OLIVIA Circulab: cumplir Ley Basura Cero CABA, certificacion gestion residuos, creditos carbono Verra 2027, badge Edificio Verde. Sin precios especificos. CTA reunion 20 minutos. Max 200 palabras.'
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:500,messages:[{role:'user',content:prompt}]})})
+      const data = await res.json()
+      setPropuesta(data.content?.[0]?.text||'Error')
+    } catch(e){setPropuesta('Error')}
+    setLoading(false)
+  }
+  return (
+    <div style={{display:'flex',flexDirection:'column',gap:10}}>
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}}>
+        <input placeholder="Nombre del edificio" value={datos.nombre} onChange={e=>setDatos(p=>({...p,nombre:e.target.value}))} style={{padding:'8px 12px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:12,outline:'none'}} />
+        <input placeholder="Unidades" value={datos.unidades} onChange={e=>setDatos(p=>({...p,unidades:e.target.value}))} style={{padding:'8px 12px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:12,outline:'none'}} />
+        <input placeholder="Barrio" value={datos.barrio} onChange={e=>setDatos(p=>({...p,barrio:e.target.value}))} style={{padding:'8px 12px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:12,outline:'none',gridColumn:'span 2'}} />
+      </div>
+      <button onClick={generar} disabled={loading} style={{background:loading?'rgba(255,255,255,0.04)':'linear-gradient(135deg,#22c55e,#16a34a)',border:'none',borderRadius:10,padding:'10px',color:'white',fontSize:12,fontWeight:700,cursor:'pointer'}}>
+        {loading?'Generando propuesta...':'Generar propuesta'}
+      </button>
+      {propuesta&&(
+        <div>
+          <div style={{background:'rgba(255,255,255,0.02)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:10,padding:'14px',fontSize:11,color:'#f1f5f9',lineHeight:1.8,whiteSpace:'pre-wrap',marginBottom:8,maxHeight:200,overflowY:'auto'}}>{propuesta}</div>
+          <button onClick={()=>{navigator.clipboard.writeText(propuesta);setCopiado(true);setTimeout(()=>setCopiado(false),2000)}} style={{width:'100%',background:copiado?'rgba(34,197,94,0.2)':'rgba(255,255,255,0.06)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:8,padding:'6px',color:copiado?'#22c55e':'#94a3b8',fontSize:10,fontWeight:700,cursor:'pointer'}}>
+            {copiado?'Copiado':'Copiar propuesta'}
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function CampaniaGastro() {
+  const [tipo, setTipo] = React.useState('restoran')
+  const [nombre, setNombre] = React.useState('')
+  const [propuesta, setPropuesta] = React.useState('')
+  const [loading, setLoading] = React.useState(false)
+  const [copiado, setCopiado] = React.useState(false)
+  const generar = async () => {
+    setLoading(true); setPropuesta('')
+    const prompt = tipo==='hotel'
+      ? 'Escribe propuesta para hotel ' + nombre + '. OLIVIA Circulab: dashboard residuos, reporte ESG GRI/SASB, certificacion Verra 2027, badge Hotel Verde. Sin precios. CTA demo. Max 180 palabras.'
+      : 'Escribe propuesta para restaurante ' + nombre + '. OLIVIA Circulab: badge Verde Tripadvisor, verificacion IA residuos, reporte impacto mensual, creditos carbono Verra 2027. Sin precios. CTA visita. Max 150 palabras.'
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:400,messages:[{role:'user',content:prompt}]})})
+      const data = await res.json()
+      setPropuesta(data.content?.[0]?.text||'Error')
+    } catch(e){setPropuesta('Error')}
+    setLoading(false)
+  }
+  return (
+    <div style={{display:'flex',flexDirection:'column',gap:10}}>
+      <div style={{display:'flex',gap:8}}>
+        {['restoran','hotel','cafe'].map(t=>(
+          <button key={t} onClick={()=>setTipo(t)} style={{padding:'6px 12px',borderRadius:20,border:'1px solid ' + (tipo===t?'#f59e0b':'rgba(255,255,255,0.08)'),background:tipo===t?'rgba(245,158,11,0.1)':'transparent',color:tipo===t?'#f59e0b':'#64748b',fontSize:10,fontWeight:700,cursor:'pointer',textTransform:'capitalize' as const}}>
+            {t}
+          </button>
+        ))}
+      </div>
+      <input placeholder="Nombre del local" value={nombre} onChange={e=>setNombre(e.target.value)} style={{padding:'8px 12px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:12,outline:'none'}} />
+      <button onClick={generar} disabled={loading} style={{background:loading?'rgba(255,255,255,0.04)':'linear-gradient(135deg,#f59e0b,#d97706)',border:'none',borderRadius:10,padding:'10px',color:'white',fontSize:12,fontWeight:700,cursor:'pointer'}}>
+        {loading?'Generando...':'Generar propuesta'}
+      </button>
+      {propuesta&&(
+        <div>
+          <div style={{background:'rgba(255,255,255,0.02)',border:'1px solid rgba(245,158,11,0.2)',borderRadius:10,padding:'12px',fontSize:11,color:'#f1f5f9',lineHeight:1.8,whiteSpace:'pre-wrap',marginBottom:8}}>{propuesta}</div>
+          <button onClick={()=>{navigator.clipboard.writeText(propuesta);setCopiado(true);setTimeout(()=>setCopiado(false),2000)}} style={{width:'100%',background:copiado?'rgba(34,197,94,0.2)':'rgba(255,255,255,0.06)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:8,padding:'6px',color:copiado?'#f59e0b':'#94a3b8',fontSize:10,fontWeight:700,cursor:'pointer'}}>
+            {copiado?'Copiado':'Copiar propuesta'}
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function CampaniaRSE() {
+  const [empresa, setEmpresa] = React.useState('')
+  const [sector, setSector] = React.useState('')
+  const [modalidad, setModalidad] = React.useState('compensacion')
+  const [propuesta, setPropuesta] = React.useState('')
+  const [loading, setLoading] = React.useState(false)
+  const [copiado, setCopiado] = React.useState(false)
+  const generar = async () => {
+    setLoading(true); setPropuesta('')
+    const prompt = 'Escribe propuesta RSE/ESG para ' + empresa + ' sector ' + sector + '. Modalidad: ' + modalidad + '. OLIVIA Circulab: compensacion huella verificada con IA, datos GRI/SASB/TCFD, certificacion Verra 2027. Sin precios. CTA reunion. Max 180 palabras.'
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:500,messages:[{role:'user',content:prompt}]})})
+      const data = await res.json()
+      setPropuesta(data.content?.[0]?.text||'Error')
+    } catch(e){setPropuesta('Error')}
+    setLoading(false)
+  }
+  return (
+    <div style={{display:'flex',flexDirection:'column',gap:10}}>
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}}>
+        <input placeholder="Empresa" value={empresa} onChange={e=>setEmpresa(e.target.value)} style={{padding:'8px 12px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:12,outline:'none'}} />
+        <input placeholder="Sector" value={sector} onChange={e=>setSector(e.target.value)} style={{padding:'8px 12px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:12,outline:'none'}} />
+      </div>
+      <div style={{display:'flex',gap:8,flexWrap:'wrap' as const}}>
+        {[{id:'compensacion',l:'Compensacion huella'},{id:'reporting',l:'SaaS ESG Reporting'},{id:'empleados',l:'Programa empleados'}].map(m=>(
+          <button key={m.id} onClick={()=>setModalidad(m.id)} style={{padding:'5px 10px',borderRadius:20,border:'1px solid ' + (modalidad===m.id?'#a855f7':'rgba(255,255,255,0.08)'),background:modalidad===m.id?'rgba(168,85,247,0.1)':'transparent',color:modalidad===m.id?'#a855f7':'#64748b',fontSize:10,fontWeight:700,cursor:'pointer'}}>
+            {m.l}
+          </button>
+        ))}
+      </div>
+      <button onClick={generar} disabled={loading} style={{background:loading?'rgba(255,255,255,0.04)':'linear-gradient(135deg,#a855f7,#7c3aed)',border:'none',borderRadius:10,padding:'10px',color:'white',fontSize:12,fontWeight:700,cursor:'pointer'}}>
+        {loading?'Generando...':'Generar propuesta RSE'}
+      </button>
+      {propuesta&&(
+        <div>
+          <div style={{background:'rgba(255,255,255,0.02)',border:'1px solid rgba(168,85,247,0.2)',borderRadius:10,padding:'12px',fontSize:11,color:'#f1f5f9',lineHeight:1.8,whiteSpace:'pre-wrap',marginBottom:8}}>{propuesta}</div>
+          <button onClick={()=>{navigator.clipboard.writeText(propuesta);setCopiado(true);setTimeout(()=>setCopiado(false),2000)}} style={{width:'100%',background:copiado?'rgba(34,197,94,0.2)':'rgba(255,255,255,0.06)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:8,padding:'6px',color:copiado?'#a855f7':'#94a3b8',fontSize:10,fontWeight:700,cursor:'pointer'}}>
+            {copiado?'Copiado':'Copiar'}
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function CampaniaEmisores() {
+  const [sector, setSector] = React.useState('naviera')
+  const [empresa, setEmpresa] = React.useState('')
+  const [propuesta, setPropuesta] = React.useState('')
+  const [loading, setLoading] = React.useState(false)
+  const [copiado, setCopiado] = React.useState(false)
+  const SECTORES = [{id:'naviera',l:'Naviera',reg:'IMO 2050'},{id:'aerolinea',l:'Aerolinea',reg:'CORSIA 2027'},{id:'mineria',l:'Mineria',reg:'Scope 1-2-3'},{id:'forestal',l:'Forestal',reg:'FSC + carbono'},{id:'cemento',l:'Cemento/Acero',reg:'Paris sectorial'}]
+  const generar = async () => {
+    setLoading(true); setPropuesta('')
+    const s = SECTORES.find(x=>x.id===sector)
+    const prompt = 'Escribe propuesta B2B para ' + empresa + ' sector ' + sector + '. Regulacion: ' + (s?.reg||'ESG') + '. OLIVIA Circulab: creditos carbono verificados IA+GPS, Verra VCS 2027, dashboard ESG. Offsets genericos rechazados por auditores. Sin precios. CTA reunion tecnica. Max 200 palabras.'
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:500,messages:[{role:'user',content:prompt}]})})
+      const data = await res.json()
+      setPropuesta(data.content?.[0]?.text||'Error')
+    } catch(e){setPropuesta('Error')}
+    setLoading(false)
+  }
+  return (
+    <div style={{display:'flex',flexDirection:'column',gap:10}}>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:6}}>
+        {SECTORES.map(s=>(
+          <button key={s.id} onClick={()=>setSector(s.id)} style={{padding:'8px',borderRadius:8,border:'1px solid ' + (sector===s.id?'#06b6d4':'rgba(255,255,255,0.06)'),background:sector===s.id?'rgba(6,182,212,0.1)':'rgba(255,255,255,0.02)',cursor:'pointer',textAlign:'left' as const}}>
+            <div style={{fontSize:10,fontWeight:700,color:sector===s.id?'#06b6d4':'#64748b'}}>{s.l}</div>
+            <div style={{fontSize:9,color:'#64748b'}}>{s.reg}</div>
+          </button>
+        ))}
+      </div>
+      <input placeholder="Nombre de la empresa" value={empresa} onChange={e=>setEmpresa(e.target.value)} style={{padding:'8px 12px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:12,outline:'none'}} />
+      <button onClick={generar} disabled={loading} style={{background:loading?'rgba(255,255,255,0.04)':'linear-gradient(135deg,#06b6d4,#0284c7)',border:'none',borderRadius:10,padding:'10px',color:'white',fontSize:12,fontWeight:700,cursor:'pointer'}}>
+        {loading?'Generando...':'Generar propuesta'}
+      </button>
+      {propuesta&&(
+        <div>
+          <div style={{background:'rgba(255,255,255,0.02)',border:'1px solid rgba(6,182,212,0.2)',borderRadius:10,padding:'12px',fontSize:11,color:'#f1f5f9',lineHeight:1.8,whiteSpace:'pre-wrap',marginBottom:8}}>{propuesta}</div>
+          <button onClick={()=>{navigator.clipboard.writeText(propuesta);setCopiado(true);setTimeout(()=>setCopiado(false),2000)}} style={{width:'100%',background:copiado?'rgba(34,197,94,0.2)':'rgba(255,255,255,0.06)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:8,padding:'6px',color:copiado?'#06b6d4':'#94a3b8',fontSize:10,fontWeight:700,cursor:'pointer'}}>
+            {copiado?'Copiado':'Copiar propuesta'}
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function CampaniaMunicipios() {
+  const [municipio, setMunicipio] = React.useState('')
+  const [fondos, setFondos] = React.useState('BID Lab')
+  const [propuesta, setPropuesta] = React.useState('')
+  const [loading, setLoading] = React.useState(false)
+  const [copiado, setCopiado] = React.useState(false)
+  const generar = async () => {
+    setLoading(true); setPropuesta('')
+    const prompt = 'Escribe propuesta institucional para Secretaria de Ambiente de ' + municipio + '. OLIVIA Circulab: datos dMRV para ' + fondos + ', medir impacto separacion ciudadana, activar capacidad ociosa plantas existentes. Sin precios. CTA presentacion. Max 220 palabras.'
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:500,messages:[{role:'user',content:prompt}]})})
+      const data = await res.json()
+      setPropuesta(data.content?.[0]?.text||'Error')
+    } catch(e){setPropuesta('Error')}
+    setLoading(false)
+  }
+  return (
+    <div style={{display:'flex',flexDirection:'column',gap:10}}>
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}}>
+        <input placeholder="Municipio / Ciudad" value={municipio} onChange={e=>setMunicipio(e.target.value)} style={{padding:'8px 12px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:12,outline:'none'}} />
+        <select value={fondos} onChange={e=>setFondos(e.target.value)} style={{padding:'8px 12px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:12,outline:'none'}}>
+          <option>BID Lab</option><option>Green Climate Fund</option><option>Banco Mundial</option>
+        </select>
+      </div>
+      <button onClick={generar} disabled={loading} style={{background:loading?'rgba(255,255,255,0.04)':'linear-gradient(135deg,#22c55e,#16a34a)',border:'none',borderRadius:10,padding:'10px',color:'white',fontSize:12,fontWeight:700,cursor:'pointer'}}>
+        {loading?'Generando...':'Generar propuesta institucional'}
+      </button>
+      {propuesta&&(
+        <div>
+          <div style={{background:'rgba(255,255,255,0.02)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:10,padding:'12px',fontSize:11,color:'#f1f5f9',lineHeight:1.8,whiteSpace:'pre-wrap',marginBottom:8}}>{propuesta}</div>
+          <button onClick={()=>{navigator.clipboard.writeText(propuesta);setCopiado(true);setTimeout(()=>setCopiado(false),2000)}} style={{width:'100%',background:copiado?'rgba(34,197,94,0.2)':'rgba(255,255,255,0.06)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:8,padding:'6px',color:copiado?'#22c55e':'#94a3b8',fontSize:10,fontWeight:700,cursor:'pointer'}}>
+            {copiado?'Copiado':'Copiar propuesta'}
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function PipelineComercial() {
+  const [leads, setLeads] = React.useState<any[]>([])
+  const [nuevo, setNuevo] = React.useState({nombre:'',tipo:'consorcio',estado:'identificado',contacto:'',next_step:''})
+  const ETAPAS = [{id:'identificado',l:'Identificado',c:'#64748b'},{id:'contactado',l:'Contactado',c:'#3b82f6'},{id:'reunion',l:'Reunion',c:'#f59e0b'},{id:'propuesta',l:'Propuesta',c:'#a855f7'},{id:'piloto',l:'Piloto',c:'#22c55e'},{id:'contrato',l:'Contrato',c:'#06b6d4'}]
+  return (
+    <div style={{display:'flex',flexDirection:'column',gap:12}}>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(6,1fr)',gap:6}}>
+        {ETAPAS.map(e=>(
+          <div key={e.id} style={{background:'rgba(255,255,255,0.02)',border:'1px solid ' + e.c + '33',borderRadius:8,padding:'8px',textAlign:'center' as const}}>
+            <div style={{fontSize:9,fontWeight:700,color:e.c,marginBottom:2}}>{e.l}</div>
+            <div style={{fontSize:18,fontWeight:900,color:e.c}}>{leads.filter(l=>l.estado===e.id).length}</div>
+          </div>
+        ))}
+      </div>
+      <div style={{background:'rgba(255,255,255,0.02)',border:'1px solid rgba(255,255,255,0.06)',borderRadius:12,padding:'12px'}}>
+        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,marginBottom:8}}>
+          <input placeholder="Nombre del lead" value={nuevo.nombre} onChange={e=>setNuevo(p=>({...p,nombre:e.target.value}))} style={{padding:'8px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:11,outline:'none'}} />
+          <select value={nuevo.tipo} onChange={e=>setNuevo(p=>({...p,tipo:e.target.value}))} style={{padding:'8px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:11,outline:'none'}}>
+            <option value="consorcio">Consorcio</option><option value="restoran">Restaurante</option><option value="hotel">Hotel</option><option value="rse">RSE/ESG</option><option value="emisor">Gran Emisor</option><option value="municipio">Municipio</option>
+          </select>
+          <input placeholder="Contacto" value={nuevo.contacto} onChange={e=>setNuevo(p=>({...p,contacto:e.target.value}))} style={{padding:'8px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:11,outline:'none'}} />
+          <input placeholder="Next step" value={nuevo.next_step} onChange={e=>setNuevo(p=>({...p,next_step:e.target.value}))} style={{padding:'8px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:11,outline:'none'}} />
+        </div>
+        <button onClick={()=>{if(!nuevo.nombre)return;setLeads(p=>[...p,{...nuevo,id:Date.now()}]);setNuevo({nombre:'',tipo:'consorcio',estado:'identificado',contacto:'',next_step:''})}} style={{width:'100%',background:'linear-gradient(135deg,#22c55e,#16a34a)',border:'none',borderRadius:8,padding:'8px',color:'white',fontSize:11,fontWeight:700,cursor:'pointer'}}>
+          + Agregar al pipeline
+        </button>
+      </div>
+      <div style={{display:'flex',flexDirection:'column',gap:6}}>
+        {leads.map((l:any)=>(
+          <div key={l.id} style={{background:'rgba(255,255,255,0.02)',border:'1px solid rgba(255,255,255,0.06)',borderRadius:10,padding:'10px',display:'flex',justifyContent:'space-between',alignItems:'center',gap:8,flexWrap:'wrap' as const}}>
+            <div>
+              <div style={{fontSize:11,fontWeight:700,color:'#f1f5f9'}}>{l.nombre}</div>
+              <div style={{fontSize:9,color:'#64748b'}}>{l.tipo} · {l.contacto}</div>
+              {l.next_step&&<div style={{fontSize:9,color:'#f59e0b'}}>→ {l.next_step}</div>}
+            </div>
+            <select value={l.estado} onChange={e=>setLeads(p=>p.map((x:any)=>x.id===l.id?{...x,estado:e.target.value}:x))} style={{padding:'4px 6px',borderRadius:6,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',fontSize:9,cursor:'pointer'}}>
+              {ETAPAS.map(e=><option key={e.id} value={e.id}>{e.l}</option>)}
+            </select>
+          </div>
+        ))}
+        {leads.length===0&&<div style={{fontSize:11,color:'#64748b',textAlign:'center' as const,padding:'16px 0'}}>Pipeline vacio - Agrega tu primer lead</div>}
+      </div>
+    </div>
+  )
+}
+
+function VentasDirectas({usuarios}:any) {
+  return (
+    <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:12}}>
+      {[
+        {titulo:'SaaS Ciudadano USD 1/mes',valor:0,label:'Suscriptores premium',color:'#22c55e',desc:'Integracion Mercado Pago pendiente post-inversion.'},
+        {titulo:'Material Clasificado',valor:0,label:'kg disponibles',color:'#f59e0b',desc:'PET, Carton, Aluminio, Aceite. Contactar recicladores industriales.'},
+        {titulo:'Creditos Pre-venta',valor:0,label:'contratos forward',color:'#a855f7',desc:'Empresas interesadas en comprar creditos Verra antes de 2027.'},
+      ].map((item,i)=>(
+        <div key={i} style={{background:'rgba(255,255,255,0.02)',border:'1px solid ' + item.color + '22',borderRadius:14,padding:'16px'}}>
+          <div style={{fontSize:10,fontWeight:700,color:item.color,marginBottom:4}}>{item.titulo}</div>
+          <div style={{fontSize:24,fontWeight:900,color:item.color,marginBottom:4}}>{item.valor}</div>
+          <div style={{fontSize:9,color:'#64748b',marginBottom:6}}>{item.label}</div>
+          <div style={{fontSize:9,color:'#64748b',lineHeight:1.5}}>{item.desc}</div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function ManualOperativo() {
+  const PASOS = [
+    {titulo:'Publicar en LinkedIn (5 min)',color:'#3b82f6',items:['Admin → LinkedIn Studio','Selecciona el dia (L/M/V)','Apreta Generar','Copia el post y el prompt de imagen','leonardo.ai → genera imagen → descarga','LinkedIn → pega texto + sube imagen → publica']},
+    {titulo:'Enviar Newsletter (10 min)',color:'#a855f7',items:['Admin → Newsletter Engine','Apreta Generar newsletter','Copia el texto','Abre Gmail o cliente de email','Envia a la lista de usuarios (CSV desde tab Usuarios)']},
+    {titulo:'Seguimiento de leads (2 min/lead)',color:'#22c55e',items:['Admin → Pipeline Comercial','Identifica leads sin contacto','Ve a la campana correspondiente','Genera propuesta con los datos del lead','Copia y envia por email o LinkedIn']},
+    {titulo:'Postulacion a fondo (2-4 horas)',color:'#f59e0b',items:['Admin → Postulaciones','Filtra por deadline proximo','Abre la URL del fondo','Completa con One Pager + Pitch + Metricas del Dashboard','Actualiza el estado en el admin']},
+  ]
+  return (
+    <div style={{display:'flex',flexDirection:'column',gap:10}}>
+      <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:10,padding:'12px',marginBottom:4}}>
+        <div style={{fontSize:11,fontWeight:700,color:'#22c55e',marginBottom:4}}>Flujo semanal recomendado - 1 hora/dia</div>
+        <div style={{fontSize:10,color:'#94a3b8',lineHeight:1.7}}>Lunes: LinkedIn Studio 3 posts (30min) · Martes: Pipeline + seguimientos (30min) · Miercoles: Campana activa (30min) · Jueves: Postulaciones (30min) · Viernes: Analytics + Newsletter quincena (30min)</div>
+      </div>
+      {PASOS.map((paso,i)=>(
+        <div key={i} style={{background:'rgba(255,255,255,0.02)',border:'1px solid ' + paso.color + '22',borderRadius:12,padding:'12px'}}>
+          <div style={{fontSize:11,fontWeight:700,color:paso.color,marginBottom:8}}>{paso.titulo}</div>
+          {paso.items.map((item,j)=>(
+            <div key={j} style={{display:'flex',gap:8,marginBottom:4}}>
+              <div style={{width:16,height:16,borderRadius:'50%',background:paso.color+'22',display:'flex',alignItems:'center',justifyContent:'center',fontSize:8,fontWeight:700,color:paso.color,flexShrink:0}}>{j+1}</div>
+              <div style={{fontSize:10,color:'#94a3b8'}}>{item}</div>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  )
+}
+
 export default function Admin() {
  const [auth, setAuth] = useState(false)
  const [pwd, setPwd] = useState('')
@@ -895,6 +1354,169 @@ export default function Admin() {
          </div>
        )}
 
+
+      {tab==='linkedin'&&(
+        <div style={{display:'flex',flexDirection:'column',gap:16}}>
+          <div style={{fontSize:16,fontWeight:900}}>LinkedIn Studio</div>
+          <div style={{background:'#111827',border:'1px solid rgba(59,130,246,0.2)',borderRadius:14,padding:'16px'}}>
+            <div style={{fontSize:13,fontWeight:700,marginBottom:4,color:'#3b82f6'}}>Generador de posts con IA</div>
+            <div style={{fontSize:11,color:'#64748b',marginBottom:16}}>3 posts por semana · Lunes · Miercoles · Viernes · Extra inversor</div>
+            {[
+              {dia:'Lunes',tipo:'Cientifico / Educativo',color:'#3b82f6',key:'lunes',prompt:'Escribe un post LinkedIn para OLIVIA Circulab. Tono cientifico accesible. Tema: fundamento del reciclaje urbano y creditos de carbono. Hito Verra Feb 2026. CTA oliviacirculab.com.ar. Max 250 palabras. 5 hashtags. Al final PROMPT IMAGEN para Leonardo AI estilo cinematic editorial verde oscuro.'},
+              {dia:'Miercoles',tipo:'Producto / Datos',color:'#22c55e',key:'miercoles',prompt:'Escribe un post LinkedIn para OLIVIA Circulab. Tono datos concretos. Mencionar producto activo con USD 0 inversion externa, modelo SaaS USD 600/mes para consorcios. CTA. Max 250 palabras. 5 hashtags. Al final PROMPT IMAGEN Leonardo AI.'},
+              {dia:'Viernes',tipo:'Historia / Emotivo',color:'#a855f7',key:'viernes',prompt:'Escribe un post LinkedIn para OLIVIA Circulab. Tono emotivo. Historia de JP y Mileidy construyendo en su cocina para Santino Eloy. USD 0 inversion externa. El planeta no espera. Max 250 palabras. 5 hashtags. Al final PROMPT IMAGEN Leonardo AI.'},
+              {dia:'Extra Inversor',tipo:'Fundraising',color:'#f59e0b',key:'extra',prompt:'Escribe un post LinkedIn para OLIVIA Circulab dirigido a inversores. Ronda Seed USD 500K 10% equity, Ley 27.506 USD 1=1.4, hito Verra Feb 2026, producto activo USD 0 inversion externa. Tono confianza. Max 250 palabras. 5 hashtags. Al final PROMPT IMAGEN Leonardo AI.'},
+            ].map((item)=>{
+              const [post, setPost] = React.useState('')
+              const [loading, setLoading] = React.useState(false)
+              const [copiado, setCopiado] = React.useState(false)
+              const generar = async () => {
+                setLoading(true); setPost('')
+                try {
+                  const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content:item.prompt}]})})
+                  const data = await res.json()
+                  setPost(data.content?.[0]?.text||'Error')
+                } catch(e){setPost('Error')}
+                setLoading(false)
+              }
+              return (
+                <div key={item.key} style={{background:'rgba(255,255,255,0.02)',border:'1px solid rgba(255,255,255,0.06)',borderRadius:12,padding:'14px',marginBottom:10}}>
+                  <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:8}}>
+                    <div>
+                      <div style={{fontSize:12,fontWeight:700,color:item.color}}>{item.dia}</div>
+                      <div style={{fontSize:10,color:'#64748b'}}>{item.tipo}</div>
+                    </div>
+                    <button onClick={generar} disabled={loading} style={{background:loading?'rgba(255,255,255,0.04)':'rgba(59,130,246,0.1)',border:'1px solid rgba(59,130,246,0.2)',borderRadius:8,padding:'6px 12px',color:loading?'#64748b':'#3b82f6',fontSize:11,fontWeight:700,cursor:'pointer'}}>
+                      {loading?'Generando...':'Generar'}
+                    </button>
+                  </div>
+                  {post&&(
+                    <div>
+                      <div style={{fontSize:11,color:'#94a3b8',background:'rgba(255,255,255,0.02)',borderRadius:8,padding:'10px',marginBottom:8,lineHeight:1.6,maxHeight:160,overflowY:'auto',whiteSpace:'pre-wrap'}}>{post}</div>
+                      <button onClick={()=>{navigator.clipboard.writeText(post);setCopiado(true);setTimeout(()=>setCopiado(false),2000)}} style={{width:'100%',background:copiado?'rgba(34,197,94,0.15)':'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.08)',borderRadius:8,padding:'6px',color:copiado?'#22c55e':'#94a3b8',fontSize:10,fontWeight:700,cursor:'pointer'}}>
+                        {copiado?'Copiado':'Copiar post + prompt imagen'}
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+            <div style={{background:'rgba(245,158,11,0.06)',border:'1px solid rgba(245,158,11,0.15)',borderRadius:10,padding:'10px',fontSize:10,color:'#94a3b8',lineHeight:1.6}}>
+              Flujo: Genera el post y copia. El prompt de imagen va en leonardo.ai. Programa con Buffer.
+            </div>
+          </div>
+        </div>
+      )}
+
+      {tab==='newsletter'&&(
+        <div style={{display:'flex',flexDirection:'column',gap:16}}>
+          <div style={{fontSize:16,fontWeight:900}}>Newsletter Engine</div>
+          <div style={{background:'#111827',border:'1px solid rgba(168,85,247,0.2)',borderRadius:14,padding:'16px'}}>
+            <div style={{fontSize:13,fontWeight:700,marginBottom:4,color:'#a855f7'}}>Generador quincenal con metricas reales</div>
+            <NewsletterEngine usuarios={usuarios} residuos={residuos} />
+          </div>
+        </div>
+      )}
+
+      {tab==='community'&&(
+        <div style={{display:'flex',flexDirection:'column',gap:16}}>
+          <div style={{fontSize:16,fontWeight:900}}>Community Engine</div>
+          <div style={{background:'#111827',border:'1px solid rgba(34,197,94,0.2)',borderRadius:14,padding:'16px'}}>
+            <div style={{fontSize:13,fontWeight:700,marginBottom:4,color:'#22c55e'}}>Mensajes personalizados con IA</div>
+            <CommunityEngine usuarios={usuarios} />
+          </div>
+        </div>
+      )}
+
+      {tab==='email_secuencia'&&(
+        <div style={{display:'flex',flexDirection:'column',gap:16}}>
+          <div style={{fontSize:16,fontWeight:900}}>Email Secuencia</div>
+          <div style={{background:'#111827',border:'1px solid rgba(168,85,247,0.2)',borderRadius:14,padding:'16px'}}>
+            <EmailSecuencia usuarios={usuarios} />
+          </div>
+        </div>
+      )}
+
+      {tab==='camp_ciudadana'&&(
+        <div style={{display:'flex',flexDirection:'column',gap:16}}>
+          <div style={{fontSize:16,fontWeight:900}}>Campana Ciudadana</div>
+          <div style={{background:'#111827',border:'1px solid rgba(34,197,94,0.2)',borderRadius:14,padding:'16px'}}>
+            <CampaniaCiudadana usuarios={usuarios} />
+          </div>
+        </div>
+      )}
+
+      {tab==='camp_consorcios'&&(
+        <div style={{display:'flex',flexDirection:'column',gap:16}}>
+          <div style={{fontSize:16,fontWeight:900}}>Campana Consorcios</div>
+          <div style={{background:'#111827',border:'1px solid rgba(34,197,94,0.2)',borderRadius:14,padding:'16px'}}>
+            <CampaniaConsorcios usuarios={usuarios} />
+          </div>
+        </div>
+      )}
+
+      {tab==='camp_gastro'&&(
+        <div style={{display:'flex',flexDirection:'column',gap:16}}>
+          <div style={{fontSize:16,fontWeight:900}}>Campana Gastro</div>
+          <div style={{background:'#111827',border:'1px solid rgba(245,158,11,0.2)',borderRadius:14,padding:'16px'}}>
+            <CampaniaGastro />
+          </div>
+        </div>
+      )}
+
+      {tab==='camp_rse'&&(
+        <div style={{display:'flex',flexDirection:'column',gap:16}}>
+          <div style={{fontSize:16,fontWeight:900}}>Campana RSE / ESG</div>
+          <div style={{background:'#111827',border:'1px solid rgba(168,85,247,0.2)',borderRadius:14,padding:'16px'}}>
+            <CampaniaRSE />
+          </div>
+        </div>
+      )}
+
+      {tab==='camp_emisores'&&(
+        <div style={{display:'flex',flexDirection:'column',gap:16}}>
+          <div style={{fontSize:16,fontWeight:900}}>Campana Grandes Emisores</div>
+          <div style={{background:'#111827',border:'1px solid rgba(6,182,212,0.2)',borderRadius:14,padding:'16px'}}>
+            <CampaniaEmisores />
+          </div>
+        </div>
+      )}
+
+      {tab==='camp_municipios'&&(
+        <div style={{display:'flex',flexDirection:'column',gap:16}}>
+          <div style={{fontSize:16,fontWeight:900}}>Campana Municipios</div>
+          <div style={{background:'#111827',border:'1px solid rgba(34,197,94,0.2)',borderRadius:14,padding:'16px'}}>
+            <CampaniaMunicipios />
+          </div>
+        </div>
+      )}
+
+      {tab==='pipeline'&&(
+        <div style={{display:'flex',flexDirection:'column',gap:16}}>
+          <div style={{fontSize:16,fontWeight:900}}>Pipeline Comercial</div>
+          <div style={{background:'#111827',border:'1px solid rgba(34,197,94,0.2)',borderRadius:14,padding:'16px'}}>
+            <PipelineComercial />
+          </div>
+        </div>
+      )}
+
+      {tab==='ventas'&&(
+        <div style={{display:'flex',flexDirection:'column',gap:16}}>
+          <div style={{fontSize:16,fontWeight:900}}>Ventas Directas</div>
+          <div style={{background:'#111827',border:'1px solid rgba(245,158,11,0.2)',borderRadius:14,padding:'16px'}}>
+            <VentasDirectas usuarios={usuarios} />
+          </div>
+        </div>
+      )}
+
+      {tab==='manual'&&(
+        <div style={{display:'flex',flexDirection:'column',gap:16}}>
+          <div style={{fontSize:16,fontWeight:900}}>Manual Operativo</div>
+          <div style={{background:'#111827',border:'1px solid rgba(255,255,255,0.06)',borderRadius:14,padding:'16px'}}>
+            <ManualOperativo />
+          </div>
+        </div>
+      )}
      </div>
    </div>
  )
