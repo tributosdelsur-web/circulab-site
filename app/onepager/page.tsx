@@ -58,7 +58,7 @@ const T = {
 const t = T[lang]
 
 async function imprimir() {
-  if(!gateOk) { setShowGate(true); return }
+  // gate moved to render
   window.print()
 }
 

@@ -98,6 +98,17 @@ style={{width:'100%',background:'linear-gradient(135deg,#22c55e,#16a34a)',border
 
 const contenido = () => {
 
+// NAV con logo agregado
+const NavWhitepaper = () => (
+  <nav style={{position:'sticky',top:0,zIndex:50,backdropFilter:'blur(16px)',background:'rgba(10,14,26,0.95)',borderBottom:'1px solid rgba(255,255,255,0.07)',padding:'10px 20px',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+    <a href="/" style={{display:'flex',alignItems:'center',gap:8,textDecoration:'none'}}>
+      <img src="/logoOC.png" alt="OLIVIA" style={{width:28,height:28,objectFit:'contain',borderRadius:6}} />
+      <span style={{fontSize:11,fontWeight:700,color:'#f1f5f9',textTransform:'uppercase',letterSpacing:'0.05em'}}>OLIVIA Circulab</span>
+    </a>
+    <a href="/" style={{fontSize:10,color:'#64748b',textDecoration:'none'}}>← Volver al inicio</a>
+  </nav>
+)
+
 if(seccion===0) return (
 <div>
 <div style={s.titulo}>{lang==='es'?'Resumen ejecutivo':'Executive Summary'}</div>
@@ -668,6 +679,332 @@ if(seccion===15) return (
 </div>
 ))}
 </div>
+)
+
+
+
+if(seccion===18) return (
+  <div>
+    <div style={s.titulo}>{lang==='es'?'Proyecciones financieras':'Financial projections'}</div>
+
+    {/* Nota de transparencia - CRITICA */}
+    <div style={{...s.highlight,border:'1px solid rgba(239,68,68,0.2)',background:'rgba(239,68,68,0.04)',marginBottom:16}}>
+      <div style={{fontSize:11,fontWeight:700,color:'#ef4444',marginBottom:6}}>
+        {lang==='es'?'Nota de transparencia · Lectura obligatoria':'Transparency note · Required reading'}
+      </div>
+      <div style={s.p}>
+        {lang==='es'
+          ? 'Las proyecciones presentadas en esta seccion son estimaciones basadas en el modelo de negocio actual, la traccion inicial y las condiciones del mercado de carbono a junio 2026. Los valores reales dependen de: (a) la escala de usuarios y consorcios alcanzada, (b) las certificaciones obtenidas de Verra VCS y otros organismos, (c) los precios del mercado voluntario de carbono al momento de la certificacion, y (d) las condiciones macroeconomicas de LATAM. Circulab Tech no garantiza estos retornos. Las proyecciones se presentan como escenario base conservador para ilustrar el potencial del modelo, no como promesa de retorno.'
+          : 'The projections in this section are estimates based on the current business model, initial traction, and carbon market conditions as of June 2026. Actual values depend on: (a) the scale of users and buildings reached, (b) certifications obtained from Verra VCS and other bodies, (c) voluntary carbon market prices at time of certification, and (d) LATAM macroeconomic conditions. Circulab Tech does not guarantee these returns. Projections are presented as a conservative base scenario to illustrate model potential, not as a return promise.'}
+      </div>
+    </div>
+
+    {/* Break-even operativo */}
+    <div style={{...s.card,borderLeft:'3px solid #22c55e',marginBottom:16}}>
+      <div style={{fontSize:12,fontWeight:700,color:'#22c55e',marginBottom:10}}>
+        {lang==='es'?'Break-even operativo · Mayo 2027':'Operational break-even · May 2027'}
+      </div>
+      <div style={s.p}>
+        {lang==='es'
+          ? 'Con los costos fijos post-inversion estimados en USD 10.500/mes, el MRR de OLIVIA supera ese umbral en mayo 2027 (11 meses despues de cerrar la ronda Seed). A partir de ese momento la operacion es autosustentable sin necesidad de nueva inyeccion de capital. Todo lo que genere Verra desde julio 2027 es utilidad neta sobre costos ya cubiertos por el SaaS.'
+          : 'With post-investment fixed costs estimated at USD 10,500/month, OLIVIA MRR surpasses that threshold in May 2027 (11 months after closing the Seed round). From that point operations are self-sustaining without new capital injection. Everything Verra generates from July 2027 is net profit on costs already covered by SaaS.'}
+      </div>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:8,marginTop:12}}>
+        {[
+          {mes:lang==='es'?'Cierre ronda':'Round close',mrr:'USD 0',c:'#64748b'},
+          {mes:lang==='es'?'Mes 3':'Month 3',mrr:'USD 2.000',c:'#3b82f6'},
+          {mes:lang==='es'?'Mes 6':'Month 6',mrr:'USD 6.000',c:'#f59e0b'},
+          {mes:lang==='es'?'Mes 11 ✅':'Month 11 ✅',mrr:'USD 11.000',c:'#22c55e'},
+        ].map((item,i)=>(
+          <div key={i} style={{background:'rgba(255,255,255,0.02)',border:'1px solid ' + item.c + '33',borderRadius:8,padding:'10px',textAlign:'center'}}>
+            <div style={{fontSize:9,color:item.c,fontWeight:700,marginBottom:4}}>{item.mes}</div>
+            <div style={{fontSize:13,fontWeight:900,color:item.c}}>{item.mrr}</div>
+            <div style={{fontSize:8,color:'#64748b',marginTop:2}}>MRR</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* Ronda Seed USD 500K */}
+    <div style={{...s.card,borderLeft:'3px solid #22c55e',marginBottom:16}}>
+      <div style={{fontSize:13,fontWeight:900,color:'#22c55e',marginBottom:12}}>
+        {lang==='es'?'Ronda Seed · USD 500K · 10% equity':'Seed Round · USD 500K · 10% equity'}
+      </div>
+      <div style={{display:'flex',flexDirection:'column',gap:8,marginBottom:12}}>
+        {(lang==='es'?[
+          {anio:'2026 (inicio)',arr:'USD 24.000',val:'USD 144.000',part:'USD 14.400',roi:'Pre-revenue',c:'#64748b'},
+          {anio:'2027 (Verra)',arr:'USD 176.750',val:'USD 1.060.000',part:'USD 106.000',roi:'0.2x',c:'#3b82f6'},
+          {anio:'2028 (escala)',arr:'USD 1.230.000',val:'USD 7.380.000',part:'USD 738.000',roi:'1.5x ✅',c:'#f59e0b'},
+          {anio:'2029 (LATAM)',arr:'USD 4.000.000',val:'USD 24.000.000',part:'USD 2.400.000',roi:'4.8x ✅✅',c:'#22c55e'},
+          {anio:'2030 (emisores)',arr:'USD 10.000.000',val:'USD 60.000.000',part:'USD 6.000.000',roi:'12x ✅✅✅',c:'#22c55e'},
+        ]:[
+          {anio:'2026 (start)',arr:'USD 24,000',val:'USD 144,000',part:'USD 14,400',roi:'Pre-revenue',c:'#64748b'},
+          {anio:'2027 (Verra)',arr:'USD 176,750',val:'USD 1,060,000',part:'USD 106,000',roi:'0.2x',c:'#3b82f6'},
+          {anio:'2028 (scale)',arr:'USD 1,230,000',val:'USD 7,380,000',part:'USD 738,000',roi:'1.5x',c:'#f59e0b'},
+          {anio:'2029 (LATAM)',arr:'USD 4,000,000',val:'USD 24,000,000',part:'USD 2,400,000',roi:'4.8x',c:'#22c55e'},
+          {anio:'2030 (emitters)',arr:'USD 10,000,000',val:'USD 60,000,000',part:'USD 6,000,000',roi:'12x',c:'#22c55e'},
+        ]).map((row,i)=>(
+          <div key={i} style={{display:'grid',gridTemplateColumns:'1.5fr 1.5fr 1.5fr 1fr 1fr',gap:6,padding:'8px 10px',background:'rgba(255,255,255,0.02)',borderRadius:8,border:'1px solid rgba(255,255,255,0.04)'}}>
+            <div style={{fontSize:10,fontWeight:700,color:row.c}}>{row.anio}</div>
+            <div style={{fontSize:10,color:'#94a3b8'}}>{row.arr}</div>
+            <div style={{fontSize:10,color:'#94a3b8'}}>{row.val}</div>
+            <div style={{fontSize:10,color:row.c,fontWeight:700}}>{row.part}</div>
+            <div style={{fontSize:10,color:row.c,fontWeight:900}}>{row.roi}</div>
+          </div>
+        ))}
+        <div style={{display:'grid',gridTemplateColumns:'1.5fr 1.5fr 1.5fr 1fr 1fr',gap:6,padding:'0 10px'}}>
+          {(lang==='es'?['Año','ARR','Valoracion 6x','10% inversor','ROI']:['Year','ARR','6x Valuation','10% investor','ROI']).map((h,i)=>(
+            <div key={i} style={{fontSize:8,color:'#64748b',textTransform:'uppercase',letterSpacing:'0.05em'}}>{h}</div>
+          ))}
+        </div>
+      </div>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8,marginTop:8}}>
+        {[
+          {label:lang==='es'?'Break-even operativo':'Operational break-even',valor:'Mayo 2027',sub:lang==='es'?'11 meses post-cierre':'11 months post-close',c:'#22c55e'},
+          {label:lang==='es'?'ROI equilibrio inversor':'Investor breakeven ROI',valor:'Fin 2028',sub:lang==='es'?'USD 738K sobre USD 500K':'USD 738K on USD 500K',c:'#f59e0b'},
+          {label:'IRR ' + (lang==='es'?'ano 3':'year 3'),valor:'~70% anual',sub:lang==='es'?'Con Ley 27.506: ~95%':'With Law 27.506: ~95%',c:'#a855f7'},
+        ].map((item,i)=>(
+          <div key={i} style={{background:'rgba(255,255,255,0.02)',border:'1px solid ' + item.c + '22',borderRadius:8,padding:'10px',textAlign:'center'}}>
+            <div style={{fontSize:9,color:'#64748b',marginBottom:4}}>{item.label}</div>
+            <div style={{fontSize:12,fontWeight:900,color:item.c,marginBottom:2}}>{item.valor}</div>
+            <div style={{fontSize:9,color:'#64748b'}}>{item.sub}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* Ronda Serie A USD 2M */}
+    <div style={{...s.card,borderLeft:'3px solid #3b82f6',marginBottom:16}}>
+      <div style={{fontSize:13,fontWeight:900,color:'#3b82f6',marginBottom:4}}>
+        {lang==='es'?'Ronda Serie A · USD 2M · ~17% equity':'Series A Round · USD 2M · ~17% equity'}
+      </div>
+      <div style={{fontSize:10,color:'#64748b',marginBottom:12}}>
+        {lang==='es'
+          ? 'Estimada para Q4 2027 post-certificacion Verra. Valoracion pre-money: USD 10M.'
+          : 'Estimated for Q4 2027 post-Verra certification. Pre-money valuation: USD 10M.'}
+      </div>
+      <div style={{display:'flex',flexDirection:'column',gap:8,marginBottom:12}}>
+        {(lang==='es'?[
+          {anio:'2028 (ano 1)',arr:'USD 1.230.000',val:'USD 7.380.000',part:'USD 1.254.600',roi:'0.6x',c:'#3b82f6'},
+          {anio:'2029 (ano 2)',arr:'USD 3.800.000',val:'USD 22.800.000',part:'USD 3.876.000',roi:'1.9x ✅',c:'#f59e0b'},
+          {anio:'2030 (ano 3)',arr:'USD 10.200.000',val:'USD 61.200.000',part:'USD 10.404.000',roi:'5.2x ✅✅',c:'#22c55e'},
+          {anio:'2032 (ano 5)',arr:'USD 50.000.000',val:'USD 300.000.000',part:'USD 51.000.000',roi:'25.5x ✅✅✅',c:'#22c55e'},
+        ]:[
+          {anio:'2028 (year 1)',arr:'USD 1,230,000',val:'USD 7,380,000',part:'USD 1,254,600',roi:'0.6x',c:'#3b82f6'},
+          {anio:'2029 (year 2)',arr:'USD 3,800,000',val:'USD 22,800,000',part:'USD 3,876,000',roi:'1.9x',c:'#f59e0b'},
+          {anio:'2030 (year 3)',arr:'USD 10,200,000',val:'USD 61,200,000',part:'USD 10,404,000',roi:'5.2x',c:'#22c55e'},
+          {anio:'2032 (year 5)',arr:'USD 50,000,000',val:'USD 300,000,000',part:'USD 51,000,000',roi:'25.5x',c:'#22c55e'},
+        ]).map((row,i)=>(
+          <div key={i} style={{display:'grid',gridTemplateColumns:'1.5fr 1.5fr 1.5fr 1fr 1fr',gap:6,padding:'8px 10px',background:'rgba(255,255,255,0.02)',borderRadius:8,border:'1px solid rgba(255,255,255,0.04)'}}>
+            <div style={{fontSize:10,fontWeight:700,color:row.c}}>{row.anio}</div>
+            <div style={{fontSize:10,color:'#94a3b8'}}>{row.arr}</div>
+            <div style={{fontSize:10,color:'#94a3b8'}}>{row.val}</div>
+            <div style={{fontSize:10,color:row.c,fontWeight:700}}>{row.part}</div>
+            <div style={{fontSize:10,color:row.c,fontWeight:900}}>{row.roi}</div>
+          </div>
+        ))}
+        <div style={{display:'grid',gridTemplateColumns:'1.5fr 1.5fr 1.5fr 1fr 1fr',gap:6,padding:'0 10px'}}>
+          {(lang==='es'?['Año','ARR','Valoracion 6x','17% inversor','ROI']:['Year','ARR','6x Valuation','17% investor','ROI']).map((h,i)=>(
+            <div key={i} style={{fontSize:8,color:'#64748b',textTransform:'uppercase',letterSpacing:'0.05em'}}>{h}</div>
+          ))}
+        </div>
+      </div>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8,marginTop:8}}>
+        {[
+          {label:lang==='es'?'Break-even operativo':'Operational break-even',valor:lang==='es'?'Ya alcanzado':'Already reached',sub:lang==='es'?'Antes de la Serie A':'Before Series A',c:'#22c55e'},
+          {label:lang==='es'?'ROI equilibrio inversor':'Investor breakeven ROI',valor:lang==='es'?'Fin 2029':'End 2029',sub:lang==='es'?'USD 3.9M sobre USD 2M':'USD 3.9M on USD 2M',c:'#f59e0b'},
+          {label:'IRR ' + (lang==='es'?'ano 3':'year 3'),valor:'~80% anual',sub:lang==='es'?'Escenario base conservador':'Conservative base scenario',c:'#a855f7'},
+        ].map((item,i)=>(
+          <div key={i} style={{background:'rgba(255,255,255,0.02)',border:'1px solid ' + item.c + '22',borderRadius:8,padding:'10px',textAlign:'center'}}>
+            <div style={{fontSize:9,color:'#64748b',marginBottom:4}}>{item.label}</div>
+            <div style={{fontSize:12,fontWeight:900,color:item.c,marginBottom:2}}>{item.valor}</div>
+            <div style={{fontSize:9,color:'#64748b'}}>{item.sub}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* Tabla comparativa */}
+    <div style={{...s.card,borderLeft:'3px solid #a855f7'}}>
+      <div style={{fontSize:12,fontWeight:700,color:'#a855f7',marginBottom:12}}>
+        {lang==='es'?'Comparativa Seed vs Serie A':'Seed vs Series A comparison'}
+      </div>
+      <div style={{display:'grid',gridTemplateColumns:'2fr 1fr 1fr',gap:8}}>
+        {(lang==='es'?[
+          ['','Seed USD 500K','Serie A USD 2M'],
+          ['Momento','Hoy 2026','Post-Verra 2027'],
+          ['Riesgo','Alto','Medio-bajo'],
+          ['Break-even op.','Mayo 2027','Ya alcanzado'],
+          ['Equity','10%','~17%'],
+          ['Valor empresa ano 3','USD 24M','USD 61M'],
+          ['Participacion ano 3','USD 2.4M','USD 10.4M'],
+          ['ROI ano 3','4.8x','5.2x'],
+          ['IRR ano 3','~70%','~80%'],
+          ['Con Ley 27.506','~95% IRR','N/A si externo'],
+        ]:[
+          ['','Seed USD 500K','Series A USD 2M'],
+          ['Timing','Today 2026','Post-Verra 2027'],
+          ['Risk','High','Medium-low'],
+          ['Op. break-even','May 2027','Already reached'],
+          ['Equity','10%','~17%'],
+          ['Company value yr 3','USD 24M','USD 61M'],
+          ['Investor stake yr 3','USD 2.4M','USD 10.4M'],
+          ['ROI year 3','4.8x','5.2x'],
+          ['IRR year 3','~70%','~80%'],
+          ['With Law 27.506','~95% IRR','N/A if external'],
+        ]).map((row,i)=>(
+          row[0]===''
+            ? row.slice(1).map((h,j)=>(
+                <div key={j} style={{fontSize:9,fontWeight:700,color:'#a855f7',textTransform:'uppercase',letterSpacing:'0.05em',padding:'4px 0'}}>{h}</div>
+              ))
+            : [
+                <div key={0} style={{fontSize:10,color:'#64748b',padding:'4px 0',borderTop:'1px solid rgba(255,255,255,0.04)'}}>{row[0]}</div>,
+                <div key={1} style={{fontSize:10,color:'#22c55e',fontWeight:600,padding:'4px 0',borderTop:'1px solid rgba(255,255,255,0.04)'}}>{row[1]}</div>,
+                <div key={2} style={{fontSize:10,color:'#3b82f6',fontWeight:600,padding:'4px 0',borderTop:'1px solid rgba(255,255,255,0.04)'}}>{row[2]}</div>,
+              ]
+        ))}
+      </div>
+      <div style={{marginTop:16,padding:'12px',background:'rgba(168,85,247,0.06)',border:'1px solid rgba(168,85,247,0.15)',borderRadius:10,fontSize:11,color:'#94a3b8',lineHeight:1.7,fontStyle:'italic'}}>
+        {lang==='es'
+          ? '"El inversor Seed toma mas riesgo y recibe el beneficio de la Ley 27.506 (USD 1 = USD 1.4 efectivos). El inversor Serie A entra con riesgo mucho menor pero sin el multiplicador fiscal. Ambos tienen ROI de 5x en el ano 3 con proyecciones conservadoras."'
+          : '"The Seed investor takes more risk and receives the benefit of Law 27.506 (USD 1 = USD 1.4 effective). The Series A investor enters with much lower risk but without the fiscal multiplier. Both have 5x ROI in year 3 with conservative projections."'}
+      </div>
+    </div>
+  </div>
+)
+
+if(seccion===17) return (
+  <div>
+    <div style={s.titulo}>{lang==='es'?'Modelo de contratos y distribucion':'Contract model and distribution'}</div>
+
+    <div style={{...s.highlight,border:'1px solid rgba(245,158,11,0.2)',background:'rgba(245,158,11,0.04)',marginBottom:16}}>
+      <div style={{fontSize:11,fontWeight:700,color:'#f59e0b',marginBottom:6}}>
+        {lang==='es'?'La pregunta central':'The central question'}
+      </div>
+      <div style={s.p}>
+        {lang==='es'
+          ? 'Cuando Verra certifique los creditos en 2027 y una naviera pague USD 500.000 a Circulab Tech, como llega ese dinero al vecino de Palermo que separo sus organicos en 2026? Esa es la pregunta que este modelo responde.'
+          : 'When Verra certifies credits in 2027 and a shipping company pays USD 500,000 to Circulab Tech, how does that money reach the Palermo neighbor who separated their organics in 2026? That is the question this model answers.'}
+      </div>
+    </div>
+
+    {(lang==='es'?[
+      {
+        t:'Fase 1 · Hoy (Semilla 2026) · Mandato digital via T&C',
+        c:'#22c55e',
+        items:[
+          'Al registrarse el ciudadano acepta los Terminos y Condiciones de OLIVIA.',
+          'Los T&C incluyen la Clausula 8 de Mandato de Certificacion y Distribucion.',
+          'Esta clausula autoriza expresamente a Circulab Tech a actuar como mandatario para certificar los residuos y distribuir los creditos correspondientes.',
+          'El mandato digital es legalmente valido en Argentina bajo la Ley 25.506 de firma digital y los arts. 1319-1334 del Codigo Civil y Comercial.',
+          'Los OLV acumulados quedan registrados en Supabase como activos pendientes de certificacion.',
+          'Sin friccion adicional para el usuario. Sin firma extra. Sin billetera cripto requerida hoy.',
+        ]
+      },
+      {
+        t:'Fase 2 · Post-inversion (2026-2027) · Smart contracts',
+        c:'#3b82f6',
+        items:[
+          'Con el capital Seed, el CTO disenara y auditara el smart contract de distribucion.',
+          'Los OLV Verdes migran progresivamente a una wallet on-chain por usuario.',
+          'El smart contract codifica la tabla de distribucion: X% ciudadano, Y% recolector, Z% Circulab Tech, W% reserva ecosistema.',
+          'La auditoria del smart contract es obligatoria antes del deploy: empresa especializada externa verifica que el codigo hace exactamente lo que dice.',
+          'El ciudadano obtiene una wallet OLIVIA propia, visible desde su dashboard.',
+          'Compatible con Toucan Protocol y Moss.earth para tokenizacion de creditos Verra VCS.',
+        ]
+      },
+      {
+        t:'Fase 3 · Arbol 2027 · Distribucion automatica',
+        c:'#f59e0b',
+        items:[
+          'Verra certifica los creditos y los registra en el Verra Registry.',
+          'El comprador (naviera, minera, aerolinea, empresa RSE) paga a Circulab Tech.',
+          'El smart contract de distribucion se ejecuta automaticamente.',
+          'Cada wallet ciudadana recibe el porcentaje correspondiente en tiempo real.',
+          'El ciudadano ve en su app: Recibiste USD X por tus OLV Verdes certificados.',
+          'Puede retirar a Mercado Pago, transferencia bancaria local, o mantener en wallet para fases posteriores.',
+          'Circulab Tech retiene su porcentaje como contraprestacion por infraestructura, certificacion y gestion comercial.',
+        ]
+      },
+      {
+        t:'Por que no esperar al smart contract para registrarse',
+        c:'#a855f7',
+        items:[
+          'El mandato digital de los T&C ya es suficiente hoy para que Circulab Tech actue legalmente en nombre del ciudadano.',
+          'Los OLV acumulados en Semilla 2026 mantienen su valor proporcional cuando llegue la distribucion en 2027.',
+          'Registrarse hoy es ser primer movedor: el historial verificado de 18 meses tiene mas valor que empezar en Arbol 2027.',
+          'El smart contract de 2027 distribuira retroactivamente los creditos generados desde el inicio del sistema, no solo los futuros.',
+        ]
+      },
+    ]:[
+      {
+        t:'Phase 1 · Today (Semilla 2026) · Digital mandate via T&C',
+        c:'#22c55e',
+        items:[
+          'When registering, citizens accept OLIVIA Terms and Conditions.',
+          'T&C include Clause 8: Certification and Distribution Mandate.',
+          'This clause expressly authorizes Circulab Tech to act as agent to certify waste and distribute corresponding credits.',
+          'Digital mandate is legally valid in Argentina under Law 25.506 on digital signatures and Civil and Commercial Code arts. 1319-1334.',
+          'Accumulated OLV are registered in Supabase as assets pending certification.',
+          'No additional friction for the user. No extra signature. No crypto wallet required today.',
+        ]
+      },
+      {
+        t:'Phase 2 · Post-investment (2026-2027) · Smart contracts',
+        c:'#3b82f6',
+        items:[
+          'With Seed capital, the CTO will design and audit the distribution smart contract.',
+          'Green OLV progressively migrate to an on-chain wallet per user.',
+          'Smart contract codifies the distribution table: X% citizen, Y% collector, Z% Circulab Tech, W% ecosystem reserve.',
+          'Smart contract audit is mandatory before deploy: external specialized firm verifies code does exactly what it says.',
+          'Citizen gets their own OLIVIA wallet, visible from their dashboard.',
+          'Compatible with Toucan Protocol and Moss.earth for Verra VCS credit tokenization.',
+        ]
+      },
+      {
+        t:'Phase 3 · Arbol 2027 · Automatic distribution',
+        c:'#f59e0b',
+        items:[
+          'Verra certifies credits and registers them in the Verra Registry.',
+          'Buyer (shipping company, miner, airline, RSE company) pays Circulab Tech.',
+          'Distribution smart contract executes automatically.',
+          'Each citizen wallet receives the corresponding percentage in real time.',
+          'Citizen sees in their app: You received USD X for your certified Green OLV.',
+          'Can withdraw to Mercado Pago, local bank transfer, or keep in wallet for later phases.',
+          'Circulab Tech retains its percentage as consideration for infrastructure, certification and commercial management.',
+        ]
+      },
+      {
+        t:'Why not wait for the smart contract to register',
+        c:'#a855f7',
+        items:[
+          'The digital mandate in T&C is already sufficient today for Circulab Tech to legally act on behalf of citizens.',
+          'OLV accumulated in Semilla 2026 maintain their proportional value when distribution arrives in 2027.',
+          'Registering today means being a first mover: 18 months of verified history is more valuable than starting in Arbol 2027.',
+          'The 2027 smart contract will retroactively distribute credits generated from the beginning, not just future ones.',
+        ]
+      },
+    ]).map(item=>(
+      <div key={item.t} style={{...s.card,borderLeft:'3px solid ' + item.c,marginBottom:12}}>
+        <div style={{fontSize:12,fontWeight:700,color:item.c,marginBottom:8}}>{item.t}</div>
+        {item.items.map((it,i)=>(
+          <div key={i} style={{display:'flex',gap:8,marginBottom:6,alignItems:'flex-start'}}>
+            <span style={{color:item.c,flexShrink:0}}>·</span>
+            <span style={s.p}>{it}</span>
+          </div>
+        ))}
+      </div>
+    ))}
+
+    <div style={{...s.highlight,border:'1px solid rgba(34,197,94,0.2)',background:'rgba(34,197,94,0.04)',marginTop:8}}>
+      <div style={s.verde}>{lang==='es'?'En resumen':'In summary'}</div>
+      <div style={s.p}>
+        {lang==='es'
+          ? 'Hoy: T&C con mandato digital. 2027: smart contract ejecuta la distribucion automaticamente. El ciudadano no necesita hacer nada adicional. Circulab Tech opera como coordinador neutral que construye el sistema, lo certifica, y distribuye el valor a quienes lo generaron.'
+          : 'Today: T&C with digital mandate. 2027: smart contract executes distribution automatically. The citizen needs to do nothing additional. Circulab Tech operates as a neutral coordinator that builds the system, certifies it, and distributes value to those who generated it.'}
+      </div>
+    </div>
+  </div>
 )
 
 if(seccion===16) return (

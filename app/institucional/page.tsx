@@ -1,9 +1,12 @@
 'use client'
+
+// SEO metadata
+
 import { useState } from 'react'
 
 export default function Institucional() {
   const [lang, setLang] = useState<'es'|'en'>('es')
-  const [dark, setDark] = useState(true)
+  const [dark, setDark] = useState(false)
 
   const bg = dark?'#050505':'#f7f5f1'
   const text = dark?'#f5f5f5':'#0d0d0d'
@@ -96,7 +99,7 @@ export default function Institucional() {
           </h1>
 
           <p style={{fontSize:15,lineHeight:1.7,color:sub,marginBottom:28,maxWidth:600}}>
-            {es?'SaaS B2B para consorcios residenciales + verificación IA de residuos + originación de créditos de carbono Verra VCS. El consorcio paga el SaaS. Los créditos de carbono son margen neto al 90%.':'B2B SaaS for residential buildings + AI waste verification + Verra VCS carbon credit origination. The building pays the SaaS. Carbon credits are 90% net margin.'}
+            {es?'SaaS B2B para consorcios residenciales + verificación IA de residuos + originación de créditos de carbono Verra VCS. El consorcio paga el SaaS. Los créditos de carbono son modelo de ingresos recurrentes.':'B2B SaaS for residential buildings + AI waste verification + Verra VCS carbon credit origination. The building pays the SaaS. Carbon credits are recurring revenue model.'}
           </p>
 
           <div style={{display:'inline-flex',alignItems:'center',gap:8,background:'rgba(34,197,94,0.08)',border:'1px solid rgba(34,197,94,0.25)',borderRadius:30,padding:'8px 16px',marginBottom:20,flexWrap:'wrap'}}>
@@ -150,7 +153,7 @@ export default function Institucional() {
               {icon:'✅',title:es?'Verra validó dMRV · Feb 2026':'Verra validated dMRV · Feb 2026',desc:es?'El mercado internacional de carbono aprobó la verificación digital de alta frecuencia. Nuestro modelo pasó de hipótesis a certeza técnica. El riesgo bajó de ALTO a MEDIO.':'The international carbon market approved high-frequency digital verification. Our model moved from hypothesis to technical certainty. Risk dropped from HIGH to MEDIUM.'},
               {icon:'🏗️',title:es?'USD 0 inversión externa · Producto activo':'USD 0 external investment · Active product',desc:es?'App en producción, IA verificando residuos, comunidad activa, admin con CRM. Todo funcionando hoy sin capital externo. Lo que otros tardan 2 años y USD 500K en construir.':'App in production, AI verifying waste, active community, admin with CRM. All running today without external capital. What others take 2 years and USD 500K to build.'},
               {icon:'⚖️',title:es?'Ley 27.506 · 10 años de estabilidad fiscal':'Law 27.506 · 10-year fiscal stability',desc:es?'USD 1 invertido = USD 1.4 efectivos. Ganancias al 15%, reducción 70-80% cargas patronales. Ventaja fiscal única en LATAM que no existe en ningún otro país de la región.':'USD 1 invested = USD 1.4 effective. 15% income tax, 70-80% payroll reduction. Unique fiscal advantage in LATAM that exists nowhere else in the region.'},
-              {icon:'🏢',title:es?'Modelo SaaS · USD 600/mes por consorcio':'SaaS Model · USD 600/month per building',desc:es?'El consorcio paga el SaaS como gasto ordinario de expensas. Cubre el 100% del costo operativo. Los créditos de carbono generados arriba de eso son margen neto al 90%.':'The building pays the SaaS as ordinary maintenance expense. Covers 100% of operating costs. Carbon credits generated above that are 90% net margin.'},
+              {icon:'🏢',title:es?'Modelo SaaS · abono mensual premium por consorcio':'SaaS Model · premium monthly subscription per building',desc:es?'El consorcio paga el SaaS como gasto ordinario de expensas. Cubre el 100% del costo operativo. Los créditos de carbono generados arriba de eso son modelo de ingresos recurrentes.':'The building pays the SaaS as ordinary maintenance expense. Covers 100% of operating costs. Carbon credits generated above that are recurring revenue model.'},
             ].map((item,i)=>(
               <div key={i} style={{background:card,border:'1px solid rgba(34,197,94,0.15)',borderRadius:14,padding:'16px'}}>
                 <div style={{fontSize:20,marginBottom:8}}>{item.icon}</div>
@@ -159,6 +162,17 @@ export default function Institucional() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* CAPACIDAD OCIOSA */}
+      <section style={{padding:'24px',background:dark?'rgba(34,197,94,0.02)':'rgba(34,197,94,0.02)',borderTop:'1px solid rgba(34,197,94,0.1)'}}>
+        <div style={{maxWidth:800,margin:'0 auto',textAlign:'center'}}>
+          <p style={{fontSize:13,color:sub,lineHeight:1.8,maxWidth:600,margin:'0 auto'}}>
+            {es
+              ? 'No construimos infraestructura nueva. Activamos la que ya existe y está ociosa. Las plantas de clasificación · los camiones · las cooperativas · el marco legal. Todo ya está. Lo que faltaba era la capa de datos que conecta al ciudadano con el sistema. Eso es OLIVIA. Costo marginal de escala: mínimo.'
+              : 'We do not build new infrastructure. We activate what already exists and is idle. Classification plants · trucks · cooperatives · legal framework. It is all there. What was missing was the data layer connecting citizens to the system. That is OLIVIA. Marginal cost of scale: minimal.'}
+          </p>
         </div>
       </section>
 
@@ -279,13 +293,13 @@ export default function Institucional() {
           <div style={{background:'rgba(34,197,94,0.04)',border:'1px solid rgba(34,197,94,0.15)',borderRadius:12,padding:'16px 20px',marginBottom:24,textAlign:'center'}}>
             <p style={{fontSize:12,color:'#94a3b8',lineHeight:1.7,margin:0}}>
               {es
-                ? 'OLIVIA Circular es el único producto con código activo en 2026. No se escribe una sola línea de código en Quincena PULSO ni en Art of Money hasta que OLIVIA Circular emita su primer crédito certificado por Verra. Esa disciplina de ejecución es deliberada: garantiza foco total en el hito que desbloquea todo lo demás.'
-                : 'OLIVIA Circular is the only product with active code in 2026. Not a single line of code is written in Quincena PULSO or Art of Money until OLIVIA Circular issues its first Verra-certified credit. This execution discipline is deliberate: it guarantees total focus on the milestone that unlocks everything else.'}
+                ? 'Metamorfosis es el único producto con código activo en 2026. No se escribe una sola línea de código en Quincena PULSO ni en Art of Money hasta que OLIVIA Circular emita su primer crédito certificado por Verra. Esa disciplina de ejecución es deliberada: garantiza foco total en el hito que desbloquea todo lo demás.'
+                : 'Metamorfosis is the only product with active code in 2026. Not a single line of code is written in Quincena PULSO or Art of Money until OLIVIA Circular issues its first Verra-certified credit. This execution discipline is deliberate: it guarantees total focus on the milestone that unlocks everything else.'}
             </p>
           </div>
           <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:16}}>
             {[
-              {img:'/ciudadano/metamorfosis.jpg',nombre:'OLIVIA Circular',badge:es?'✅ Activo · Semilla 2026':'✅ Active · Semilla 2026',desc:es?'El único producto con código activo hoy. SaaS dMRV para consorcios + verificación IA de residuos + originación de créditos de carbono bajo protocolo Verra VCS. El 100% del foco y el capital de la ronda Seed va aquí.':'The only product with active code today. dMRV SaaS for buildings + AI waste verification + carbon credit origination under Verra VCS protocol. 100% of Seed round focus and capital goes here.',href:'/registro',color:'#22c55e',locked:false},
+              {img:'/ciudadano/metamorfosis.jpg',nombre:'Metamorfosis',badge:es?'✅ Activo · Semilla 2026':'✅ Active · Semilla 2026',desc:es?'El único producto con código activo hoy. SaaS dMRV para consorcios + verificación IA de residuos + originación de créditos de carbono bajo protocolo Verra VCS. El 100% del foco y el capital de la ronda Seed va aquí.':'The only product with active code today. dMRV SaaS for buildings + AI waste verification + carbon credit origination under Verra VCS protocol. 100% of Seed round focus and capital goes here.',href:'/registro',color:'#22c55e',locked:false},
               {img:'/ciudadano/pulso.jpg',nombre:es?'Quincena · PULSO':'Quincena · PULSO',badge:es?'🔒 Post-certificación Verra · 2027':'🔒 Post-Verra certification · 2027',desc:es?'Infraestructura de pago para que el ciudadano cobre sus créditos de carbono sin cuenta bancaria formal. Nace cuando OLIVIA Circular emita su primer crédito Verra y el vecino necesite cobrar en USD. Cero líneas de código hasta ese hito.':'Payment infrastructure so citizens can collect their carbon credits without a formal bank account. Born when OLIVIA Circular issues its first Verra credit. Zero lines of code until that milestone.',href:'#',color:'#3b82f6',locked:true},
               {img:'/ciudadano/aom.jpg',nombre:'Art of Money',badge:es?'🔒 Post-escala LATAM · 2028':'🔒 Post-LATAM scale · 2028',desc:es?'La misma infraestructura financiera de Quincena aplicada a creadores, artistas y deportistas. Activa cuando la plomería de Quincena ya esté funcionando. Misma tesis — nueva industria. Cero líneas de código hasta 2028.':'The same Quincena financial infrastructure applied to creators, artists and athletes. Activates when Quincena infrastructure is running. Same thesis — new industry. Zero lines of code until 2028.',href:'#',color:'#a855f7',locked:true},
             ].map((v:any)=>(
@@ -357,7 +371,30 @@ export default function Institucional() {
             </div>
           </div>
 
-          {/* DOCUMENTOS */}
+          
+              <div style={{background:'rgba(34,197,94,0.04)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:14,padding:'20px',marginTop:12}}>
+                <div style={{fontSize:11,fontWeight:700,color:'#22c55e',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:12}}>
+                  {es?'Estructuras de inversion disponibles':'Available investment structures'}
+                </div>
+                <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10,marginBottom:12}}>
+                  {[
+                    {titulo:es?'Inversion directa':'Direct investment',desc:es?'USD 500K 10% equity Ley 27.506 USD 1 = USD 1.4 efectivos Board seat':'USD 500K 10% equity Law 27.506 USD 1 = USD 1.4 effective Board seat',color:'#22c55e'},
+                    {titulo:'SAFE + Cap',desc:es?'Nota convertible YC Cap USD 3-5M 20% descuento proxima ronda Sin vencimiento':'YC convertible note USD 3-5M cap 20% next round discount No expiration',color:'#3b82f6'},
+                    {titulo:es?'Por hitos (opcional)':'Milestone-based (optional)',desc:es?'Tramos de capital por traccion real. Hitos y plazos disenados en conjunto. Flexibles y pro-equipo.':'Capital tranches by real traction. Milestones and timelines designed together. Flexible and pro-team.',color:'#a855f7'},
+                  ].map((item,i)=>(
+                    <div key={i} style={{background:'rgba(255,255,255,0.03)',border:'1px solid rgba(255,255,255,0.06)',borderRadius:10,padding:'12px'}}>
+                      <div style={{fontSize:11,fontWeight:700,color:item.color,marginBottom:6}}>{item.titulo}</div>
+                      <div style={{fontSize:10,color:'#64748b',lineHeight:1.6}}>{item.desc}</div>
+                    </div>
+                  ))}
+                </div>
+                <div style={{fontSize:11,color:'#94a3b8',lineHeight:1.7,fontStyle:'italic',borderTop:'1px solid rgba(255,255,255,0.06)',paddingTop:10}}>
+                  {es
+                    ? 'Todas las garantias listadas aplican independientemente de la estructura elegida. Los terminos especificos se negocian en conjunto con el inversor.'
+                    : 'All guarantees listed apply regardless of the chosen structure. Specific terms are negotiated together with the investor.'}
+                </div>
+              </div>
+{/* DOCUMENTOS */}
           <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10,marginBottom:16}}>
             {[
               {icon:'📄',label:'Whitepaper',sub:es?'Con NDA':'With NDA',href:'/whitepaper',color:'#3b82f6'},

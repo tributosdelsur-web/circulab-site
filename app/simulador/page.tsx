@@ -1,4 +1,7 @@
 'use client'
+
+// SEO metadata
+
 import { useState } from 'react'
 
 const PRECIOS = {

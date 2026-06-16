@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 
 export default function Registro() {
  const [nombre, setNombre] = useState('')
+  const [aceptoTerminos, setAceptoTerminos] = useState(false)
  const [apellido, setApellido] = useState('')
  const [email, setEmail] = useState('')
  const [password, setPassword] = useState('')
@@ -18,7 +19,11 @@ export default function Registro() {
    if (!nombre || !email || !password) return
    setEstado('cargando')
 
-   const { data, error } = await supabase.auth.signUp({ email, password })
+   if (!aceptoTerminos) {
+      setMensaje('Debés aceptar los Términos y Condiciones y la Política de Privacidad para continuar')
+      return
+    }
+    const { data, error } = await supabase.auth.signUp({ email, password })
 
    if (error) {
      setEstado('error')
@@ -39,15 +44,48 @@ export default function Registro() {
      })
    }
 
-   setEstado('ok')
+   // Enviar email de bienvenida automático
+    try {
+      await fetch('/api/bienvenida', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre,
+          email,
+          barrio: barrio || 'Buenos Aires',
+          nivel: 'Semilla',
+        }),
+      })
+    } catch(e) {
+      console.error('Email bienvenida error:', e)
+      // No bloquear el registro si falla el email
+    }
+
+    setEstado('ok')
    setTimeout(() => router.push('/dashboard'), 2000)
  }
 
  if (estado==='ok') return (
    <div style={{minHeight:'100vh',background:'#0a0e1a',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:16,padding:24,fontFamily:'system-ui'}}>
      <div style={{fontSize:48}}>🌿</div>
-     <div style={{fontSize:22,fontWeight:800,color:'#f1f5f9'}}>¡Bienvenido a Circulab!</div>
-     <div style={{fontSize:14,color:'#64748b',textAlign:'center'}}>Tu cuenta fue creada.<br/>Redirigiendo a tu panel...</div>
+     <div style={{fontSize:22,fontWeight:800,color:'#f1f5f9',textAlign:'center'}}>¡Bienvenido, {nombre}! 🌿</div>
+     <div style={{fontSize:14,color:'#22c55e',fontWeight:700,textAlign:'center'}}>+100 OLV Bonus de bienvenida acreditados</div>
+     <div style={{fontSize:12,color:'#64748b',textAlign:'center',maxWidth:300,lineHeight:1.7}}>
+       Tu cuenta está activa. Te enviamos un email con todo lo que necesitás saber.<br/>
+       Redirigiendo a tu panel...
+     </div>
+     <div style={{display:'flex',flexDirection:'column',gap:8,width:'100%',maxWidth:300}}>
+       {[
+         {paso:'01',texto:'Registrá tu primer residuo',color:'#22c55e'},
+         {paso:'02',texto:'Llevalo al punto verde · segunda foto GPS',color:'#3b82f6'},
+         {paso:'03',texto:'Invitá a un vecino · +50 OLV Bonus',color:'#f59e0b'},
+       ].map((p,i)=>(
+         <div key={i} style={{display:'flex',gap:10,alignItems:'center',padding:'10px 14px',background:'rgba(255,255,255,0.03)',borderRadius:10,border:'1px solid rgba(255,255,255,0.06)'}}>
+           <div style={{fontSize:9,fontWeight:900,color:p.color,fontFamily:'monospace',opacity:0.6}}>{p.paso}</div>
+           <div style={{fontSize:11,color:'#94a3b8'}}>{p.texto}</div>
+         </div>
+       ))}
+     </div>
    </div>
  )
 

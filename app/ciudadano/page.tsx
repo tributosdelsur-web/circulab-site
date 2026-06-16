@@ -1,4 +1,7 @@
 'use client'
+
+// SEO metadata
+
 import { useState, useEffect } from 'react'
 
 export default function Ciudadano() {

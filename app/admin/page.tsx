@@ -1,4 +1,5 @@
 'use client'
+import React from 'react'
 import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 
@@ -50,7 +51,7 @@ export default function Admin() {
   const [postulaciones, setPostulaciones] = useState<any[]>([])
   const [inversoresCRM, setInversoresCRM] = useState<any[]>([])
   const [nuevaPostulacion, setNuevaPostulacion] = useState({fondo_nombre:'',tipo:'vc',estado:'pendiente',deadline:'',monto_potencial:'',contacto:'',notas:'',next_step:'',url:''})
-  const [nuevoInversor, setNuevoInversor] = useState({nombre:'',empresa:'',email:'',cargo:'',estado:'frio',origen:'linkedin',monto_potencial:'',notas:'',next_step:''})
+  const [nuevoInversor, setNuevoInversor] = useState({nombre:'',empresa:'',email:'',cargo:'',estado:'frio',origen:'linkedin',monto_potencial:'',estructura_preferida:'por_definir',notas:'',next_step:''})
  const [whitepapers, setWhitepapers] = useState<any[]>([])
  const [onepagers, setOnepagers] = useState<any[]>([])
   const [leadsAOM, setLeadsAOM] = useState<any[]>([])
@@ -209,6 +210,19 @@ export default function Admin() {
    {id:'publicar',l:'Publicar',icon:'📢'},
   {id:'postulaciones',l:`Postulaciones (${postulaciones.length})`,icon:'🎯'},
   {id:'inversores_crm',l:`Investor CRM (${inversoresCRM.length})`,icon:'💰'},
+  {id:'linkedin',l:'LinkedIn Studio',icon:'💼'},
+  {id:'newsletter',l:'Newsletter',icon:'📧'},
+  {id:'community',l:'Community Engine',icon:'🤝'},
+  {id:'email_secuencia',l:'Email Secuencia',icon:'✉️'},
+  {id:'camp_ciudadana',l:'Campaña Ciudadana',icon:'👤'},
+  {id:'camp_consorcios',l:'Consorcios',icon:'🏢'},
+  {id:'camp_gastro',l:'Gastronómico',icon:'🍽️'},
+  {id:'camp_rse',l:'RSE/ESG',icon:'🏛️'},
+  {id:'camp_emisores',l:'Grandes Emisores',icon:'🚢'},
+  {id:'camp_municipios',l:'Municipios',icon:'🏙️'},
+  {id:'pipeline',l:'Pipeline Comercial',icon:'📊'},
+  {id:'ventas',l:'Ventas Directas',icon:'💵'},
+  {id:'manual',l:'Manual Operativo',icon:'📖'},
  ]
 
  if(!auth) return (
