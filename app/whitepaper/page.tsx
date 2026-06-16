@@ -140,6 +140,11 @@ if(seccion===0) return (
 </div>
 )
 
+// Cita validacion externa inyectada en seccion 0
+if(seccion===0) {
+  // se maneja abajo
+}
+
 if(seccion===1) return (
 <div>
 <div style={s.titulo}>{lang==='es'?'El problema':'The Problem'}</div>

@@ -176,6 +176,31 @@ export default function Institucional() {
         </div>
       </section>
 
+      {/* VALIDACION EXTERNA INVERSOR */}
+      <section style={{padding:'0 24px 32px',maxWidth:800,margin:'0 auto'}}>
+        <div style={{background:'rgba(245,158,11,0.04)',border:'1px solid rgba(245,158,11,0.2)',borderRadius:16,padding:'24px'}}>
+          <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:'#f59e0b',marginBottom:12}}>[ {es?'Lo que dicen quienes lo analizan':'What analysts say'} ]</div>
+          <div style={{display:'flex',gap:16,alignItems:'flex-start'}}>
+            <div style={{fontSize:40,flexShrink:0,lineHeight:1}}>"</div>
+            <div>
+              <p style={{fontSize:14,color:sub,lineHeight:1.8,marginBottom:12,fontStyle:'italic'}}>
+                {es?'Si OLIVIA se apalanca en infraestructura inteligente y digitaliza el impacto para el mercado financiero, el techo no existe. La clave está en la velocidad de ejecución y en cerrar contratos corporativos clave antes de que sature la competencia.':'If OLIVIA leverages intelligent infrastructure and digitalizes impact for the financial market, there is no ceiling. The key is execution speed and closing key corporate contracts before the market saturates.'}
+              </p>
+              <div style={{fontSize:11,color:'#f59e0b',fontWeight:700}}>— — Análisis independiente de inversor · Junio 2026</div>
+              <div style={{marginTop:12,display:'flex',gap:8,flexWrap:'wrap'}}>
+                {[
+                  es?'✅ Verra validó dMRV · Feb 2026':'✅ Verra validated dMRV · Feb 2026',
+                  es?'✅ USD 0 inversión externa':'✅ USD 0 external investment',
+                  es?'✅ Producto activo hoy':'✅ Product active today',
+                ].map((b,i)=>(
+                  <span key={i} style={{fontSize:10,color:'#22c55e',background:'rgba(34,197,94,0.08)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:20,padding:'4px 10px',fontWeight:700}}>{b}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* POSICIONAMIENTO COMPETITIVO */}
       <section style={{background:dark?'#0a1a0a':'#f0fdf4',padding:'32px 24px'}}>
         <div style={{maxWidth:900,margin:'0 auto'}}>
