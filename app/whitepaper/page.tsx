@@ -1018,7 +1018,7 @@ if(seccion===16) return (
 {(lang==='es'?[
 {r:'Complejidad operativa multi-metodológica',n:'MEDIO',c:'#f59e0b',m:'Fase 3 empieza con UNA sola certificación — Verra VM0036 orgánico. El CTO contratado en mes 1-2 audita y refactoriza el sistema para múltiples metodologías en paralelo.'},
 {r:'Caída del precio del carbono voluntario',n:'MEDIO',c:'#f59e0b',m:'4 de 5 fuentes de valor no dependen del carbono. Diversificación en 7 mercados. Art. 6.4 es regulado. Reserva estratégica de OLV.'},
-{r:'dMRV ciudadano no aprobado por certificadoras',n:'ALTO',c:'#ef4444',m:'Es genuinamente nuevo. La estrategia es construir el historial de datos durante Fase 1-2 para presentar a Verra con evidencia sólida. Hay precedentes en África y Asia.'},
+{r:'dMRV ciudadano no aprobado por certificadoras',n:'MEDIO',c:'#f59e0b',m:'En febrero de 2026 Verra aprobó la primera metodología dMRV de alta frecuencia, validando exactamente el modelo que OLIVIA implementa. El riesgo bajó de ALTO a MEDIO: ya no es validez del método, sino de ejecución y escala. La estrategia sigue siendo construir historial de datos durante Fase 1-2 para presentar evidencia sólida bajo esa metodología ya aprobada.'},
 {r:'Adopción ciudadana insuficiente',n:'MEDIO',c:'#f59e0b',m:'El incentivo económico es el diferencial. Consorcios como canal de adquisición masiva. Red social OLIVIA como mecanismo de retención.'},
 {r:'Competencia de plataformas establecidas',n:'BAJO',c:'#22c55e',m:'No existe competencia directa en dMRV ciudadano en LATAM. La ventaja del primero en construir el historial de datos es insuperable.'},
 ]:[
@@ -1082,6 +1082,7 @@ return (
 <button onClick={()=>setLang(lang==='es'?'en':'es')} style={{background:'rgba(34,197,94,0.1)',border:'1px solid rgba(34,197,94,0.3)',borderRadius:6,padding:'4px 10px',color:'#22c55e',fontSize:11,fontWeight:700,cursor:'pointer'}}>{lang==='es'?'EN':'ES'}</button>
 <button onClick={()=>setDark(!dark)} style={{background:dark?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.06)',border:`1px solid ${border}`,borderRadius:6,padding:'4px 8px',fontSize:14,cursor:'pointer'}}>{dark?'☀️':'🌙'}</button>
 <a href="/pitch" style={{fontSize:11,color:'#64748b',textDecoration:'none'}}>{lang==='es'?'Ver pitch →':'See pitch →'}</a>
+<button onClick={()=>window.print()} style={{background:'linear-gradient(135deg,#22c55e,#16a34a)',border:'none',borderRadius:6,padding:'5px 12px',color:'white',fontSize:11,fontWeight:700,cursor:'pointer'}}>📥 {lang==='es'?'Descargar PDF':'Download PDF'}</button>
 </div>
 </div>
 
