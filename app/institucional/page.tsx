@@ -130,7 +130,7 @@ export default function Institucional() {
               {[
                 {label:es?'01 / Autopoiesis Urbana':'01 / Urban Autopoiesis',desc:es?'En la naturaleza no hay basura — solo recursos sin infraestructura. OLIVIA es esa infraestructura. Un sistema que se produce a sí mismo convirtiendo el desorden urbano en activos verificables.':'In nature there is no waste — only resources without infrastructure. OLIVIA is that infrastructure. A system that produces itself by converting urban disorder into verifiable assets.'},
                 {label:es?'02 / Bienes Meritorios Monetizados':'02 / Monetized Merit Goods',desc:es?'Reciclar, reforestar, participar en roscas, crear arte — bienes meritorios sub-consumidos porque el mercado no los precia. OLIVIA les asigna precio a través del token OLV.':'Recycling, reforesting, joining savings circles, creating art — under-consumed merit goods because the market fails to price them. OLIVIA assigns price through the OLV token.'},
-                {label:es?'03 / Multiplicador 1.4x · Ley 27.506':'03 / 1.4x Multiplier · Law 27.506',desc:es?'Cada USD 1 invertido en Circulab Tech vale USD 1.4 efectivos: ganancias al 15%, reducción 70-80% cargas patronales, FONDCE, estabilidad fiscal 10 años. Distrito IA Buenos Aires.':'Every USD 1 invested in Circulab Tech is worth USD 1.4 effective: 15% income tax, 70-80% payroll reduction, FONDCE, 10-year fiscal stability. Buenos Aires AI District.'},
+                {label:es?'03 / Multiplicador 1.4x · Ley 27.506':'03 / 1.4x Multiplier · Law 27.506',desc:es?'Cada USD 1 invertido en Circulab Tech vale USD 1.4 efectivos: ganancias al 15%, reducción 70-80% cargas patronales, FONDCE, estabilidad fiscal 10 años. Distrito Tecnológico · Buenos Aires.':'Every USD 1 invested in Circulab Tech is worth USD 1.4 effective: 15% income tax, 70-80% payroll reduction, FONDCE, 10-year fiscal stability. Distrito Tecnológico Buenos Aires.'},
                 {label:es?'04 / Riesgo técnico reducido':'04 / Reduced technical risk',desc:es?'En febrero 2026 Verra aprobó los primeros créditos bajo dMRV de alta frecuencia. Esto valida exactamente el modelo de OLIVIA. El riesgo técnico pasó de ALTO a MEDIO.':'In February 2026 Verra approved the first credits under high-frequency dMRV. This validates exactly the OLIVIA model. Technical risk moved from HIGH to MEDIUM.'},
               ].map((item,i)=>(
                 <div key={i} style={{borderLeft:`3px solid ${accent}`,paddingLeft:14}}>
@@ -498,7 +498,7 @@ export default function Institucional() {
         <div style={{fontSize:10,color:sub,textAlign:'center',lineHeight:1.5}}>
           {es?'Oficina Latinoamericana de Información para la Valorización e Inteligencia Ambiental':'Latin American Office for Environmental Valuation and Intelligence Information'}
         </div>
-        <div style={{fontSize:10,color:sub,fontFamily:'monospace',fontWeight:700}}>Circulab Tech © 2026 · Distrito IA · Buenos Aires, Argentina</div>
+        <div style={{fontSize:10,color:sub,fontFamily:'monospace',fontWeight:700}}>Circulab Tech © 2026 · Distrito Tecnológico · Buenos Aires, Argentina</div>
         <div style={{display:'flex',gap:14,flexWrap:'wrap',justifyContent:'center'}}>
           {[
             {l:'Whitepaper',h:'/whitepaper',c:'#3b82f6'},

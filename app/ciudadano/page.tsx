@@ -208,7 +208,7 @@ export default function Ciudadano() {
         <section style={{padding:'24px 0 16px'}}>
           <div style={{display:'flex',flexWrap:'wrap',gap:6,marginBottom:14}}>
             <span style={{fontSize:10,fontWeight:700,border:'1px solid #22c55e',color:'#22c55e',padding:'3px 10px',borderRadius:20}}>🌱 {es?'Tramo Semilla · 2026':'Seed Stage · 2026'}</span>
-            <span style={{fontSize:10,fontWeight:700,border:'1px solid #3b82f6',color:'#3b82f6',padding:'3px 10px',borderRadius:20}}>{es?'Distrito IA · Buenos Aires':'AI District · Buenos Aires'}</span>
+            <span style={{fontSize:10,fontWeight:700,border:'1px solid #3b82f6',color:'#3b82f6',padding:'3px 10px',borderRadius:20}}>{es?'Distrito Tecnológico · Buenos Aires':'Distrito Tecnológico · Buenos Aires'}</span>
           </div>
           <h1 style={{fontSize:36,fontWeight:900,lineHeight:1.15,marginBottom:12,letterSpacing:'-0.02em',textAlign:'center'}}>
             <span style={{color:text}}>{es?'Tu residuo vale.':'Your waste matters.'}</span><br/>
@@ -703,7 +703,7 @@ export default function Ciudadano() {
         <div style={{fontSize:10,color:sub,marginBottom:4}}>
           {es?'Oficina Latinoamericana de Información para la Valorización e Inteligencia Ambiental':'Latin American Office for Environmental Valuation and Intelligence Information'}
         </div>
-        <div style={{fontSize:10,color:sub,marginBottom:10}}>© 2026 Circulab Tech · Distrito IA · Buenos Aires</div>
+        <div style={{fontSize:10,color:sub,marginBottom:10}}>© 2026 Circulab Tech · Distrito Tecnológico · Buenos Aires</div>
         <div style={{display:'flex',gap:14,justifyContent:'center',flexWrap:'wrap'}}>
           {[
             {l:'Whitepaper',h:'/whitepaper',c:'#3b82f6'},

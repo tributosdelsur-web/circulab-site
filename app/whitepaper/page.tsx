@@ -122,7 +122,7 @@ if(seccion===0) return (
 {t:'El producto hoy',d:'App web en producción en oliviacirculab.com.ar. Registro con foto + GPS + IA (Cloudflare Workers AI). Dashboard con OLV y CO2eq. Red social activa con comunidad. Sistema de amigos y seguimiento. Admin con dMRV. Construido con USD 0 de inversión externa.',c:'#3b82f6'},
 {t:'Ecosistema de incentivos cruzados',d:'Las tres verticales de Circulab Tech (OLIVIA, PULSO/Quincena y Art of Money) se financian entre sí usando OLV como moneda interna antes de monetizar hacia afuera. Convenios con terceros que aceptan OLV acumulan activos ambientales que se convierten en USD cuando Verra certifique en 2027.',c:'#a855f7'},
 {t:'La ronda',d:'Seed 2026. Opción A: USD 500K por 10% · USD 4.5M pre. Opción B: USD 2M por 15% · USD 11.3M pre. Primer uso: CTO + auditoría + certificación Verra VM0036.',c:'#f59e0b'},
-{t:'Distrito IA y Ley 27.506',d:'Circulab Tech opera desde el Distrito de Inteligencia Artificial de Buenos Aires. Bajo la Ley de Economía del Conocimiento 27.506: ganancias al 15%, reducción 70-80% cargas patronales, FONDCE, estabilidad fiscal 10 años. Cada USD 1 invertido vale USD 1.4 efectivos.',c:'#22c55e'},
+{t:'Distrito Tecnológico y Ley 27.506',d:'Circulab Tech opera desde el Distrito Tecnológico de Buenos Aires. Bajo la Ley de Economía del Conocimiento 27.506: ganancias al 15%, reducción 70-80% cargas patronales, FONDCE, estabilidad fiscal 10 años. Cada USD 1 invertido vale USD 1.4 efectivos.',c:'#22c55e'},
 {t:lang==='es'?'Fundamentos científicos':'Scientific foundations',d:lang==='es'?'Ostrom (Nobel 2009): comunidades con monitoreo verificable gestionan mejor los bienes comunes. Fuller: la contaminación son recursos sin cosechar. Prigogine (Nobel 1977): sistemas vivos hacia menor entropía. Maturana y Varela: autopoiesis — sistemas que se producen a sí mismos. OLIVIA aplica estos principios a la economía circular urbana.':'Ostrom (Nobel 2009): communities with verifiable monitoring manage commons better. Fuller: pollution is resources not harvested. Prigogine (Nobel 1977): living systems toward lower entropy. Maturana & Varela: autopoiesis — systems that produce themselves. OLIVIA applies these principles to urban circular economy.',c:'#3b82f6'},
 ]:[
 {t:'The Problem',d:'6,000t of waste/day in Buenos Aires alone. 85% goes to landfill unsorted. USD 0 captured in citizen carbon. A USD 4.5B LATAM market completely untouched.',c:'#ef4444'},
@@ -130,7 +130,7 @@ if(seccion===0) return (
 {t:'The Product Today',d:'Web app in production at oliviacirculab.com.ar. Registration with photo + GPS + AI (Cloudflare Workers AI). OLV and CO2eq dashboard. Active social network with community. Friends and following system. Admin with dMRV. Built with USD 0 external investment.',c:'#3b82f6'},
 {t:'Cross-incentive ecosystem',d:'The three Circulab Tech verticals (OLIVIA, PULSO/Quincena and Art of Money) finance each other using OLV as internal currency before monetizing externally. Third-party partners who accept OLV accumulate environmental assets that convert to USD when Verra certifies in 2027.',c:'#a855f7'},
 {t:'The Round',d:'Seed 2026. Option A: USD 500K for 10% · USD 4.5M pre. Option B: USD 2M for 15% · USD 11.3M pre. First use: CTO + audit + Verra VM0036 certification.',c:'#f59e0b'},
-{t:'AI District & Law 27.506',d:'Circulab Tech operates from the Buenos Aires AI District. Under Knowledge Economy Law 27.506: 15% income tax, 70-80% payroll reduction, FONDCE, 10-year fiscal stability.',c:'#22c55e'},
+{t:'Distrito Tecnológico & Ley 27.506',d:'Circulab Tech opera en el Distrito Tecnológico de Buenos Aires (Ley 2.972 · operativo desde 2008 · vigente hasta 2035). Bajo la Ley de Economía del Conocimiento 27.506: ganancias al 15%, reducción 70-80% cargas patronales, FONDCE, estabilidad fiscal 10 años. Nota: el Distrito Tecnológico del Microcentro está actualmente en tramitación legislativa y aún no está operativo.',c:'#22c55e'},
 ]).map(i=>(
 <div key={i.t} style={{...s.card,borderLeft:`3px solid ${i.c}`}}>
 <div style={{fontSize:12,fontWeight:700,color:i.c,marginBottom:4}}>{i.t}</div>
@@ -617,7 +617,7 @@ if(seccion===14) return (
 <div>
 <div style={s.titulo}>{lang==='es'?'Equipo y tecnología':'Team & Technology'}</div>
 <div style={s.highlight}>
-<div style={s.verde}>{lang==='es'?'Construido con USD 0 · Distrito IA Buenos Aires · Ley 27.506':'Built with USD 0 · AI District Buenos Aires · Law 27.506'}</div>
+<div style={s.verde}>{lang==='es'?'Construido con USD 0 · Distrito Tecnológico · Buenos Aires · Ley 27.506':'Built with USD 0 · Distrito Tecnológico · Buenos Aires · Law 27.506'}</div>
 <div style={s.p}>{lang==='es'?'Todo el producto fue construido por los fundadores usando IA como equipo técnico. Sin inversión externa. El primer uso de fondos es contratar un CTO y auditar el código.':'The entire product was built by the founders using AI as their technical team. No external investment. First use of funds is hiring a CTO and auditing the code.'}</div>
 </div>
 {[
@@ -672,11 +672,11 @@ if(seccion===15) return (
 {t:'Estructura del deal',d:'Equity directo. Sin convertible note. Sin intereses. Sin ratchets. Dual class shares: Clase A fundadores (10 votos/acción) · Clase B inversores (1 voto/acción). Liquidation preference 1× no participante estándar.'},
 {t:'Sin costos fijos hasta inversión comprometida',d:'Circulab Tech no incurrirá en gastos fijos hasta que la inversión esté formalmente comprometida y los fondos disponibles. Hasta ese momento el costo operativo es USD 0.'},
 {t:lang==='es'?'Garantías para el inversor':'Investor guarantees',d:lang==='es'?'Seat en el board · Reporting mensual verificado · Milestone-based disbursement · Anti-dilution protection · Tag-along rights · Auditoría de código mes 1-2 post-inversión · Sin costos fijos hasta inversión comprometida.':'Board seat · Verified monthly reporting · Milestone-based disbursement · Anti-dilution protection · Tag-along rights · Code audit months 1-2 post-investment · No fixed costs until committed.'},
-{t:'Ventajas fiscales — Ley 27.506',d:'Ganancias al 15% · Reducción 70-80% cargas patronales · FONDCE · Estabilidad fiscal 10 años. Circulab Tech opera desde el Distrito de Inteligencia Artificial de Buenos Aires.'},
+{t:'Ventajas fiscales — Ley 27.506',d:'Ganancias al 15% · Reducción 70-80% cargas patronales · FONDCE · Estabilidad fiscal 10 años. Circulab Tech opera desde el Distrito Tecnológico de Buenos Aires.'},
 ]:[
 {t:'Deal structure',d:'Direct equity. No convertible note. No interest. No ratchets. Dual class shares: Class A founders (10 votes/share) · Class B investors (1 vote/share). Standard 1× non-participating liquidation preference.'},
 {t:'No fixed costs until investment committed',d:'Circulab Tech will not incur fixed expenses until the investment is formally committed and funds are available. Until then, operating cost is USD 0.'},
-{t:'Tax advantages — Law 27.506',d:'15% income tax · 70-80% payroll reduction · FONDCE · 10-year fiscal stability. Circulab Tech operates from the Buenos Aires AI District.'},
+{t:'Tax advantages — Law 27.506',d:'15% income tax · 70-80% payroll reduction · FONDCE · 10-year fiscal stability. Circulab Tech opera en el Distrito Tecnológico de Buenos Aires (Ley 2.972 · vigente hasta 2035).'},
 ]).map(i=>(
 <div key={i.t} style={s.card}>
 <div style={s.verde}>{i.t}</div>
@@ -1044,14 +1044,14 @@ if(seccion===17) return (
 <div style={s.titulo}>{lang==='es'?'Marco legal y regulatorio':'Legal & Regulatory Framework'}</div>
 {(lang==='es'?[
 {t:'Ley de Economía del Conocimiento 27.506',d:'Ganancias al 15% (vs 35% estándar). Reducción del 70-80% en cargas patronales. FONDCE — fondo de crédito fiscal. Estabilidad fiscal por 10 años. Software y servicios de IA califican.',c:'#22c55e'},
-{t:'Distrito de Inteligencia Artificial — Buenos Aires',d:'Circulab Tech opera desde el Distrito IA de CABA — el primer ecosistema de IA de América Latina. Acceso a financiamiento, mentorías y red del ecosistema tech de Buenos Aires.',c:'#3b82f6'},
+{t:'Distrito Tecnológico — Buenos Aires',d:'Circulab Tech opera desde el Distrito Tecnológico de Buenos Aires — operativo desde 2008 bajo Ley CABA 2.972 · vigente hasta 2035. Acceso a financiamiento, mentorías y red del ecosistema tech de Buenos Aires.',c:'#3b82f6'},
 {t:'Tokens OLV — naturaleza jurídica',d:'Activos ambientales digitales respaldados por comportamiento verificado. No son valores mobiliarios ni moneda de curso legal. No regulados por CNV. Su valor depende del mercado de carbono voluntario.',c:'#f59e0b'},
 {t:'Privacidad y datos',d:'Cumplimiento con Ley 25.326 de Protección de Datos. GPS exacto visible solo para el admin. Solo el barrio general visible en perfiles públicos. Política completa en oliviacirculab.com.ar/privacidad.',c:'#a855f7'},
 {t:'Estructura societaria recomendada',d:'SAS bajo Ley 27.349. Dual class shares A (fundadores, 10 votos) y B (inversores, 1 voto). Liquidation preference 1× no participante. Sin costos fijos hasta inversión comprometida.',c:'#22c55e'},
 {t:'Acuerdo de París — Art. 6.4',d:'Mecanismo para transferencia de créditos entre países. Argentina como firmante puede vender créditos generados en su territorio. OLIVIA en Fase 4 opera en este mercado regulado — el más estable.',c:'#3b82f6'},
 ]:[
 {t:'Knowledge Economy Law 27.506',d:'15% income tax (vs 35% standard). 70-80% payroll reduction. FONDCE — fiscal credit fund. 10-year fiscal stability. Software and AI services qualify.',c:'#22c55e'},
-{t:'AI District — Buenos Aires',d:'Circulab Tech operates from the Buenos Aires AI District — the first AI ecosystem in Latin America. Access to financing, mentoring and the Buenos Aires tech ecosystem network.',c:'#3b82f6'},
+{t:'Distrito Tecnológico · Buenos Aires',d:'Circulab Tech opera en el Distrito Tecnológico de Parque Patricios (Ley CABA 2.972 · operativo desde 2008 · vigente hasta 2035). Exención 100% IIBB · Sellos · ABL. Complementa y se acumula sobre los beneficios de la Ley 27.506 nacional. El Distrito Tecnológico del Microcentro está actualmente en tramitación en la Legislatura porteña y aún no está operativo.',c:'#3b82f6'},
 {t:'OLV Tokens — legal nature',d:'Digital environmental assets backed by verified behavior. Not securities or legal tender. Not regulated by CNV. Value depends on the voluntary carbon market.',c:'#f59e0b'},
 {t:'Privacy and data',d:'Compliance with Law 25.326 on Data Protection. Exact GPS visible only to admin. Only general neighborhood visible in public profiles. Full policy at oliviacirculab.com.ar/privacidad.',c:'#a855f7'},
 {t:'Recommended corporate structure',d:'SAS under Law 27.349. Dual class shares A (founders, 10 votes) and B (investors, 1 vote). 1× non-participating liquidation preference. No fixed costs until investment committed.',c:'#22c55e'},

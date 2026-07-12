@@ -262,7 +262,7 @@ export default function Landing() {
         {/* BADGES */}
         <div style={{display:'flex',flexWrap:'wrap',gap:8,justifyContent:'center',marginBottom:20}}>
           <div style={{display:'inline-flex',alignItems:'center',gap:6,background:'rgba(34,197,94,0.1)',border:'1px solid rgba(34,197,94,0.3)',borderRadius:20,padding:'5px 14px',fontSize:11,color:'#22c55e',fontWeight:700}}>
-            🌱 {es?'Tramo Semilla · 2026 · Distrito IA Buenos Aires':'Seed Stage · 2026 · AI District Buenos Aires'}
+            🌱 {es?'Tramo Semilla · 2026 · Distrito Tecnológico · Buenos Aires':'Seed Stage · 2026 · Distrito Tecnológico · Buenos Aires'}
           </div>
 
           <div style={{display:'inline-flex',alignItems:'center',gap:6,background:'rgba(245,158,11,0.08)',border:'1px solid rgba(245,158,11,0.25)',borderRadius:20,padding:'5px 14px',fontSize:11,color:'#f59e0b',fontWeight:700}}>
@@ -671,7 +671,7 @@ export default function Landing() {
           ))}
         </div>
         <div style={{fontSize:11,color:sub,marginBottom:6}}>hola@oliviacirculab.com.ar</div>
-        <div style={{fontSize:10,color:dark?'#475569':'#94a3b8'}}>©️ 2026 Circulab Tech · Distrito IA · Buenos Aires, Argentina · Ley 27.506</div>
+        <div style={{fontSize:10,color:dark?'#475569':'#94a3b8'}}>©️ 2026 Circulab Tech · Distrito Tecnológico · Buenos Aires, Argentina · Ley 27.506</div>
       </footer>
 
     </div>

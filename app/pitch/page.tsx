@@ -273,7 +273,7 @@ export default function Pitch() {
             <div style={{fontSize:14,color:'#22c55e',marginBottom:24,lineHeight:1.6}}>{s.subtitulo}</div>
             <div style={{display:'flex',gap:10,justifyContent:'center',flexWrap:'wrap'}}>
               <div style={{background:'rgba(34,197,94,0.1)',border:'1px solid rgba(34,197,94,0.3)',borderRadius:10,padding:'8px 16px',fontSize:12,color:'#22c55e'}}>🌱 Tramo Semilla · 2026</div>
-              <div style={{background:'rgba(59,130,246,0.1)',border:'1px solid rgba(59,130,246,0.3)',borderRadius:10,padding:'8px 16px',fontSize:12,color:'#3b82f6'}}>Distrito IA · Buenos Aires</div>
+              <div style={{background:'rgba(59,130,246,0.1)',border:'1px solid rgba(59,130,246,0.3)',borderRadius:10,padding:'8px 16px',fontSize:12,color:'#3b82f6'}}>Distrito Tecnológico · Buenos Aires</div>
               <div style={{background:'rgba(168,85,247,0.1)',border:'1px solid rgba(168,85,247,0.3)',borderRadius:10,padding:'8px 16px',fontSize:12,color:'#a855f7'}}>Ley 27.506 · 1.4x</div>
             </div>
           </div>
@@ -477,7 +477,7 @@ export default function Pitch() {
             </div>
             <div style={{marginTop:12,padding:'12px',background:'rgba(34,197,94,0.06)',borderRadius:12,textAlign:'center'}}>
               <div style={{fontSize:12,color:'#22c55e',fontWeight:700}}>🚀 Todo el producto construido por los fundadores con IA</div>
-              <div style={{fontSize:10,color:'#64748b',marginTop:2}}>Sin equipo técnico externo · USD 0 gastado · Distrito IA Buenos Aires · Ley 27.506</div>
+              <div style={{fontSize:10,color:'#64748b',marginTop:2}}>Sin equipo técnico externo · USD 0 gastado · Distrito Tecnológico · Buenos Aires · Ley 27.506</div>
             </div>
           </div>
         )}
@@ -529,7 +529,7 @@ export default function Pitch() {
             </div>
 
             <div style={{padding:'8px',background:'rgba(255,255,255,0.03)',borderRadius:10,fontSize:10,color:'#64748b',textAlign:'center'}}>
-              Equity directo · Sin ratchets · Sin intereses · Liquidation preference 1× · Distrito IA Buenos Aires · Estabilidad fiscal 10 años
+              Equity directo · Sin ratchets · Sin intereses · Liquidation preference 1× · Distrito Tecnológico · Buenos Aires · Estabilidad fiscal 10 años
             </div>
           </div>
         )}

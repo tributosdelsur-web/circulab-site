@@ -266,7 +266,7 @@ export default function Metamorfosis() {
         </a>
         <div style={{ fontSize: 11, fontWeight: 700, color: text, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 4 }}>OLIVIA Circulab</div>
         <div style={{ fontSize: 9, color: sub, marginBottom: 16, fontFamily: 'monospace' }}>
-          Metamorfosis · by Circulab Tech · Ley 27.506 · Buenos Aires AI District
+          Metamorfosis · by Circulab Tech · Ley 27.506 · Distrito Tecnológico CABA
         </div>
         <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 12 }}>
           {[

@@ -18,7 +18,7 @@ const sub = dark?'#94a3b8':'#475569'
 
 const T = {
   es: {
-    badge:'🌱 Tramo Semilla 2026 · Distrito IA Buenos Aires · Ley 27.506 · USD 1 = USD 1.4',
+    badge:'🌱 Tramo Semilla 2026 · Distrito Tecnológico · Buenos Aires · Ley 27.506 · USD 1 = USD 1.4',
     tagline:'La primera infraestructura autopoiética de bienes meritorios de América Latina — un sistema que se alimenta a sí mismo haciendo el bien.',
     problema_titulo:'El problema',
     solucion_titulo:'La solución',
@@ -36,7 +36,7 @@ const T = {
     ver_wp:'Ver whitepaper →',
   },
   en: {
-    badge:'🌱 Seed Stage 2026 · AI District Buenos Aires · Law 27.506 · USD 1 = USD 1.4',
+    badge:'🌱 Seed Stage 2026 · Distrito Tecnológico CABA · Law 27.506 · USD 1 = USD 1.4',
     tagline:'The first autopoietic merit goods infrastructure in Latin America — a system that feeds itself by doing good.',
     problema_titulo:'The Problem',
     solucion_titulo:'The Solution',
@@ -346,7 +346,7 @@ return (
           ))}
         </div>
         <div style={{marginTop:10,fontSize:10,color:'#22c55e',fontWeight:600,textAlign:'center'}}>
-          🚀 {lang==='es'?'Construido con USD 0 · Distrito IA Buenos Aires · Ley Economía del Conocimiento 27.506':'Built with USD 0 · AI District Buenos Aires · Knowledge Economy Law 27.506'}
+          🚀 {lang==='es'?'Construido con USD 0 · Distrito Tecnológico · Buenos Aires · Ley Economía del Conocimiento 27.506':'Built with USD 0 · Distrito Tecnológico · Buenos Aires · Knowledge Economy Law 27.506'}
         </div>
       </div>
 
@@ -381,7 +381,7 @@ return (
             {icon:'✅',t:'Sin costos fijos',d:'Sin gastos hasta inversión comprometida · USD 0 operativo hoy'},
             {icon:'🚀',t:'Primer movedor',d:'Sin competencia en dMRV ciudadano LATAM · Producto activo'},
           ]:[
-            {icon:'🤖',t:'AI District Buenos Aires',d:'First AI ecosystem in LATAM'},
+            {icon:'🤖',t:'Distrito Tecnológico · Buenos Aires',d:'Operativo desde 2008 · Ley 2.972 · Exención IIBB, Sellos y ABL hasta 2035'},
             {icon:'📋',t:'Law 27.506',d:'15% income tax · FONDCE · 10-year stability'},
             {icon:'🚀',t:'First mover',d:'No direct competition in citizen dMRV LATAM'},
             {icon:'✅',t:'Active product',d:'In production with USD 0 external investment'},
