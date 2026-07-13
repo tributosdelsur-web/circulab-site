@@ -352,23 +352,49 @@ return (
 
       <div style={{background:'linear-gradient(135deg,rgba(34,197,94,0.06),rgba(59,130,246,0.06))',border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,padding:'14px',marginBottom:12}}>
         <div style={{fontSize:11,fontWeight:700,color:'#f59e0b',marginBottom:10,textTransform:'uppercase',letterSpacing:'0.05em'}}>{t.ronda_titulo}</div>
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10,marginBottom:10}}>
-          <div style={{textAlign:'center',padding:'12px',background:'rgba(34,197,94,0.08)',borderRadius:8}}>
-            <div style={{fontSize:10,color:sub,marginBottom:2}}>{lang==='es'?'Opción A':'Option A'}</div>
-            <div style={{fontSize:22,fontWeight:900,color:'#22c55e'}}>USD 500K</div>
-            <div style={{fontSize:10,color:sub}}>10% equity · USD 4.5M pre</div>
+        <div style={{display:'flex',flexDirection:'column',gap:8,marginBottom:10}}>
+          <div style={{padding:'10px 12px',background:'rgba(34,197,94,0.08)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:8}}>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+              <div>
+                <div style={{fontSize:9,color:sub,textTransform:'uppercase',letterSpacing:'0.06em'}}>{lang==='es'?'Opción 1 · Equity directa':'Option 1 · Direct equity'}</div>
+                <div style={{fontSize:18,fontWeight:900,color:'#22c55e'}}>USD 500K · 10%</div>
+              </div>
+              <div style={{fontSize:9,color:sub,textAlign:'right'}}>USD 4.5M pre{lang==='es'?<br/>+' · Sin dilución adicional':''}</div>
+            </div>
           </div>
-          <div style={{textAlign:'center',padding:'12px',background:'rgba(59,130,246,0.08)',borderRadius:8}}>
-            <div style={{fontSize:10,color:sub,marginBottom:2}}>{lang==='es'?'Opción B':'Option B'}</div>
-            <div style={{fontSize:22,fontWeight:900,color:'#3b82f6'}}>USD 2M</div>
-            <div style={{fontSize:10,color:sub}}>15% equity · USD 11.3M pre</div>
+          <div style={{padding:'10px 12px',background:'rgba(59,130,246,0.08)',border:'1px solid rgba(59,130,246,0.2)',borderRadius:8}}>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+              <div>
+                <div style={{fontSize:9,color:sub,textTransform:'uppercase',letterSpacing:'0.06em'}}>{lang==='es'?'Opción 2 · SAFE YC':'Option 2 · SAFE YC'}</div>
+                <div style={{fontSize:18,fontWeight:900,color:'#3b82f6'}}>Cap USD 3-5M · 20%</div>
+              </div>
+              <div style={{fontSize:9,color:sub,textAlign:'right'}}>{lang==='es'?'Descuento preferencial':'Preferred discount'}</div>
+            </div>
+          </div>
+          <div style={{padding:'10px 12px',background:'rgba(245,158,11,0.08)',border:'1px solid rgba(245,158,11,0.2)',borderRadius:8}}>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+              <div>
+                <div style={{fontSize:9,color:sub,textTransform:'uppercase',letterSpacing:'0.06em'}}>{lang==='es'?'Opción 3 · Milestone-based':'Option 3 · Milestone-based'}</div>
+                <div style={{fontSize:18,fontWeight:900,color:'#f59e0b'}}>USD 150K+150K+200K</div>
+              </div>
+              <div style={{fontSize:9,color:sub,textAlign:'right'}}>{lang==='es'?'Tramos independientes':'Independent tranches'}</div>
+            </div>
           </div>
         </div>
-        <div style={{fontSize:10,color:sub,lineHeight:1.6,textAlign:'center'}}>
+        <div style={{fontSize:9,color:sub,lineHeight:1.6,textAlign:'center',marginBottom:4}}>
           {lang==='es'
-            ?'Sin costos fijos hasta inversión comprometida · Equity directo · Sin ratchets · Sin intereses · Liquidation preference 1× estándar'
-            :'No fixed costs until investment committed · Direct equity · No ratchets · No interest · Standard 1× liquidation preference'
+            ?'Pro-equipo · Hitos como referencia negociable · Extensión 30 días disponible · Liquidation preference 1×'
+            :'Founder-friendly · Milestones as negotiable reference · 30-day extension available · 1× liquidation preference'
           }
+        </div>
+        <div style={{background:'rgba(245,158,11,0.06)',border:'1px solid rgba(245,158,11,0.2)',borderRadius:8,padding:'8px 10px',marginBottom:4}}>
+          <div style={{fontSize:9,color:'#f59e0b',fontWeight:700,marginBottom:3}}>{lang==='es'?'Validación estratégica externa · Junio 2026':'External strategic validation · June 2026'}</div>
+          <div style={{fontSize:9,color:sub,lineHeight:1.5,fontStyle:'italic'}}>
+            {lang==='es'
+              ?'"Si OLIVIA digitaliza el impacto para el mercado financiero, el techo no existe. La clave está en la velocidad de ejecución y cerrar contratos corporativos antes de que sature la competencia."'
+              :'"If OLIVIA digitalizes impact for the financial market, there is no ceiling. The key is execution speed and closing corporate contracts before the market saturates."'
+            }
+          </div>
         </div>
       </div>
 
