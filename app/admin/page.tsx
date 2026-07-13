@@ -509,6 +509,7 @@ export default function Admin() {
  const [feedback, setFeedback] = useState<any[]>([])
   const [postulaciones, setPostulaciones] = useState<any[]>([])
   const [inversoresCRM, setInversoresCRM] = useState<any[]>([])
+  const [ndaFirmas, setNdaFirmas] = useState<any[]>([])
   const [nuevaPostulacion, setNuevaPostulacion] = useState({fondo_nombre:'',tipo:'vc',estado:'pendiente',deadline:'',monto_potencial:'',contacto:'',notas:'',next_step:'',url:''})
   const [nuevoInversor, setNuevoInversor] = useState({nombre:'',empresa:'',email:'',cargo:'',estado:'frio',origen:'linkedin',monto_potencial:'',estructura_preferida:'por_definir',notas:'',next_step:''})
  const [whitepapers, setWhitepapers] = useState<any[]>([])
@@ -682,6 +683,7 @@ export default function Admin() {
   {id:'pipeline',l:'Pipeline Comercial',icon:'📊'},
   {id:'ventas',l:'Ventas Directas',icon:'💵'},
   {id:'manual',l:'Manual Operativo',icon:'📖'},
+  {id:'nda',l:`NDA (${ndaFirmas.length})`,icon:'🔒'},
  ]
 
  if(!auth) return (
@@ -1655,6 +1657,52 @@ export default function Admin() {
         </div>
       )}
 
+
+      {tab==='nda'&&(
+        <div style={{display:'flex',flexDirection:'column',gap:16}}>
+          <div style={{fontSize:16,fontWeight:900}}>🔒 NDA · Firmas registradas</div>
+          <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8,marginBottom:8}}>
+            <div style={{background:'#111827',border:'1px solid rgba(34,197,94,0.2)',borderRadius:10,padding:'12px',textAlign:'center'}}>
+              <div style={{fontSize:24,fontWeight:900,color:'#22c55e'}}>{ndaFirmas.length}</div>
+              <div style={{fontSize:10,color:'#64748b'}}>Total firmantes</div>
+            </div>
+            <div style={{background:'#111827',border:'1px solid rgba(59,130,246,0.2)',borderRadius:10,padding:'12px',textAlign:'center'}}>
+              <div style={{fontSize:24,fontWeight:900,color:'#3b82f6'}}>{ndaFirmas.filter((n)=>n.lang==='es').length}</div>
+              <div style={{fontSize:10,color:'#64748b'}}>En español</div>
+            </div>
+            <div style={{background:'#111827',border:'1px solid rgba(245,158,11,0.2)',borderRadius:10,padding:'12px',textAlign:'center'}}>
+              <div style={{fontSize:24,fontWeight:900,color:'#f59e0b'}}>{ndaFirmas.filter((n)=>n.lang==='en').length}</div>
+              <div style={{fontSize:10,color:'#64748b'}}>In English</div>
+            </div>
+          </div>
+          <div style={{background:'#111827',border:'1px solid rgba(255,255,255,0.06)',borderRadius:14,padding:'16px'}}>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12}}>
+              <div style={{fontSize:13,fontWeight:700,color:'#22c55e'}}>Firmantes registrados</div>
+              <a href="/nda" target="_blank" style={{fontSize:11,color:'#3b82f6',textDecoration:'none',fontWeight:700}}>Ver página NDA →</a>
+            </div>
+            {ndaFirmas.length===0&&(
+              <div style={{fontSize:11,color:'#64748b',textAlign:'center',padding:'20px 0'}}>
+                Sin firmas aún · Compartí el link: oliviacirculab.com.ar/nda
+              </div>
+            )}
+            {ndaFirmas.map((n)=>(
+              <div key={n.id} style={{background:'rgba(255,255,255,0.02)',border:'1px solid rgba(255,255,255,0.06)',borderRadius:10,padding:'12px',marginBottom:8}}>
+                <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:6}}>
+                  <div>
+                    <div style={{fontSize:13,fontWeight:700,color:'#f1f5f9'}}>{n.nombre}</div>
+                    <div style={{fontSize:10,color:'#64748b'}}>{n.empresa}{n.cargo?' · '+n.cargo:''}</div>
+                  </div>
+                  <div style={{fontSize:9,color:'#64748b',textAlign:'right'}}>
+                    <div>{new Date(n.created_at).toLocaleDateString('es-AR')}</div>
+                    <div style={{color:'#22c55e',fontWeight:700}}>✓ Firmado</div>
+                  </div>
+                </div>
+                <a href={'mailto:'+n.email+'?subject=Material confidencial OLIVIA Circulab - NDA firmado'} style={{fontSize:10,color:'#3b82f6',textDecoration:'none'}}>{n.email}</a>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       {tab==='manual'&&(
         <div style={{display:'flex',flexDirection:'column',gap:16}}>
           <div style={{fontSize:16,fontWeight:900}}>Manual Operativo</div>
