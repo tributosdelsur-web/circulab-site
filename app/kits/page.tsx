@@ -335,10 +335,10 @@ export default function Kits() {
       </nav>
 
       {/* HERO */}
-      <section style={{padding:'56px 24px',textAlign:'center',background:dark?'rgba(34,197,94,0.04)':'rgba(34,197,94,0.02)',borderBottom:'1px solid rgba(34,197,94,0.1)'}}>
+      <section style={{padding:'clamp(32px,6vw,56px) 24px',textAlign:'center',background:dark?'rgba(34,197,94,0.04)':'rgba(34,197,94,0.02)',borderBottom:'1px solid rgba(34,197,94,0.1)'}}>
         <div style={{maxWidth:700,margin:'0 auto'}}>
           <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:accent,marginBottom:12}}>[ {es?'Kits OLIVIA Circulab':'OLIVIA Circulab Kits'} ]</div>
-          <h1 style={{fontSize:36,fontWeight:900,lineHeight:1.1,marginBottom:16}}>
+          <h1 style={{fontSize:'clamp(24px,5vw,36px)',fontWeight:900,lineHeight:1.2,marginBottom:16}}>
             {es?'Limpiá tu tacho.':'Clean your bin.'}
             <br/><span style={{color:accent}}>{es?'Limpiá el planeta.':'Clean the planet.'}</span>
           </h1>
@@ -358,7 +358,7 @@ export default function Kits() {
         <img
           src="/kits/kit-hero-landing.png"
           alt={es?'Limpiá tu tacho. Limpiá el planeta.':'Clean your bin. Clean the planet.'}
-          style={{width:'100%',height:320,objectFit:'cover',display:'block'}}
+          style={{width:'100%',height:'clamp(200px,35vw,320px)',objectFit:'cover',objectPosition:'center',display:'block'}}
         />
       </section>
 
