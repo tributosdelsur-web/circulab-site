@@ -86,7 +86,7 @@ const SLIDES = [
     contenido: [
       {icon:'🌱',tramo:'SEMILLA',año:'2026 · Ahora',desc:'Piloto dMRV activo · OLV acumulándose · Historial para Verra',color:'#22c55e',activo:true},
       {icon:'🌿',tramo:'BROTE',año:'Q4 2026',desc:'OLV canjeables · Convenios partner · Cooperativas integradas',color:'#3b82f6',activo:false},
-      {icon:'🌳',tramo:'ÁRBOL',año:'2027 💰',desc:'Certificación Verra VCS · USD 22-45/t · Primer pago real · ✅ Verra validó dMRV Feb 2026 · 6.329 OLV = USD 1',color:'#f59e0b',activo:false},
+      {icon:'🌳',tramo:'ÁRBOL',año:'2027 💰',desc:'Certificación Verra VCS · USD 22-45/t · Primer pago real · ✅ Verra aprobó piloto dMRV Feb 2026 · 6.329 OLV = USD 1',color:'#f59e0b',activo:false},
       {icon:'🌲',tramo:'BOSQUE',año:'2028',desc:'Art. 6.4 París · USD 50-130/t · Corredor AR MX CO BR CH DO · 2.198 OLV = USD 1',color:'#a855f7',activo:false},
       {icon:'🏔️',tramo:'SELVA',año:'2029',desc:'OLIVIA Ocean + Waters + Space · PULSO estándar LATAM',color:'#ec4899',activo:false},
       {icon:'🌊',tramo:'SUMIDERO',año:'2030+',desc:'Net positive verificado · Infraestructura climática global',color:'#06b6d4',activo:false},

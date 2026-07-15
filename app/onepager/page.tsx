@@ -402,6 +402,7 @@ return (
         <div style={{fontSize:11,fontWeight:700,color:'#22c55e',marginBottom:8,textTransform:'uppercase',letterSpacing:'0.05em'}}>{t.ventajas_titulo}</div>
         <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:6}}>
           {(lang==='es'?[
+            {icon:'⚖️',t:'Mercado regulatorio garantizado',d:'Ley 1854 CABA · 6.000+ establecimientos obligados · TAM USD 28.8M/año · Inspecciones en mayo 2026'},
             {icon:'💎',t:'USD 1 = USD 1.4 efectivos',d:'Ley Economía del Conocimiento 27.506 · Ganancias 15% · FONDCE · Estabilidad fiscal 10 años'},
             {icon:'🏛️',t:'Garantías concretas',d:'Seat en el board · Reporting mensual · Milestone-based · Anti-dilution · Tag-along'},
             {icon:'✅',t:'Sin costos fijos',d:'Sin gastos hasta inversión comprometida · USD 0 operativo hoy'},

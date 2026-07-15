@@ -34,7 +34,7 @@ export default function Institucional() {
     {icon:'✅',t:es?'Sin costos fijos hasta inversión comprometida':'No fixed costs until investment committed'},
     {icon:'🔍',t:es?'Auditoría de código mes 1-2':'Code audit months 1-2'},
     {icon:'📋',t:es?'Estabilidad fiscal 10 años · Ley 27.506':'10-year fiscal stability · Law 27.506'},
-    {icon:'💎',t:es?'Cada USD 1 = USD 1.4 efectivos · Riesgo técnico reducido: Verra validó dMRV Feb 2026':'Every USD 1 = USD 1.4 effective · Technical risk reduced: Verra validated dMRV Feb 2026'},
+    {icon:'💎',t:es?'Cada USD 1 = USD 1.4 efectivos · Riesgo técnico reducido: Verra aprobó piloto dMRV Feb 2026':'Every USD 1 = USD 1.4 effective · Technical risk reduced: Verra validated dMRV Feb 2026'},
   ]
 
   return (
@@ -82,7 +82,7 @@ export default function Institucional() {
               'LATAM Infrastructure',
               es?'Ley 27.506 · 1.4x':'Law 27.506 · 1.4x',
               es?'🚀 USD 0 inversión externa':'🚀 USD 0 external investment',
-              es?'✅ Verra validó dMRV · Feb 2026':'✅ Verra validated dMRV · Feb 2026',
+              es?'✅ En feb 2026 Verra aprobó su primer piloto dMRV de alta frecuencia — el mismo modelo de verificación digital que implementa OLIVIA':'✅ In Feb 2026 Verra approved its first high-frequency dMRV pilot — the same digital verification model OLIVIA implements',
             ].map((tag,i)=>(
               <span key={i} style={{border:`1px solid ${border}`,borderRadius:20,padding:'5px 12px',fontSize:10,textTransform:'uppercase',letterSpacing:'0.1em',fontWeight:500,background:dark?'rgba(255,255,255,0.03)':'rgba(0,0,0,0.03)'}}>
                 {tag}
@@ -150,7 +150,7 @@ export default function Institucional() {
           <p style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:sub,marginBottom:16,textAlign:'center'}}>[ {es?'Por qué ahora':'Why now'} ]</p>
           <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:12}}>
             {[
-              {icon:'✅',title:es?'Verra validó dMRV · Feb 2026':'Verra validated dMRV · Feb 2026',desc:es?'El mercado internacional de carbono aprobó la verificación digital de alta frecuencia. Nuestro modelo pasó de hipótesis a certeza técnica. El riesgo bajó de ALTO a MEDIO.':'The international carbon market approved high-frequency digital verification. Our model moved from hypothesis to technical certainty. Risk dropped from HIGH to MEDIUM.'},
+              {icon:'✅',title:es?'En feb 2026 Verra aprobó su primer piloto dMRV de alta frecuencia — el mismo modelo de verificación digital que implementa OLIVIA':'In Feb 2026 Verra approved its first high-frequency dMRV pilot — the same digital verification model OLIVIA implements',desc:es?'El mercado internacional de carbono aprobó la verificación digital de alta frecuencia. Nuestro modelo pasó de hipótesis a certeza técnica. El riesgo bajó de ALTO a MEDIO.':'The international carbon market approved high-frequency digital verification. Our model moved from hypothesis to technical certainty. Risk dropped from HIGH to MEDIUM.'},
               {icon:'🏗️',title:es?'USD 0 inversión externa · Producto activo':'USD 0 external investment · Active product',desc:es?'App en producción, IA verificando residuos, comunidad activa, admin con CRM. Todo funcionando hoy sin capital externo. Lo que otros tardan 2 años y USD 500K en construir.':'App in production, AI verifying waste, active community, admin with CRM. All running today without external capital. What others take 2 years and USD 500K to build.'},
               {icon:'⚖️',title:es?'Ley 27.506 · 10 años de estabilidad fiscal':'Law 27.506 · 10-year fiscal stability',desc:es?'USD 1 invertido = USD 1.4 efectivos. Ganancias al 15%, reducción 70-80% cargas patronales. Ventaja fiscal única en LATAM que no existe en ningún otro país de la región.':'USD 1 invested = USD 1.4 effective. 15% income tax, 70-80% payroll reduction. Unique fiscal advantage in LATAM that exists nowhere else in the region.'},
               {icon:'🏢',title:es?'Modelo SaaS · abono mensual premium por consorcio':'SaaS Model · premium monthly subscription per building',desc:es?'El consorcio paga el SaaS como gasto ordinario de expensas. Cubre el 100% del costo operativo. Los créditos de carbono generados arriba de eso son modelo de ingresos recurrentes.':'The building pays the SaaS as ordinary maintenance expense. Covers 100% of operating costs. Carbon credits generated above that are recurring revenue model.'},
@@ -189,7 +189,7 @@ export default function Institucional() {
               <div style={{fontSize:11,color:'#f59e0b',fontWeight:700}}>— — Análisis independiente de inversor · Junio 2026</div>
               <div style={{marginTop:12,display:'flex',gap:8,flexWrap:'wrap'}}>
                 {[
-                  es?'✅ Verra validó dMRV · Feb 2026':'✅ Verra validated dMRV · Feb 2026',
+                  es?'✅ En feb 2026 Verra aprobó su primer piloto dMRV de alta frecuencia — el mismo modelo de verificación digital que implementa OLIVIA':'✅ In Feb 2026 Verra approved its first high-frequency dMRV pilot — the same digital verification model OLIVIA implements',
                   es?'✅ USD 0 inversión externa':'✅ USD 0 external investment',
                   es?'✅ Producto activo hoy':'✅ Product active today',
                 ].map((b,i)=>(
