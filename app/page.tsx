@@ -601,6 +601,16 @@ export default function Landing() {
             </div>
             <span style={{color:'#f59e0b',fontSize:20,fontWeight:700}}>→</span>
           </a>
+          <a href="/institucional" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(34,197,94,0.08),rgba(59,130,246,0.06))',border:'2px solid rgba(34,197,94,0.3)',textDecoration:'none'}}>
+            <div style={{display:'flex',alignItems:'center',gap:14}}>
+              <span style={{fontSize:36}}>🏢</span>
+              <div>
+                <div style={{fontSize:16,fontWeight:900,color:'#22c55e'}}>{es?'Administro un consorcio':'I manage a building'}</div>
+                <div style={{fontSize:12,color:sub,marginTop:2}}>{es?'Certificar residuos · Ley Basura Cero · Sin inversión':'Certify waste · Zero Waste Law · No investment'}</div>
+              </div>
+            </div>
+            <span style={{color:'#22c55e',fontSize:20,fontWeight:700}}>→</span>
+          </a>
           <a href="/grandes-generadores" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(239,68,68,0.12),rgba(239,68,68,0.06))',border:'2px solid rgba(239,68,68,0.4)',textDecoration:'none'}}>
             <div style={{display:'flex',alignItems:'center',gap:14}}>
               <span style={{fontSize:36}}>⚖️</span>
