@@ -358,7 +358,7 @@ export default function Kits() {
         <img
           src="/kits/kit-hero-landing.png"
           alt={es?'Limpiá tu tacho. Limpiá el planeta.':'Clean your bin. Clean the planet.'}
-          style={{width:'100%',height:'clamp(200px,35vw,320px)',objectFit:'cover',objectPosition:'center',display:'block'}}
+          style={{width:'100%',height:280,objectFit:'cover',objectPosition:'top center',display:'block'}}
         />
       </section>
 
