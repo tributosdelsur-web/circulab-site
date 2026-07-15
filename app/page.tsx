@@ -684,6 +684,7 @@ export default function Landing() {
             {l:'Simulador',h:'/simulador',c:'#3b82f6'},
             {l:'Comunidad',h:'/comunidad',c:'#3b82f6'},
             {l:'One Pager',h:'/onepager',c:'#22c55e'},
+            {l:es?'Kits':'Kits',h:'/kits',c:'#22c55e'},
             {l:es?'Grandes Gen.':'Large Gen.',h:'/grandes-generadores',c:'#ef4444'},
             {l:'Whitepaper',h:'/whitepaper',c:'#a855f7'},
             {l:'Pitch',h:'/pitch',c:'#a855f7'},
