@@ -601,7 +601,7 @@ export default function Landing() {
             </div>
             <span style={{color:'#f59e0b',fontSize:20,fontWeight:700}}>→</span>
           </a>
-          <a href="/institucional" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(34,197,94,0.08),rgba(59,130,246,0.06))',border:'2px solid rgba(34,197,94,0.3)',textDecoration:'none'}}>
+          <a href="/consorcios" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(34,197,94,0.08),rgba(59,130,246,0.06))',border:'2px solid rgba(34,197,94,0.3)',textDecoration:'none'}}>
             <div style={{display:'flex',alignItems:'center',gap:14}}>
               <span style={{fontSize:36}}>🏢</span>
               <div>
