@@ -52,7 +52,7 @@ export default function GrandesEmisores() {
       costo: es?'USD 25-100/tCO2 · millones por aerolínea':'USD 25-100/tCO2 · millions per airline',
       descripcion: es
         ? 'Desde 2027 las aerolíneas internacionales deben compensar el crecimiento de sus emisiones comprando créditos de carbono elegibles CORSIA. Las aerolíneas se convertirán en los mayores compradores de créditos de carbono del mundo. CORSIA exige calidad, trazabilidad e integridad ambiental — no cualquier crédito sirve.'
-        : 'From 2027, international airlines must offset their emission growth by purchasing CORSIA-eligible carbon credits. Airlines will become the world's largest carbon credit buyers. CORSIA demands quality, traceability and environmental integrity.',
+        : 'From 2027, international airlines must offset their emission growth by purchasing CORSIA-eligible carbon credits. Airlines will become the world largest carbon credit buyers. CORSIA demands quality, traceability and environmental integrity.',
       necesitan: es
         ? 'Créditos elegibles CORSIA · trazabilidad completa del origen · datos dMRV verificados · Verra VCS o Gold Standard'
         : 'CORSIA-eligible credits · complete origin traceability · verified dMRV data · Verra VCS or Gold Standard',
