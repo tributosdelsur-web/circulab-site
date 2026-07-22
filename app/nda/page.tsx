@@ -8,6 +8,7 @@ export default function NDA() {
   const [email, setEmail] = useState('')
   const [empresa, setEmpresa] = useState('')
   const [cargo, setCargo] = useState('')
+  const [sector, setSector] = useState('')
   const [acepta, setAcepta] = useState(false)
   const [loading, setLoading] = useState(false)
   const [firmado, setFirmado] = useState(false)
@@ -36,6 +37,7 @@ export default function NDA() {
         email,
         empresa,
         cargo,
+        sector,
         fecha: new Date().toISOString(),
         ip_hash: 'browser',
         lang,
@@ -167,6 +169,24 @@ export default function NDA() {
             </div>
             <div>
               <div style={{fontSize:10,color:sub,marginBottom:6,textTransform:'uppercase',letterSpacing:'0.05em'}}>{es ? 'Cargo / Rol' : 'Position / Role'}</div>
+              <select
+                value={sector}
+                onChange={e=>setSector(e.target.value)}
+                style={{width:'100%',padding:'10px 12px',borderRadius:8,background:'rgba(255,255,255,0.04)',border:'1px solid ' + border,color:text,fontSize:12,outline:'none',boxSizing:'border-box' as const}}>
+                <option value="">{es?'Sector / Tipo de organización':'Sector / Organization type'}</option>
+                <option value="naviera">{es?'Naviera / Transporte marítimo':'Shipping / Maritime transport'}</option>
+                <option value="aerolinea">{es?'Aerolínea / Aviación':'Airline / Aviation'}</option>
+                <option value="cbam">{es?'Exportador hacia UE (CBAM)':'Exporter to EU (CBAM)'}</option>
+                <option value="energia">{es?'Energía / Minería / Petróleo':'Energy / Mining / Oil'}</option>
+                <option value="consorcio">{es?'Consorcio / Administradora':'Condominium / Property manager'}</option>
+                <option value="hotel">{es?'Hotel / Turismo':'Hotel / Tourism'}</option>
+                <option value="gastro">{es?'Restaurante / Gastronomía':'Restaurant / Gastronomy'}</option>
+                <option value="hospital">{es?'Clínica / Hospital':'Clinic / Hospital'}</option>
+                <option value="rse">{es?'Empresa RSE / ESG':'RSE / ESG Company'}</option>
+                <option value="fondo">{es?'Fondo de inversión / VC':'Investment fund / VC'}</option>
+                <option value="municipio">{es?'Municipio / Gobierno':'Municipality / Government'}</option>
+                <option value="otro">{es?'Otro':'Other'}</option>
+              </select>
               <input
                 value={cargo}
                 onChange={e=>setCargo(e.target.value)}

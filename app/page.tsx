@@ -611,6 +611,16 @@ export default function Landing() {
             </div>
             <span style={{color:'#22c55e',fontSize:20,fontWeight:700}}>→</span>
           </a>
+          <a href="/grandes-emisores" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(59,130,246,0.12),rgba(168,85,247,0.06))',border:'2px solid rgba(59,130,246,0.4)',textDecoration:'none'}}>
+            <div style={{display:'flex',alignItems:'center',gap:14}}>
+              <span style={{fontSize:36}}>🚢</span>
+              <div>
+                <div style={{fontSize:16,fontWeight:900,color:'#3b82f6'}}>{es?'Soy gran emisor global':'I am a large global emitter'}</div>
+                <div style={{fontSize:12,color:sub,marginTop:2}}>{es?'CBAM · CORSIA · EU ETS · IMO · Navieras · Aerolíneas':'CBAM · CORSIA · EU ETS · IMO · Shipping · Airlines'}</div>
+              </div>
+            </div>
+            <span style={{color:'#3b82f6',fontSize:20,fontWeight:700}}>→</span>
+          </a>
           <a href="/grandes-generadores" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(239,68,68,0.12),rgba(239,68,68,0.06))',border:'2px solid rgba(239,68,68,0.4)',textDecoration:'none'}}>
             <div style={{display:'flex',alignItems:'center',gap:14}}>
               <span style={{fontSize:36}}>⚖️</span>
@@ -686,6 +696,7 @@ export default function Landing() {
             {l:'One Pager',h:'/onepager',c:'#22c55e'},
             {l:es?'Kits':'Kits',h:'/kits',c:'#22c55e'},
             {l:es?'Grandes Gen.':'Large Gen.',h:'/grandes-generadores',c:'#ef4444'},
+            {l:es?'Grandes Emisores':'Large Emitters',h:'/grandes-emisores',c:'#3b82f6'},
             {l:'Whitepaper',h:'/whitepaper',c:'#a855f7'},
             {l:'Pitch',h:'/pitch',c:'#a855f7'},
             {l:es?'Privacidad':'Privacy',h:'/privacidad',c:sub},
