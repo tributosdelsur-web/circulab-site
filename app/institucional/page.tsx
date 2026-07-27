@@ -176,6 +176,43 @@ export default function Institucional() {
         </div>
       </section>
 
+
+      {/* VERRA EN ARGENTINA */}
+      <section style={{padding:'0 24px 48px',maxWidth:800,margin:'0 auto'}}>
+        <div style={{background:dark?'rgba(34,197,94,0.04)':'rgba(34,197,94,0.02)',border:'1px solid rgba(34,197,94,0.15)',borderRadius:16,padding:'28px'}}>
+          <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:accent,marginBottom:12}}>
+            [ {es?'Verra ya opera en Argentina':'Verra already operates in Argentina'} ]
+          </div>
+          <h3 style={{fontSize:17,fontWeight:900,marginBottom:12,color:text}}>
+            {es
+              ? 'Argentina tiene proyectos Verra. Todos son forestales y rurales. El nicho urbano está vacío.'
+              : 'Argentina has Verra projects. All are forest and rural. The urban niche is empty.'}
+          </h3>
+          <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10,marginBottom:16}}>
+            {[
+              {n:'138.000',l:es?'créditos certificados':'certified credits',d:es?'Nideport · Selva Paranaense · Misiones · oct. 2025':'Nideport · Atlantic Forest · Misiones · Oct. 2025',c:'#22c55e'},
+              {n:'13,1M tCO2',l:es?'programa jurisdiccional':'jurisdictional program',d:es?'Provincia de Misiones · primer programa REDD+ liderado por un gobierno provincial · jun. 2026':'Province of Misiones · first government-led REDD+ program · Jun. 2026',c:'#3b82f6'},
+              {n:'0',l:es?'proyectos urbanos':'urban projects',d:es?'Ningún proyecto Verra de residuos orgánicos urbanos en Argentina ni en LATAM. El nicho está vacío.':'No urban organic waste Verra project in Argentina or LATAM. The niche is empty.',c:'#f59e0b'},
+            ].map((item,i)=>(
+              <div key={i} style={{background:'rgba(255,255,255,0.03)',border:'1px solid '+item.c+'33',borderRadius:10,padding:'14px'}}>
+                <div style={{fontSize:18,fontWeight:900,color:item.c,marginBottom:4}}>{item.n}</div>
+                <div style={{fontSize:9,color:sub,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.06em',marginBottom:6}}>{item.l}</div>
+                <div style={{fontSize:9,color:sub,lineHeight:1.6}}>{item.d}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:10,padding:'14px'}}>
+            <div style={{fontSize:11,fontWeight:700,color:accent,marginBottom:6}}>
+              {es?'La oportunidad de OLIVIA:':'OLIVIA opportunity:'}
+            </div>
+            <p style={{fontSize:11,color:sub,lineHeight:1.7,margin:0}}>
+              {es
+                ? 'Argentina ya tiene el ecosistema Verra activo: la Mesa Argentina de Carbono, auditores acreditados, proyectos registrados. Pero todos son forestales y rurales. OLIVIA puede ser el primer proyecto de residuos orgánicos urbanos certificado bajo VCS en Argentina y en América Latina. Los datos que se acumulan desde hoy son exactamente lo que Verra necesita para certificar en 2027.'
+                : 'Argentina already has an active Verra ecosystem: the Argentine Carbon Board, accredited auditors, registered projects. But all are forest and rural. OLIVIA can be the first urban organic waste project certified under VCS in Argentina and Latin America. The data accumulated from today is exactly what Verra needs to certify in 2027.'}
+            </p>
+          </div>
+        </div>
+      </section>
       {/* GRANDES EMISORES GLOBALES */}
       <section style={{padding:'0 24px 32px',maxWidth:800,margin:'0 auto'}}>
         <div style={{background:'rgba(59,130,246,0.04)',border:'1px solid rgba(59,130,246,0.2)',borderRadius:16,padding:'24px'}}>

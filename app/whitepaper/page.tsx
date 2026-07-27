@@ -145,7 +145,8 @@ if(seccion===0) {
   // se maneja abajo
 }
 
-if(seccion===1) return (
+
+                if(seccion===1) return (
 <div>
 <div style={s.titulo}>{lang==='es'?'El problema':'The Problem'}</div>
 <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10,marginBottom:16}}>

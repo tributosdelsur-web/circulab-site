@@ -225,6 +225,30 @@ export default function GrandesEmisores() {
       </section>
 
       {/* POR QUÉ OLIVIA */}
+  
+            {/* CALIDAD DE CRÉDITOS */}
+            <div style={{background:dark?'rgba(34,197,94,0.04)':'rgba(34,197,94,0.02)',border:'1px solid rgba(34,197,94,0.15)',borderRadius:14,padding:'20px',marginBottom:20}}>
+              <div style={{fontSize:9,fontWeight:700,color:accent,textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:8}}>
+                {es?'Verra ya opera en Argentina · el nicho urbano está vacío':'Verra already operates in Argentina · urban niche is empty'}
+              </div>
+              <p style={{fontSize:11,color:sub,lineHeight:1.7,marginBottom:12}}>
+                {es
+                  ? 'Los créditos OLIVIA seguirán el mismo estándar VCS que ya certificó 138.000 créditos en Misiones (Nideport, oct. 2025) y 13,1 millones de tCO2 en el primer programa jurisdiccional gubernamental del mundo (Provincia de Misiones, jun. 2026). La diferencia: todos los proyectos argentinos son forestales y rurales. OLIVIA será el primero urbano — el de mayor trazabilidad ciudadana y el más relevante para CORSIA y EU ETS.'
+                  : 'OLIVIA credits will follow the same VCS standard that already certified 138,000 credits in Misiones (Nideport, Oct. 2025) and 13.1 million tCO2 in the world first government-led jurisdictional program (Province of Misiones, Jun. 2026). The difference: all Argentine projects are forest and rural. OLIVIA will be the first urban one — with the highest citizen traceability and most relevant for CORSIA and EU ETS.'}
+              </p>
+              <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
+                {[
+                  {n:'VCS + CCB Gold',l:es?'estándar Nideport Misiones':'Nideport Misiones standard',c:accent},
+                  {n:'13,1M tCO2',l:es?'Provincia Misiones jun. 2026':'Misiones Province Jun. 2026',c:'#3b82f6'},
+                  {n:es?'Primer proyecto urbano':'First urban project',l:es?'OLIVIA · CABA · 2027':'OLIVIA · CABA · 2027',c:'#f59e0b'},
+                ].map((s,i)=>(
+                  <div key={i} style={{background:'rgba(255,255,255,0.03)',border:'1px solid '+s.c+'33',borderRadius:8,padding:'8px 12px'}}>
+                    <div style={{fontSize:11,fontWeight:700,color:s.c}}>{s.n}</div>
+                    <div style={{fontSize:9,color:sub}}>{s.l}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
       <section style={{padding:'64px 24px'}}>
         <div style={{maxWidth:800,margin:'0 auto'}}>
           <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:accent,marginBottom:12,textAlign:'center'}}>
