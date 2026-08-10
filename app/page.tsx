@@ -621,6 +621,16 @@ export default function Landing() {
             </div>
             <span style={{color:'#3b82f6',fontSize:20,fontWeight:700}}>→</span>
           </a>
+          <a href="/raee" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(147,51,234,0.12),rgba(147,51,234,0.05))',border:'2px solid rgba(147,51,234,0.4)',textDecoration:'none'}}>
+            <div style={{display:'flex',alignItems:'center',gap:14}}>
+              <span style={{fontSize:36}}>♻️</span>
+              <div>
+                <div style={{fontSize:16,fontWeight:900,color:'#9333ea'}}>{es?'Gestiono residuos electrónicos':'I manage electronic waste'}</div>
+                <div style={{fontSize:12,color:sub,marginTop:2}}>{es?'RAEE · Certificación Verra · Minería urbana':'E-waste · Verra certification · Urban mining'}</div>
+              </div>
+            </div>
+            <span style={{color:'#9333ea',fontSize:20,fontWeight:700}}>→</span>
+          </a>
           <a href="/grandes-generadores" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(239,68,68,0.12),rgba(239,68,68,0.06))',border:'2px solid rgba(239,68,68,0.4)',textDecoration:'none'}}>
             <div style={{display:'flex',alignItems:'center',gap:14}}>
               <span style={{fontSize:36}}>⚖️</span>
@@ -696,6 +706,8 @@ export default function Landing() {
             {l:'One Pager',h:'/onepager',c:'#22c55e'},
             {l:es?'Kits':'Kits',h:'/kits',c:'#22c55e'},
             {l:es?'Grandes Gen.':'Large Gen.',h:'/grandes-generadores',c:'#ef4444'},
+            {l:'RAEE',h:'/raee',c:'#9333ea'},
+            {l:es?'Mapa':'Map',h:'/mapa',c:'#0284c7'},
             {l:es?'Grandes Emisores':'Large Emitters',h:'/grandes-emisores',c:'#3b82f6'},
             {l:'Whitepaper',h:'/whitepaper',c:'#a855f7'},
             {l:'Pitch',h:'/pitch',c:'#a855f7'},

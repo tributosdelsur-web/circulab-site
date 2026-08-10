@@ -238,6 +238,21 @@ export default function Consorcios() {
         </div>
       </section>
 
+
+      {/* LINK MAPA */}
+      <section style={{padding:'0 24px 40px',maxWidth:800,margin:'0 auto'}}>
+        <a href="/mapa" style={{display:'block',textDecoration:'none',background:dark?'rgba(2,132,199,0.06)':'rgba(2,132,199,0.035)',border:'1px solid rgba(2,132,199,0.2)',borderRadius:14,padding:'20px'}}>
+          <div style={{fontSize:13,fontWeight:800,color:'#0284c7',marginBottom:6}}>
+            {es?'Mirá cuántos puntos verdes hay cerca de tus edificios':'See how many green points are near your buildings'}
+          </div>
+          <p style={{fontSize:11,color:sub,lineHeight:1.7,marginBottom:8}}>
+            {es
+              ? 'Solo 15 de los 21 puntos verdes de CABA reciben orgánicos, y ninguno registra quién los dejó. Con OLIVIA el retiro va al edificio y cada kilo queda verificado.'
+              : 'Only 15 of the 21 green points accept organics, and none records who left them. With OLIVIA collection comes to the building and every kilo is verified.'}
+          </p>
+          <span style={{fontSize:11,color:'#0284c7',fontWeight:700}}>{es?'Ver el mapa de CABA →':'View the city map →'}</span>
+        </a>
+      </section>
       {/* CTA FINAL */}
       <section style={{padding:'56px 24px',textAlign:'center',background:'linear-gradient(135deg,rgba(34,197,94,0.06),rgba(59,130,246,0.04))',borderTop:'1px solid rgba(34,197,94,0.15)'}}>
         <div style={{maxWidth:520,margin:'0 auto'}}>

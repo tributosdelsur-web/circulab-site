@@ -237,6 +237,13 @@ export default function Metamorfosis() {
         </div>
       </section>
 
+
+      {/* LINK MAPA */}
+      <section style={{padding:'0 24px 40px',maxWidth:800,margin:'0 auto',textAlign:'center'}}>
+        <a href="/mapa" style={{fontSize:12,color:'#0284c7',fontWeight:700,textDecoration:'none'}}>
+          {es?'Ver el mapa de puntos verdes de CABA →':'View the map of city green points →'}
+        </a>
+      </section>
       {/* CTA FINAL */}
       <section style={{ padding: '64px 24px', textAlign: 'center' }}>
         <div style={{ maxWidth: 500, margin: '0 auto' }}>
