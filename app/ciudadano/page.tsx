@@ -661,7 +661,7 @@ export default function Ciudadano() {
 
         {/* MAPA CABA */}
         <div style={{marginBottom:24}}>
-          <a href="/mapa" style={{display:'block',textDecoration:'none',background:dark?'rgba(2,132,199,0.07)':'rgba(2,132,199,0.04)',border:'1px solid rgba(2,132,199,0.25)',borderRadius:16,padding:'24px'}}>
+          <a href="/mapa" style={{display:'block',textDecoration:'none',background:tema==='dark'?'rgba(2,132,199,0.07)':'rgba(2,132,199,0.04)',border:'1px solid rgba(2,132,199,0.25)',borderRadius:16,padding:'24px'}}>
             <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:'#0284c7',marginBottom:10}}>
               [ {es?'Mapa de la Ciudad':'City map'} ]
             </div>
