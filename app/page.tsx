@@ -200,10 +200,31 @@ export default function Landing() {
           <button onClick={()=>setDark(!dark)} style={{background:dark?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.06)',border:`1px solid ${border}`,borderRadius:6,padding:'4px 8px',fontSize:14,cursor:'pointer'}}>
             {dark?'☀️':'🌙'}
           </button>
+          <a href="/mapa" style={{fontSize:12,color:'#0284c7',textDecoration:'none',padding:'6px 12px',borderRadius:8,border:'1px solid rgba(2,132,199,0.35)',fontWeight:700,display:'flex',alignItems:'center',gap:5}}>🗺️ {es?'Mapa':'Map'}</a>
           <a href="/login" style={{fontSize:12,color:sub,textDecoration:'none',padding:'6px 12px',borderRadius:8,border:`1px solid ${border}`}}>{es?'Entrar':'Sign in'}</a>
           <a href="/registro" style={{fontSize:12,color:'white',textDecoration:'none',padding:'6px 12px',borderRadius:8,background:'linear-gradient(135deg,#22c55e,#16a34a)',fontWeight:700}}>{es?'Unirse':'Join'}</a>
         </div>
       </nav>
+
+      {/* BANDA MAPA */}
+      <a href="/mapa" style={{display:'block',textDecoration:'none',background:'linear-gradient(90deg,rgba(2,132,199,0.14),rgba(34,197,94,0.10))',borderBottom:`1px solid ${border}`,padding:'14px 20px'}}>
+        <div style={{maxWidth:900,margin:'0 auto',display:'flex',alignItems:'center',justifyContent:'space-between',gap:14,flexWrap:'wrap'}}>
+          <div style={{display:'flex',alignItems:'center',gap:12}}>
+            <span style={{fontSize:26}}>🗺️</span>
+            <div>
+              <div style={{fontSize:14,fontWeight:900,color:text,lineHeight:1.3}}>
+                {es?'¿No sabés por dónde empezar?':'Not sure where to start?'}
+              </div>
+              <div style={{fontSize:11.5,color:sub,marginTop:2}}>
+                {es?'Mirá qué puntos verdes de tu barrio reciben orgánicos y electrónicos.':'See which green points in your neighbourhood accept organics and e-waste.'}
+              </div>
+            </div>
+          </div>
+          <span style={{fontSize:12,fontWeight:800,color:'#0284c7',whiteSpace:'nowrap',border:'1px solid rgba(2,132,199,0.35)',borderRadius:20,padding:'8px 18px'}}>
+            {es?'Ver el mapa de CABA →':'View the city map →'}
+          </span>
+        </div>
+      </a>
 
       {/* MODAL VIDEO FAMILIAR — Final1.mp4 — vertical — se comparte directo */}
       {videoModal&&(

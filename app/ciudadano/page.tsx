@@ -202,6 +202,26 @@ export default function Ciudadano() {
         </div>
       </nav>
 
+      {/* BANNER MAPA TOP */}
+      <a href="/mapa" style={{display:'block',textDecoration:'none',background:'linear-gradient(90deg,rgba(2,132,199,0.14),rgba(34,197,94,0.10))',borderBottom:'1px solid rgba(2,132,199,0.2)',padding:'14px 20px'}}>
+        <div style={{maxWidth:800,margin:'0 auto',display:'flex',alignItems:'center',justifyContent:'space-between',gap:14,flexWrap:'wrap'}}>
+          <div style={{display:'flex',alignItems:'center',gap:12}}>
+            <span style={{fontSize:26}}>🗺️</span>
+            <div>
+              <div style={{fontSize:14,fontWeight:900,color:text,lineHeight:1.3}}>
+                {es?'¿Dónde podés dejar tus orgánicos hoy?':'Where can you drop your organics today?'}
+              </div>
+              <div style={{fontSize:11.5,color:sub,marginTop:2}}>
+                {es?'Los 21 puntos verdes de CABA · cuáles tienen compostera · cuáles reciben RAEE.':'The 21 green points of the City · which have composting · which accept e-waste.'}
+              </div>
+            </div>
+          </div>
+          <span style={{fontSize:12,fontWeight:800,color:'#0284c7',whiteSpace:'nowrap',border:'1px solid rgba(2,132,199,0.35)',borderRadius:20,padding:'8px 18px'}}>
+            {es?'Ver el mapa →':'View the map →'}
+          </span>
+        </div>
+      </a>
+
       <div style={{maxWidth:640,margin:'0 auto',padding:'0 16px'}}>
 
         {/* HERO */}
@@ -658,24 +678,6 @@ export default function Ciudadano() {
             ))}
           </div>
         </section>
-
-        {/* MAPA CABA */}
-        <div style={{marginBottom:24}}>
-          <a href="/mapa" style={{display:'block',textDecoration:'none',background:tema==='dark'?'rgba(2,132,199,0.07)':'rgba(2,132,199,0.04)',border:'1px solid rgba(2,132,199,0.25)',borderRadius:16,padding:'24px'}}>
-            <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:'#0284c7',marginBottom:10}}>
-              [ {es?'Mapa de la Ciudad':'City map'} ]
-            </div>
-            <h3 style={{fontSize:19,fontWeight:900,marginBottom:8,color:text}}>
-              {es?'¿Dónde podés dejar tus orgánicos hoy?':'Where can you drop your organics today?'}
-            </h3>
-            <p style={{fontSize:12,color:sub,lineHeight:1.7,marginBottom:12}}>
-              {es
-                ? 'Los 21 puntos verdes de CABA con datos abiertos del GCBA: cuáles tienen compostera, cuáles reciben electrónicos, y por qué ese esfuerzo todavía no genera valor.'
-                : 'The 21 green points of the City from open data: which have composting units, which accept e-waste, and why that effort does not yet generate value.'}
-            </p>
-            <span style={{fontSize:12,color:'#0284c7',fontWeight:700}}>{es?'Ver el mapa →':'View the map →'}</span>
-          </a>
-        </div>
 
         {/* COMPARTIR */}
         <section style={{padding:'24px 0',borderTop:`1px solid ${border}`}}>
