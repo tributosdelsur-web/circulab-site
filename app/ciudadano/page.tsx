@@ -659,6 +659,24 @@ export default function Ciudadano() {
           </div>
         </section>
 
+        {/* MAPA CABA */}
+        <div style={{marginBottom:24}}>
+          <a href="/mapa" style={{display:'block',textDecoration:'none',background:dark?'rgba(2,132,199,0.07)':'rgba(2,132,199,0.04)',border:'1px solid rgba(2,132,199,0.25)',borderRadius:16,padding:'24px'}}>
+            <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:'#0284c7',marginBottom:10}}>
+              [ {es?'Mapa de la Ciudad':'City map'} ]
+            </div>
+            <h3 style={{fontSize:19,fontWeight:900,marginBottom:8,color:text}}>
+              {es?'¿Dónde podés dejar tus orgánicos hoy?':'Where can you drop your organics today?'}
+            </h3>
+            <p style={{fontSize:12,color:sub,lineHeight:1.7,marginBottom:12}}>
+              {es
+                ? 'Los 21 puntos verdes de CABA con datos abiertos del GCBA: cuáles tienen compostera, cuáles reciben electrónicos, y por qué ese esfuerzo todavía no genera valor.'
+                : 'The 21 green points of the City from open data: which have composting units, which accept e-waste, and why that effort does not yet generate value.'}
+            </p>
+            <span style={{fontSize:12,color:'#0284c7',fontWeight:700}}>{es?'Ver el mapa →':'View the map →'}</span>
+          </a>
+        </div>
+
         {/* COMPARTIR */}
         <section style={{padding:'24px 0',borderTop:`1px solid ${border}`}}>
           <h2 style={{fontSize:20,fontWeight:900,marginBottom:6,color:text}}>{es?'Compartí OLIVIA':'Share OLIVIA'}</h2>
