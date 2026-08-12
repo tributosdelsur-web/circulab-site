@@ -371,7 +371,7 @@ export default function Landing() {
           <div>
             <div style={{fontSize:11,color:'#22c55e',fontWeight:700,marginBottom:8,textAlign:'center'}}>{es?'🌿 Nuestra historia':'🌿 Our story'}</div>
             <div style={{borderRadius:16,overflow:'hidden',border:`1px solid ${border}`,background:'#000'}}>
-              <video controls playsInline style={{width:'100%',display:'block',maxHeight:500,objectFit:'cover'}} preload="metadata">
+              <video controls playsInline poster="/poster1.jpg" style={{width:'100%',display:'block',maxHeight:500,objectFit:'cover'}} preload="metadata">
                 <source src="/Final1.mp4" type="video/mp4" />
               </video>
             </div>
