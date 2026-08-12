@@ -337,19 +337,7 @@ export default function Landing() {
               </button>
             </div>
           </div>
-          {/* Video 2 — enterramiento */}
-          <div>
-            <div style={{fontSize:11,color:'#ef4444',fontWeight:700,marginBottom:8,textAlign:'center'}}>{es?'⚠️ El negocio del enterramiento':'⚠️ The landfill business'}</div>
-            <div style={{borderRadius:16,overflow:'hidden',border:'1px solid rgba(239,68,68,0.3)',background:'#000'}}>
-              <video controls playsInline style={{width:'100%',display:'block',maxHeight:320,objectFit:'cover'}} preload="metadata">
-                <source src="/ciudadano/CIRCULAB1.mp4" type="video/mp4" />
-              </video>
-            </div>
-            <div style={{fontSize:11,color:sub,textAlign:'center',marginTop:8,fontStyle:'italic'}}>
-              {es?'En las ciudades que funcionan, el vecino cobra por reciclar. OLIVIA lo hace en LATAM.':'In cities that work, citizens get paid to recycle. OLIVIA brings that to LATAM.'}
-            </div>
-          </div>
-        </div>
+                  </div>
       </section>
 
       {/* ═══ SECCIÓN 2B — MÉTRICAS Y CONTEXTO ═══ */}
@@ -408,6 +396,22 @@ export default function Landing() {
         </div>
 
         
+      </section>
+
+      {/* ═══ VIDEO ENTERRAMIENTO ═══ */}
+      <section style={{padding:'0 20px 32px',maxWidth:580,margin:'0 auto'}}>
+        {/* Video 2 — enterramiento */}
+          <div>
+            <div style={{fontSize:11,color:'#ef4444',fontWeight:700,marginBottom:8,textAlign:'center'}}>{es?'⚠️ El negocio del enterramiento':'⚠️ The landfill business'}</div>
+            <div style={{borderRadius:16,overflow:'hidden',border:'1px solid rgba(239,68,68,0.3)',background:'#000'}}>
+              <video controls playsInline style={{width:'100%',display:'block',maxHeight:320,objectFit:'cover'}} preload="metadata">
+                <source src="/ciudadano/CIRCULAB1.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div style={{fontSize:11,color:sub,textAlign:'center',marginTop:8,fontStyle:'italic'}}>
+              {es?'En las ciudades que funcionan, el vecino cobra por reciclar. OLIVIA lo hace en LATAM.':'In cities that work, citizens get paid to recycle. OLIVIA brings that to LATAM.'}
+            </div>
+          </div>
       </section>
 
       {/* ═══ SECCIÓN 3 — EL PROBLEMA ═══ */}
