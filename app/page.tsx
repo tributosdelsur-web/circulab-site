@@ -291,14 +291,10 @@ export default function Landing() {
           </div>
         </div>
 
-        <h1 style={{fontSize:32,fontWeight:900,lineHeight:1.15,marginBottom:14,letterSpacing:'-0.02em'}}>
-          <span style={{color:'#22c55e'}}>{es?'La batalla más importante':'The most important battle'}</span><br/>
-          <span style={{color:text}}>{es?'contra el calentamiento global':'against global warming'}</span><br/>
-          <span style={{color:'#f59e0b'}}>{es?'se pelea en tu barrio.':'is fought in your neighborhood.'}</span>
-        </h1>
+        
 
         <div style={{fontSize:19,fontWeight:800,color:text,lineHeight:1.4,marginBottom:14}}>
-          {es?'Y tu barrio no espera.':'And your neighborhood won\'t wait.'}<br/>
+          
           <span style={{color:'#f59e0b',textShadow:'0 0 24px rgba(245,158,11,0.5)'}}>{es?'Convertimos tu basura en ':'We turn your waste into '}<span style={{fontSize:30,fontWeight:900}}>{es?'DINERO':'MONEY'}</span>{es?'.':'.'}</span>
         </div>
 
