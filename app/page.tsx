@@ -692,25 +692,9 @@ export default function Landing() {
         </div>
       </section>
 
-      
-        {/* CARD B2B ADMINISTRADORAS */}
-        <section style={{padding:'24px 20px',maxWidth:580,margin:'0 auto'}}>
-          <div style={{background:'rgba(59,130,246,0.04)',border:'1px solid rgba(59,130,246,0.2)',borderRadius:14,padding:'20px'}}>
-            <div style={{fontSize:11,color:'#3b82f6',fontWeight:700,textTransform:'uppercase',letterSpacing:'0.1em',marginBottom:8}}>
-              {es?'¿Administrás un consorcio?':'Do you manage a building?'}
-            </div>
-            <p style={{fontSize:13,color:sub,lineHeight:1.7,marginBottom:12}}>
-              {es
-                ? 'OLIVIA ayuda a tu cartera a cumplir con la Ley de Basura Cero, certificar la separación de residuos y generar créditos de carbono verificados. Sin inversión inicial.'
-                : 'OLIVIA helps your portfolio comply with waste regulations, certify waste separation and generate verified carbon credits. No upfront investment.'}
-            </p>
-            <a href="/institucional" style={{display:'inline-block',background:'rgba(59,130,246,0.1)',border:'1px solid rgba(59,130,246,0.3)',borderRadius:20,padding:'8px 16px',fontSize:11,fontWeight:700,color:'#3b82f6',textDecoration:'none'}}>
-              {es?'Ver propuesta para consorcios →':'View building proposal →'}
-            </a>
-          </div>
-        </section>
-{/* FOOTER */}
-      <footer style={{padding:'32px 20px',borderTop:`1px solid ${border}`,textAlign:'center',maxWidth:580,margin:'0 auto'}}>
+
+      {/* FOOTER */}
+      <footer style={{borderTop:'1px solid '+border,padding:'32px 24px',textAlign:'center',maxWidth:580,margin:'0 auto'}}>
         <div style={{textAlign:'center',marginBottom:8}}>
           <img src="/logoOC.png" alt="OLIVIA Circulab" style={{width:56,height:56,objectFit:'contain',margin:'0 auto 6px',display:'block'}} />
           <span style={{fontSize:13,fontWeight:800,color:text}}>OLIVIA Circulab</span>

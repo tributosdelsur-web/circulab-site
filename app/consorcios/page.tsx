@@ -281,7 +281,7 @@ export default function Consorcios() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{borderTop:'1px solid '+border,padding:'24px',textAlign:'center'}}>
+      <footer style={{borderTop:'1px solid '+border,padding:'32px 24px',textAlign:'center'}}>
         <a href="/"><img src="/logoOC.png" alt="OLIVIA" style={{width:36,height:36,objectFit:'contain',borderRadius:6,marginBottom:8}} /></a>
         <div style={{fontSize:9,color:sub,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.1em'}}>© 2026 Circulab Tech · oliviacirculab.com.ar</div>
         <div style={{marginTop:8,display:'flex',gap:16,justifyContent:'center',flexWrap:'wrap'}}>

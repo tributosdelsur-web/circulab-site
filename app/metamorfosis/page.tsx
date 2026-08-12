@@ -267,7 +267,7 @@ export default function Metamorfosis() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{ borderTop: `1px solid ${border}`, padding: '32px 24px', textAlign: 'center' }}>
+      <footer style={{borderTop:'1px solid '+border,padding:'32px 24px',textAlign:'center'}}>
         <a href="/">
           <img src="/logoOC.png" alt="OLIVIA" style={{ width: 40, height: 40, objectFit: 'contain', borderRadius: 8, marginBottom: 8 }} />
         </a>

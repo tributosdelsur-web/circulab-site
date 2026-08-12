@@ -408,7 +408,7 @@ export default function Institucional() {
           </div>
           <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:16}}>
             {[
-              {img:'/ciudadano/metamorfosis.jpg',nombre:'Metamorfosis',badge:es?'✅ Activo · Semilla 2026':'✅ Active · Semilla 2026',desc:es?'El único producto con código activo hoy. SaaS dMRV para consorcios + verificación IA de residuos + originación de créditos de carbono bajo protocolo Verra VCS. El 100% del foco y el capital de la ronda Seed va aquí.':'The only product with active code today. dMRV SaaS for buildings + AI waste verification + carbon credit origination under Verra VCS protocol. 100% of Seed round focus and capital goes here.',href:'/registro',color:'#22c55e',locked:false},
+              {img:'/ciudadano/metamorfosis.jpg',nombre:'Metamorfosis',badge:es?'✅ Activo · Semilla 2026':'✅ Active · Semilla 2026',desc:es?'El único producto con código activo hoy. SaaS dMRV para consorcios + verificación IA de residuos + originación de créditos de carbono bajo protocolo Verra VCS. El 100% del foco y el capital de la ronda Seed va aquí.':'The only product with active code today. dMRV SaaS for buildings + AI waste verification + carbon credit origination under Verra VCS protocol. 100% of Seed round focus and capital goes here.',href:'/metamorfosis',color:'#22c55e',locked:false},
               {img:'/ciudadano/pulso.jpg',nombre:es?'Quincena · PULSO':'Quincena · PULSO',badge:es?'🔒 Post-certificación Verra · 2027':'🔒 Post-Verra certification · 2027',desc:es?'Infraestructura de pago para que el ciudadano cobre sus créditos de carbono sin cuenta bancaria formal. Nace cuando OLIVIA Circular emita su primer crédito Verra y el vecino necesite cobrar en USD. Cero líneas de código hasta ese hito.':'Payment infrastructure so citizens can collect their carbon credits without a formal bank account. Born when OLIVIA Circular issues its first Verra credit. Zero lines of code until that milestone.',href:'/quincena',color:'#3b82f6',locked:true},
               {img:'/ciudadano/aom.jpg',nombre:'Art of Money',badge:es?'🔒 Post-escala LATAM · 2028':'🔒 Post-LATAM scale · 2028',desc:es?'La misma infraestructura financiera de Quincena aplicada a creadores, artistas y deportistas. Activa cuando la plomería de Quincena ya esté funcionando. Misma tesis — nueva industria. Cero líneas de código hasta 2028.':'The same Quincena financial infrastructure applied to creators, artists and athletes. Activates when Quincena infrastructure is running. Same thesis — new industry. Zero lines of code until 2028.',href:'/aom',color:'#a855f7',locked:true},
             ].map((v:any)=>(
@@ -577,7 +577,7 @@ export default function Institucional() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{padding:'24px',borderTop:`1px solid ${border}`,display:'flex',flexDirection:'column',alignItems:'center',gap:12,textAlign:'center'}}>
+      <footer style={{borderTop:'1px solid '+border,padding:'32px 24px',textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center',gap:12}}>
         <img src="/logoOC.png" alt="OLIVIA Circulab" style={{width:48,height:48,objectFit:'contain',opacity:0.7}} />
         <div style={{fontSize:10,color:sub,textAlign:'center',lineHeight:1.5}}>
           {es?'Oficina Latinoamericana de Información para la Valorización e Inteligencia Ambiental':'Latin American Office for Environmental Valuation and Intelligence Information'}

@@ -616,7 +616,7 @@ export default function Ciudadano() {
           <h2 style={{fontSize:20,fontWeight:900,marginBottom:16,color:text}}>{es?'Tres verticales · Un ecosistema':'Three verticals · One ecosystem'}</h2>
           <div style={{display:'flex',flexDirection:'column',gap:12}}>
             {[
-              {img:'/ciudadano/metamorfosis.jpg',nombre:'OLIVIA Circulab',desc:es?'Residuos → compost → reforestación → créditos de carbono → dinero real':'Waste → compost → reforestation → carbon credits → real money',color:'#22c55e',href:'/registro'},
+              {img:'/ciudadano/metamorfosis.jpg',nombre:'OLIVIA Circulab',desc:es?'Residuos → compost → reforestación → créditos de carbono → dinero real':'Waste → compost → reforestation → carbon credits → real money',color:'#22c55e',href:'/metamorfosis'},
               {img:'/ciudadano/pulso.jpg',nombre:'Quincena · PULSO',desc:es?'Roscas digitales → score crediticio → acceso al crédito formal · AR MX CO BR CH DO · Más OLV = mejor PULSO':'Digital savings circles → credit score → formal credit · AR MX CO BR CH DO · More OLV = better PULSO',color:'#3b82f6',href:'/quincena'},
               {img:'/ciudadano/aom.jpg',nombre:'Art of Money',desc:es?'Regalías musicales y deportivas → capital hoy · Más OLV → más puertas si sos creador':'Music and sports royalties → capital today · More OLV → more doors if you\'re a creator',color:'#a855f7',href:'/aom'},
             ].map(v=>(
@@ -716,7 +716,7 @@ export default function Ciudadano() {
       </div>
 
       {/* FOOTER */}
-      <footer style={{padding:'20px 16px',borderTop:`1px solid ${border}`,textAlign:'center',marginTop:8}}>
+      <footer style={{borderTop:'1px solid '+border,padding:'32px 24px',textAlign:'center'}}>
         <div style={{display:'flex',justifyContent:'center',marginBottom:8}}>
           <img src="/logoOC.png" alt="OLIVIA Circulab" style={{width:48,height:48,objectFit:'contain',opacity:0.7}} />
         </div>
