@@ -279,7 +279,7 @@ export default function Landing() {
       </section>
 
       {/* ═══ SECCIÓN 1 — HERO ═══ */}
-      <section style={{padding:'48px 20px 32px',maxWidth:580,margin:'0 auto',textAlign:'center'}}>
+      <section style={{padding:'40px 20px 24px',maxWidth:580,margin:'0 auto',textAlign:'center'}}>
         {/* BADGES */}
         <div style={{display:'flex',flexWrap:'wrap',gap:8,justifyContent:'center',marginBottom:20}}>
           <div style={{display:'inline-flex',alignItems:'center',gap:6,background:'rgba(34,197,94,0.1)',border:'1px solid rgba(34,197,94,0.3)',borderRadius:20,padding:'5px 14px',fontSize:11,color:'#22c55e',fontWeight:700}}>
@@ -291,68 +291,20 @@ export default function Landing() {
           </div>
         </div>
 
-        <h1 style={{fontSize:34,fontWeight:900,lineHeight:1.15,marginBottom:16,letterSpacing:'-0.02em'}}>
+        <h1 style={{fontSize:32,fontWeight:900,lineHeight:1.15,marginBottom:14,letterSpacing:'-0.02em'}}>
           <span style={{color:'#22c55e'}}>{es?'La batalla más importante':'The most important battle'}</span><br/>
-          <span style={{color:text}}>{es?'de nuestro tiempo':'of our time'}</span><br/>
-          <span style={{color:'#f59e0b'}}>{es?'es el calentamiento global.':'is global warming.'}</span><br/><span style={{color:'#3b82f6'}}>{es?'El planeta no espera.':'The planet won\'t wait.'}</span><br/><span style={{color:'#a855f7'}}>{es?'Tu barrio tampoco.':'Neither will your neighborhood.'}</span>
+          <span style={{color:text}}>{es?'contra el calentamiento global':'against global warming'}</span><br/>
+          <span style={{color:'#f59e0b'}}>{es?'se pelea en tu barrio.':'is fought in your neighborhood.'}</span>
         </h1>
 
-        <p style={{fontSize:14,color:sub,lineHeight:1.7,marginBottom:20}}>
-          {es?'El metano de los rellenos sanitarios es el segundo gas de efecto invernadero más dañino del planeta. Cada kilo de residuo orgánico enterrado genera 1.8 kg de CO2eq que calientan la atmósfera durante décadas.':'Methane from landfills is the second most damaging greenhouse gas on the planet. Each kilo of buried organic waste generates 1.8 kg CO2eq that heat the atmosphere for decades.'}
+        <div style={{fontSize:19,fontWeight:800,color:text,lineHeight:1.4,marginBottom:14}}>
+          {es?'Y tu barrio no espera.':'And your neighborhood won\'t wait.'}<br/>
+          <span style={{color:'#22c55e'}}>{es?'Convertimos tu basura en dinero.':'We turn your waste into money.'}</span>
+        </div>
+
+        <p style={{fontSize:14,color:sub,lineHeight:1.7,marginBottom:22}}>
+          {es?'Sacás una foto de tu residuo orgánico con una moneda al lado. Nuestra IA lo verifica. Lo entregás en un punto verde y ganás OLV — que en 2027 se convierten en créditos de carbono certificados por Verra.':'Photograph your organic waste with a coin next to it. Our AI verifies it. Drop it at a green point and earn OLV — which become Verra-certified carbon credits in 2027.'}
         </p>
-
-        {/* CITAS */}
-        <div style={{display:'flex',flexDirection:'column',gap:10,marginBottom:24}}>
-          {[
-            {cita:es?'"Las comunidades gestionan mejor los bienes comunes cuando tienen monitoreo verificable y consecuencias reales."':'"Communities manage commons better when they have verifiable monitoring and real consequences."',autor:'Elinor Ostrom · Premio Nobel Economía 2009',color:'#22c55e'},
-            {cita:es?'"La contaminación no es otra cosa que recursos que no estamos cosechando."':'"Pollution is nothing but resources we\'re not harvesting."',autor:'Buckminster Fuller · Científico y futurista',color:'#3b82f6'},
-            {cita:es?'"Los sistemas vivos se auto-organizan hacia estados de menor entropía."':'"Living systems self-organize toward states of lower entropy."',autor:'Ilya Prigogine · Premio Nobel Química 1977',color:'#a855f7'},
-          ].map((c,i)=>(
-            <div key={i} style={{background:card,border:`1px solid ${c.color}22`,borderRadius:12,padding:'14px',textAlign:'left'}}>
-              <div style={{fontSize:12,fontStyle:'italic',color:text,lineHeight:1.6,marginBottom:6}}>{c.cita}</div>
-              <div style={{fontSize:10,color:c.color,fontWeight:700}}>— {c.autor}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* FRASE CENTRAL */}
-        <div style={{background:'linear-gradient(135deg,rgba(34,197,94,0.1),rgba(59,130,246,0.06))',border:'1px solid rgba(34,197,94,0.3)',borderRadius:16,padding:'20px',marginBottom:24}}>
-          <div style={{fontSize:20,fontWeight:900,color:'#22c55e',marginBottom:8,lineHeight:1.3}}>
-            {es?'"En la naturaleza no hay basura."':'"In nature there is no waste."'}
-          </div>
-          <div style={{fontSize:13,color:sub,fontStyle:'italic',marginBottom:8}}>
-            {es?'"Solo hay recursos sin infraestructura."':'"Only resources without infrastructure."'}
-          </div>
-          <div style={{fontSize:12,color:text,fontWeight:700}}>
-            {es?'OLIVIA es esa infraestructura — un sistema que se alimenta a sí mismo haciendo el bien.':'OLIVIA is that infrastructure — a system that feeds itself by doing good.'}
-          </div>
-        </div>
-
-        {/* KPIs */}
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:10,marginBottom:16}}>
-          {[
-            {v:stats.usuarios||'0',l:es?'Vecinos activos':'Active neighbors',c:'#22c55e'},
-            {v:stats.kg?stats.kg+'kg':'0kg',l:es?'Kg verificados':'Verified kg',c:'#3b82f6'},
-            {v:stats.co2?stats.co2+'kg':'0kg',l:es?'CO2eq evitados':'CO2eq avoided',c:'#a855f7'},
-          ].map(k=>(
-            <div key={k.l} style={{background:card,borderRadius:12,padding:'14px 8px',textAlign:'center',border:`1px solid ${k.c}22`}}>
-              <div style={{fontSize:22,fontWeight:900,color:k.c}}>{k.v}</div>
-              <div style={{fontSize:9,color:sub,marginTop:3}}>{k.l}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* PROGRESO VERRA */}
-        <div style={{background:card,border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,padding:'14px',marginBottom:28}}>
-          <div style={{display:'flex',justifyContent:'space-between',fontSize:11,marginBottom:8}}>
-            <span style={{color:sub}}>{es?'Progreso hacia certificación Verra VCS':'Progress toward Verra VCS certification'}</span>
-            <span style={{color:'#22c55e',fontWeight:700}}>{Math.min((stats.co2/100000)*100,100).toFixed(1)}%</span>
-          </div>
-          <div style={{height:8,background:dark?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.08)',borderRadius:99,marginBottom:8}}>
-            <div style={{height:'100%',width:`${Math.min((stats.co2/100000)*100,100)}%`,background:'linear-gradient(90deg,#22c55e,#3b82f6)',borderRadius:99,transition:'width 1s'}} />
-          </div>
-          <div style={{fontSize:10,color:sub}}>{es?'Meta: 100 tCO2eq · Los que empiezan hoy cobran primero en Árbol':'Goal: 100 tCO2eq · Early starters earn first in Árbol'}</div>
-        </div>
 
         <div style={{display:'flex',gap:10,justifyContent:'center',flexWrap:'wrap'}}>
           <a href="/registro" style={{background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',padding:'14px 28px',borderRadius:12,fontSize:14,fontWeight:700,textDecoration:'none',boxShadow:'0 0 30px rgba(34,197,94,0.3)'}}>
@@ -362,6 +314,7 @@ export default function Landing() {
             {es?'Calculá cuánto ganás':'Calculate your earnings'}
           </a>
         </div>
+      
       </section>
 
       {/* ═══ SECCIÓN 2 — DOS VIDEOS ═══ */}
@@ -397,6 +350,64 @@ export default function Landing() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* ═══ SECCIÓN 2B — MÉTRICAS Y CONTEXTO ═══ */}
+      <section style={{padding:'8px 20px 32px',maxWidth:580,margin:'0 auto',textAlign:'center'}}>
+        {/* KPIs */}
+        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:10,marginBottom:16}}>
+          {[
+            {v:stats.usuarios||'0',l:es?'Vecinos activos':'Active neighbors',c:'#22c55e'},
+            {v:stats.kg?stats.kg+'kg':'0kg',l:es?'Kg verificados':'Verified kg',c:'#3b82f6'},
+            {v:stats.co2?stats.co2+'kg':'0kg',l:es?'CO2eq evitados':'CO2eq avoided',c:'#a855f7'},
+          ].map(k=>(
+            <div key={k.l} style={{background:card,borderRadius:12,padding:'14px 8px',textAlign:'center',border:`1px solid ${k.c}22`}}>
+              <div style={{fontSize:22,fontWeight:900,color:k.c}}>{k.v}</div>
+              <div style={{fontSize:9,color:sub,marginTop:3}}>{k.l}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* PROGRESO VERRA */}
+        <div style={{background:card,border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,padding:'14px',marginBottom:28}}>
+          <div style={{display:'flex',justifyContent:'space-between',fontSize:11,marginBottom:8}}>
+            <span style={{color:sub}}>{es?'Progreso hacia certificación Verra VCS':'Progress toward Verra VCS certification'}</span>
+            <span style={{color:'#22c55e',fontWeight:700}}>{Math.min((stats.co2/100000)*100,100).toFixed(1)}%</span>
+          </div>
+          <div style={{height:8,background:dark?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.08)',borderRadius:99,marginBottom:8}}>
+            <div style={{height:'100%',width:`${Math.min((stats.co2/100000)*100,100)}%`,background:'linear-gradient(90deg,#22c55e,#3b82f6)',borderRadius:99,transition:'width 1s'}} />
+          </div>
+          <div style={{fontSize:10,color:sub}}>{es?'Meta: 100 tCO2eq · Los que empiezan hoy cobran primero en Árbol':'Goal: 100 tCO2eq · Early starters earn first in Árbol'}</div>
+        </div>
+
+        {/* CITAS */}
+        <div style={{display:'flex',flexDirection:'column',gap:10,marginBottom:24}}>
+          {[
+            {cita:es?'"Las comunidades gestionan mejor los bienes comunes cuando tienen monitoreo verificable y consecuencias reales."':'"Communities manage commons better when they have verifiable monitoring and real consequences."',autor:'Elinor Ostrom · Premio Nobel Economía 2009',color:'#22c55e'},
+            {cita:es?'"La contaminación no es otra cosa que recursos que no estamos cosechando."':'"Pollution is nothing but resources we\'re not harvesting."',autor:'Buckminster Fuller · Científico y futurista',color:'#3b82f6'},
+            {cita:es?'"Los sistemas vivos se auto-organizan hacia estados de menor entropía."':'"Living systems self-organize toward states of lower entropy."',autor:'Ilya Prigogine · Premio Nobel Química 1977',color:'#a855f7'},
+          ].map((c,i)=>(
+            <div key={i} style={{background:card,border:`1px solid ${c.color}22`,borderRadius:12,padding:'14px',textAlign:'left'}}>
+              <div style={{fontSize:12,fontStyle:'italic',color:text,lineHeight:1.6,marginBottom:6}}>{c.cita}</div>
+              <div style={{fontSize:10,color:c.color,fontWeight:700}}>— {c.autor}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* FRASE CENTRAL */}
+        <div style={{background:'linear-gradient(135deg,rgba(34,197,94,0.1),rgba(59,130,246,0.06))',border:'1px solid rgba(34,197,94,0.3)',borderRadius:16,padding:'20px',marginBottom:24}}>
+          <div style={{fontSize:20,fontWeight:900,color:'#22c55e',marginBottom:8,lineHeight:1.3}}>
+            {es?'"En la naturaleza no hay basura."':'"In nature there is no waste."'}
+          </div>
+          <div style={{fontSize:13,color:sub,fontStyle:'italic',marginBottom:8}}>
+            {es?'"Solo hay recursos sin infraestructura."':'"Only resources without infrastructure."'}
+          </div>
+          <div style={{fontSize:12,color:text,fontWeight:700}}>
+            {es?'OLIVIA es esa infraestructura — un sistema que se alimenta a sí mismo haciendo el bien.':'OLIVIA is that infrastructure — a system that feeds itself by doing good.'}
+          </div>
+        </div>
+
+        
       </section>
 
       {/* ═══ SECCIÓN 3 — EL PROBLEMA ═══ */}
