@@ -69,7 +69,7 @@ export default function Institucional() {
       {/* HERO con logo + grid */}
       <section style={{
         padding:'60px 24px 60px',
-        backgroundImage:`linear-gradient(${border} 1px,transparent 1px),linear-gradient(90deg,${border} 1px,transparent 1px)`,
+        backgroundImage:`linear-gradient(${dark?"rgba(34,197,94,0.10)":"rgba(26,71,49,0.09)"} 1px,transparent 1px),linear-gradient(90deg,${dark?"rgba(34,197,94,0.10)":"rgba(26,71,49,0.09)"} 1px,transparent 1px)`,
         backgroundSize:'50px 50px',
         position:'relative'
       }}>
