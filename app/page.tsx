@@ -704,17 +704,17 @@ export default function Landing() {
         </div>
         <div style={{display:'flex',gap:14,justifyContent:'center',flexWrap:'wrap',maxWidth:600,margin:'0 auto 14px'}}>
           {[
-            {l:es?'Ciudadano':'Citizen',h:'/ciudadano'},
-            {l:'Metamorfosis',h:'/metamorfosis'},
-            {l:'Consorcios',h:'/consorcios'},
-            {l:es?'Grandes Generadores':'Large Generators',h:'/grandes-generadores'},
-            {l:es?'Grandes Emisores':'Large Emitters',h:'/grandes-emisores'},
-            {l:'RAEE',h:'/raee'},
-            {l:es?'Mapa':'Map',h:'/mapa'},
-            {l:'Kits',h:'/kits'},
-            {l:es?'Inversores':'Investors',h:'/institucional'},
+            {l:es?'Ciudadano':'Citizen',h:'/ciudadano',c:'#22c55e'},
+            {l:'Metamorfosis',h:'/metamorfosis',c:'#22c55e'},
+            {l:'Consorcios',h:'/consorcios',c:'#3b82f6'},
+            {l:es?'Grandes Generadores':'Large Generators',h:'/grandes-generadores',c:'#ef4444'},
+            {l:es?'Grandes Emisores':'Large Emitters',h:'/grandes-emisores',c:'#3b82f6'},
+            {l:'RAEE',h:'/raee',c:'#9333ea'},
+            {l:es?'Mapa':'Map',h:'/mapa',c:'#0284c7'},
+            {l:'Kits',h:'/kits',c:'#f59e0b'},
+            {l:es?'Inversores':'Investors',h:'/institucional',c:'#f59e0b'},
           ].map(n=>(
-            <a key={n.h} href={n.h} style={{fontSize:11,color:sub,textDecoration:'none',fontWeight:600}}>{n.l}</a>
+            <a key={n.h} href={n.h} style={{fontSize:11,color:n.c,textDecoration:'none',fontWeight:700}}>{n.l}</a>
           ))}
         </div>
         <div style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap',maxWidth:600,margin:'0 auto 16px'}}>
