@@ -694,35 +694,48 @@ export default function Landing() {
 
 
       {/* FOOTER */}
-      <footer style={{borderTop:'1px solid '+border,padding:'32px 24px',textAlign:'center',maxWidth:580,margin:'0 auto'}}>
-        <div style={{textAlign:'center',marginBottom:8}}>
-          <img src="/logoOC.png" alt="OLIVIA Circulab" style={{width:56,height:56,objectFit:'contain',margin:'0 auto 6px',display:'block'}} />
-          <span style={{fontSize:13,fontWeight:800,color:text}}>OLIVIA Circulab</span>
-        </div>
-        <div style={{fontSize:10,color:sub,marginBottom:12,lineHeight:1.5}}>
+      <footer style={{borderTop:'1px solid '+border,padding:'40px 24px 32px',textAlign:'center'}}>
+        <a href="/" style={{display:'block',marginBottom:10}}>
+          <img src="/logoOC.png" alt="OLIVIA Circulab" style={{width:52,height:52,objectFit:'contain',display:'block',margin:'0 auto'}} />
+        </a>
+        <div style={{fontSize:13,fontWeight:800,color:text,marginBottom:6}}>OLIVIA Circulab</div>
+        <div style={{fontSize:10,color:sub,lineHeight:1.6,maxWidth:400,margin:'0 auto 18px'}}>
           {es?'Oficina Latinoamericana de Información para la Valorización e Inteligencia Ambiental':'Latin American Office for Environmental Valuation and Intelligence Information'}
         </div>
-        <div style={{display:'flex',gap:14,justifyContent:'center',flexWrap:'wrap',marginBottom:14}}>
+        <div style={{display:'flex',gap:14,justifyContent:'center',flexWrap:'wrap',maxWidth:600,margin:'0 auto 14px'}}>
           {[
-            {l:es?'Ciudadano':'Citizen',h:'/ciudadano',c:'#22c55e'},
-            {l:es?'Institucional':'Institutional',h:'/institucional',c:'#f59e0b'},
-            {l:'Simulador',h:'/simulador',c:'#3b82f6'},
-            {l:'Comunidad',h:'/comunidad',c:'#3b82f6'},
-            {l:'One Pager',h:'/onepager',c:'#22c55e'},
-            {l:es?'Kits':'Kits',h:'/kits',c:'#22c55e'},
-            {l:es?'Grandes Gen.':'Large Gen.',h:'/grandes-generadores',c:'#ef4444'},
-            {l:'RAEE',h:'/raee',c:'#9333ea'},
-            {l:es?'Mapa':'Map',h:'/mapa',c:'#0284c7'},
-            {l:es?'Grandes Emisores':'Large Emitters',h:'/grandes-emisores',c:'#3b82f6'},
-            {l:'Whitepaper',h:'/whitepaper',c:'#a855f7'},
-            {l:'Pitch',h:'/pitch',c:'#a855f7'},
-            {l:es?'Privacidad':'Privacy',h:'/privacidad',c:sub},
+            {l:es?'Ciudadano':'Citizen',h:'/ciudadano'},
+            {l:'Metamorfosis',h:'/metamorfosis'},
+            {l:'Consorcios',h:'/consorcios'},
+            {l:es?'Grandes Generadores':'Large Generators',h:'/grandes-generadores'},
+            {l:es?'Grandes Emisores':'Large Emitters',h:'/grandes-emisores'},
+            {l:'RAEE',h:'/raee'},
+            {l:es?'Mapa':'Map',h:'/mapa'},
+            {l:'Kits',h:'/kits'},
+            {l:es?'Inversores':'Investors',h:'/institucional'},
           ].map(n=>(
-            <a key={n.l} href={n.h} style={{fontSize:11,color:n.c,textDecoration:'none',fontWeight:600}}>{n.l}</a>
+            <a key={n.h} href={n.h} style={{fontSize:11,color:sub,textDecoration:'none',fontWeight:600}}>{n.l}</a>
           ))}
         </div>
-        <div style={{fontSize:11,color:sub,marginBottom:6}}>hola@oliviacirculab.com.ar</div>
-        <div style={{fontSize:10,color:dark?'#475569':'#94a3b8'}}>©️ 2026 Circulab Tech · Distrito Tecnológico · Buenos Aires, Argentina · Ley 27.506</div>
+        <div style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap',maxWidth:600,margin:'0 auto 16px'}}>
+          {[
+            {l:'Whitepaper',h:'/whitepaper'},
+            {l:'One Pager',h:'/onepager'},
+            {l:'Pitch',h:'/pitch'},
+            {l:es?'Equipo':'Team',h:'/equipo'},
+            {l:es?'Alianzas':'Partners',h:'/alianzas'},
+            {l:'NDA',h:'/nda'},
+          ].map(n=>(
+            <a key={n.h} href={n.h} style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.75}}>{n.l}</a>
+          ))}
+        </div>
+        <div style={{fontSize:11,color:sub,marginBottom:10}}>hola@oliviacirculab.com.ar</div>
+        <div style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap',marginBottom:10}}>
+          <a href="/terminos" style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.7}}>{es?'Términos':'Terms'}</a>
+          <a href="/privacidad" style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.7}}>{es?'Privacidad':'Privacy'}</a>
+          <a href="https://www.linkedin.com/company/113160128/" style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.7}}>LinkedIn</a>
+        </div>
+        <div style={{fontSize:9,color:sub,fontFamily:'monospace',letterSpacing:'0.05em',opacity:0.7}}>© 2026 Circulab Tech · Distrito Tecnológico · Buenos Aires · Ley 27.506</div>
       </footer>
 
     </div>

@@ -305,15 +305,48 @@ export default function GrandesEmisores() {
         </div>
       </section>
 
-      <footer style={{borderTop:'1px solid '+border,padding:'32px 24px',textAlign:'center'}}>
-        <a href="/"><img src="/logoOC.png" alt="OLIVIA" style={{width:36,height:36,objectFit:'contain',borderRadius:6,marginBottom:8}} /></a>
-        <div style={{fontSize:9,color:sub,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.1em'}}>© 2026 Circulab Tech · oliviacirculab.com.ar</div>
-        <div style={{marginTop:8,display:'flex',gap:16,justifyContent:'center',flexWrap:'wrap'}}>
-          <a href="/institucional" style={{fontSize:11,color:sub,textDecoration:'none'}}>{es?'Inversores':'Investors'}</a>
-          <a href="/grandes-generadores" style={{fontSize:11,color:sub,textDecoration:'none'}}>{es?'Ley 1854 CABA':'Law 1854 CABA'}</a>
-          <a href="/whitepaper" style={{fontSize:11,color:sub,textDecoration:'none'}}>Whitepaper</a>
-          <a href="/nda" style={{fontSize:11,color:sub,textDecoration:'none'}}>NDA</a>
+      <footer style={{borderTop:'1px solid '+border,padding:'40px 24px 32px',textAlign:'center'}}>
+        <a href="/" style={{display:'block',marginBottom:10}}>
+          <img src="/logoOC.png" alt="OLIVIA Circulab" style={{width:52,height:52,objectFit:'contain',display:'block',margin:'0 auto'}} />
+        </a>
+        <div style={{fontSize:13,fontWeight:800,color:text,marginBottom:6}}>OLIVIA Circulab</div>
+        <div style={{fontSize:10,color:sub,lineHeight:1.6,maxWidth:400,margin:'0 auto 18px'}}>
+          {es?'Oficina Latinoamericana de Información para la Valorización e Inteligencia Ambiental':'Latin American Office for Environmental Valuation and Intelligence Information'}
         </div>
+        <div style={{display:'flex',gap:14,justifyContent:'center',flexWrap:'wrap',maxWidth:600,margin:'0 auto 14px'}}>
+          {[
+            {l:es?'Ciudadano':'Citizen',h:'/ciudadano'},
+            {l:'Metamorfosis',h:'/metamorfosis'},
+            {l:'Consorcios',h:'/consorcios'},
+            {l:es?'Grandes Generadores':'Large Generators',h:'/grandes-generadores'},
+            {l:es?'Grandes Emisores':'Large Emitters',h:'/grandes-emisores'},
+            {l:'RAEE',h:'/raee'},
+            {l:es?'Mapa':'Map',h:'/mapa'},
+            {l:'Kits',h:'/kits'},
+            {l:es?'Inversores':'Investors',h:'/institucional'},
+          ].map(n=>(
+            <a key={n.h} href={n.h} style={{fontSize:11,color:sub,textDecoration:'none',fontWeight:600}}>{n.l}</a>
+          ))}
+        </div>
+        <div style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap',maxWidth:600,margin:'0 auto 16px'}}>
+          {[
+            {l:'Whitepaper',h:'/whitepaper'},
+            {l:'One Pager',h:'/onepager'},
+            {l:'Pitch',h:'/pitch'},
+            {l:es?'Equipo':'Team',h:'/equipo'},
+            {l:es?'Alianzas':'Partners',h:'/alianzas'},
+            {l:'NDA',h:'/nda'},
+          ].map(n=>(
+            <a key={n.h} href={n.h} style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.75}}>{n.l}</a>
+          ))}
+        </div>
+        <div style={{fontSize:11,color:sub,marginBottom:10}}>hola@oliviacirculab.com.ar</div>
+        <div style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap',marginBottom:10}}>
+          <a href="/terminos" style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.7}}>{es?'Términos':'Terms'}</a>
+          <a href="/privacidad" style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.7}}>{es?'Privacidad':'Privacy'}</a>
+          <a href="https://www.linkedin.com/company/113160128/" style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.7}}>LinkedIn</a>
+        </div>
+        <div style={{fontSize:9,color:sub,fontFamily:'monospace',letterSpacing:'0.05em',opacity:0.7}}>© 2026 Circulab Tech · Distrito Tecnológico · Buenos Aires · Ley 27.506</div>
       </footer>
     </div>
   )
