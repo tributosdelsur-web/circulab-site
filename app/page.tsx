@@ -462,7 +462,7 @@ export default function Landing() {
         <p style={{fontSize:12,color:sub,textAlign:'center',marginBottom:16}}>{es?'Un solo sistema que se activa por etapas. Hoy solo existe OLIVIA Circular.':'One system that activates in stages. Today only OLIVIA Circular exists.'}</p>
         <div style={{display:'flex',flexDirection:'column',gap:10,marginBottom:16}}>
           {[
-            {icon:'🌿',nombre:'Metamorfosis',desc:es?'Reciclás y ganás OLV Verdes certificables por Verra':'You recycle and earn Green OLV certifiable by Verra',color:'#22c55e',href:'/registro'},
+            {icon:'🌿',nombre:'Metamorfosis',desc:es?'Reciclás y ganás OLV Verdes certificables por Verra':'You recycle and earn Green OLV certifiable by Verra',color:'#22c55e',href:'/metamorfosis'},
             {icon:'💜',nombre:'Quincena PULSO',desc:es?'Más OLV → mejor turno en tu círculo de ahorro → cobrás antes':'More OLV → better turn in your savings circle → you collect sooner',color:'#3b82f6',href:'/quincena'},
             {icon:'🎨',nombre:'Art of Money',desc:es?'Más OLV → más puertas si sos creador → financiamiento real':'More OLV → more doors if you\'re a creator → real financing',color:'#a855f7',href:'/aom'},
           ].map(v=>(
