@@ -20,10 +20,10 @@ export default function Metamorfosis() {
   useEffect(() => {
     async function cargar() {
       const [{ data: residuos }, { data: usuarios }] = await Promise.all([
-        supabase.from('residuos').select('peso_kg'),
+        supabase.from('residuos').select('kg'),
         supabase.from('usuarios').select('id', { count: 'exact' }),
       ])
-      const kg = (residuos || []).reduce((a: number, r: any) => a + Number(r.peso_kg || 0), 0)
+      const kg = (residuos || []).reduce((a: number, r: any) => a + Number(r.kg || 0), 0)
       setTotalKg(kg)
       setTotalUsuarios(usuarios?.length || 0)
     }
