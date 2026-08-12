@@ -299,7 +299,7 @@ export default function Landing() {
 
         <div style={{fontSize:19,fontWeight:800,color:text,lineHeight:1.4,marginBottom:14}}>
           {es?'Y tu barrio no espera.':'And your neighborhood won\'t wait.'}<br/>
-          <span style={{color:'#22c55e'}}>{es?'Convertimos tu basura en dinero.':'We turn your waste into money.'}</span>
+          <span style={{color:'#a855f7',textShadow:'0 0 24px rgba(168,85,247,0.55)'}}>{es?'Convertimos tu basura en dinero.':'We turn your waste into money.'}</span>
         </div>
 
         <p style={{fontSize:14,color:sub,lineHeight:1.7,marginBottom:22}}>
