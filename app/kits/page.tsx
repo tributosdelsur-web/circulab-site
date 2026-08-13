@@ -373,6 +373,19 @@ export default function Kits() {
         </div>
       </section>
 
+      {/* NOTA PRECIOS DESDE */}
+      <div style={{maxWidth:1100,margin:'0 auto 20px',padding:'0 20px'}}>
+        <div style={{background:'rgba(245,158,11,0.07)',border:'1px solid rgba(245,158,11,0.25)',borderRadius:12,padding:'14px 16px',display:'flex',gap:10,alignItems:'flex-start'}}>
+          <span style={{fontSize:16,lineHeight:1}}>💡</span>
+          <div style={{fontSize:12,lineHeight:1.65,color:'#b45309'}}>
+            <strong>{es?'Los valores indicados son precios desde.':'Prices shown are starting prices.'}</strong>{' '}
+            {es
+              ? 'Representan el piso de cada tramo. Cada propuesta se ajusta según volumen, cantidad de unidades y necesidades de cada cliente.'
+              : 'They represent the entry point for each tier. Every proposal is tailored to volume, number of units and each client\'s needs.'}
+          </div>
+        </div>
+      </div>
+
       {/* KITS GRID */}
       <section style={{padding:'32px 24px 64px'}}>
         <div style={{maxWidth:900,margin:'0 auto',display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:20}}>
