@@ -293,15 +293,11 @@ export default function Landing() {
 
         
 
-        <h1 style={{fontSize:30,fontWeight:900,lineHeight:1.2,marginBottom:16,letterSpacing:'-0.02em'}}>
-          <span style={{color:'#22c55e'}}>{es?'Argentina da la batalla al calentamiento global.':'Argentina takes on global warming.'}</span><br/>
-          <span style={{color:text}}>{es?'En la naturaleza no existe la basura.':'In nature, waste does not exist.'}</span>
+        <h1 style={{fontSize:30,fontWeight:900,lineHeight:1.25,marginBottom:18,letterSpacing:'-0.02em'}}>
+          <span style={{color:text}}>{es?'En la naturaleza no existe la basura.':'In nature, waste does not exist.'}</span><br/>
+          <span style={{color:'#75AADB'}}>{es?'Argentina da la batalla al calentamiento global.':'Argentina takes on global warming.'}</span><br/>
+          <span style={{color:'#f59e0b',textShadow:'0 0 24px rgba(245,158,11,0.45)'}}>{es?'Convertimos tus residuos en ':'We turn your waste into '}<span style={{textTransform:'uppercase'}}>{es?'DINERO':'MONEY'}</span>.</span>
         </h1>
-
-        <div style={{fontSize:19,fontWeight:800,color:text,lineHeight:1.4,marginBottom:14}}>
-          
-          <span style={{color:'#f59e0b',textShadow:'0 0 24px rgba(245,158,11,0.5)'}}>{es?'Convertimos tu basura en ':'We turn your waste into '}<span style={{fontSize:30,fontWeight:900}}>{es?'DINERO':'MONEY'}</span>{es?'.':'.'}</span>
-        </div>
 
         <p style={{fontSize:14,color:sub,lineHeight:1.7,marginBottom:22}}>
           {es?'Sacás una foto de tu residuo orgánico con una moneda al lado. Nuestra IA lo verifica. Lo entregás en un punto verde y ganás OLV — que en 2027 se convierten en créditos de carbono certificados por Verra.':'Photograph your organic waste with a coin next to it. Our AI verifies it. Drop it at a green point and earn OLV — which become Verra-certified carbon credits in 2027.'}
