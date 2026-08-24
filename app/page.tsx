@@ -295,12 +295,14 @@ export default function Landing() {
 
         <h1 style={{fontSize:30,fontWeight:900,lineHeight:1.25,marginBottom:18,letterSpacing:'-0.02em'}}>
           <span style={{color:text}}>{es?'En la naturaleza no existe la basura.':'In nature, waste does not exist.'}</span><br/>
-          <span style={{color:'#75AADB'}}>{es?'Argentina da la batalla al calentamiento global.':'Argentina takes on global warming.'}</span><br/>
+          <span style={{color:'#38bdf8'}}>{es?'Devolvemos a la tierra lo que es de la tierra.':'We return to the earth what belongs to the earth.'}</span><br/>
           <span style={{color:'#f59e0b',textShadow:'0 0 24px rgba(245,158,11,0.45)'}}>{es?'Convertimos tus residuos en ':'We turn your waste into '}<span style={{textTransform:'uppercase'}}>{es?'DINERO':'MONEY'}</span>.</span>
         </h1>
 
         <p style={{fontSize:14,color:sub,lineHeight:1.7,marginBottom:22}}>
-          {es?'Sacás una foto de tu residuo orgánico con una moneda al lado. Nuestra IA lo verifica. Lo entregás en un punto verde y ganás OLV — que en 2027 se convierten en créditos de carbono certificados por Verra.':'Photograph your organic waste with a coin next to it. Our AI verifies it. Drop it at a green point and earn OLV — which become Verra-certified carbon credits in 2027.'}
+          {es
+            ? 'Lo orgánico vuelve a su ciclo biológico: se transforma en suelo fértil y regenera. Lo que creó el hombre — plástico, metal, electrónicos — vuelve a la industria y nunca llega a la naturaleza. Cada kilo verificado evita metano y vale dinero real en el mercado global de carbono.'
+            : 'Organic matter returns to its biological cycle: it becomes fertile soil and regenerates. What humans created — plastic, metal, electronics — returns to industry and never reaches nature. Every verified kilo avoids methane and is worth real money on the global carbon market.'}
         </p>
 
         <div style={{display:'flex',gap:10,justifyContent:'center',flexWrap:'wrap'}}>
@@ -312,6 +314,34 @@ export default function Landing() {
           </a>
         </div>
       
+      </section>
+
+      {/* ═══ COMO FUNCIONA SIMPLE ═══ */}
+      <section style={{padding:'8px 20px 32px',maxWidth:580,margin:'0 auto'}}>
+        <div style={{textAlign:'center',marginBottom:20}}>
+          <div style={{fontSize:11,color:'#22c55e',textTransform:'uppercase',letterSpacing:'0.1em',marginBottom:8}}>
+            {es?'¿Cómo funciona?':'How does it work?'}
+          </div>
+          <h2 style={{fontSize:21,fontWeight:900,color:text,lineHeight:1.35}}>
+            {es?'OLIVIA le pone precio a la basura que hoy tirás.':'OLIVIA puts a price on the waste you throw away.'}
+          </h2>
+        </div>
+        <div style={{display:'flex',flexDirection:'column',gap:10}}>
+          {[
+            {i:'📸',t:es?'Sacás una foto':'Take a photo',d:es?'De tus restos de comida, con una moneda al lado. La IA la usa para calcular cuánto hay.':'Of your food scraps, with a coin next to them. The AI uses it to calculate the amount.',c:'#22c55e'},
+            {i:'🚶',t:es?'Lo llevás al punto verde':'Drop it at a green point',d:es?'Mostrás tu QR en el celular. Segunda foto. Listo, quedó registrado.':'Show your QR on your phone. Second photo. Done, it is registered.',c:'#3b82f6'},
+            {i:'🌱',t:es?'Se convierte en abono':'It becomes compost',d:es?'La planta confirma el compostaje. Ahí nace tu OLV. Sin esa confirmación, no hay token.':'The plant confirms composting. That is when your OLV is created. No confirmation, no token.',c:'#f59e0b'},
+            {i:'💰',t:es?'Vale dinero real':'It is worth real money',d:es?'Ese compost evitó metano. Las empresas obligadas por ley a compensar carbono pagan por eso.':'That compost avoided methane. Companies legally required to offset carbon pay for it.',c:'#a855f7'},
+          ].map((p,i)=>(
+            <div key={i} style={{display:'flex',gap:14,alignItems:'flex-start',background:card,border:'1px solid '+p.c+'22',borderRadius:12,padding:'14px 16px'}}>
+              <span style={{fontSize:26,lineHeight:1,flexShrink:0}}>{p.i}</span>
+              <div>
+                <div style={{fontSize:14,fontWeight:800,color:p.c,marginBottom:4}}>{p.t}</div>
+                <div style={{fontSize:12,color:sub,lineHeight:1.65}}>{p.d}</div>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* ═══ SECCIÓN 2 — DOS VIDEOS ═══ */}
@@ -363,20 +393,6 @@ export default function Landing() {
             <div style={{height:'100%',width:`${Math.min((stats.co2/100000)*100,100)}%`,background:'linear-gradient(90deg,#22c55e,#3b82f6)',borderRadius:99,transition:'width 1s'}} />
           </div>
           <div style={{fontSize:10,color:sub}}>{es?'Meta: 100 tCO2eq · Los que empiezan hoy cobran primero en Árbol':'Goal: 100 tCO2eq · Early starters earn first in Árbol'}</div>
-        </div>
-
-        {/* CITAS */}
-        <div style={{display:'flex',flexDirection:'column',gap:10,marginBottom:24}}>
-          {[
-            {cita:es?'"Las comunidades gestionan mejor los bienes comunes cuando tienen monitoreo verificable y consecuencias reales."':'"Communities manage commons better when they have verifiable monitoring and real consequences."',autor:'Elinor Ostrom · Premio Nobel Economía 2009',color:'#22c55e'},
-            {cita:es?'"La contaminación no es otra cosa que recursos que no estamos cosechando."':'"Pollution is nothing but resources we\'re not harvesting."',autor:'Buckminster Fuller · Científico y futurista',color:'#3b82f6'},
-            {cita:es?'"Los sistemas vivos se auto-organizan hacia estados de menor entropía."':'"Living systems self-organize toward states of lower entropy."',autor:'Ilya Prigogine · Premio Nobel Química 1977',color:'#a855f7'},
-          ].map((c,i)=>(
-            <div key={i} style={{background:card,border:`1px solid ${c.color}22`,borderRadius:12,padding:'14px',textAlign:'left'}}>
-              <div style={{fontSize:12,fontStyle:'italic',color:text,lineHeight:1.6,marginBottom:6}}>{c.cita}</div>
-              <div style={{fontSize:10,color:c.color,fontWeight:700}}>— {c.autor}</div>
-            </div>
-          ))}
         </div>
 
         {/* FRASE CENTRAL */}
@@ -704,6 +720,28 @@ export default function Landing() {
         </div>
       </section>
 
+
+      {/* ═══ CITAS ═══ */}
+      <section style={{padding:'0 20px 32px',maxWidth:580,margin:'0 auto'}}>
+        <div style={{fontSize:11,color:sub,textTransform:'uppercase',letterSpacing:'0.1em',textAlign:'center',marginBottom:14}}>
+          {es?'De dónde viene esta idea':'Where this idea comes from'}
+        </div>
+        {/* CITAS */}
+        <div style={{display:'flex',flexDirection:'column',gap:10,marginBottom:24}}>
+          {[
+            {cita:es?'"Las comunidades gestionan mejor los bienes comunes cuando tienen monitoreo verificable y consecuencias reales."':'"Communities manage commons better when they have verifiable monitoring and real consequences."',autor:'Elinor Ostrom · Premio Nobel Economía 2009',color:'#22c55e'},
+            {cita:es?'"La contaminación no es otra cosa que recursos que no estamos cosechando."':'"Pollution is nothing but resources we\'re not harvesting."',autor:'Buckminster Fuller · Científico y futurista',color:'#3b82f6'},
+            {cita:es?'"Los sistemas vivos se auto-organizan hacia estados de menor entropía."':'"Living systems self-organize toward states of lower entropy."',autor:'Ilya Prigogine · Premio Nobel Química 1977',color:'#a855f7'},
+          ].map((c,i)=>(
+            <div key={i} style={{background:card,border:`1px solid ${c.color}22`,borderRadius:12,padding:'14px',textAlign:'left'}}>
+              <div style={{fontSize:12,fontStyle:'italic',color:text,lineHeight:1.6,marginBottom:6}}>{c.cita}</div>
+              <div style={{fontSize:10,color:c.color,fontWeight:700}}>— {c.autor}</div>
+            </div>
+          ))}
+        </div>
+
+        
+      </section>
 
       {/* FOOTER */}
       <footer style={{borderTop:'1px solid '+border,padding:'40px 24px 32px',textAlign:'center'}}>
