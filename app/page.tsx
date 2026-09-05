@@ -371,6 +371,22 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* ═══ BANDA RAEE ═══ */}
+      <section style={{padding:'0 20px 28px',maxWidth:580,margin:'0 auto'}}>
+        <a href="/raee" style={{display:'block',textDecoration:'none',background:dark?'rgba(147,51,234,0.10)':'rgba(147,51,234,0.05)',border:'1px solid rgba(147,51,234,0.25)',borderRadius:14,padding:'18px'}}>
+          <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:'#9333ea',marginBottom:8}}>
+            [ {es?'Diagnóstico abierto':'Open diagnosis'} ]
+          </div>
+          <div style={{fontSize:16,fontWeight:900,color:text,marginBottom:6,lineHeight:1.3}}>
+            {es?'¿Qué pasa con los electrónicos que ya no usás?':'What happens to the electronics you no longer use?'}
+          </div>
+          <p style={{fontSize:12,color:sub,lineHeight:1.7,marginBottom:8}}>
+            {es?'Cada habitante genera 11 kilos por año. La única ley de la Ciudad es de 2008 y sólo cubre al sector público. Para el vecino, todo es voluntario.':'Each resident generates 11 kilos per year. For residents, everything is voluntary.'}
+          </p>
+          <span style={{fontSize:12,color:'#9333ea',fontWeight:700}}>{es?'Leer el diagnóstico RAEE →':'Read the e-waste diagnosis →'}</span>
+        </a>
+      </section>
+
       {/* ═══ BANDA ORGANICOS ═══ */}
       <section style={{padding:'0 20px 28px',maxWidth:580,margin:'0 auto'}}>
         <a href="/organicos" style={{display:'block',textDecoration:'none',background:dark?'rgba(146,64,14,0.10)':'rgba(146,64,14,0.05)',border:'1px solid rgba(146,64,14,0.25)',borderRadius:14,padding:'18px'}}>
