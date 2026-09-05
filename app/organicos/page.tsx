@@ -16,7 +16,7 @@ export default function Organicos() {
   const marron = '#92400e'
   const rojo = '#dc2626'
   const azul = '#0284c7'
-  const box = (c,bgc) => ({background:bgc,border:'1px solid '+c,borderRadius:12,padding:18})
+  const box = (c: string, bgc: string) => ({background:bgc,border:'1px solid '+c,borderRadius:12,padding:18})
 
   return (
     <div style={{minHeight:'100vh',background:bg,color:text,fontFamily:'Inter,system-ui',transition:'all .3s'}}>
@@ -138,7 +138,7 @@ export default function Organicos() {
             {k:'gastro',l:es?'🍽️ Gastronómico u obligado':'🍽️ Food business'},
             {k:'coop',l:es?'♻️ Cooperativa u operador':'♻️ Cooperative'},
           ].map(o=>(
-            <button key={o.k} onClick={()=>setPerfil(o.k)} style={{padding:'10px 18px',borderRadius:24,fontSize:13,fontWeight:700,cursor:'pointer',border:'1px solid '+(perfil===o.k?accent:border),background:perfil===o.k?(dark?'rgba(34,197,94,.15)':'#dcfce7'):'transparent',color:perfil===o.k?'#16a34a':sub}}>{o.l}</button>
+            <button key={o.k} onClick={()=>setPerfil(o.k as any)} style={{padding:'10px 18px',borderRadius:24,fontSize:13,fontWeight:700,cursor:'pointer',border:'1px solid '+(perfil===o.k?accent:border),background:perfil===o.k?(dark?'rgba(34,197,94,.15)':'#dcfce7'):'transparent',color:perfil===o.k?'#16a34a':sub}}>{o.l}</button>
           ))}
         </div>
 
