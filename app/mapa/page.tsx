@@ -45,8 +45,8 @@ export default function Mapa() {
   const azul = '#0284c7'
 
   const tileUrl = () => dark
-    ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
-    : 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
+    ? 'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png'
+    : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
 
   useEffect(() => {
     if ((window as any).L) { setReady(true); return }
@@ -67,7 +67,7 @@ export default function Mapa() {
     const el = document.getElementById('olivia-map')
     if (!el || mapRef.current) return
     const map = L.map(el, { center:[-34.6150,-58.4300], zoom:12, scrollWheelZoom:false })
-    tilesRef.current = L.tileLayer(tileUrl(), { attribution:'© OpenStreetMap · © CARTO', maxZoom:20, subdomains:'abcd' }).addTo(map)
+    tilesRef.current = L.tileLayer(tileUrl(), { attribution:'© OpenStreetMap contributors', maxZoom:19 }).addTo(map)
     groupsRef.current = { org:L.layerGroup(), raee:L.layerGroup(), solo:L.layerGroup() }
     mapRef.current = map
     map.on('click', () => map.scrollWheelZoom.enable())
