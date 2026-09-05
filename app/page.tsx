@@ -152,7 +152,7 @@ export default function Landing() {
   const OLV_TRAMOS = [
     {tramo:'🌱 Semilla',año:'2026',olv:es?'Sin valor · acumulás':'No value · you accumulate',c:'#22c55e'},
     {tramo:'🌿 Brote',año:'2026',olv:es?'Solo canje interno':'Internal exchange only',c:'#3b82f6'},
-    {tramo:'🌳 Árbol',año:'2027',olv:'6.329 OLV = USD 1',c:'#f59e0b'},
+    {tramo:'🌳 Árbol',año:es?'Certificación':'Certification',olv:es?'Valor a definir por auditoría':'Value set by audit',c:'#f59e0b'},
     {tramo:'🌲 Bosque',año:'2028',olv:'2.198 OLV = USD 1',c:'#a855f7'},
     {tramo:'🏔️ Selva',año:'2029',olv:'1.429 OLV = USD 1',c:'#ec4899'},
     {tramo:'🌊 Sumidero',año:'2030+',olv:'952 OLV = USD 1',c:'#06b6d4'},
@@ -478,7 +478,7 @@ export default function Landing() {
             {num:'01',icon:'📸',t:es?'Fotografiás el residuo':'You photograph the waste',d:es?'La IA analiza el tipo y el peso con Cloudflare AI Vision. Con una moneda de $10 al lado, la estimación es precisa.':'AI analyzes type and weight with Cloudflare AI Vision.',c:'#22c55e'},
             {num:'02',icon:'📍',t:es?'Confirmás la disposición':'You confirm disposal',d:es?'La segunda foto con GPS activa tus OLV Verdes — los únicos certificables por Verra.':'The second photo with GPS activates your Green OLV — the only ones certifiable by Verra.',c:'#3b82f6'},
             {num:'03',icon:'🪙',t:es?'Acumulás OLV Verdes':'You accumulate Green OLV',d:es?'🌿 OLV Verdes: de residuos verificados · estos certifica Verra · estos paga el mercado. ⭐ OLV Bonus: por registrarte y compartir · canjeables en Brote.':'🌿 Green OLV: from verified waste · Verra certifies these. ⭐ Bonus OLV: for registering and sharing.',c:'#f59e0b'},
-            {num:'04',icon:'💰',t:es?'El mercado paga — 2027':'The market pays — 2027',d:es?'OLIVIA certifica con Verra. El mercado de carbono paga. OLIVIA distribuye. Los que empezaron en Semilla cobran primero.':'OLIVIA certifies with Verra. Carbon market pays. OLIVIA distributes. Semilla starters earn first.',c:'#a855f7'},
+            {num:'04',icon:'🌳',t:es?'Certificación':'Certification',d:es?'Con doce a veinticuatro meses de registros verificados se inicia la validación por auditor acreditado bajo estándar Verra. Es un proceso de dos a tres años y su resultado no depende de OLIVIA.':'With twelve to twenty-four months of verified records, validation by an accredited auditor begins under the Verra standard. A two to three year process whose outcome does not depend on OLIVIA.',c:'#a855f7'},
           ].map(p=>(
             <div key={p.num} style={{display:'flex',gap:12,padding:'14px',background:card,borderRadius:14,border:`1px solid ${p.c}22`,alignItems:'flex-start'}}>
               <div style={{width:36,height:36,background:`linear-gradient(135deg,${p.c},${p.c}99)`,borderRadius:10,display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,fontWeight:800,color:'white',flexShrink:0}}>{p.num}</div>
@@ -546,7 +546,7 @@ export default function Landing() {
           {[
             {icon:'🌱',t:'SEMILLA · 2026',d:es?'ACTIVA · OLV sin valor monetario · Construís historial · Los que empiezan hoy cobran primero en Árbol':'ACTIVE · OLV no monetary value · Build history · Early starters earn first in Árbol',c:'#22c55e',activo:true},
             {icon:'🌿',t:'BROTE · Q4 2026',d:es?'OLV canjeables por salud, transporte, apps · Convenios con partners':'OLV redeemable for health, transport, apps · Partner deals',c:'#3b82f6',activo:false},
-            {icon:'🌳',t:'ÁRBOL · 2027 💰',d:es?'Si Verra VCS certifica · Valor neto por kg al ciudadano · OLIVIA no paga — el mercado sí · 6.329 OLV = USD 1':'If Verra VCS certifies · Net value per kg to citizen · 6.329 OLV = USD 1',c:'#f59e0b',activo:false},
+            {icon:'🌳',t:es?'ÁRBOL · certificación':'TREE · certification',d:es?'Etapa futura. Si el proyecto completa la certificación bajo estándar Verra, los registros acumulados pasan a tener valor en el mercado voluntario. OLIVIA no emite créditos hoy ni promete montos.':'Future stage. If the project completes Verra certification, accumulated records gain value in the voluntary market. OLIVIA issues no credits today.',c:'#f59e0b',activo:false},
             {icon:'🌲',t:'BOSQUE · 2028',d:es?'Artículo 6.4 Acuerdo de París · 2.198 OLV = USD 1 · Corredor AR MX CO BR CH DO':'Paris Agreement Article 6.4 · 2.198 OLV = USD 1 · AR MX CO BR CH DO corridor',c:'#a855f7',activo:false},
             {icon:'🏔️',t:'SELVA · 2029',d:es?'OLIVIA Ocean + Waters + Space · 1.429 OLV = USD 1':'OLIVIA Ocean + Waters + Space · 1.429 OLV = USD 1',c:'#ec4899',activo:false},
             {icon:'🌊',t:'SUMIDERO · 2030+',d:es?'Net positive verificado · 952 OLV = USD 1 · Infraestructura climática global':'Verified net positive · 952 OLV = USD 1 · Global climate infrastructure',c:'#06b6d4',activo:false},
