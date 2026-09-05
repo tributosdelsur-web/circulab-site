@@ -135,7 +135,7 @@ const SEGMENTOS = [
 ]
 
 const POR_QUE = [
- {icon:'💰',es:'Los OLV que recibís hoy son una cuenta por cobrar. En Fase 3 (2027) se convierten en dinero real cuando OLIVIA certifique con Verra.',en:'OLV you receive today are a receivable. In Phase 3 (2027) they become real money when OLIVIA certifies with Verra.'},
+ {icon:'📊',es:'Los OLV que recibís hoy son un registro verificado de impacto: kilos desviados del relleno y metano evitado. No tienen valor monetario hoy. Si el proyecto completa la certificación bajo estándar Verra, un proceso de entre dos y tres años, esos registros pasan a tener valor en el mercado voluntario.',en:'The OLV you receive today are a verified impact record: kilos diverted and methane avoided. They have no monetary value today. If the project completes Verra certification, a two to three year process, those records gain value in the voluntary market.'},
  {icon:'📈',es:'Las empresas que entran antes acumulan más OLV cuando valen poco. Cuando valen más — cobran más que lo que les costó el servicio.',en:'Companies that join early accumulate more OLV when they\'re cheap. When they\'re worth more — they earn more than the service cost them.'},
  {icon:'🌿',es:'Badge "Partner OLIVIA Circulab" verificado. Diferenciación de marca con impacto ambiental real y medible.',en:'Verified "OLIVIA Circulab Partner" badge. Brand differentiation with real and measurable environmental impact.'},
  {icon:'👥',es:'Acceso a la comunidad OLIVIA — usuarios comprometidos con el medio ambiente, early adopters de tecnología.',en:'Access to the OLIVIA community — environmentally committed users, technology early adopters.'},

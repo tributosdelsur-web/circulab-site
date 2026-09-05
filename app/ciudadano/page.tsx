@@ -112,7 +112,7 @@ export default function Ciudadano() {
   const TRAMOS = [
     {icon:'🌱',t:es?'SEMILLA · 2026':'SEED · 2026',d:es?'ACTIVA · OLV sin valor monetario · Construís historial · Los que empiezan hoy cobran primero en Árbol':'ACTIVE · OLV no monetary value · Build history · Early starters earn first in Árbol',c:'#22c55e',activo:true},
     {icon:'🌿',t:es?'BROTE · Q4 2026':'SPROUT · Q4 2026',d:es?'OLV canjeables · Salud, transporte, apps y créditos de IA · Convenios con partners':'OLV redeemable · Health, transport, apps and AI credits · Partner deals',c:'#3b82f6',activo:false},
-    {icon:'🌳',t:es?'ÁRBOL · 2027 💰':'TREE · 2027 💰',d:es?'Si Verra VCS certifica · Valor neto por kg al ciudadano · OLIVIA no paga — el mercado sí · 6.329 OLV = USD 1 · ✅ Verra validó el método dMRV en Feb 2026 — el camino técnico está abierto':'If Verra VCS certifies · Net value per kg to citizen · 6.329 OLV = USD 1 · ✅ Verra validated the dMRV method in Feb 2026',c:'#f59e0b',activo:false},
+    {icon:'🌳',t:es?'ÁRBOL · certificación':'TREE · certification',d:es?'Etapa futura. Si el proyecto completa el proceso de certificación bajo estándar Verra, los registros acumulados pasan a tener valor en el mercado voluntario de carbono. El proceso lleva entre dos y tres años e incluye validación por auditor acreditado. OLIVIA no emite créditos hoy.':'Future stage. If the project completes Verra certification, accumulated records gain value in the voluntary carbon market. The process takes two to three years.',c:'#f59e0b',activo:false},
     {icon:'🌲',t:es?'BOSQUE · 2028':'FOREST · 2028',d:es?'Art. 6.4 París · 2.198 OLV = USD 1 · Corredor AR MX CO BR CH DO':'Art. 6.4 Paris · 2.198 OLV = USD 1 · AR MX CO BR CH DO corridor',c:'#a855f7',activo:false},
     {icon:'🏔️',t:es?'SELVA · 2029':'JUNGLE · 2029',d:es?'OLIVIA Ocean + Waters + Space · 1.429 OLV = USD 1':'OLIVIA Ocean + Waters + Space · 1.429 OLV = USD 1',c:'#ec4899',activo:false},
     {icon:'🌊',t:es?'SUMIDERO · 2030+':'SINK · 2030+',d:es?'Net positive verificado · 952 OLV = USD 1 · Infraestructura climática global':'Verified net positive · 952 OLV = USD 1 · Global climate infrastructure',c:'#06b6d4',activo:false},
@@ -236,7 +236,7 @@ export default function Ciudadano() {
             <span style={{color:text}}>{es?'Tu dinero llega.':'Your money arrives.'}</span>
           </h1>
           <p style={{fontSize:13,color:sub,lineHeight:1.7,marginBottom:16}}>
-            {es?'Cada kilo de residuo verificado con IA genera OLV Verdes que en 2027 se convierten en créditos de carbono certificados y dinero real en tu cuenta.':'Each AI-verified kilo of waste generates Green OLV that in 2027 become certified carbon credits and real money in your account.'}
+            {es?'Cada kilo de residuo verificado con IA genera OLV Verdes: un registro de cuánto desviaste del relleno y cuánto metano se evitó con eso. Ese registro es la base de un futuro proceso de certificación.':'Each AI-verified kilo generates Green OLV: a record of how much you diverted from landfill and how much methane was avoided. That record is the basis for a future certification process.'}
           </p>
           <div style={{display:'flex',gap:10,flexWrap:'wrap'}}>
             <a href="/registro" style={{flex:1,background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',padding:'13px',borderRadius:10,fontSize:13,fontWeight:700,textDecoration:'none',textAlign:'center'}}>
@@ -255,7 +255,7 @@ export default function Ciudadano() {
             <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.3)',borderRadius:14,padding:'16px'}}>
               <div style={{fontSize:20,marginBottom:8}}>🌿</div>
               <div style={{fontSize:13,fontWeight:700,color:'#22c55e',marginBottom:6}}>{es?'OLV Verdes':'Green OLV'}</div>
-              <div style={{fontSize:11,color:sub,lineHeight:1.6}}>{es?'Solo de residuos verificados con IA. Estos certifica Verra. Estos paga el mercado de carbono en 2027.':'Only from AI-verified waste. Verra certifies these. The carbon market pays these in 2027.'}</div>
+              <div style={{fontSize:11,color:sub,lineHeight:1.6}}>{es?'Solo de residuos verificados con IA. Respaldados por kilos reales y metano evitado. Son los únicos que pueden entrar a un proceso de certificación.':'Only from AI-verified waste. Backed by real kilos and avoided methane. The only ones that can enter a certification process.'}</div>
             </div>
             <div style={{background:'rgba(245,158,11,0.06)',border:'1px solid rgba(245,158,11,0.2)',borderRadius:14,padding:'16px'}}>
               <div style={{fontSize:20,marginBottom:8}}>⭐</div>
@@ -324,7 +324,7 @@ export default function Ciudadano() {
               {[
                 {periodo:'HOY · Semilla 2026',desc:es?'Acumulás OLV Verdes gratis · construís historial':'Accumulate Green OLV free · build history',c:'#22c55e'},
                 {periodo:'Q4 2026 · Brote',desc:es?'Canjeás OLV por servicios de partners':'Redeem OLV for partner services',c:'#3b82f6'},
-                {periodo:'2027 · Árbol 💰',desc:es?'Primer pago en USD si Verra certifica':'First USD payment if Verra certifies',c:'#f59e0b'},
+                {periodo:es?'Etapa Árbol':'Tree stage',desc:es?'Si se completa la certificación bajo estándar Verra':'If Verra certification is completed',c:'#f59e0b'},
                 {periodo:'2028 · Bosque 💰💰',desc:es?'El salto — Art. 6.4 París · hasta 3x más':'The leap — Art. 6.4 Paris · up to 3x more',c:'#a855f7'},
               ].map((item,i)=>(
                 <div key={i} style={{display:'flex',gap:10,alignItems:'flex-start'}}>
@@ -507,7 +507,7 @@ export default function Ciudadano() {
                 {icon:'📸',step:es?'Registrás con foto + GPS':'You register with photo + GPS',detail:es?'Tus OLV quedan como pendientes hasta verificación.':'Your OLV stay pending until verification.',color:'#22c55e'},
                 {icon:'✅',step:es?'El equipo OLIVIA valida la entrega':'OLIVIA team validates the delivery',detail:es?'Confirmamos foto de entrega en punto verde o recolector. OLV se acreditan en tu wallet.':'We confirm delivery photo at green point or collector. OLV are credited to your wallet.',color:'#3b82f6'},
                 {icon:'🌿',step:es?'Acumulás OLV Verdes certificables':'You accumulate certifiable Green OLV',detail:es?'En Semilla 2026 no tienen valor monetario. Son tu historial verificado para Verra.':'In Semilla 2026 they have no monetary value. They are your verified history for Verra.',color:'#f59e0b'},
-                {icon:'💰',step:es?'Árbol 2027 · Primer pago real en USD':'Árbol 2027 · First real USD payment',detail:es?'Cuando Verra certifique, tus OLV Verdes acumulados se convierten en dinero real. Los que empezaron en Semilla cobran primero.':'When Verra certifies, your accumulated Green OLV convert to real money. Those who started in Semilla collect first.',color:'#22c55e'},
+                {icon:'🌳',step:es?'Etapa Árbol · certificación':'Tree stage · certification',detail:es?'Si el proyecto completa el proceso de certificación, los registros acumulados pasan a tener valor en el mercado voluntario. Es una etapa futura que depende de una auditoría externa, no de OLIVIA.':'If the project completes certification, accumulated records gain value in the voluntary market. A future stage that depends on external audit, not on OLIVIA.',color:'#22c55e'},
               ].map((item,i)=>(
                 <div key={i} style={{display:'flex',gap:12,alignItems:'flex-start'}}>
                   <div style={{width:32,height:32,borderRadius:'50%',background:'rgba(34,197,94,0.1)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:16,flexShrink:0}}>{item.icon}</div>
@@ -520,7 +520,7 @@ export default function Ciudadano() {
             </div>
             <div style={{marginTop:14,padding:'10px 14px',background:'rgba(239,68,68,0.05)',border:'1px solid rgba(239,68,68,0.15)',borderRadius:10}}>
               <div style={{fontSize:11,color:sub,lineHeight:1.6}}>
-                {es?'⚠️ OLIVIA no paga — facilita la infraestructura para que el mercado de carbono pague. En Semilla 2026 los OLV no tienen valor monetario. El valor llega con la certificación Verra en 2027.':'⚠️ OLIVIA does not pay — it provides the infrastructure for the carbon market to pay. In Semilla 2026 OLV have no monetary value. Value arrives with Verra certification in 2027.'}
+                {es?'⚠️ Importante: los OLV no tienen hoy valor monetario y OLIVIA no promete ingresos. Son un registro verificado de cuánto residuo se desvió del relleno y cuánto metano se evitó. La certificación bajo estándar Verra es un proceso que lleva entre dos y tres años, incluye validación por auditor acreditado y su resultado no depende de OLIVIA.':'⚠️ Important: OLV have no monetary value today and OLIVIA promises no income. They are a verified record of diverted waste and avoided methane. Verra certification takes two to three years and its outcome does not depend on OLIVIA.'}
               </div>
             </div>
           </div>

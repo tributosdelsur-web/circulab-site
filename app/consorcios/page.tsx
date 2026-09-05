@@ -116,18 +116,18 @@ export default function Consorcios() {
             <div style={{width:56,height:56,borderRadius:16,background:'rgba(245,158,11,0.1)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:28,flexShrink:0}}>💰</div>
             <div style={{flex:1}}>
               <div style={{fontSize:9,fontWeight:700,color:'#f59e0b',textTransform:'uppercase',letterSpacing:'0.1em',marginBottom:6}}>
-                {es?'03 · Créditos de carbono 2027':'03 · Carbon credits 2027'}
+                {es?'03 · Registros certificables':'03 · Certifiable records'}
               </div>
               <h3 style={{fontSize:18,fontWeight:900,color:text,marginBottom:10}}>
                 {es?'Los residuos que separan hoy valen dinero real en 2027.':'The waste you separate today is worth real money in 2027.'}
               </h3>
               <p style={{fontSize:12,color:sub,lineHeight:1.8,marginBottom:14}}>
                 {es
-                  ? 'En febrero 2026 Verra aprobó su primer piloto de verificación digital dMRV de alta frecuencia — el mismo modelo que implementa OLIVIA. Cada kilo de residuo orgánico verificado en tu edificio hoy se convierte en un registro certificable. Cuando Verra certifique en 2027, esos registros tienen valor real en el mercado voluntario de carbono.'
-                  : 'In February 2026 Verra approved its first high-frequency digital dMRV verification pilot — the same model OLIVIA implements. Every kilo of verified organic waste in your building today becomes a certifiable record. When Verra certifies in 2027, those records have real value in the voluntary carbon market.'}
+                  ? 'En febrero 2026 Verra aprobó su primer piloto de verificación digital dMRV de alta frecuencia — el mismo modelo que implementa OLIVIA. Cada kilo de residuo orgánico verificado en tu edificio queda registrado con origen, peso y destino, y sirve como evidencia de cumplimiento de la Ley 1854. Esos registros son además la base de un futuro proceso de certificación bajo estándar Verra, que lleva entre dos y tres años.'
+                  : 'In February 2026 Verra approved its first high-frequency digital dMRV verification pilot — the same model OLIVIA implements. Every kilo of verified organic waste in your building is recorded with origin, weight and destination as evidence of compliance. Those records are also the basis for a future Verra certification process, which takes two to three years.'}
               </p>
               <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
-                {(es?['Verra VCS 2027','Carbono verificado','Valor real en USD','Primer movedor']:['Verra VCS 2027','Verified carbon','Real USD value','First mover']).map((t,i)=>(
+                {(es?['Trazabilidad verificada','Evidencia de cumplimiento','Metano evitado','Primer movedor']:['Verified traceability','Compliance evidence','Avoided methane','First mover']).map((t,i)=>(
                   <span key={i} style={{fontSize:9,color:'#f59e0b',background:'rgba(245,158,11,0.08)',border:'1px solid rgba(245,158,11,0.2)',borderRadius:20,padding:'3px 10px',fontWeight:700}}>{t}</span>
                 ))}
               </div>

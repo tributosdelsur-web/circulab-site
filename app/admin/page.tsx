@@ -74,7 +74,7 @@ function CommunityEngine({usuarios}:any) {
   const [loading, setLoading] = React.useState<any>({})
   const generar = async (u:any) => {
     setLoading((p:any)=>({...p,[u.id]:true}))
-    const prompt = 'Escribe un mensaje de bienvenida personalizado para ' + (u.nombre||'el usuario') + ' de OLIVIA Circulab en ' + (u.barrio||'Buenos Aires') + '. Tramo Semilla 2026. OLV acumulandose. Arbol 2027 con Verra. Maximo 80 palabras.'
+    const prompt = 'Escribe un mensaje de bienvenida personalizado para ' + (u.nombre||'el usuario') + ' de OLIVIA Circulab en ' + (u.barrio||'Buenos Aires') + '. Tramo Semilla 2026. OLV acumulandose como registro verificado de kilos desviados y metano evitado. NO prometer pagos ni fechas de certificacion. Maximo 80 palabras.'
     try {
       const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:300,messages:[{role:'user',content:prompt}]})})
       const data = await res.json()
@@ -111,8 +111,8 @@ function EmailSecuencia({usuarios}:any) {
   const TIPOS = [
     {id:'dia3',label:'Dia 3 - Primer residuo',prompt:'Escribe email de seguimiento para usuario de OLIVIA que se registro hace 3 dias y no registro residuos. Tono cercano. Recordar 100 OLV Bonus. 2 minutos para registrar. CTA oliviacirculab.com.ar/registrar. Max 120 palabras. Incluir ASUNTO: al inicio.'},
     {id:'dia7',label:'Dia 7 - Invitar vecinos',prompt:'Escribe email para usuario activo de OLIVIA hace 7 dias. Felicitarlo. Recordar +50 OLV por vecino invitado. Max 120 palabras. Incluir ASUNTO: al inicio.'},
-    {id:'dia30',label:'Mes 1 - Reporte',prompt:'Escribe email de reporte mensual para usuario de OLIVIA. Celebratorio. Un mes activo. OLV acumulandose para Verra 2027. CTA dashboard. Max 150 palabras. Incluir ASUNTO: al inicio.'},
-    {id:'verra',label:'Hito Verra Feb 2026',prompt:'Escribe email anunciando que Verra aprobo metodologia dMRV en febrero 2026. Celebracion. OLV se van a certificar. Arbol 2027 real. Max 150 palabras. Incluir ASUNTO: al inicio.'},
+    {id:'dia30',label:'Mes 1 - Reporte',prompt:'Escribe email de reporte mensual para usuario de OLIVIA. Celebratorio. Un mes activo. Destacar kilos desviados del relleno y metano evitado. NO prometer pagos ni fechas. CTA dashboard. Max 150 palabras. Incluir ASUNTO: al inicio.'},
+    {id:'verra',label:'Hito Verra Feb 2026',prompt:'Escribe email informando que Verra aprobo su primer piloto de verificacion digital dMRV de alta frecuencia en febrero 2026, el mismo modelo que implementa OLIVIA. Explicar que eso abre el camino tecnico. NO prometer pagos, montos ni fechas de certificacion. Aclarar que el proceso lleva entre dos y tres anios. Max 150 palabras. Incluir ASUNTO: al inicio.'},
   ]
   const generar = async () => {
     setLoading(true); setEmail('')
@@ -200,7 +200,7 @@ function CampaniaConsorcios({usuarios}:any) {
   const [copiado, setCopiado] = React.useState(false)
   const generar = async () => {
     setLoading(true); setPropuesta('')
-    const prompt = 'Escribe una propuesta comercial para el consorcio ' + datos.nombre + ' en ' + datos.barrio + ' con ' + datos.unidades + ' unidades. OLIVIA Circulab: cumplir Ley Basura Cero CABA, certificacion gestion residuos, creditos carbono Verra 2027, badge Edificio Verde. Sin precios especificos. CTA reunion 20 minutos. Max 200 palabras.'
+    const prompt = 'Escribe una propuesta comercial para el consorcio ' + datos.nombre + ' en ' + datos.barrio + ' con ' + datos.unidades + ' unidades. OLIVIA Circulab: cumplir Ley Basura Cero CABA, trazabilidad verificada de residuos, evidencia de cumplimiento, metano evitado, badge Edificio Verde. NO prometer creditos de carbono ni fechas. Sin precios especificos. CTA reunion 20 minutos. Max 200 palabras.'
     try {
       const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:500,messages:[{role:'user',content:prompt}]})})
       const data = await res.json()
@@ -239,8 +239,8 @@ function CampaniaGastro() {
   const generar = async () => {
     setLoading(true); setPropuesta('')
     const prompt = tipo==='hotel'
-      ? 'Escribe propuesta para hotel ' + nombre + '. OLIVIA Circulab: dashboard residuos, reporte ESG GRI/SASB, certificacion Verra 2027, badge Hotel Verde. Sin precios. CTA demo. Max 180 palabras.'
-      : 'Escribe propuesta para restaurante ' + nombre + '. OLIVIA Circulab: badge Verde Tripadvisor, verificacion IA residuos, reporte impacto mensual, creditos carbono Verra 2027. Sin precios. CTA visita. Max 150 palabras.'
+      ? 'Escribe propuesta para hotel ' + nombre + '. OLIVIA Circulab: dashboard de residuos, reporte ESG GRI/SASB con datos verificados, metano evitado, badge Hotel Verde. NO prometer creditos ni fechas de certificacion. Sin precios. CTA demo. Max 180 palabras.'
+      : 'Escribe propuesta para restaurante ' + nombre + '. OLIVIA Circulab: badge Verde Tripadvisor, verificacion con IA de residuos, reporte de impacto mensual con kilos desviados y metano evitado. NO prometer creditos ni fechas. Sin precios. CTA visita. Max 150 palabras.'
     try {
       const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:400,messages:[{role:'user',content:prompt}]})})
       const data = await res.json()
@@ -282,7 +282,7 @@ function CampaniaRSE() {
   const [copiado, setCopiado] = React.useState(false)
   const generar = async () => {
     setLoading(true); setPropuesta('')
-    const prompt = 'Escribe propuesta RSE/ESG para ' + empresa + ' sector ' + sector + '. Modalidad: ' + modalidad + '. OLIVIA Circulab: compensacion huella verificada con IA, datos GRI/SASB/TCFD, certificacion Verra 2027. Sin precios. CTA reunion. Max 180 palabras.'
+    const prompt = 'Escribe propuesta RSE/ESG para ' + empresa + ' sector ' + sector + '. Modalidad: ' + modalidad + '. OLIVIA Circulab: trazabilidad de huella verificada con IA, datos GRI/SASB/TCFD, metano evitado con evidencia. NO prometer creditos ni fechas de certificacion. Sin precios. CTA reunion. Max 180 palabras.'
     try {
       const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:500,messages:[{role:'user',content:prompt}]})})
       const data = await res.json()
@@ -328,7 +328,7 @@ function CampaniaEmisores() {
   const generar = async () => {
     setLoading(true); setPropuesta('')
     const s = SECTORES.find(x=>x.id===sector)
-    const prompt = 'Escribe propuesta B2B para ' + empresa + ' sector ' + sector + '. Regulacion: ' + (s?.reg||'ESG') + '. OLIVIA Circulab: creditos carbono verificados IA+GPS, Verra VCS 2027, dashboard ESG. Offsets genericos rechazados por auditores. Sin precios. CTA reunion tecnica. Max 200 palabras.'
+    const prompt = 'Escribe propuesta B2B para ' + empresa + ' sector ' + sector + '. Regulacion: ' + (s?.reg||'ESG') + '. OLIVIA Circulab: trazabilidad verificada con IA y GPS, dashboard ESG, metano evitado documentado. Aclarar que la certificacion es un proceso en curso de dos a tres anios y que hoy no se emiten creditos. Offsets genericos rechazados por auditores. Sin precios. CTA reunion tecnica. Max 200 palabras.'
     try {
       const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:500,messages:[{role:'user',content:prompt}]})})
       const data = await res.json()
@@ -453,7 +453,7 @@ function VentasDirectas({usuarios}:any) {
       {[
         {titulo:'SaaS Ciudadano USD 1/mes',valor:0,label:'Suscriptores premium',color:'#22c55e',desc:'Integracion Mercado Pago pendiente post-inversion.'},
         {titulo:'Material Clasificado',valor:0,label:'kg disponibles',color:'#f59e0b',desc:'PET, Carton, Aluminio, Aceite. Contactar recicladores industriales.'},
-        {titulo:'Creditos Pre-venta',valor:0,label:'contratos forward',color:'#a855f7',desc:'Empresas interesadas en comprar creditos Verra antes de 2027.'},
+        {titulo:'Interes en creditos',valor:0,label:'contactos registrados',color:'#a855f7',desc:'Empresas que manifestaron interes en creditos futuros. Sin compromiso de compra ni fecha.'},
       ].map((item,i)=>(
         <div key={i} style={{background:'rgba(255,255,255,0.02)',border:'1px solid ' + item.color + '22',borderRadius:14,padding:'16px'}}>
           <div style={{fontSize:10,fontWeight:700,color:item.color,marginBottom:4}}>{item.titulo}</div>
