@@ -295,22 +295,22 @@ export default function Landing() {
 
         <h1 style={{fontSize:30,fontWeight:900,lineHeight:1.25,marginBottom:18,letterSpacing:'-0.02em'}}>
           <span style={{color:text}}>{es?'En la naturaleza no existe la basura.':'In nature, waste does not exist.'}</span><br/>
-          <span style={{color:'#38bdf8'}}>{es?'Devolvemos a la tierra lo que es de la tierra.':'We return to the earth what belongs to the earth.'}</span><br/>
-          <span style={{color:'#f59e0b',textShadow:'0 0 24px rgba(245,158,11,0.45)'}}>{es?'Convertimos tus residuos en ':'We turn your waste into '}<span style={{textTransform:'uppercase'}}>{es?'DINERO':'MONEY'}</span>.</span>
+          <span style={{color:'#75AADB'}}>{es?'Existe materia que vuelve al ciclo.':'There is matter that returns to the cycle.'}</span><br/>
+          <span style={{color:'#22c55e'}}>{es?'Nosotros la medimos.':'We measure it.'}</span>
         </h1>
 
         <p style={{fontSize:14,color:sub,lineHeight:1.7,marginBottom:22}}>
           {es
-            ? 'Lo orgánico vuelve a su ciclo biológico: se transforma en suelo fértil y regenera. Lo que creó el hombre — plástico, metal, electrónicos — vuelve a la industria y nunca llega a la naturaleza. Cada kilo verificado evita metano y vale dinero real en el mercado global de carbono.'
-            : 'Organic matter returns to its biological cycle: it becomes fertile soil and regenerates. What humans created — plastic, metal, electronics — returns to industry and never reaches nature. Every verified kilo avoids methane and is worth real money on the global carbon market.'}
+            ? 'Buenos Aires tiene plantas con capacidad ociosa para tratar residuos orgánicos. Y al mismo tiempo hay orgánico yéndose al relleno todos los días, donde genera metano. Falta el dato que conecte las dos cosas: cuánto se genera, de dónde viene y a dónde va. Eso es lo que medimos, verificamos y certificamos.'
+            : 'Buenos Aires has plants with idle capacity to treat organic waste. At the same time, organics go to landfill every day, where they generate methane. The data connecting both is missing: how much is generated, where it comes from and where it goes. That is what we measure, verify and certify.'}
         </p>
 
         <div style={{display:'flex',gap:10,justifyContent:'center',flexWrap:'wrap'}}>
           <a href="/registro" style={{background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',padding:'14px 28px',borderRadius:12,fontSize:14,fontWeight:700,textDecoration:'none',boxShadow:'0 0 30px rgba(34,197,94,0.3)'}}>
             {es?'Empezar gratis →':'Start for free →'}
           </a>
-          <a href="/simulador" style={{background:dark?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.06)',border:`1px solid ${border}`,color:text,padding:'14px 28px',borderRadius:12,fontSize:14,fontWeight:600,textDecoration:'none'}}>
-            {es?'Calculá cuánto ganás':'Calculate your earnings'}
+          <a href="/organicos" style={{background:dark?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.06)',border:`1px solid ${border}`,color:text,padding:'14px 28px',borderRadius:12,fontSize:14,fontWeight:600,textDecoration:'none'}}>
+            {es?'Cómo funciona':'How it works'}
           </a>
         </div>
       
@@ -342,6 +342,22 @@ export default function Landing() {
             </div>
           ))}
         </div>
+      </section>
+
+      {/* ═══ BANDA ORGANICOS ═══ */}
+      <section style={{padding:'0 20px 28px',maxWidth:580,margin:'0 auto'}}>
+        <a href="/organicos" style={{display:'block',textDecoration:'none',background:dark?'rgba(146,64,14,0.10)':'rgba(146,64,14,0.05)',border:'1px solid rgba(146,64,14,0.25)',borderRadius:14,padding:'18px'}}>
+          <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:'#92400e',marginBottom:8}}>
+            [ {es?'Diagnóstico abierto':'Open diagnosis'} ]
+          </div>
+          <div style={{fontSize:16,fontWeight:900,color:text,marginBottom:6,lineHeight:1.3}}>
+            {es?'¿Qué pasa realmente con los orgánicos en Buenos Aires?':'What really happens to organic waste in Buenos Aires?'}
+          </div>
+          <p style={{fontSize:12,color:sub,lineHeight:1.7,marginBottom:8}}>
+            {es?'Las tres fracciones, los tres tipos de orgánico, el SERFO y la figura del Acopiador. Todo lo que existe hoy y lo que falta.':'The three fractions, the three organic types, SERFO and the Acopiador figure.'}
+          </p>
+          <span style={{fontSize:12,color:'#92400e',fontWeight:700}}>{es?'Leer el diagnóstico →':'Read the diagnosis →'}</span>
+        </a>
       </section>
 
       {/* ═══ SECCIÓN 2 — DOS VIDEOS ═══ */}
@@ -549,82 +565,6 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* ═══ SECCIÓN 7 — ¿CUÁNTO PODÉS GANAR? ═══ */}
-      <section style={{padding:'32px 20px',maxWidth:580,margin:'0 auto',borderTop:`1px solid ${border}`}}>
-        <div style={{fontSize:11,color:'#22c55e',textTransform:'uppercase',letterSpacing:'0.1em',textAlign:'center',marginBottom:6}}>{es?'Tu ganancia':'Your earnings'}</div>
-        <h2 style={{fontSize:22,fontWeight:900,textAlign:'center',marginBottom:6,color:text}}>{es?'¿Cuánto podés ganar?':'How much can you earn?'}</h2>
-        <p style={{fontSize:12,color:sub,textAlign:'center',marginBottom:16,lineHeight:1.6}}>
-          {es?'Depende de cómo participás. Todos empiezan en Semilla — los que más organizan, más ganan.':'Depends on how you participate. Everyone starts in Semilla — those who organize more, earn more.'}
-        </p>
-
-        <div style={{display:'flex',flexDirection:'column',gap:10,marginBottom:16}}>
-          {GANANCIAS.map((g,i)=>(
-            <div key={i} style={{padding:'16px',background:card,borderRadius:14,border:`1px solid ${g.color}22`}}>
-              <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:8}}>
-                <span style={{fontSize:28}}>{g.icon}</span>
-                <div style={{flex:1}}>
-                  <div style={{fontSize:13,fontWeight:700,color:g.color}}>{g.titulo}</div>
-                  <div style={{fontSize:11,color:sub,marginTop:2}}>{g.detalle}</div>
-                </div>
-              </div>
-              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:8}}>
-                <div style={{textAlign:'center',background:dark?'rgba(255,255,255,0.03)':'rgba(0,0,0,0.03)',borderRadius:8,padding:'8px 4px'}}>
-                  <div style={{fontSize:9,color:sub,marginBottom:3}}>{es?'Por semana':'Per week'}</div>
-                  <div style={{fontSize:11,fontWeight:700,color:g.color}}>{g.semana}</div>
-                </div>
-                <div style={{textAlign:'center',background:'rgba(245,158,11,0.06)',borderRadius:8,padding:'8px 4px',border:'1px solid rgba(245,158,11,0.15)'}}>
-                  <div style={{fontSize:9,color:sub,marginBottom:3}}>🌳 Árbol 2027</div>
-                  <div style={{fontSize:11,fontWeight:700,color:'#f59e0b'}}>{g.arbol}</div>
-                </div>
-                <div style={{textAlign:'center',background:'rgba(168,85,247,0.06)',borderRadius:8,padding:'8px 4px',border:'1px solid rgba(168,85,247,0.15)'}}>
-                  <div style={{fontSize:9,color:sub,marginBottom:3}}>🌲 Bosque 2028</div>
-                  <div style={{fontSize:11,fontWeight:700,color:'#a855f7'}}>{g.bosque}</div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* TABLA OLV POR TRAMO */}
-        <div style={{background:card,border:`1px solid ${border}`,borderRadius:14,padding:'16px',marginBottom:12}}>
-          <div style={{fontSize:12,fontWeight:700,color:text,marginBottom:10}}>{es?'¿Cuántos OLV = USD 1?':'How many OLV = USD 1?'}</div>
-          <div style={{display:'flex',flexDirection:'column',gap:6}}>
-            {OLV_TRAMOS.map((t,i)=>(
-              <div key={i} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'6px 0',borderBottom:i<OLV_TRAMOS.length-1?`1px solid ${border}`:'none'}}>
-                <div>
-                  <span style={{fontSize:11,fontWeight:700,color:t.c}}>{t.tramo}</span>
-                  <span style={{fontSize:10,color:sub,marginLeft:6}}>{t.año}</span>
-                </div>
-                <span style={{fontSize:11,fontWeight:700,color:t.c}}>{t.olv}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* ARGUMENTO DEL PRIMER MOVEDOR */}
-        <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,padding:'14px',marginBottom:14}}>
-          <div style={{fontSize:12,fontWeight:700,color:'#22c55e',marginBottom:6}}>
-            {es?'💡 El argumento del primer movedor':'💡 The first mover argument'}
-          </div>
-          <div style={{fontSize:11,color:sub,lineHeight:1.7}}>
-            {es?'Los que entran HOY en Semilla acumulan OLV cuando valen cero. Cuando llegue Árbol 2027, ya tienen 2 años de ventaja acumulada. No es especulación — cada OLV tiene un residuo real verificado con IA detrás.':'Those who enter NOW in Semilla accumulate OLV when they\'re worth zero. When Árbol 2027 arrives, they already have 2 years of accumulated advantage. Not speculation — each OLV has a real AI-verified waste behind it.'}
-          </div>
-        </div>
-
-        {/* DISCLAIMER */}
-        <div style={{background:'rgba(245,158,11,0.04)',border:'1px solid rgba(245,158,11,0.15)',borderRadius:10,padding:'12px',marginBottom:16}}>
-          <div style={{fontSize:10,color:sub,lineHeight:1.6,fontStyle:'italic'}}>
-            {es?'⚠️ Los valores son estimados y dependen de: (1) la conducta responsable del ciudadano al registrar y entregar sus residuos, (2) las certificaciones que se obtengan con Verra VCS, Gold Standard, Climate Action Reserve, GS Textile Exchange y demás certificadoras por tipo de material, y (3) el precio real de venta de los créditos en el mercado voluntario (Verra VCS, Gold Standard), en el mercado regulado (Art. 6.4 del Acuerdo de París) y en los mercados corporativos ESG al momento de la liquidación. OLIVIA crea el sistema, lo valida, lo certifica y permite que todos lo utilicemos. El sistema es de todos: todos recibimos algo cuando se distribuye. OLIVIA no paga — el mercado paga.':'⚠️ Values are estimates and depend on: (1) the citizen responsible behavior when registering and delivering waste, (2) certifications obtained with Verra VCS, Gold Standard, Climate Action Reserve, GS Textile Exchange and other certifiers per material type, and (3) the real sale price of carbon credits in the voluntary market (Verra VCS, Gold Standard), the regulated market (Paris Agreement Art. 6.4) and ESG corporate markets at the time of liquidation. OLIVIA creates, validates and certifies the system so everyone can use it. The system belongs to everyone. OLIVIA does not pay — the market pays.'}
-          </div>
-        </div>
-
-        <div style={{textAlign:'center'}}>
-          <a href="/simulador" style={{background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',padding:'14px 28px',borderRadius:12,fontSize:14,fontWeight:700,textDecoration:'none',display:'inline-block'}}>
-            {es?'¿Cuál sos vos? Calculá →':'Which are you? Calculate →'}
-          </a>
-        </div>
-      </section>
-
       {/* ═══ SECCIÓN 8 — DOS BOTONES GRANDES ═══ */}
       <section style={{padding:'32px 20px',maxWidth:580,margin:'0 auto',borderTop:`1px solid ${border}`}}>
         <h2 style={{fontSize:22,fontWeight:900,textAlign:'center',marginBottom:6,color:text}}>{es?'¿Por dónde entrás?':'Where do you start?'}</h2>
@@ -741,6 +681,44 @@ export default function Landing() {
         </div>
 
         
+      </section>
+
+      {/* ═══ ETICA Y BUEN VIVIR ═══ */}
+      <section style={{padding:'36px 20px',maxWidth:580,margin:'0 auto',borderTop:`1px solid ${border}`}}>
+        <div style={{fontSize:11,color:'#22c55e',textTransform:'uppercase',letterSpacing:'0.1em',textAlign:'center',marginBottom:8}}>
+          {es?'Por qué lo hacemos así':'Why we do it this way'}
+        </div>
+        <h2 style={{fontSize:21,fontWeight:900,textAlign:'center',marginBottom:18,color:text,lineHeight:1.35}}>
+          {es?'Medir antes de prometer':'Measure before promising'}
+        </h2>
+        <div style={{display:'flex',flexDirection:'column',gap:10,marginBottom:18}}>
+          {(es?[
+            {t:'El dato antes que el discurso',d:'No publicamos una cifra que no podamos respaldar con una fuente o con un registro verificado. Un proyecto que vende trazabilidad no puede tener números sin trazabilidad.'},
+            {t:'Reconocer a quien ya hace el trabajo',d:'Las cooperativas de recuperadores urbanos vienen sosteniendo el reciclaje de la Ciudad hace décadas. No venimos a reemplazar ese trabajo: venimos a que por fin quede registrado y pueda demostrarse.'},
+            {t:'El buen vivir no es una consigna',d:'Devolver la materia orgánica al suelo, mantener lo que fabricó el hombre circulando en la industria, y que el barrio recupere el humedal que fue. Eso es lo que estamos midiendo.'},
+            {t:'Decir los tiempos reales',d:'La certificación de carbono lleva entre dos y tres años. Preferimos decirlo antes que prometer un retorno rápido que no depende de nosotros.'},
+          ]:[
+            {t:'Data before narrative',d:'We do not publish a figure we cannot back with a source or a verified record.'},
+            {t:'Recognising those already doing the work',d:'Urban recycler cooperatives have sustained recycling in this city for decades. We are not replacing that work: we want it recorded and demonstrable.'},
+            {t:'Good living is not a slogan',d:'Returning organic matter to the soil, keeping what humans made circulating in industry, and letting the neighbourhood recover the wetland it once was.'},
+            {t:'Stating real timelines',d:'Carbon certification takes two to three years. We prefer saying so rather than promising a quick return.'},
+          ]).map((v,i)=>(
+            <div key={i} style={{background:card,border:`1px solid ${border}`,borderRadius:12,padding:'14px 16px'}}>
+              <div style={{fontSize:13,fontWeight:800,color:'#22c55e',marginBottom:5}}>{v.t}</div>
+              <div style={{fontSize:12,color:sub,lineHeight:1.7}}>{v.d}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{background:dark?'rgba(34,197,94,0.06)':'rgba(34,197,94,0.05)',border:'1px solid rgba(34,197,94,0.22)',borderRadius:12,padding:'16px'}}>
+          <div style={{fontSize:11,fontWeight:800,color:'#16a34a',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:8}}>
+            {es?'Sobre el valor económico':'On economic value'}
+          </div>
+          <p style={{fontSize:12,color:sub,lineHeight:1.75}}>
+            {es
+              ? 'Los registros verificados son la base de un futuro proyecto de certificación bajo estándar Verra. Ese proceso lleva entre dos y tres años e incluye validación por auditor acreditado. Hoy OLIVIA no emite créditos de carbono ni promete ingresos. Lo que sí hace, desde el primer día, es generar el dato que hoy no existe.'
+              : 'Verified records are the basis for a future Verra certification project. That process takes two to three years. Today OLIVIA does not issue carbon credits or promise income. What it does, from day one, is generate the data that does not exist today.'}
+          </p>
+        </div>
       </section>
 
       {/* FOOTER */}
