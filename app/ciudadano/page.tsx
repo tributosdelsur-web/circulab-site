@@ -679,6 +679,22 @@ export default function Ciudadano() {
           </div>
         </section>
 
+        {/* DIAGNOSTICO ORGANICOS */}
+        <div style={{marginBottom:24}}>
+          <a href="/organicos" style={{display:'block',textDecoration:'none',background:tema==='dark'?'rgba(146,64,14,0.10)':'rgba(146,64,14,0.05)',border:'1px solid rgba(146,64,14,0.25)',borderRadius:16,padding:'22px'}}>
+            <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:'#92400e',marginBottom:10}}>
+              [ {es?'Diagnóstico':'Diagnosis'} ]
+            </div>
+            <h3 style={{fontSize:18,fontWeight:900,marginBottom:8,color:text}}>
+              {es?'¿Qué pasa realmente con los orgánicos en Buenos Aires?':'What really happens to organics in Buenos Aires?'}
+            </h3>
+            <p style={{fontSize:12,color:sub,lineHeight:1.7,marginBottom:10}}>
+              {es?'Vegetal, poda y animal tienen circuitos distintos. Dónde va cada uno, qué opciones reales tenés y por qué el orgánico animal no tiene salida.':'Vegetable, pruning and animal have different circuits.'}
+            </p>
+            <span style={{fontSize:12,color:'#92400e',fontWeight:700}}>{es?'Leer el diagnóstico →':'Read the diagnosis →'}</span>
+          </a>
+        </div>
+
         {/* COMPARTIR */}
         <section style={{padding:'24px 0',borderTop:`1px solid ${border}`}}>
           <h2 style={{fontSize:20,fontWeight:900,marginBottom:6,color:text}}>{es?'Compartí OLIVIA':'Share OLIVIA'}</h2>

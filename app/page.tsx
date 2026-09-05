@@ -761,6 +761,7 @@ export default function Landing() {
             {l:es?'Grandes Emisores':'Large Emitters',h:'/grandes-emisores',c:'#3b82f6'},
             {l:'RAEE',h:'/raee',c:'#9333ea'},
             {l:es?'Mapa':'Map',h:'/mapa',c:'#0284c7'},
+            {l:es?'Orgánicos':'Organics',h:'/organicos',c:'#92400e'},
             {l:'Kits',h:'/kits',c:'#f59e0b'},
             {l:es?'Inversores':'Investors',h:'/institucional',c:'#f59e0b'},
           ].map(n=>(

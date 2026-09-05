@@ -331,6 +331,17 @@ export default function Mapa() {
         </div>
       </section>
 
+      <section style={{padding:'0 20px 32px',maxWidth:1200,margin:'0 auto'}}>
+        <a href="/organicos" style={{display:'block',textDecoration:'none',background:dark?'rgba(146,64,14,0.08)':'rgba(146,64,14,0.05)',border:'1px solid rgba(146,64,14,0.25)',borderRadius:14,padding:'20px'}}>
+          <div style={{fontSize:13,fontWeight:800,color:'#92400e',marginBottom:6}}>
+            {es?'¿Qué pasa realmente con los orgánicos en Buenos Aires?':'What really happens to organic waste in Buenos Aires?'}
+          </div>
+          <p style={{fontSize:11.5,color:sub,lineHeight:1.7,marginBottom:8}}>
+            {es?'Las tres fracciones, los tres tipos de orgánico, el SERFO y la figura del Acopiador. El diagnóstico completo del sistema.':'The three fractions, the three organic types, SERFO and the Acopiador figure.'}
+          </p>
+          <span style={{fontSize:11.5,color:'#92400e',fontWeight:700}}>{es?'Leer el diagnóstico →':'Read the diagnosis →'}</span>
+        </a>
+      </section>
       <footer style={{borderTop:'1px solid '+border,padding:'40px 24px 32px',textAlign:'center'}}>
         <a href="/" style={{display:'block',marginBottom:10}}>
           <img src="/logoOC.png" alt="OLIVIA Circulab" style={{width:52,height:52,objectFit:'contain',display:'block',margin:'0 auto'}} />
