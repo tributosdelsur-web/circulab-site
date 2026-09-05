@@ -454,7 +454,7 @@ function DashboardContent() {
               {[
                 {fase:'Fase 1 · Ahora',t:'Rosca digital básica',d:'Registro de pagos y score PULSO',activo:true},
                 {fase:'Fase 2 · Q4 2026',t:'PULSO en blockchain',d:'Score verificado e inmutable',activo:false},
-                {fase:'Fase 3 · 2027',t:'Crédito formal',d:'Bancos y fintechs reconocen tu PULSO',activo:false},
+                {fase:'Fase 3 · certificación',t:'Crédito formal',d:'Bancos y fintechs reconocen tu PULSO',activo:false},
                 {fase:'Fase 4 · 2028',t:'Corredor LATAM',d:'AR → MX → CO → BR → CH → DO',activo:false},
               ].map(f=>(
                 <div key={f.fase} style={{borderLeft:`3px solid ${f.activo?'#3b82f6':'rgba(255,255,255,0.1)'}`,paddingLeft:12,marginBottom:12}}>
@@ -534,7 +534,7 @@ function DashboardContent() {
               {[
                 {num:1,fase:'Fase 1',año:'2026 · Ahora',titulo:lang==='es'?'Acumulás OLV':'Accumulate OLV',desc:lang==='es'?'Cada residuo verificado genera OLV. Sin valor monetario todavía — tu historial se construye hoy.':'Each verified waste generates OLV. No monetary value yet — your history builds today.',color:'#22c55e',activo:true,progreso:Math.min((olv_total/200)*100,100),meta:`${olv_total}/200 OLV`},
                 {num:2,fase:'Fase 2',año:'Q4 2026',titulo:lang==='es'?'OLV canjeables':'OLV redeemable',desc:lang==='es'?'Canjeás tus OLV por servicios reales de empresas partner.':'Redeem your OLV for real services from partner companies.',color:'#3b82f6',activo:false,progreso:0,meta:lang==='es'?'20.000 OLV en el ecosistema':'20,000 OLV in the ecosystem'},
-                {num:3,fase:'Fase 3',año:'2027',titulo:lang==='es'?'PRIMER PAGO REAL 💰':'FIRST REAL PAYMENT 💰',desc:lang==='es'?'OLIVIA certifica con Verra. Todos los OLV acumulados desde el día 1 cobran.':'OLIVIA certifies with Verra. All OLV accumulated from day 1 get paid.',color:'#f59e0b',activo:false,progreso:progreso_fase3,meta:lang==='es'?'100 tCO2eq en el ecosistema':'100 tCO2eq in the ecosystem'},
+                {num:3,fase:'Fase 3',año:lang==='es'?'Certificación':'Certification',titulo:lang==='es'?'CERTIFICACIÓN':'CERTIFICATION',desc:lang==='es'?'OLIVIA inicia la validación con Verra. Todos los OLV acumulados desde el día 1 cobran.':'OLIVIA certifies with Verra. All OLV accumulated from day 1 get paid.',color:'#f59e0b',activo:false,progreso:progreso_fase3,meta:lang==='es'?'100 tCO2eq en el ecosistema':'100 tCO2eq in the ecosystem'},
                 {num:4,fase:'Fase 4',año:'2028',titulo:lang==='es'?'Artículo 6.4 París × 4':'Article 6.4 Paris × 4',desc:lang==='es'?'Mercado regulado. USD 90/t. Los OLV valen 4 veces más que en Fase 3.':'Regulated market. USD 90/t. OLV worth 4 times more than Phase 3.',color:'#a855f7',activo:false,progreso:0,meta:lang==='es'?'1.000 tCO2eq + UNFCCC':'1,000 tCO2eq + UNFCCC'},
               ].map((f,i)=>(
                 <div key={f.num} style={{display:'flex',gap:12,marginBottom:i<3?16:0}}>
@@ -581,7 +581,7 @@ function DashboardContent() {
                 </div>
               </div>
               <div style={{marginTop:10,fontSize:10,color:'#64748b',lineHeight:1.5,padding:'8px',background:'rgba(255,255,255,0.02)',borderRadius:8}}>
-                💡 {lang==='es'?'Los que empiezan hoy acumulan más OLV. Cuando OLIVIA certifique en 2027 — los primeros cobran más.':'Those who start today accumulate more OLV. When OLIVIA certifies in 2027 — early starters earn more.'}
+                💡 {lang==='es'?'Los que empiezan hoy construyen más historial verificado. Sin historial acumulado no hay nada que auditar.':'Those who start today accumulate more OLV. When OLIVIA certifies in 2027 — early starters earn more.'}
               </div>
             </div>
 

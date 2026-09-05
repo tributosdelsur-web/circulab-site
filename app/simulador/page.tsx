@@ -5,8 +5,8 @@
 import { useState } from 'react'
 
 const PRECIOS = {
-  arbol: { t: 45, label: '🌳 Árbol 2027', color: '#f59e0b', olv_usd: 6329 },
-  bosque: { t: 130, label: '🌲 Bosque 2028', color: '#a855f7', olv_usd: 2198 },
+  arbol: { t: 45, label: '🌳 Árbol · certificación', color: '#f59e0b', olv_usd: 6329 },
+  bosque: { t: 130, label: '🌲 Bosque', color: '#a855f7', olv_usd: 2198 },
 }
 
 const TIPOS = [
@@ -126,7 +126,7 @@ export default function Simulador() {
                 style={{padding:'12px',borderRadius:10,border:`1px solid ${tramo===t?PRECIOS[t].color+'66':'rgba(255,255,255,0.06)'}`,background:tramo===t?`${PRECIOS[t].color}11`:'transparent',cursor:'pointer'}}>
                 <div style={{fontSize:13,fontWeight:700,color:tramo===t?PRECIOS[t].color:'#94a3b8'}}>{PRECIOS[t].label}</div>
                 <div style={{fontSize:10,color:'#64748b',marginTop:2}}>{t==='arbol'?'Verra VCS · USD 45/t':'Art. 6.4 París · USD 130/t'}</div>
-                <div style={{fontSize:10,color:PRECIOS[t].color,marginTop:2}}>{PRECIOS[t].olv_usd.toLocaleString()} OLV = USD 1</div>
+                <div style={{fontSize:10,color:PRECIOS[t].color,marginTop:2}}>{'estimación referencial'}</div>
               </button>
             ))}
           </div>
@@ -254,6 +254,10 @@ export default function Simulador() {
         <div style={{background:'linear-gradient(135deg,#0f1f10,#050d1f)',border:`2px solid ${precio.color}66`,borderRadius:16,padding:'24px',marginBottom:12,textAlign:'center'}}>
           <div style={{fontSize:12,color:'#64748b',marginBottom:4}}>{precio.label} · Ganancia estimada</div>
           <div style={{fontSize:52,fontWeight:900,color:precio.color,lineHeight:1}}>
+            {/* ESTIMACION REFERENCIAL */}
+            <div style={{fontSize:9.5,color:'#92400e',background:'rgba(146,64,14,0.08)',border:'1px solid rgba(146,64,14,0.22)',borderRadius:8,padding:'8px 10px',marginBottom:10,lineHeight:1.55,textAlign:'left'}}>
+              Estimación referencial. Depende de una certificación bajo estándar Verra que aún no se completó y cuyo resultado no depende de OLIVIA. Hoy no se emiten créditos ni se prometen ingresos.
+            </div>
             USD {resultado_usd_mes.toFixed(0)}
           </div>
           <div style={{fontSize:14,color:'#64748b',marginBottom:20}}>por mes</div>
@@ -282,7 +286,7 @@ export default function Simulador() {
           {/* Comparación entre tramos */}
           <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}}>
             <div style={{background:'rgba(245,158,11,0.06)',borderRadius:10,padding:'10px',border:'1px solid rgba(245,158,11,0.2)'}}>
-              <div style={{fontSize:10,color:'#f59e0b',fontWeight:700}}>🌳 Árbol 2027</div>
+              <div style={{fontSize:10,color:'#f59e0b',fontWeight:700}}>🌳 Árbol</div>
               <div style={{fontSize:13,fontWeight:800,color:'#f59e0b'}}>
                 USD {(resultado_kg_mes*0.0018*45*0.35*12).toFixed(0)}/año
               </div>
@@ -303,7 +307,7 @@ export default function Simulador() {
           </div>
           <div style={{fontSize:11,color:'#94a3b8',lineHeight:1.7}}>
             Los que entran HOY en Semilla acumulan OLV cuando valen cero.
-            Cuando llegue Árbol 2027 ya tienen 2 años de ventaja acumulada.
+            Cuando llegue la etapa de certificación ya tienen dos años de historial verificado, que es lo único auditable.
             No es especulación — cada OLV tiene un residuo real verificado con IA detrás.
           </div>
         </div>

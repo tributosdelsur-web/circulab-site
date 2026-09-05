@@ -152,6 +152,31 @@ export default function Organicos() {
                   : <>You are required to separate at source, but there is no organic street container for residents.</>}
               </p>
             </div>
+            {/* EMPEZA POR LA YERBA */}
+            <div style={{...box(marron+'40',dark?'rgba(146,64,14,.12)':'#fef3c7'),marginBottom:16}}>
+              <div style={{display:'flex',gap:14,alignItems:'flex-start'}}>
+                <span style={{fontSize:30,lineHeight:1,flexShrink:0}}>🧉</span>
+                <div>
+                  <div style={{fontSize:11,fontWeight:800,color:marron,textTransform:'uppercase',letterSpacing:'.08em',marginBottom:6}}>
+                    {es?'Si no sabés por dónde empezar':'If you do not know where to start'}
+                  </div>
+                  <h3 style={{fontSize:17,fontWeight:900,color:text,marginBottom:8,lineHeight:1.3}}>
+                    {es?'Empezá por la yerba':'Start with the yerba'}
+                  </h3>
+                  <p style={{fontSize:12.5,color:sub,lineHeight:1.75,marginBottom:10}}>
+                    {es
+                      ? <>La yerba usada es el residuo orgánico más constante de un hogar argentino: se genera todos los días, es materia orgánica pura sin mezcla y aporta nitrógeno de alta calidad al compost. <b style={{color:text}}>Un hogar con dos materos genera entre 2,5 y 3,3 kilos por mes</b>, sólo de yerba.</>
+                      : <>Used yerba mate is the most constant organic waste in an Argentine household: generated daily, pure organic matter, high in nitrogen. A household with two mate drinkers generates 2.5 to 3.3 kilos per month.</>}
+                  </p>
+                  <p style={{fontSize:12.5,color:sub,lineHeight:1.75}}>
+                    {es
+                      ? 'Separar todos tus orgánicos de golpe es difícil. Separar la yerba no: el hábito ya existe, sólo falta el frasco. Y si sostenés eso un mes, el resto viene solo.'
+                      : 'Separating all your organics at once is hard. Separating yerba is not: the habit already exists.'}
+                  </p>
+                </div>
+              </div>
+            </div>
+
             <div style={{display:'flex',flexDirection:'column',gap:8,marginBottom:16}}>
               {(es?[
                 {n:'Compostera en tu casa',c:'Siempre',a:'Vegetal',f:'Necesitás espacio y saber hacerlo. En departamento chico no es viable.'},

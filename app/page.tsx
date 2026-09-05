@@ -344,6 +344,33 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* ═══ EMPEZA POR LA YERBA ═══ */}
+      <section style={{padding:'8px 20px 24px',maxWidth:580,margin:'0 auto'}}>
+        <div style={{background:dark?'rgba(146,64,14,0.12)':'rgba(146,64,14,0.06)',border:'1px solid rgba(146,64,14,0.28)',borderRadius:14,padding:'20px'}}>
+          <div style={{display:'flex',gap:14,alignItems:'flex-start'}}>
+            <span style={{fontSize:32,lineHeight:1,flexShrink:0}}>🧉</span>
+            <div>
+              <div style={{fontSize:10,fontWeight:800,color:'#92400e',textTransform:'uppercase',letterSpacing:'0.1em',marginBottom:6}}>
+                {es?'Si no sabés por dónde empezar':'If you do not know where to start'}
+              </div>
+              <div style={{fontSize:19,fontWeight:900,color:text,marginBottom:8,lineHeight:1.3}}>
+                {es?'Empezá por la yerba.':'Start with the yerba.'}
+              </div>
+              <p style={{fontSize:12.5,color:sub,lineHeight:1.75,marginBottom:10}}>
+                {es
+                  ? 'Es el residuo orgánico más constante de un hogar argentino. Se genera todos los días, es materia orgánica pura y no se pudre como los restos de comida: la podés juntar una semana sin olor ni moscas.'
+                  : 'It is the most constant organic waste in an Argentine household. Generated daily, pure organic matter, and it does not rot like food scraps.'}
+              </p>
+              <p style={{fontSize:12.5,color:sub,lineHeight:1.75}}>
+                {es
+                  ? 'Separar todos tus orgánicos de golpe es difícil. Separar la yerba no: el hábito ya existe, sólo falta el frasco.'
+                  : 'Separating all your organics at once is hard. Separating yerba is not: the habit already exists.'}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ═══ BANDA ORGANICOS ═══ */}
       <section style={{padding:'0 20px 28px',maxWidth:580,margin:'0 auto'}}>
         <a href="/organicos" style={{display:'block',textDecoration:'none',background:dark?'rgba(146,64,14,0.10)':'rgba(146,64,14,0.05)',border:'1px solid rgba(146,64,14,0.25)',borderRadius:14,padding:'18px'}}>

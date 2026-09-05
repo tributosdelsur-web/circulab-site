@@ -53,7 +53,7 @@ export default function Metamorfosis() {
   const TRAMOS = [
     { icon: '🌱', tramo: 'SEMILLA 2026', desc: es ? 'Activo hoy · OLV acumulándose · Sin valor monetario · Construís historial para Verra' : 'Active today · OLV accumulating · No monetary value · Building Verra history', color: '#22c55e', activo: true },
     { icon: '🌿', tramo: 'BROTE Q4 2026', desc: es ? 'OLV canjeables por servicios · Convenios partner · 3 consorcios piloto' : 'OLV redeemable for services · Partner deals · 3 pilot buildings', color: '#3b82f6', activo: false },
-    { icon: '🌳', tramo: 'ÁRBOL 2027 💰', desc: es ? 'Certificación Verra VCS · USD 22-45/t · Primer pago real · 6.329 OLV = USD 1 · ✅ Verra aprobó piloto dMRV Feb 2026' : 'Verra VCS certification · USD 22-45/t · First real payment · 6,329 OLV = USD 1', color: '#f59e0b', activo: false },
+    { icon: '🌳', tramo: es ? 'ÁRBOL · certificación' : 'TREE · certification', desc: es ? 'Etapa futura de certificación bajo estándar Verra. Requiere validación por auditor acreditado y entre doce y veinticuatro meses de registros. ✅ Verra aprobó un piloto dMRV Feb 2026' : 'Verra VCS certification · USD 22-45/t · First real payment · 6,329 OLV = USD 1', color: '#f59e0b', activo: false },
     { icon: '🌲', tramo: 'BOSQUE 2028', desc: es ? 'Art. 6.4 París · USD 50-130/t · Corredor LATAM · 2.198 OLV = USD 1' : 'Art. 6.4 Paris · USD 50-130/t · LATAM corridor · 2,198 OLV = USD 1', color: '#a855f7', activo: false },
     { icon: '🏔️', tramo: 'SELVA 2029', desc: es ? 'OLIVIA Ocean + Waters + Space · 1.429 OLV = USD 1' : 'OLIVIA Ocean + Waters + Space · 1,429 OLV = USD 1', color: '#ec4899', activo: false },
     { icon: '🌊', tramo: 'SUMIDERO 2030+', desc: es ? 'Net positive verificado · 952 OLV = USD 1 · Infraestructura climática global' : 'Verified net positive · 952 OLV = USD 1 · Global climate infrastructure', color: '#06b6d4', activo: false },
@@ -252,8 +252,8 @@ export default function Metamorfosis() {
           </h2>
           <p style={{ fontSize: 14, color: sub, lineHeight: 1.7, marginBottom: 32 }}>
             {es
-              ? 'Registrate gratis hoy. Acumulá OLV Verdes. Cuando Verra certifique en 2027, los primeros en empezar cobran primero.'
-              : 'Register for free today. Accumulate Green OLV. When Verra certifies in 2027, those who started first collect first.'}
+              ? 'Registrate gratis hoy. Cada kilo que registres es un dato verificado de residuo desviado del relleno y metano evitado, que hoy no existe en ningún lado.'
+              : 'Register for free today. Every kilo you record is verified data on waste diverted from landfill and methane avoided.'}
           </p>
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
             <a href="/registro" style={{ background: 'linear-gradient(135deg,#22c55e,#16a34a)', border: 'none', borderRadius: 40, padding: '14px 32px', color: 'white', fontSize: 13, fontWeight: 700, textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.08em' }}>

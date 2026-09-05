@@ -96,7 +96,7 @@ export default function Mapa() {
     PV.forEach(p => {
       const c = col(p)
       const ol = (p.org||p.raee)
-        ? '<div style="margin-top:9px;padding:9px;border-radius:8px;font-size:10px;line-height:1.6;background:'+c+'1a;border:1px solid '+c+'55;color:'+c+'">✅ <b>'+(es?'Puede integrar verificación OLIVIA dMRV':'Can integrate OLIVIA dMRV verification')+'</b><br><span style="color:#64748b">'+(es?'Con QR instalado, cada depósito genera un dato certificable para Verra VCS 2027.':'With a QR installed, each deposit generates a certifiable data point for Verra VCS 2027.')+'</span></div>'
+        ? '<div style="margin-top:9px;padding:9px;border-radius:8px;font-size:10px;line-height:1.6;background:'+c+'1a;border:1px solid '+c+'55;color:'+c+'">✅ <b>'+(es?'Puede integrar verificación OLIVIA dMRV':'Can integrate OLIVIA dMRV verification')+'</b><br><span style="color:#64748b">'+(es?'Con QR instalado, cada depósito genera un registro verificable: origen, peso y destino.':'With a QR installed, each deposit generates a verifiable record: origin, weight and destination.')+'</span></div>'
         : '<div style="margin-top:9px;padding:9px;border-radius:8px;font-size:10px;background:#f1f5f9;border:1px solid #e2e8f0;color:#94a3b8">'+(es?'Sin materiales certificables OLIVIA en este punto.':'No OLIVIA-certifiable materials here.')+'</div>'
       const html = '<div style="font-family:Inter,system-ui;min-width:215px">'
         + '<div style="font-size:13px;font-weight:800;color:#0f172a;margin-bottom:3px">'+p.n+'</div>'
@@ -121,8 +121,8 @@ export default function Mapa() {
     : [['todos','All'],['organicos','🌿 Organics'],['raee','♻️ E-waste'],['c360','🔄 360° Circuit']]
 
   const KPIS: [string,string,string][] = es
-    ? [['21','Puntos verdes en CABA','#16a34a'],['15','Con compostera de orgánicos',accent],['18','Que aceptan RAEE',morado],['0','Con dMRV verificado','#ea580c'],['2027','Primera cert. Verra VCS','#16a34a']]
-    : [['21','Green points in the city','#16a34a'],['15','With organic composting',accent],['18','Accepting e-waste',morado],['0','With verified dMRV','#ea580c'],['2027','First Verra VCS certification','#16a34a']]
+    ? [['21','Puntos verdes en CABA','#16a34a'],['15','Con compostera de orgánicos',accent],['18','Que aceptan RAEE',morado],['0','Con dMRV verificado','#ea580c'],[es?'En curso':'Ongoing','Proceso de certificación','#16a34a']]
+    : [['21','Green points in the city','#16a34a'],['15','With organic composting',accent],['18','Accepting e-waste',morado],['0','With verified dMRV','#ea580c'],['Ongoing','Certification process','#16a34a']]
 
   const box = (bc:string, bgc:string) => ({background:bgc,border:'1px solid '+bc,borderRadius:12,padding:16})
   const paso = (i:number,a:string,b:string,bgN:string,fgN:string) => (
@@ -153,25 +153,25 @@ export default function Mapa() {
     ['OLIVIA verifica:','foto con IA + GPS + peso. Registro dMRV certificable.'],
     ['Se composita.','El compost con trazabilidad vale USD 0,70–1/kg frente a USD 0,50 sin trazabilidad.'],
     ['Compost al vivero de flora nativa.','Las plantas restauran zonas degradadas del AMBA.'],
-    ['Verra certifica 2027:','crédito 1 por reciclaje (AMS-III.F) + crédito 2 por restauración ecológica (VM0047, mayor precio).'],
+    ['Certificación futura:','con doce a veinticuatro meses de registros se puede iniciar la validación bajo metodologías de compostaje y de restauración ecológica. Proceso de dos a tres años.'],
   ] : [
     ['Resident separates','and brings organics to the green point. The OLIVIA QR records the deposit.'],
     ['OLIVIA verifies:','AI photo + GPS + weight. Certifiable dMRV record.'],
     ['It is composted.','Compost with traceability is worth USD 0.70–1/kg versus USD 0.50 without.'],
     ['Compost to the native plant nursery.','The plants restore degraded areas of the metropolitan region.'],
-    ['Verra certifies in 2027:','credit 1 for recycling (AMS-III.F) + credit 2 for ecological restoration (VM0047, higher price).'],
+    ['Future certification:','with twelve to twenty-four months of records, validation can begin under composting and ecological restoration methodologies. A two to three year process.'],
   ]
 
   const cRaee: [string,string][] = es ? [
     ['Vecino o empresa','entrega RAEE en el punto verde. El QR registra tipo y peso estimado.'],
     ['OLIVIA verifica:','foto + clasificación con IA + peso + GPS. Certificable bajo AMS-III.BA.'],
     ['Operador habilitado por APRA','recupera cobre, aluminio, oro y litio de los dispositivos.'],
-    ['Verra certifica 2027:','crédito por materiales recuperados vs. extracción minera nueva. USD 10–30/tCO₂.'],
+    ['Certificación futura:','la metodología AMS-III.BA certifica materiales recuperados frente a extracción minera nueva. Requiere validación por auditor acreditado.'],
   ] : [
     ['Resident or company','delivers e-waste at the green point. The QR records type and estimated weight.'],
     ['OLIVIA verifies:','photo + AI classification + weight + GPS. Certifiable under AMS-III.BA.'],
     ['APRA-licensed operator','recovers copper, aluminium, gold and lithium from the devices.'],
-    ['Verra certifies in 2027:','credit for recovered materials versus new mining extraction. USD 10–30/tCO₂.'],
+    ['Future certification:','AMS-III.BA certifies recovered materials versus new mining extraction. Requires accredited auditor validation.'],
   ]
 
   return (
@@ -258,7 +258,7 @@ export default function Mapa() {
                 {verraSteps.map(([a,b],i)=>paso(i,a,b,'#e0f2fe',azul))}
                 <div style={{fontSize:10,lineHeight:1.7,color:sub,marginTop:12,paddingTop:12,borderTop:'1px solid '+border}}>
                   {es?'Plazo realista: 2 a 3 años desde el inicio. Costo del proceso: USD 50.000 a 150.000.':'Realistic timeline: 2 to 3 years from start. Process cost: USD 50,000 to 150,000.'}<br/>
-                  <b style={{color:text}}>{es?'Los datos que se registran hoy son los créditos de 2027.':'The data recorded today are the credits of 2027.'}</b>
+                  <b style={{color:text}}>{es?'El reloj de la certificación arranca el día que se registra el primer dato.':'The certification clock starts the day the first record is made.'}</b>
                 </div>
               </div>
             </div>

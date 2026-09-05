@@ -208,7 +208,7 @@ export default function GrandesEmisores() {
               {icon:'→',t:'',d:'',c:sub,arrow:true},
               {icon:'🤖',t:es?'OLIVIA verifica con IA':'OLIVIA verifies with AI',d:es?'Foto + GPS + peso real = registro dMRV certificable':'Photo + GPS + real weight = certifiable dMRV record',c:purple},
               {icon:'→',t:'',d:'',c:sub,arrow:true},
-              {icon:'🌍',t:'Verra VCS 2027',d:es?'Crédito de carbono certificado · elegible CORSIA · EU ETS · CBAM':'Certified carbon credit · CORSIA · EU ETS · CBAM eligible',c:orange},
+              {icon:'🌍',t:es?'Verra VCS · en proceso':'Verra VCS · in progress',d:es?'Crédito de carbono certificado · elegible CORSIA · EU ETS · CBAM':'Certified carbon credit · CORSIA · EU ETS · CBAM eligible',c:orange},
               {icon:'→',t:'',d:'',c:sub,arrow:true},
               {icon:'🚢✈️',t:es?'Naviera · Aerolínea · Exportador':'Shipping · Airline · Exporter',d:es?'Compra el crédito · cumple la regulación · evita la multa':'Buys the credit · complies · avoids the fine',c:red},
             ].map((step,i)=>(
@@ -240,7 +240,7 @@ export default function GrandesEmisores() {
                 {[
                   {n:'VCS + CCB Gold',l:es?'estándar Nideport Misiones':'Nideport Misiones standard',c:accent},
                   {n:'13,1M tCO2',l:es?'Provincia Misiones jun. 2026':'Misiones Province Jun. 2026',c:'#3b82f6'},
-                  {n:es?'Primer proyecto urbano':'First urban project',l:es?'OLIVIA · CABA · 2027':'OLIVIA · CABA · 2027',c:'#f59e0b'},
+                  {n:es?'Primer proyecto urbano':'First urban project',l:es?'OLIVIA · CABA · en desarrollo':'OLIVIA · CABA · in development',c:'#f59e0b'},
                 ].map((s,i)=>(
                   <div key={i} style={{background:'rgba(255,255,255,0.03)',border:'1px solid '+s.c+'33',borderRadius:8,padding:'8px 12px'}}>
                     <div style={{fontSize:11,fontWeight:700,color:s.c}}>{s.n}</div>

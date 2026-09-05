@@ -121,7 +121,7 @@ export default function Ciudadano() {
   const OLV_TRAMOS = [
     {tramo:'🌱 Semilla',año:'2026',olv:es?'Sin valor · acumulás':'No value · accumulate',c:'#22c55e'},
     {tramo:'🌿 Brote',año:'2026',olv:es?'Solo canje interno':'Internal exchange only',c:'#3b82f6'},
-    {tramo:'🌳 Árbol',año:'2027',olv:'6.329 OLV = USD 1',c:'#f59e0b'},
+    {tramo:'🌳 Árbol',año:es?'Certificación':'Certification',olv:es?'Valor a definir por auditoría':'Value set by audit',c:'#f59e0b'},
     {tramo:'🌲 Bosque',año:'2028',olv:'2.198 OLV = USD 1',c:'#a855f7'},
     {tramo:'🏔️ Selva',año:'2029',olv:'1.429 OLV = USD 1',c:'#ec4899'},
     {tramo:'🌊 Sumidero',año:'2030+',olv:'952 OLV = USD 1',c:'#06b6d4'},
@@ -289,7 +289,7 @@ export default function Ciudadano() {
                     <div style={{fontSize:11,fontWeight:700,color:g.color}}>{g.semana}</div>
                   </div>
                   <div style={{textAlign:'center',background:'rgba(245,158,11,0.06)',borderRadius:8,padding:'8px 4px',border:'1px solid rgba(245,158,11,0.15)'}}>
-                    <div style={{fontSize:9,color:sub,marginBottom:3}}>🌳 Árbol 2027</div>
+                    <div style={{fontSize:9,color:sub,marginBottom:3}}>🌳 Árbol</div>
                     <div style={{fontSize:11,fontWeight:700,color:'#f59e0b'}}>{g.arbol}</div>
                   </div>
                   <div style={{textAlign:'center',background:'rgba(168,85,247,0.06)',borderRadius:8,padding:'8px 4px',border:'1px solid rgba(168,85,247,0.15)'}}>
@@ -342,7 +342,7 @@ export default function Ciudadano() {
           <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,padding:'14px',marginBottom:12}}>
             <div style={{fontSize:12,fontWeight:700,color:'#22c55e',marginBottom:6}}>💡 {es?'El argumento del primer movedor':'The first mover argument'}</div>
             <div style={{fontSize:11,color:sub,lineHeight:1.7}}>
-              {es?'Los que entran HOY en Semilla acumulan OLV cuando valen cero. Cuando llegue Árbol 2027 ya tienen 2 años de ventaja. No es especulación — cada OLV tiene un residuo real verificado con IA detrás.':'Those who enter NOW in Semilla accumulate OLV when worth zero. When Árbol 2027 arrives they have 2 years of advantage. Not speculation — each OLV has a real AI-verified waste behind it.'}
+              {es?'Los que registran desde hoy construyen el historial de datos que hace posible cualquier certificación futura. Sin ese historial acumulado no hay nada que auditar. cada OLV tiene un residuo real verificado con IA detrás.':'Those who enter NOW in Semilla accumulate OLV when worth zero. When Árbol 2027 arrives they have 2 years of advantage. Not speculation — each OLV has a real AI-verified waste behind it.'}
             </div>
           </div>
 
@@ -400,7 +400,7 @@ export default function Ciudadano() {
                 {icon:'🏠',l:es?'Vos separás':'You sort',s:es?'Foto + GPS':'Photo + GPS'},
                 {icon:'🤖',l:es?'IA verifica':'AI verifies',s:es?'OLV acreditados':'OLV credited'},
                 {icon:'🌳',l:es?'Se reforesta':'Reforested',s:es?'Compost + árbol':'Compost + tree'},
-                {icon:'💰',l:es?'Vos cobrás':'You earn',s:'USD 2027'},
+                {icon:'📊',l:es?'Tu registro':'Your record',s:es?'Verificado':'Verified'},
               ].map((p,i)=>(
                 <div key={i} style={{background:card,borderRadius:10,padding:'10px 6px',textAlign:'center',border:`1px solid ${border}`}}>
                   <div style={{fontSize:22,marginBottom:5}}>{p.icon}</div>
@@ -411,7 +411,7 @@ export default function Ciudadano() {
             </div>
             <div style={{padding:'10px',background:'rgba(245,158,11,0.08)',border:'1px solid rgba(245,158,11,0.2)',borderRadius:10,textAlign:'center'}}>
               <span style={{fontSize:11,color:'#f59e0b',fontWeight:700}}>
-                {es?'💰 Los que entran hoy en Semilla cobran primero en Árbol — 2027':'💰 Those who enter today in Semilla earn first in Árbol — 2027'}
+                {es?'📊 Los que registran desde hoy construyen el historial que hace posible auditar mañana':'📊 Those recording today build the history that makes tomorrow auditable'}
               </span>
             </div>
           </div>
@@ -542,7 +542,7 @@ export default function Ciudadano() {
           <div style={{background:'rgba(59,130,246,0.06)',border:'2px solid rgba(59,130,246,0.3)',borderRadius:14,padding:'16px',marginBottom:12}}>
             <div style={{fontSize:12,color:'#3b82f6',fontWeight:700,marginBottom:4}}>🏢 {es?'Consorcios — el cliente ancla':'Buildings — the anchor client'}</div>
             <div style={{fontSize:10,color:'#f59e0b',marginBottom:10,lineHeight:1.5}}>
-              {es?'📊 Simulación de cuánto podría recibir tu consorcio desde Árbol 2027. OLIVIA no paga — el mercado de carbono sí.':'📊 Simulation of what your building could receive from Árbol 2027. OLIVIA does not pay — the carbon market does.'}
+              {es?'📊 Estimación referencial. Los valores dependen de una certificación futura que aún no se completó. OLIVIA no emite créditos ni promete ingresos.':'📊 Simulation of what your building could receive from Árbol 2027. OLIVIA does not pay — the carbon market does.'}
             </div>
             <div style={{display:'flex',flexDirection:'column',gap:6,marginBottom:10}}>
               {[
@@ -602,7 +602,7 @@ export default function Ciudadano() {
               es?'🌿 Reciclás → OLV Verdes → pagás el transporte con los mismos OLV que ganaste':'🌿 Recycle → Green OLV → pay for transport with the same OLV you earned',
               es?'🌳 OLV para plantar árboles → el árbol genera REDD+ → parte vuelve a vos':'🌳 OLV to plant trees → tree generates REDD+ → part returns to you',
               es?'👥 OLV sube tu PULSO → mejor PULSO → mejor tasa en AOM → más capital hoy':'👥 OLV raises your PULSO → better PULSO → better AOM rate → more capital today',
-              es?'🏥 Canjeás OLV por salud → clínica acumula OLV → los convierte en USD 2027':'🏥 Redeem OLV for health → clinic accumulates OLV → converts to USD 2027',
+              es?'🏥 Canjeás OLV por salud → la clínica acumula OLV como registro de impacto verificado':'🏥 Redeem OLV for health → clinic accumulates OLV → converts to USD 2027',
               es?'🤖 Reciclás más → canjeás OLV por créditos de IA (Claude, Gemini, etc)':'🤖 Recycle more → redeem OLV for AI credits (Claude, Gemini, etc)',
             ].map((inc,i)=>(
               <div key={i} style={{background:card,border:`1px solid ${border}`,borderRadius:10,padding:'10px 14px',fontSize:11,color:sub,lineHeight:1.6}}>{inc}</div>

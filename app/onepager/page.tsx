@@ -232,14 +232,14 @@ return (
           {(lang==='es'?[
             {fase:'🌱 SEMILLA · 2026 · ACTIVA',desc:'Piloto dMRV · OLV sin valor monetario · Construís historial',c:'#22c55e'},
             {fase:'🌿 BROTE · Q4 2026',desc:'OLV canjeables · Convenios partner · 3 consorcios piloto',c:'#3b82f6'},
-            {fase:'🌳 ÁRBOL · 2027 💰',desc:'Certificación Verra VCS · USD 22-45/t · Primer pago real · 6.329 OLV = USD 1',c:'#f59e0b'},
+            {fase:'🌳 ÁRBOL · certificación',desc:'Validación por auditor acreditado bajo estándar Verra · proceso de dos a tres años · valor a definir por auditoría',c:'#f59e0b'},
             {fase:'🌲 BOSQUE · 2028',desc:'Art. 6.4 París · USD 90/t · AR MX CO BR CH DO',c:'#a855f7'},
             {fase:'🏔️ SELVA · 2029',desc:'OLIVIA Ocean + Waters + Space · PULSO estándar LATAM',c:'#ec4899'},
             {fase:'🌊 SUMIDERO · 2030+',desc:'Net positive verificado · Infraestructura climática global',c:'#06b6d4'},
           ]:[
             {fase:'Phase 1 · 2026 · ACTIVE',desc:'dMRV pilot · OLV · Community',c:'#22c55e'},
             {fase:'Phase 2 · Q4 2026',desc:'OLV redeemable · Partner deals',c:'#3b82f6'},
-            {fase:'Phase 3 · 2027 💰',desc:'Verra VCS certification · USD 22-45/t · First payment · 6.329 OLV = USD 1',c:'#f59e0b'},
+            {fase:'Phase 3 · certification',desc:'Accredited auditor validation under Verra · two to three year process · value set by audit',c:'#f59e0b'},
             {fase:'Phase 4 · 2028',desc:'Art. 6.4 Paris · USD 90/t · LATAM',c:'#a855f7'},
           ]).map(f=>(
             <div key={f.fase} style={{borderLeft:`3px solid ${f.c}`,paddingLeft:8}}>
