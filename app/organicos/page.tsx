@@ -178,6 +178,49 @@ export default function Organicos() {
                 </div>
               ))}
             </div>
+            {/* QUE PASA DESPUES */}
+            <h3 style={{fontSize:15,fontWeight:800,marginBottom:6,marginTop:22}}>{es?'¿Y qué pasa después de que lo dejás?':'And what happens after you drop it off?'}</h3>
+            <p style={{fontSize:12.5,color:sub,lineHeight:1.7,marginBottom:14}}>
+              {es?'Esta es la parte que casi nunca se cuenta, y es la que le da sentido al esfuerzo.':'This is the part almost never explained, and it is what gives the effort meaning.'}
+            </p>
+            <div style={{display:'flex',flexDirection:'column',gap:10,marginBottom:16}}>
+              {(es?[
+                {ic:'🪱',t:'Si lo dejaste en una compostera comunitaria',d:'El compostaje ocurre ahí mismo, dentro de la compostera. No se transporta a ningún lado. Hay 48 composteras distribuidas en 15 puntos verdes y en el Velódromo de Palermo. El compost que sale queda en el barrio.',c:accent},
+                {ic:'🚛',t:'Si lo dejaste un jueves en un punto verde',d:'Se recolecta de forma diferenciada y va a la planta de orgánicos del Centro de Reciclaje de la Ciudad, en Villa Soldati. Ahí se mezcla con restos de poda para lograr la relación carbono-nitrógeno, pasa doce días en un biorreactor cerrado y después a maduración.',c:azul},
+                {ic:'🌳',t:'Y el compost vuelve',d:'El compost que produce el Centro de Reciclaje se destina a los parques y plazas de la Ciudad. No se vende. La materia orgánica que sacaste de tu cocina termina alimentando el suelo de un espacio verde.',c:'#65a30d'},
+                {ic:'🍂',t:'Si es poda o restos de jardín',d:'Van a los tres Centros de Compostaje: Palermo en el Velódromo, Chacarita y Parque Indoamericano. Procesan restos verdes de espacios públicos y también reciben de vecinos. El compost vuelve al mantenimiento de los espacios verdes.',c:'#65a30d'},
+              ]:[
+                {ic:'🪱',t:'If you left it in a community composter',d:'Composting happens right there, inside the composter. Nothing is transported. There are 48 composters across 15 green points and the Palermo Velodrome.',c:accent},
+                {ic:'🚛',t:'If you left it at a green point on Thursday',d:'It is collected separately and taken to the City Recycling Centre organics plant in Villa Soldati, where it spends twelve days in a closed bioreactor.',c:azul},
+                {ic:'🌳',t:'And the compost returns',d:'The compost produced goes to the City parks and squares. It is not sold.',c:'#65a30d'},
+                {ic:'🍂',t:'If it is pruning or garden waste',d:'It goes to the three Composting Centres: Palermo, Chacarita and Parque Indoamericano.',c:'#65a30d'},
+              ]).map((p,i)=>(
+                <div key={i} style={{display:'flex',gap:12,alignItems:'flex-start',background:card,border:'1px solid '+p.c+'25',borderRadius:11,padding:'14px 16px'}}>
+                  <span style={{fontSize:22,lineHeight:1,flexShrink:0}}>{p.ic}</span>
+                  <div>
+                    <div style={{fontSize:12.5,fontWeight:800,color:p.c,marginBottom:4}}>{p.t}</div>
+                    <div style={{fontSize:11.5,color:sub,lineHeight:1.7}}>{p.d}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* LINK AL MAPA */}
+            <a href="/mapa" style={{display:'block',textDecoration:'none',background:dark?'rgba(2,132,199,.10)':'rgba(2,132,199,.05)',border:'1px solid rgba(2,132,199,.28)',borderRadius:12,padding:'18px',marginBottom:16}}>
+              <div style={{display:'flex',gap:14,alignItems:'flex-start'}}>
+                <span style={{fontSize:26,lineHeight:1,flexShrink:0}}>🗺️</span>
+                <div>
+                  <div style={{fontSize:14,fontWeight:800,color:azul,marginBottom:5}}>
+                    {es?'¿Cuál te queda más cerca?':'Which one is closest to you?'}
+                  </div>
+                  <p style={{fontSize:12,color:sub,lineHeight:1.7,marginBottom:8}}>
+                    {es?'El mapa muestra los 21 puntos verdes de la Ciudad con lo que recibe cada uno: cuáles tienen compostera de orgánicos, cuáles aceptan electrónicos y cuáles sólo material seco.':'The map shows the 21 green points and what each one accepts.'}
+                  </p>
+                  <span style={{fontSize:12,color:azul,fontWeight:700}}>{es?'Ver el mapa de puntos verdes →':'View the green points map →'}</span>
+                </div>
+              </div>
+            </a>
+
             <div style={box(accent+'40',dark?'rgba(34,197,94,.1)':'#dcfce7')}>
               <div style={{fontSize:11,fontWeight:800,color:'#16a34a',textTransform:'uppercase',letterSpacing:'.08em',marginBottom:8}}>
                 {es?'Si ya llevás tus orgánicos, medilo':'If you already take your organics, measure it'}
