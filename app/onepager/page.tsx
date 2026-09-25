@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { supabase } from '../../lib/supabase'
 
 export default function OnePager() {
@@ -9,6 +9,14 @@ const [showGate, setShowGate] = useState(false)
 const [gateNombre, setGateNombre] = useState('')
 const [gateEmail, setGateEmail] = useState('')
 const [gateOk, setGateOk] = useState(false)
+const [kg, setKg] = useState(0)
+const es = lang==='es'
+
+useEffect(()=>{
+  supabase.from('residuos').select('kg').eq('status','validado').then(({data})=>{
+    setKg((data||[]).reduce((a:number,r:any)=>a+Number(r.kg||0),0))
+  })
+},[])
 
 const bg = dark?'#0a0e1a':'#f0f4f8'
 const text = dark?'#f1f5f9':'#0a0e1a'
@@ -18,36 +26,32 @@ const sub = dark?'#94a3b8':'#475569'
 
 const T = {
   es: {
-    badge:'🌱 Tramo Semilla 2026 · Distrito Tecnológico · Buenos Aires · Ley 27.506 · USD 1 = USD 1.4',
-    tagline:'La primera infraestructura autopoiética de bienes meritorios de América Latina — un sistema que se alimenta a sí mismo haciendo el bien.',
+    badge:'🌱 Piloto 2026 · Buenos Aires',
+    tagline:'Infraestructura de medición y verificación (dMRV) para plantas y acopiadores de residuos.',
     problema_titulo:'El problema',
     solucion_titulo:'La solución',
-    producto_titulo:'El producto hoy',
-    fases_titulo:'Los 6 tramos del ecosistema',
-    segmentos_titulo:'8 segmentos de clientes',
-    fuentes_titulo:'5 fuentes de valor',
-    ronda_titulo:'La ronda',
+    traccion_titulo:'Tracción real',
+    metodo_titulo:'Metodologías de referencia',
+    modelo_titulo:'Modelo de ingresos',
+    fases_titulo:'Hoja de ruta',
+    ronda_titulo:'El pedido',
     equipo_titulo:'El equipo',
-    mercado_titulo:'El mercado',
-    ventajas_titulo:'Garantías para el inversor',
     cta:'hola@oliviacirculab.com.ar · oliviacirculab.com.ar',
     descargar:'Descargar PDF →',
     ver_pitch:'Ver pitch deck →',
     ver_wp:'Ver whitepaper →',
   },
   en: {
-    badge:'🌱 Seed Stage 2026 · Distrito Tecnológico CABA · Law 27.506 · USD 1 = USD 1.4',
-    tagline:'The first autopoietic merit goods infrastructure in Latin America — a system that feeds itself by doing good.',
+    badge:'🌱 Pilot 2026 · Buenos Aires',
+    tagline:'Measurement and verification infrastructure (dMRV) for waste plants and collectors.',
     problema_titulo:'The Problem',
     solucion_titulo:'The Solution',
-    producto_titulo:'The Product Today',
-    fases_titulo:'The 6 Ecosystem Stages',
-    segmentos_titulo:'8 Customer Segments',
-    fuentes_titulo:'5 Value Sources',
-    ronda_titulo:'The Round',
+    traccion_titulo:'Real Traction',
+    metodo_titulo:'Reference Methodologies',
+    modelo_titulo:'Revenue Model',
+    fases_titulo:'Roadmap',
+    ronda_titulo:'The Ask',
     equipo_titulo:'The Team',
-    mercado_titulo:'The Market',
-    ventajas_titulo:'Investor Guarantees',
     cta:'hola@oliviacirculab.com.ar · oliviacirculab.com.ar',
     descargar:'Download PDF →',
     ver_pitch:'View pitch deck →',
@@ -95,7 +99,7 @@ return (
         <div style={{width:32,height:32,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:14,color:'white'}}>O</div>
         <div>
           <div style={{fontSize:13,fontWeight:800,color:text}}>OLIVIA Circulab</div>
-          <div style={{fontSize:9,color:'#22c55e'}}>One Pager · {lang==='es'?'Junio':'June'} 2026</div>
+          <div style={{fontSize:9,color:'#22c55e'}}>One Pager · {lang==='es'?'Septiembre':'September'} 2026</div>
         </div>
       </a>
       <div style={{display:'flex',gap:6,alignItems:'center'}}>
@@ -121,7 +125,7 @@ return (
           {t.badge}
         </div>
         <div style={{fontSize:14,fontWeight:700,color:'#22c55e',marginBottom:8,fontStyle:'italic'}}>
-          {lang==='es'?'"En la naturaleza no hay basura. Solo recursos sin infraestructura."':'"In nature there is no waste. Only resources without infrastructure."'}
+          {es?'"En la naturaleza no existe la basura. Existe materia que vuelve al ciclo. Nosotros la medimos."':'"In nature there is no waste. There is matter that returns to the cycle. We measure it."'}
         </div>
         <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:12,marginBottom:12}}>
           <div style={{width:52,height:52,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:14,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:24,color:'white'}}>O</div>
@@ -134,19 +138,18 @@ return (
       </div>
 
       <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,marginBottom:12}}>
-
         <div style={{background:card,border:'1px solid rgba(239,68,68,0.2)',borderRadius:12,padding:'14px'}}>
           <div style={{fontSize:11,fontWeight:700,color:'#ef4444',marginBottom:8,textTransform:'uppercase',letterSpacing:'0.05em'}}>{t.problema_titulo}</div>
-          {(lang==='es'?[
-            '6.000t de residuos/día solo en CABA',
-            '85% va al relleno sin separar',
-            'USD 0 capturado en carbono ciudadano',
-            'USD 4.5B de mercado LATAM sin tocar',
+          {(es?[
+            'Las plantas y cooperativas de Buenos Aires tienen capacidad ociosa',
+            'Los orgánicos igual terminan en el relleno, donde generan metano',
+            'Nadie puede demostrar, kilo a kilo, qué se desvió y qué se trató',
+            'Sin ese dato no hay cumplimiento verificable ni certificación posible',
           ]:[
-            '6,000t of waste/day in Buenos Aires alone',
-            '85% goes to landfill unsorted',
-            'USD 0 captured in citizen carbon',
-            'USD 4.5B LATAM market untouched',
+            'Buenos Aires plants and cooperatives have idle capacity',
+            'Organics still end up in landfill, where they generate methane',
+            'Nobody can prove, kilo by kilo, what was diverted and treated',
+            'Without that data there is no verifiable compliance or certification',
           ]).map((i,idx)=>(
             <div key={idx} style={{display:'flex',gap:6,padding:'3px 0',fontSize:11,color:sub}}>
               <span style={{color:'#ef4444',flexShrink:0}}>→</span>{i}
@@ -156,16 +159,18 @@ return (
 
         <div style={{background:card,border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,padding:'14px'}}>
           <div style={{fontSize:11,fontWeight:700,color:'#22c55e',marginBottom:8,textTransform:'uppercase',letterSpacing:'0.05em'}}>{t.solucion_titulo}</div>
-          {(lang==='es'?[
-            'dMRV ciudadano con IA (Cloudflare Workers AI)',
-            'Foto + GPS + verificación en tiempo real',
-            'Tokens OLV por cada kilo verificado',
-            'Certificación multi-metodología por material',
+          {(es?[
+            'Balanza conectada en la planta',
+            'Registro digital de cada entrega',
+            'Firma del acopiador habilitado',
+            'Confirmación del tratamiento por la planta',
+            'Foto ciudadana como capa de origen',
           ]:[
-            'Citizen dMRV with AI (Cloudflare Workers AI)',
-            'Photo + GPS + real-time verification',
-            'OLV tokens per verified kilo',
-            'Multi-methodology certification per material',
+            'Connected scale at the plant',
+            'Digital record of every delivery',
+            'Licensed collector sign-off',
+            'Treatment confirmed by the plant',
+            'Citizen photo as an origin layer',
           ]).map((i,idx)=>(
             <div key={idx} style={{display:'flex',gap:6,padding:'3px 0',fontSize:11,color:sub}}>
               <span style={{color:'#22c55e',flexShrink:0}}>✓</span>{i}
@@ -175,26 +180,24 @@ return (
       </div>
 
       <div style={{background:card,border:`1px solid ${border}`,borderRadius:12,padding:'14px',marginBottom:12}}>
-        <div style={{fontSize:11,fontWeight:700,color:'#3b82f6',marginBottom:8,textTransform:'uppercase',letterSpacing:'0.05em'}}>{t.producto_titulo}</div>
+        <div style={{fontSize:11,fontWeight:700,color:'#3b82f6',marginBottom:8,textTransform:'uppercase',letterSpacing:'0.05em'}}>{t.traccion_titulo}</div>
+        <div style={{display:'flex',alignItems:'baseline',gap:8,marginBottom:10}}>
+          <div style={{fontSize:26,fontWeight:900,color:'#3b82f6'}}>{kg.toLocaleString(es?'es-AR':'en-US',{maximumFractionDigits:1})} kg</div>
+          <div style={{fontSize:11,color:sub}}>{es?'verificados en el piloto · dato en vivo':'verified in the pilot · live data'}</div>
+        </div>
         <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:6}}>
-          {(lang==='es'?[
+          {(es?[
             '✅ App web en producción · oliviacirculab.com.ar',
-            '✅ Verificación IA con Cloudflare Workers AI',
-            '✅ Dashboard OLV + CO2eq + ruta de pagos',
-            '✅ Red social OLIVIA con comunidad activa',
-            '✅ Sistema de amigos y seguimiento',
-            '✅ Admin con dMRV y validación manual',
-            '✅ Simulador de ahorro para consorcios',
-            '✅ Construido con USD 0 de inversión',
+            '✅ Verificación con IA (Cloudflare Workers AI)',
+            '✅ Panel dMRV y validación manual',
+            '✅ Conversaciones con cooperativas y plantas',
+            '✅ Construido sin inversión externa',
           ]:[
             '✅ Web app in production · oliviacirculab.com.ar',
-            '✅ AI verification with Cloudflare Workers AI',
-            '✅ OLV + CO2eq + payment path dashboard',
-            '✅ OLIVIA social network with active community',
-            '✅ Friends and following system',
-            '✅ Admin with dMRV and manual validation',
-            '✅ Building savings calculator',
-            '✅ Built with USD 0 investment',
+            '✅ AI verification (Cloudflare Workers AI)',
+            '✅ dMRV dashboard and manual validation',
+            '✅ Conversations with cooperatives and plants',
+            '✅ Built without external investment',
           ]).map((i,idx)=>(
             <div key={idx} style={{fontSize:11,color:sub}}>{i}</div>
           ))}
@@ -202,138 +205,104 @@ return (
       </div>
 
       <div style={{background:card,border:'1px solid rgba(34,197,94,0.15)',borderRadius:12,padding:'14px',marginBottom:12}}>
-        <div style={{fontSize:11,fontWeight:700,color:'#22c55e',marginBottom:8,textTransform:'uppercase',letterSpacing:'0.05em'}}>
-          {lang==='es'?'Arquitectura multi-metodología':'Multi-methodology Architecture'}
-        </div>
+        <div style={{fontSize:11,fontWeight:700,color:'#22c55e',marginBottom:8,textTransform:'uppercase',letterSpacing:'0.05em'}}>{t.metodo_titulo}</div>
         <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:6}}>
           {[
-            {icon:'🌿',tipo:lang==='es'?'Orgánico':'Organic',cert:'Verra AMS-III.AJ + VMR0007',olv:'180 OLV/kg',c:'#22c55e'},
-            {icon:'♻️',tipo:lang==='es'?'Plástico':'Plastic',cert:'Gold Standard',olv:'150 OLV/kg',c:'#3b82f6'},
-            {icon:'🔩',tipo:lang==='es'?'Metal':'Metal',cert:'Verra AMS-III.AJ',olv:'800 OLV/kg',c:'#ef4444'},
-            {icon:'👕',tipo:lang==='es'?'Textil':'Textile',cert:'GS Textile',olv:'550 OLV/kg',c:'#ec4899'},
-            {icon:'🛢️',tipo:lang==='es'?'Aceite':'Oil',cert:'Verra AMS',olv:'250 OLV/kg',c:'#f97316'},
-            {icon:'📄',tipo:lang==='es'?'Papel':'Paper',cert:'Gold Standard',olv:'90 OLV/kg',c:'#f59e0b'},
+            {icon:'🌿',tipo:es?'Orgánicos':'Organics',cert:'Verra AMS-III.F',d:es?'Peso y tratamiento (compost o biogás)':'Weight and treatment (compost or biogas)',c:'#22c55e'},
+            {icon:'💻',tipo:'RAEE',cert:'AMS-III.BA + VMR0008',d:es?'Peso por material y destino final':'Weight per material and final destination',c:'#9333ea'},
           ].map(r=>(
-            <div key={r.tipo} style={{display:'flex',gap:6,alignItems:'center',padding:'4px 6px',borderRadius:6,background:dark?'rgba(255,255,255,0.02)':'rgba(0,0,0,0.02)'}}>
-              <span style={{fontSize:14}}>{r.icon}</span>
-              <div style={{flex:1}}>
-                <div style={{fontSize:10,fontWeight:700,color:r.c}}>{r.tipo}</div>
-                <div style={{fontSize:9,color:sub}}>{r.cert}</div>
+            <div key={r.tipo} style={{display:'flex',gap:8,alignItems:'flex-start',padding:'6px 8px',borderRadius:6,background:dark?'rgba(255,255,255,0.02)':'rgba(0,0,0,0.02)'}}>
+              <span style={{fontSize:16}}>{r.icon}</span>
+              <div>
+                <div style={{fontSize:10,fontWeight:700,color:r.c}}>{r.tipo} · {r.cert}</div>
+                <div style={{fontSize:9,color:sub}}>{r.d}</div>
               </div>
-              <div style={{fontSize:10,fontWeight:700,color:r.c}}>{r.olv}</div>
             </div>
           ))}
-        </div>
-      </div>
-
-      <div style={{background:card,border:`1px solid ${border}`,borderRadius:12,padding:'14px',marginBottom:12}}>
-        <div style={{fontSize:11,fontWeight:700,color:'#22c55e',marginBottom:8,textTransform:'uppercase',letterSpacing:'0.05em'}}>{t.fases_titulo}</div>
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}}>
-          {(lang==='es'?[
-            {fase:'🌱 SEMILLA · 2026 · ACTIVA',desc:'Piloto dMRV · OLV sin valor monetario · Construís historial',c:'#22c55e'},
-            {fase:'🌿 BROTE · Q4 2026',desc:'OLV canjeables · Convenios partner · 3 consorcios piloto',c:'#3b82f6'},
-            {fase:'🌳 ÁRBOL · certificación',desc:'Validación por auditor acreditado bajo estándar Verra · proceso de dos a tres años · valor a definir por auditoría',c:'#f59e0b'},
-            {fase:'🌲 BOSQUE · 2028',desc:'Art. 6.4 París · USD 90/t · AR MX CO BR CH DO',c:'#a855f7'},
-            {fase:'🏔️ SELVA · 2029',desc:'OLIVIA Ocean + Waters + Space · PULSO estándar LATAM',c:'#ec4899'},
-            {fase:'🌊 SUMIDERO · 2030+',desc:'Net positive verificado · Infraestructura climática global',c:'#06b6d4'},
-          ]:[
-            {fase:'Phase 1 · 2026 · ACTIVE',desc:'dMRV pilot · OLV · Community',c:'#22c55e'},
-            {fase:'Phase 2 · Q4 2026',desc:'OLV redeemable · Partner deals',c:'#3b82f6'},
-            {fase:'Phase 3 · certification',desc:'Accredited auditor validation under Verra · two to three year process · value set by audit',c:'#f59e0b'},
-            {fase:'Phase 4 · 2028',desc:'Art. 6.4 Paris · USD 90/t · LATAM',c:'#a855f7'},
-          ]).map(f=>(
-            <div key={f.fase} style={{borderLeft:`3px solid ${f.c}`,paddingLeft:8}}>
-              <div style={{fontSize:10,fontWeight:700,color:f.c}}>{f.fase}</div>
-              <div style={{fontSize:10,color:sub}}>{f.desc}</div>
-            </div>
-          ))}
-        </div>
-        <div style={{marginTop:10,fontSize:10,color:'#22c55e',fontWeight:600}}>
-          {lang==='es'?'→ Los que empiezan hoy cobran desde el día 1 de Fase 3':'→ Those who start today earn from Phase 3 day 1'}
         </div>
       </div>
 
       <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,marginBottom:12}}>
         <div style={{background:card,border:`1px solid ${border}`,borderRadius:12,padding:'14px'}}>
-          <div style={{fontSize:11,fontWeight:700,color:'#a855f7',marginBottom:8,textTransform:'uppercase',letterSpacing:'0.05em'}}>{t.segmentos_titulo}</div>
-          {(lang==='es'?[
-            {n:'01',t:'Ciudadano',f:'OLV'},
-            {n:'02',t:'Verdulería',f:'OLV'},
-            {n:'03',t:'Colegio',f:'OLV'},
-            {n:'04',t:'Consorcio',f:'SaaS'},
-            {n:'05',t:'Restaurant',f:'SaaS'},
-            {n:'06',t:'Comedor',f:'SaaS'},
-            {n:'07',t:'Empresa RSE',f:'Proyecto'},
-            {n:'08',t:'Municipio',f:'Contrato'},
+          <div style={{fontSize:11,fontWeight:700,color:'#a855f7',marginBottom:8,textTransform:'uppercase',letterSpacing:'0.05em'}}>{t.modelo_titulo}</div>
+          <div style={{fontSize:9,color:sub,marginBottom:8}}>{es?'En orden de cercanía':'In order of proximity'}</div>
+          {(es?[
+            {n:'1',t:'Consultoría y software para grandes generadores',d:'Bajar el costo de la fracción húmeda y ordenar el cumplimiento'},
+            {n:'2',t:'Servicio de datos para plantas',d:'Balanza, remito digital y trazabilidad de cada entrada'},
+            {n:'3',t:'Créditos de carbono',d:'Solo después de la certificación'},
           ]:[
-            {n:'01',t:'Citizen',f:'OLV'},
-            {n:'02',t:'Market',f:'OLV'},
-            {n:'03',t:'School',f:'OLV'},
-            {n:'04',t:'Building',f:'SaaS'},
-            {n:'05',t:'Restaurant',f:'SaaS'},
-            {n:'06',t:'Canteen',f:'SaaS'},
-            {n:'07',t:'CSR Company',f:'Project'},
-            {n:'08',t:'Municipality',f:'Contract'},
-          ]).map(c=>(
-            <div key={c.n} style={{display:'flex',justifyContent:'space-between',padding:'2px 0',fontSize:10,borderBottom:`1px solid ${border}`}}>
-              <span style={{color:sub}}>{c.n} {c.t}</span>
-              <span style={{color:'#a855f7',fontWeight:600}}>{c.f}</span>
+            {n:'1',t:'Consulting and software for large generators',d:'Lower wet-fraction costs and organize compliance'},
+            {n:'2',t:'Data service for plants',d:'Scale, digital receipt and traceability of every delivery'},
+            {n:'3',t:'Carbon credits',d:'Only after certification'},
+          ]).map(m=>(
+            <div key={m.n} style={{padding:'4px 0',borderBottom:`1px solid ${border}`}}>
+              <div style={{fontSize:10,fontWeight:700,color:text}}>{m.n}. {m.t}</div>
+              <div style={{fontSize:9,color:sub}}>{m.d}</div>
             </div>
           ))}
         </div>
 
         <div style={{background:card,border:`1px solid ${border}`,borderRadius:12,padding:'14px'}}>
-          <div style={{fontSize:11,fontWeight:700,color:'#22c55e',marginBottom:8,textTransform:'uppercase',letterSpacing:'0.05em'}}>{t.fuentes_titulo}</div>
-          <div style={{fontSize:9,color:sub,marginBottom:8}}>{lang==='es'?'~100 deptos · Aprox.':'~100 units · Approx.'}</div>
-          {(lang==='es'?[
-            {l:'Créditos carbono',v:'USD 85/mes'},
-            {l:'Ahorro recolección',v:'USD 800/mes'},
-            {l:'Venta materiales',v:'USD 120/mes'},
-            {l:'Abono orgánico',v:'USD 45/mes'},
-            {l:'Cert. RSE/ESG',v:'USD 75/mes'},
+          <div style={{fontSize:11,fontWeight:700,color:'#22c55e',marginBottom:8,textTransform:'uppercase',letterSpacing:'0.05em'}}>{t.fases_titulo}</div>
+          {(es?[
+            {fase:'🌱 SEMILLA · hoy',desc:'Piloto dMRV · software en producción · primeros kilos verificados',c:'#22c55e'},
+            {fase:'🌿 BROTE',desc:'Planta aliada instalada · datos continuos de balanza · firma del acopiador',c:'#3b82f6'},
+            {fase:'🌳 ÁRBOL',desc:'Certificación bajo estándar Verra · validación por auditor acreditado',c:'#f59e0b'},
           ]:[
-            {l:'Carbon credits',v:'USD 85/mo'},
-            {l:'Collection savings',v:'USD 800/mo'},
-            {l:'Material sales',v:'USD 120/mo'},
-            {l:'Organic compost',v:'USD 45/mo'},
-            {l:'CSR/ESG cert.',v:'USD 75/mo'},
+            {fase:'🌱 SEED · today',desc:'dMRV pilot · software in production · first verified kilos',c:'#22c55e'},
+            {fase:'🌿 SPROUT',desc:'Partner plant installed · continuous scale data · collector sign-off',c:'#3b82f6'},
+            {fase:'🌳 TREE',desc:'Certification under the Verra standard · accredited auditor validation',c:'#f59e0b'},
           ]).map(f=>(
-            <div key={f.l} style={{display:'flex',justifyContent:'space-between',padding:'3px 0',fontSize:10,borderBottom:`1px solid ${border}`}}>
-              <span style={{color:sub}}>{f.l}</span>
-              <span style={{color:'#22c55e',fontWeight:700}}>{f.v}</span>
+            <div key={f.fase} style={{borderLeft:`3px solid ${f.c}`,paddingLeft:8,marginBottom:8}}>
+              <div style={{fontSize:10,fontWeight:700,color:f.c}}>{f.fase}</div>
+              <div style={{fontSize:9,color:sub}}>{f.desc}</div>
             </div>
           ))}
-          <div style={{marginTop:8,display:'flex',justifyContent:'space-between',fontSize:12,fontWeight:900}}>
-            <span style={{color:text}}>Total</span>
-            <span style={{color:'#22c55e'}}>USD 1.125/{lang==='es'?'mes':'mo'}</span>
-          </div>
-          <div style={{fontSize:9,color:sub,marginTop:2}}>{lang==='es'?'Estimación orientativa':'Indicative estimate'}</div>
+          <div style={{fontSize:9,color:sub,fontStyle:'italic'}}>{es?'Hoy OLIVIA no emite créditos de carbono ni promete ingresos.':'Today OLIVIA issues no carbon credits and promises no income.'}</div>
         </div>
       </div>
 
-      <div style={{background:card,border:`1px solid ${border}`,borderRadius:12,padding:'14px',marginBottom:12}}>
-        <div style={{fontSize:11,fontWeight:700,color:'#3b82f6',marginBottom:8,textTransform:'uppercase',letterSpacing:'0.05em'}}>{t.mercado_titulo}</div>
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:10}}>
-          {[
-            {sigla:'TAM',v:'USD 4.5B',desc:lang==='es'?'Carbono LATAM total':'Total LATAM carbon',c:'#22c55e'},
-            {sigla:'SAM',v:'USD 380M',desc:lang==='es'?'Residuos certificables AR+MX+CO':'Certifiable waste AR+MX+CO',c:'#3b82f6'},
-            {sigla:'SOM',v:'USD 1.2M',desc:lang==='es'?'CABA · año 1 · 300 consorcios':'Buenos Aires · year 1 · 300 buildings',c:'#f59e0b'},
-          ].map(m=>(
-            <div key={m.sigla} style={{textAlign:'center',padding:'10px',background:dark?'rgba(255,255,255,0.03)':'rgba(0,0,0,0.03)',borderRadius:8}}>
-              <div style={{fontSize:14,fontWeight:900,color:m.c}}>{m.sigla}</div>
-              <div style={{fontSize:13,fontWeight:800,color:m.c}}>{m.v}</div>
-              <div style={{fontSize:9,color:sub,marginTop:2}}>{m.desc}</div>
+      <div style={{background:'linear-gradient(135deg,rgba(34,197,94,0.06),rgba(59,130,246,0.06))',border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,padding:'14px',marginBottom:12}}>
+        <div style={{fontSize:11,fontWeight:700,color:'#f59e0b',marginBottom:10,textTransform:'uppercase',letterSpacing:'0.05em'}}>{t.ronda_titulo}</div>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'baseline',flexWrap:'wrap',gap:8,marginBottom:10}}>
+          <div style={{fontSize:22,fontWeight:900,color:'#22c55e'}}>USD 200K</div>
+          <div style={{fontSize:10,color:sub}}>{es?'3 tramos contra hitos · 10% para un socio activo · USD 1,8M pre-money (USD 2M post-money)':'3 milestone-based tranches · 10% for an active partner · USD 1.8M pre-money (USD 2M post-money)'}</div>
+        </div>
+        <div style={{display:'flex',flexDirection:'column',gap:6,marginBottom:8}}>
+          {(es?[
+            {n:'1',m:'USD 50K',d:'Sociedad, acuerdo con acopiador, primeras balanzas, 4 meses de equipo',h:'Sociedad constituida, acopiador firmado, balanza transmitiendo datos continuos'},
+            {n:'2',m:'USD 70K',d:'Desarrollador de carbono, línea de base, documento de diseño del proyecto, más nodos',h:'Documento de diseño presentado ante Verra'},
+            {n:'3',m:'USD 80K',d:'Auditoría de tercera parte, registro, operación',h:'Proyecto registrado'},
+          ]:[
+            {n:'1',m:'USD 50K',d:'Company, collector agreement, first scales, 4 months of team',h:'Company incorporated, collector signed, scale transmitting continuous data'},
+            {n:'2',m:'USD 70K',d:'Carbon developer, baseline, project design document, more nodes',h:'Project design document submitted to Verra'},
+            {n:'3',m:'USD 80K',d:'Third-party audit, registration, operations',h:'Project registered'},
+          ]).map(r=>(
+            <div key={r.n} style={{display:'grid',gridTemplateColumns:'70px 1fr',gap:8,padding:'8px 10px',background:dark?'rgba(255,255,255,0.03)':'rgba(0,0,0,0.03)',borderRadius:8}}>
+              <div>
+                <div style={{fontSize:9,color:sub}}>{es?'Tramo':'Tranche'} {r.n}</div>
+                <div style={{fontSize:13,fontWeight:900,color:'#22c55e'}}>{r.m}</div>
+              </div>
+              <div>
+                <div style={{fontSize:10,color:text}}>{r.d}</div>
+                <div style={{fontSize:9,color:sub,marginTop:2}}>{es?'Libera el siguiente: ':'Releases the next: '}{r.h}</div>
+              </div>
             </div>
           ))}
         </div>
+        <div style={{fontSize:9,color:sub,lineHeight:1.6,textAlign:'center'}}>
+          {es
+            ?'Valuación de referencia: USD 1,8M pre-money · Montos por tramo a confirmar con cotizaciones de balanzas y del desarrollador de carbono · Reporting mensual · La sociedad se inscribirá en el régimen de Economía del Conocimiento'
+            :'Reference valuation: USD 1.8M pre-money · Tranche amounts to be confirmed with scale and carbon developer quotes · Monthly reporting · The company will register under the Knowledge Economy regime'}
+        </div>
       </div>
 
-      <div style={{background:card,border:`1px solid ${border}`,borderRadius:12,padding:'14px',marginBottom:12}}>
+      <div style={{background:card,border:`1px solid ${border}`,borderRadius:12,padding:'14px',marginBottom:20}}>
         <div style={{fontSize:11,fontWeight:700,color:'#22c55e',marginBottom:10,textTransform:'uppercase',letterSpacing:'0.05em'}}>{t.equipo_titulo}</div>
         <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
           {[
-            {foto:'/founders/founder-jp.jpg',n:'Juan Pablo Sanguinetti de Zapata',rol:lang==='es'?'CEO & Founder':'CEO & Founder',d:lang==='es'?'Abogado y director de teatro chileno. Product builder con IA. Medio ambiente, tributación y gestión de proyectos.':'Chilean lawyer and theater director. AI product builder. Environmental law, taxation and project management.',c:'#22c55e'},
-            {foto:'/founders/founder-mileidy.jpg',n:'Mileidy Zapata de Sanguinetti',rol:lang==='es'?'COO & Co-founder':'COO & Co-founder',d:lang==='es'?'Bailarina y coreógrafa dominicana. Comunidad y economía del cuidado. 3 países, 1 misión.':'Dominican dancer and choreographer. Community and care economy. 3 countries, 1 mission.',c:'#3b82f6'},
+            {foto:'/founders/founder-jp.jpg',n:'Juan Pablo Sanguinetti de Zapata',rol:'CEO & Founder',d:es?'Abogado y director de teatro chileno. Product builder con IA. Medio ambiente, tributación y gestión de proyectos.':'Chilean lawyer and theater director. AI product builder. Environmental law, taxation and project management.',c:'#22c55e'},
+            {foto:'/founders/founder-mileidy.jpg',n:'Mileidy Zapata de Sanguinetti',rol:'COO & Co-founder',d:es?'Bailarina y coreógrafa dominicana. Comunidad y economía del cuidado. 3 países, 1 misión.':'Dominican dancer and choreographer. Community and care economy. 3 countries, 1 mission.',c:'#3b82f6'},
           ].map(f=>(
             <div key={f.n} style={{display:'flex',gap:8,alignItems:'flex-start'}}>
               <img src={f.foto} alt={f.n} style={{width:40,height:40,borderRadius:'50%',objectFit:'cover',flexShrink:0,border:`2px solid ${f.c}`}} />
@@ -346,82 +315,7 @@ return (
           ))}
         </div>
         <div style={{marginTop:10,fontSize:10,color:'#22c55e',fontWeight:600,textAlign:'center'}}>
-          🚀 {lang==='es'?'Construido con USD 0 · Distrito Tecnológico · Buenos Aires · Ley Economía del Conocimiento 27.506':'Built with USD 0 · Distrito Tecnológico · Buenos Aires · Knowledge Economy Law 27.506'}
-        </div>
-      </div>
-
-      <div style={{background:'linear-gradient(135deg,rgba(34,197,94,0.06),rgba(59,130,246,0.06))',border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,padding:'14px',marginBottom:12}}>
-        <div style={{fontSize:11,fontWeight:700,color:'#f59e0b',marginBottom:10,textTransform:'uppercase',letterSpacing:'0.05em'}}>{t.ronda_titulo}</div>
-        <div style={{display:'flex',flexDirection:'column',gap:8,marginBottom:10}}>
-          <div style={{padding:'10px 12px',background:'rgba(34,197,94,0.08)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:8}}>
-            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-              <div>
-                <div style={{fontSize:9,color:sub,textTransform:'uppercase',letterSpacing:'0.06em'}}>{lang==='es'?'Opción 1 · Equity directa':'Option 1 · Direct equity'}</div>
-                <div style={{fontSize:18,fontWeight:900,color:'#22c55e'}}>USD 500K · 10%</div>
-              </div>
-              <div style={{fontSize:9,color:sub,textAlign:'right'}}>USD 4.5M pre{lang==='es'?<br/>+' · Sin dilución adicional':''}</div>
-            </div>
-          </div>
-          <div style={{padding:'10px 12px',background:'rgba(59,130,246,0.08)',border:'1px solid rgba(59,130,246,0.2)',borderRadius:8}}>
-            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-              <div>
-                <div style={{fontSize:9,color:sub,textTransform:'uppercase',letterSpacing:'0.06em'}}>{lang==='es'?'Opción 2 · SAFE YC':'Option 2 · SAFE YC'}</div>
-                <div style={{fontSize:18,fontWeight:900,color:'#3b82f6'}}>Cap USD 3-5M · 20%</div>
-              </div>
-              <div style={{fontSize:9,color:sub,textAlign:'right'}}>{lang==='es'?'Descuento preferencial':'Preferred discount'}</div>
-            </div>
-          </div>
-          <div style={{padding:'10px 12px',background:'rgba(245,158,11,0.08)',border:'1px solid rgba(245,158,11,0.2)',borderRadius:8}}>
-            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-              <div>
-                <div style={{fontSize:9,color:sub,textTransform:'uppercase',letterSpacing:'0.06em'}}>{lang==='es'?'Opción 3 · Milestone-based':'Option 3 · Milestone-based'}</div>
-                <div style={{fontSize:18,fontWeight:900,color:'#f59e0b'}}>USD 150K+150K+200K</div>
-              </div>
-              <div style={{fontSize:9,color:sub,textAlign:'right'}}>{lang==='es'?'Tramos independientes':'Independent tranches'}</div>
-            </div>
-          </div>
-        </div>
-        <div style={{fontSize:9,color:sub,lineHeight:1.6,textAlign:'center',marginBottom:4}}>
-          {lang==='es'
-            ?'Pro-equipo · Hitos como referencia negociable · Extensión 30 días disponible · Liquidation preference 1×'
-            :'Founder-friendly · Milestones as negotiable reference · 30-day extension available · 1× liquidation preference'
-          }
-        </div>
-        <div style={{background:'rgba(245,158,11,0.06)',border:'1px solid rgba(245,158,11,0.2)',borderRadius:8,padding:'8px 10px',marginBottom:4}}>
-          <div style={{fontSize:9,color:'#f59e0b',fontWeight:700,marginBottom:3}}>{lang==='es'?'Validación estratégica externa · Junio 2026':'External strategic validation · June 2026'}</div>
-          <div style={{fontSize:9,color:sub,lineHeight:1.5,fontStyle:'italic'}}>
-            {lang==='es'
-              ?'"Si OLIVIA digitaliza el impacto para el mercado financiero, el techo no existe. La clave está en la velocidad de ejecución y cerrar contratos corporativos antes de que sature la competencia."'
-              :'"If OLIVIA digitalizes impact for the financial market, there is no ceiling. The key is execution speed and closing corporate contracts before the market saturates."'
-            }
-          </div>
-        </div>
-      </div>
-
-      <div style={{background:card,border:'1px solid rgba(34,197,94,0.15)',borderRadius:12,padding:'14px',marginBottom:20}}>
-        <div style={{fontSize:11,fontWeight:700,color:'#22c55e',marginBottom:8,textTransform:'uppercase',letterSpacing:'0.05em'}}>{t.ventajas_titulo}</div>
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:6}}>
-          {(lang==='es'?[
-            {icon:'🚢',t:'Mercado regulatorio GLOBAL',d:'EU ETS navieras USD 2.9B/año · CORSIA aerolíneas desde 2027 · CBAM exportadores Argentina→UE desde 2026 · TAM USD 50B+ mercado carbono 2030'},
-            {icon:'⚖️',t:'Mercado regulatorio local',d:'Ley 1854 CABA · 6.000+ establecimientos obligados · TAM USD 28.8M/año CABA'},
-            {icon:'💎',t:'USD 1 = USD 1.4 efectivos',d:'Ley Economía del Conocimiento 27.506 · Ganancias 15% · FONDCE · Estabilidad fiscal 10 años'},
-            {icon:'🏛️',t:'Garantías concretas',d:'Seat en el board · Reporting mensual · Milestone-based · Anti-dilution · Tag-along'},
-            {icon:'✅',t:'Sin costos fijos',d:'Sin gastos hasta inversión comprometida · USD 0 operativo hoy'},
-            {icon:'🚀',t:'Primer movedor',d:'Sin competencia en dMRV ciudadano LATAM · Producto activo'},
-          ]:[
-            {icon:'🤖',t:'Distrito Tecnológico · Buenos Aires',d:'Operativo desde 2008 · Ley 2.972 · Exención IIBB, Sellos y ABL hasta 2035'},
-            {icon:'📋',t:'Law 27.506',d:'15% income tax · FONDCE · 10-year stability'},
-            {icon:'🚀',t:'First mover',d:'No direct competition in citizen dMRV LATAM'},
-            {icon:'✅',t:'Active product',d:'In production with USD 0 external investment'},
-          ]).map(v=>(
-            <div key={v.t} style={{display:'flex',gap:6,alignItems:'flex-start'}}>
-              <span style={{fontSize:16,flexShrink:0}}>{v.icon}</span>
-              <div>
-                <div style={{fontSize:10,fontWeight:700,color:'#22c55e'}}>{v.t}</div>
-                <div style={{fontSize:9,color:sub}}>{v.d}</div>
-              </div>
-            </div>
-          ))}
+          🚀 {es?'Construido sin inversión externa · Buenos Aires':'Built without external investment · Buenos Aires'}
         </div>
       </div>
 

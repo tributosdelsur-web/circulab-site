@@ -248,7 +248,7 @@ export default function RAEE() {
             {l:'Metamorfosis',h:'/metamorfosis'},
             {l:'Consorcios',h:'/consorcios'},
             {l:es?'Grandes Generadores':'Large Generators',h:'/grandes-generadores'},
-            {l:es?'Grandes Emisores':'Large Emitters',h:'/grandes-emisores'},
+            {l:es?'Plantas y acopiadores':'Plants & collectors',h:'/operadores'},
             {l:'RAEE',h:'/raee'},
             {l:es?'Mapa':'Map',h:'/mapa'},
             {l:'Kits',h:'/kits'},
@@ -275,7 +275,7 @@ export default function RAEE() {
           <a href="/privacidad" style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.7}}>{es?'Privacidad':'Privacy'}</a>
           <a href="https://www.linkedin.com/company/113160128/" style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.7}}>LinkedIn</a>
         </div>
-        <div style={{fontSize:9,color:sub,fontFamily:'monospace',letterSpacing:'0.05em',opacity:0.7}}>© 2026 Circulab Tech · Distrito Tecnológico · Buenos Aires · Ley 27.506</div>
+        <div style={{fontSize:9,color:sub,fontFamily:'monospace',letterSpacing:'0.05em',opacity:0.7}}>© 2026 Circulab Tech · Buenos Aires, Argentina</div>
       </footer>
     </div>
   )

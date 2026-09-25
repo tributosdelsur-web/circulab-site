@@ -16,11 +16,11 @@ export default function GrandesGeneradores() {
 
   const OBLIGADOS = [
     {icon:'🏨',t:es?'Hoteles 4 y 5 estrellas':'4 and 5-star hotels',s:es?'Y hoteles con 100+ habitaciones o 200+ plazas':'Hotels with 100+ rooms or 200+ beds',u:es?'MUY ALTA':'VERY HIGH',m:es?'Clausura operativa':'Operational closure',c:'#3b82f6'},
-    {icon:'🍽️',t:es?'Restaurantes y gastronómicos':'Restaurants and gastronomy',s:es?'Locales con más de 1.000 kg de residuos por mes':'Venues generating 1,000+ kg/month',u:es?'CRÍTICA':'CRITICAL',m:es?'Clausuras en aumento · mayo 2026':'Closures increasing · May 2026',c:'#ef4444'},
+    {icon:'🍽️',t:es?'Restaurantes y gastronómicos':'Restaurants and gastronomy',s:es?'Locales con más de 1.000 kg de residuos por mes':'Venues generating 1,000+ kg/month',u:es?'CRÍTICA':'CRITICAL',m:es?'Riesgo de multa y clausura':'Risk of fines and closure',c:'#ef4444'},
     {icon:'🏥',t:es?'Clínicas y sanatorios privados':'Private clinics and hospitals',s:es?'Obligados a separar residuos comunes además de patogénicos':'Must separate common waste plus pathogenic',u:es?'MUY ALTA':'VERY HIGH',m:es?'Suspensión de habilitación':'License suspension',c:'#f59e0b'},
     {icon:'🏬',t:es?'Shoppings y galerías comerciales':'Malls and commercial centers',s:es?'Centros comerciales a cielo abierto incluidos':'Open-air commercial centers included',u:es?'ALTA':'HIGH',m:es?'Multa + clausura parcial':'Fine + partial closure',c:'#a855f7'},
     {icon:'🏦',t:es?'Bancos y entidades financieras':'Banks and financial institutions',s:es?'Aseguradoras y financieras incluidas':'Insurance companies included',u:es?'MEDIA':'MEDIUM',m:es?'Multa administrativa':'Administrative fine',c:'#06b6d4'},
-    {icon:'🏢',t:es?'Edificios de más de 19 pisos':'Buildings over 19 floors',s:es?'Y todos los edificios públicos del GCBA':'And all GCBA public buildings',u:es?'MEDIA':'MEDIUM',m:es?'Multa al consorcio':'Fine to condominium',c:'#22c55e'},
+    {icon:'🏢',t:es?'Grandes edificios':'Large buildings',s:es?'Según la reglamentación vigente · y edificios públicos del GCBA':'Per current regulations · and GCBA public buildings',u:es?'MEDIA':'MEDIUM',m:es?'Multa al consorcio':'Fine to condominium',c:'#22c55e'},
     {icon:'🎪',t:es?'Locales con 300+ personas por evento':'Venues with 300+ people per event',s:es?'Teatros, venues, estadios, ferias':'Theaters, venues, stadiums, fairs',u:es?'MEDIA':'MEDIUM',m:es?'Multa por evento':'Fine per event',c:'#f59e0b'},
   ]
 
@@ -47,8 +47,8 @@ export default function GrandesGeneradores() {
           </h1>
           <p style={{fontSize:14,color:sub,lineHeight:1.7,marginBottom:28}}>
             {es
-              ? 'En mayo 2026 el GCBA intensificó las inspecciones y clausuras a establecimientos por incumplimiento de la Ley de Basura Cero. OLIVIA te da los datos verificados con IA para cumplir y el certificado para demostrarlo ante cualquier inspector.'
-              : 'In May 2026, the GCBA intensified inspections and closures for non-compliance with the Zero Waste Law. OLIVIA gives you AI-verified data to comply and the certificate to prove it to any inspector.'}
+              ? 'La Ley de Basura Cero obliga a los grandes generadores a separar sus residuos. OLIVIA te da los datos verificados con IA para cumplir y un registro digital verificable para respaldar tu cumplimiento.'
+              : 'The Zero Waste Law requires large generators to separate their waste. OLIVIA gives you AI-verified data to comply and a verifiable digital record to back your compliance.'}
           </p>
           <div style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap'}}>
             <a href="/nda" style={{background:'linear-gradient(135deg,#ef4444,#dc2626)',borderRadius:40,padding:'14px 32px',color:'white',fontSize:13,fontWeight:700,textDecoration:'none'}}>
@@ -65,7 +65,7 @@ export default function GrandesGeneradores() {
       <section style={{padding:'56px 24px'}}>
         <div style={{maxWidth:800,margin:'0 auto'}}>
           <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:accent,marginBottom:12,textAlign:'center'}}>[ {es?'¿Quiénes están obligados?':'Who is required?'} ]</div>
-          <h2 style={{fontSize:26,fontWeight:900,textAlign:'center',marginBottom:8}}>{es?'La Ley 1854 define 7 tipos de grandes generadores':'Law 1854 defines 7 types of large generators'}</h2>
+          <h2 style={{fontSize:26,fontWeight:900,textAlign:'center',marginBottom:8}}>{es?'Quiénes son grandes generadores según la Ley 1854':'Who counts as a large generator under Law 1854'}</h2>
           <p style={{fontSize:12,color:sub,textAlign:'center',marginBottom:32,maxWidth:500,margin:'0 auto 32px'}}>{es?'Si tu establecimiento está en esta lista, tenés obligación legal de inscribirte en el Registro de Generadores Especiales del GCBA y demostrar separación correcta de residuos.':'If your establishment is on this list, you are legally required to register in the GCBA Special Generators Registry and demonstrate correct waste separation.'}</p>
           <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:12}}>
             {OBLIGADOS.map((o,i)=>(
@@ -91,9 +91,9 @@ export default function GrandesGeneradores() {
           <h2 style={{fontSize:26,fontWeight:900,textAlign:'center',marginBottom:32}}>{es?'Tres opciones. Una sola tiene sentido.':'Three options. Only one makes sense.'}</h2>
           <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:12}}>
             {[
-              {t:es?'No hacer nada':'Do nothing',c:es?'Multa + clausura':'Fine + closure',d:es?'❌ Sin datos verificables':'❌ No verifiable data',cert:es?'❌ Sin certificado':'❌ No certificate',carb:es?'❌ Sin valor':'❌ No value',color:danger,rec:false},
-              {t:es?'Empresa de transporte':'Transport company',c:'USD 800-2.000/mes',d:es?'⚠️ Datos básicos':'⚠️ Basic data',cert:es?'⚠️ Solo remito':'⚠️ Receipt only',carb:es?'❌ Sin valor':'❌ No value',color:warning,rec:false},
-              {t:'OLIVIA Circulab',c:es?'Desde USD 300/mes':'From USD 300/mo',d:es?'✅ IA + GPS tiempo real':'✅ AI + GPS real time',cert:es?'✅ Certificado digital':'✅ Digital certificate',carb:es?'✅ Verra VCS 2027':'✅ Verra VCS 2027',color:accent,rec:true},
+              {t:es?'No hacer nada':'Do nothing',c:es?'Multa + clausura':'Fine + closure',d:es?'❌ Sin datos verificables':'❌ No verifiable data',cert:es?'❌ Sin respaldo':'❌ No backing',carb:es?'❌ Sin trazabilidad':'❌ No traceability',color:danger,rec:false},
+              {t:es?'Empresa de transporte':'Transport company',c:es?'Abono mensual del transportista':'Monthly hauler fee',d:es?'⚠️ Datos básicos':'⚠️ Basic data',cert:es?'⚠️ Solo remito':'⚠️ Receipt only',carb:es?'❌ Sin trazabilidad':'❌ No traceability',color:warning,rec:false},
+              {t:'OLIVIA Circulab',c:es?'Precio según diagnóstico':'Priced after assessment',d:es?'✅ Balanza + IA + GPS':'✅ Scale + AI + GPS',cert:es?'✅ Registro digital verificable':'✅ Verifiable digital record',carb:es?'✅ Trazabilidad hasta la planta':'✅ Traceability to the plant',color:accent,rec:true},
             ].map((op,i)=>(
               <div key={i} style={{background:op.rec?'linear-gradient(135deg,rgba(34,197,94,0.08),rgba(34,197,94,0.03))':card,border:'2px solid '+(op.rec?accent:border),borderRadius:16,padding:'20px',textAlign:'center'}}>
                 {op.rec&&<div style={{fontSize:9,color:accent,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.1em',marginBottom:8}}>✅ {es?'Recomendado':'Recommended'}</div>}
@@ -110,6 +110,37 @@ export default function GrandesGeneradores() {
         </div>
       </section>
 
+      {/* CIRCUITO COMPLETO + CONSULTORÍA */}
+      <section style={{padding:'0 24px 56px'}}>
+        <div style={{maxWidth:800,margin:'0 auto'}}>
+          <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:accent,marginBottom:12,textAlign:'center'}}>[ {es?'El circuito completo':'The full circuit'} ]</div>
+          <h2 style={{fontSize:24,fontWeight:900,textAlign:'center',marginBottom:24}}>{es?'Del tacho a la planta, con cada kilo registrado':'From the bin to the plant, with every kilo recorded'}</h2>
+          <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:10,marginBottom:24}}>
+            {[
+              {n:'01',t:es?'Entregás':'You deliver',d:es?'Tu fracción húmeda sale separada':'Your wet fraction leaves separated'},
+              {n:'02',t:es?'La balanza pesa':'The scale weighs',d:es?'Peso registrado al ingresar':'Weight recorded on arrival'},
+              {n:'03',t:es?'El acopiador firma':'The collector signs',d:es?'Remito digital firmado':'Signed digital receipt'},
+              {n:'04',t:es?'La planta confirma':'The plant confirms',d:es?'Tratamiento confirmado':'Treatment confirmed'},
+            ].map(p=>(
+              <div key={p.n} style={{background:card,border:`1px solid ${border}`,borderRadius:12,padding:'14px',textAlign:'center'}}>
+                <div style={{fontSize:10,fontFamily:'monospace',color:accent,marginBottom:6}}>{p.n}</div>
+                <div style={{fontSize:12,fontWeight:700,marginBottom:4}}>{p.t}</div>
+                <div style={{fontSize:10,color:sub,lineHeight:1.5}}>{p.d}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{background:dark?'rgba(34,197,94,0.05)':'rgba(34,197,94,0.03)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:14,padding:'20px'}}>
+            <div style={{fontSize:13,fontWeight:700,color:accent,marginBottom:10}}>{es?'Consultoría para bajar el costo de la fracción húmeda':'Consulting to cut the cost of your wet fraction'}</div>
+            <div style={{display:'flex',flexDirection:'column',gap:6,marginBottom:14}}>
+              {(es?['Diagnóstico de descartes','Separación en origen','Ahorro en el transportista','Orden del cumplimiento']:['Discard assessment','Source separation','Hauler cost savings','Compliance organization']).map(t=>(
+                <div key={t} style={{fontSize:12,color:sub,paddingLeft:10,borderLeft:'2px solid rgba(34,197,94,0.3)'}}>{t}</div>
+              ))}
+            </div>
+            <a href="/operadores" style={{fontSize:12,color:accent,fontWeight:700,textDecoration:'none'}}>{es?'Ver cómo trabajamos con plantas y acopiadores →':'See how we work with plants and collectors →'}</a>
+          </div>
+        </div>
+      </section>
+
       {/* HOTELES BONUS */}
       <section style={{padding:'56px 24px',background:dark?'rgba(59,130,246,0.04)':'rgba(59,130,246,0.02)',borderTop:'1px solid rgba(59,130,246,0.15)'}}>
         <div style={{maxWidth:800,margin:'0 auto',textAlign:'center'}}>
@@ -120,7 +151,7 @@ export default function GrandesGeneradores() {
             {[
               {icon:'🏆',t:'Tripadvisor GreenLeader',d:es?'Badge en tu ficha y resultados de búsqueda':'Badge on your listing and search results',c:'#22c55e'},
               {icon:'🌱',t:'Booking Travel Sustainable',d:es?'Nivel 2 o 3 con datos verificados OLIVIA':'Level 2 or 3 with OLIVIA verified data',c:'#3b82f6'},
-              {icon:'💰',t:es?'Créditos carbono 2027':'Carbon credits 2027',d:es?'El cumplimiento de hoy = activo financiero en 2027':'Today compliance = financial asset in 2027',c:'#f59e0b'},
+              {icon:'📊',t:es?'Reporte ESG':'ESG report',d:es?'Kilos verificados listos para tu reporte de sostenibilidad':'Verified kilos ready for your sustainability report',c:'#f59e0b'},
             ].map((item,i)=>(
               <div key={i} style={{background:card,border:'1px solid '+item.c+'33',borderRadius:14,padding:'18px',textAlign:'center'}}>
                 <div style={{fontSize:28,marginBottom:10}}>{item.icon}</div>
@@ -135,7 +166,7 @@ export default function GrandesGeneradores() {
       {/* CTA */}
       <section style={{padding:'56px 24px',textAlign:'center'}}>
         <div style={{maxWidth:520,margin:'0 auto'}}>
-          <h2 style={{fontSize:26,fontWeight:900,marginBottom:8}}>{es?'Cumplí la ley. Certificá el impacto. Generá valor.':'Comply. Certify impact. Generate value.'}</h2>
+          <h2 style={{fontSize:26,fontWeight:900,marginBottom:8}}>{es?'Cumplí la ley. Medí el impacto. Bajá costos.':'Comply. Measure impact. Cut costs.'}</h2>
           <p style={{fontSize:13,color:sub,lineHeight:1.7,marginBottom:28}}>{es?'El primer paso es firmar el acuerdo de confidencialidad. Te enviamos la propuesta personalizada para tu establecimiento en menos de 24 horas.':'First step is signing the confidentiality agreement. We send your customized proposal in less than 24 hours.'}</p>
           <a href="/nda" style={{display:'inline-block',background:'linear-gradient(135deg,#22c55e,#16a34a)',borderRadius:40,padding:'16px 40px',color:'white',fontSize:14,fontWeight:700,textDecoration:'none',textTransform:'uppercase',letterSpacing:'0.06em',marginBottom:16}}>
             {es?'Firmar NDA y recibir propuesta →':'Sign NDA and receive proposal →'}
@@ -161,7 +192,7 @@ export default function GrandesGeneradores() {
             {l:'Metamorfosis',h:'/metamorfosis'},
             {l:'Consorcios',h:'/consorcios'},
             {l:es?'Grandes Generadores':'Large Generators',h:'/grandes-generadores'},
-            {l:es?'Grandes Emisores':'Large Emitters',h:'/grandes-emisores'},
+            {l:es?'Plantas y acopiadores':'Plants & collectors',h:'/operadores'},
             {l:'RAEE',h:'/raee'},
             {l:es?'Mapa':'Map',h:'/mapa'},
             {l:'Kits',h:'/kits'},
@@ -188,7 +219,7 @@ export default function GrandesGeneradores() {
           <a href="/privacidad" style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.7}}>{es?'Privacidad':'Privacy'}</a>
           <a href="https://www.linkedin.com/company/113160128/" style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.7}}>LinkedIn</a>
         </div>
-        <div style={{fontSize:9,color:sub,fontFamily:'monospace',letterSpacing:'0.05em',opacity:0.7}}>© 2026 Circulab Tech · Distrito Tecnológico · Buenos Aires · Ley 27.506</div>
+        <div style={{fontSize:9,color:sub,fontFamily:'monospace',letterSpacing:'0.05em',opacity:0.7}}>© 2026 Circulab Tech · Buenos Aires, Argentina</div>
       </footer>
     </div>
   )

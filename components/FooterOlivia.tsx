@@ -31,6 +31,7 @@ export default function FooterOlivia({dark=true}:{dark?:boolean}) {
             <div style={{fontSize:9,fontWeight:700,color:accent,textTransform:'uppercase',letterSpacing:'0.15em',marginBottom:12,fontFamily:'monospace'}}>Plataforma</div>
             <div style={{display:'flex',flexDirection:'column',gap:8}}>
               {[
+                {label:'🏭 Plantas y acopiadores',href:'/operadores'},
                 {label:'🌿 Inicio',href:'/'},
                 {label:'👤 Ciudadano',href:'/ciudadano'},
                 {label:'🏛️ Inversionistas',href:'/institucional'},
@@ -88,12 +89,10 @@ export default function FooterOlivia({dark=true}:{dark?:boolean}) {
         {/* Bottom bar */}
         <div style={{borderTop:`1px solid ${border}`,paddingTop:16,display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:8}}>
           <div style={{fontSize:9,color:sub,fontFamily:'monospace'}}>
-            © 2026 Circulab Tech · Ley 27.506 · Distrito IA Buenos Aires
+            © 2026 Circulab Tech · Buenos Aires, Argentina
           </div>
           <div style={{display:'flex',gap:8,alignItems:'center'}}>
-            <span style={{fontSize:9,color:sub,fontFamily:'monospace'}}>🌱 Semilla 2026</span>
-            <span style={{fontSize:9,color:'rgba(255,255,255,0.1)'}}>·</span>
-            <span style={{fontSize:9,color:accent,fontFamily:'monospace'}}>✅ Verra validó dMRV · Feb 2026</span>
+            <span style={{fontSize:9,color:sub,fontFamily:'monospace'}}>🌱 Piloto en curso · 2026</span>
           </div>
         </div>
 

@@ -6,7 +6,7 @@ const SLIDES = [
   {
     id: 1,
     titulo: 'OLIVIA Circulab',
-    subtitulo: 'La primera infraestructura de datos ambientales ciudadanos de América Latina',
+    subtitulo: 'Medición y verificación para plantas y acopiadores de residuos',
     contenido: null,
     tipo: 'portada',
     bg: 'linear-gradient(135deg,#0a1a0a,#0a0e1a,#0a0a1a)',
@@ -19,127 +19,107 @@ const SLIDES = [
     contenido: [
       {icon:'👨‍👩‍👦',texto:'JP, Mileidy y Santino Eloy — 3 países, 1 misión'},
       {icon:'🗑️',texto:'Cada semana tirábamos bolsas de orgánicos al relleno sanitario'},
-      {icon:'💡',texto:'¿Por qué no hay forma de convertir esto en algo valioso?'},
-      {icon:'🌿',texto:'Así nació OLIVIA Circulab — desde adentro del problema'},
+      {icon:'💡',texto:'¿Por qué no hay forma de demostrar que esto puede volver al ciclo?'},
+      {icon:'🏭',texto:'Las reuniones con cooperativas nos mostraron que la certificación necesita una planta auditable. Por eso hoy OLIVIA trabaja primero con plantas.'},
     ],
     bg: 'linear-gradient(135deg,#0a1a0a,#0a0e1a)',
   },
   {
     id: 3,
     titulo: 'El problema',
-    subtitulo: 'USD 0 capturado de millones disponibles',
+    subtitulo: 'Falta el dato verificable',
     tipo: 'problema',
     contenido: [
-      {stat:'6.000t',desc:'de residuos por día solo en CABA'},
-      {stat:'85%',desc:'va al relleno sanitario sin separar'},
-      {stat:'USD 0',desc:'capturado en créditos de carbono'},
-      {stat:'USD 4.5B',desc:'de mercado de carbono LATAM sin tocar'},
+      {stat:'Ociosa',desc:'la capacidad de plantas y cooperativas de Buenos Aires'},
+      {stat:'Relleno',desc:'adonde igual van los orgánicos, que ahí generan metano'},
+      {stat:'Sin dato',desc:'nadie demuestra, kilo a kilo, qué se desvió y qué se trató'},
+      {stat:'Sin crédito',desc:'sin ese dato no hay cumplimiento verificable ni certificación posible'},
     ],
     bg: 'linear-gradient(135deg,#1a0a0a,#0a0e1a)',
   },
   {
     id: 4,
-    titulo: 'En la naturaleza no hay basura',
-    subtitulo: 'Solo recursos sin infraestructura — OLIVIA es esa infraestructura',
+    titulo: 'En la naturaleza no existe la basura',
+    subtitulo: 'Existe materia que vuelve al ciclo. Nosotros la medimos.',
     tipo: 'porquefunciona',
     contenido: [
-      {icon:'🌱',titulo:'Sistema autopoiético',desc:'"Un sistema que se alimenta a sí mismo haciendo el bien. Cada vez que reciclás, el sistema crece. Cada vez que crece, reciclar vale más."',color:'#22c55e'},
-      {icon:'🏛️',titulo:'Elinor Ostrom · Nobel Economía 2009',desc:'Las comunidades gestionan mejor los bienes comunes cuando tienen monitoreo verificable. OLIVIA es ese monitoreo — el dMRV ciudadano.',color:'#3b82f6'},
-      {icon:'♻️',titulo:'Buckminster Fuller',desc:'"Pollution is nothing but resources we\'re not harvesting." OLIVIA convierte esa contaminación en activo financiero real.',color:'#f59e0b'},
-      {icon:'🌿',titulo:'Flywheel imparable',desc:'Más usuarios → más OLV → más usos → más incentivo → más datos para Verra → precio OLV más alto → más usuarios',color:'#a855f7'},
+      {icon:'🌱',titulo:'Autopoiesis urbana',desc:'La ciudad como organismo que puede regenerarse. Cada kilo verificado hace más sólido el dato que lo demuestra.',color:'#22c55e'},
+      {icon:'🏛️',titulo:'Elinor Ostrom · Nobel Economía 2009',desc:'Las comunidades gestionan mejor los bienes comunes cuando tienen monitoreo verificable. OLIVIA es ese monitoreo.',color:'#3b82f6'},
+      {icon:'♻️',titulo:'Buckminster Fuller',desc:'"Pollution is nothing but resources we\'re not harvesting." OLIVIA mide esos recursos para que vuelvan al ciclo.',color:'#f59e0b'},
     ],
     bg: 'linear-gradient(135deg,#0a1a0a,#0a0e1a)',
   },
   {
     id: 5,
     titulo: 'La solución',
-    subtitulo: 'dMRV + IA + tokens OLV · Arquitectura multi-metodológica',
+    subtitulo: 'Balanza + registro digital + firma del acopiador',
     tipo: 'solucion',
     contenido: [
-      {icon:'📸',titulo:'Verificación con IA',desc:'Cloudflare AI LLaMA Vision · GPS origen y entrega · Trazabilidad completa · 10.000 análisis/día gratuitos'},
-      {icon:'📍',titulo:'GPS verificado',desc:'Cadena de custodia completa origen → planta de reciclaje · Certificable con Verra'},
-      {icon:'🪙',titulo:'Tokens OLV',desc:'Activos ambientales verificados taggeados por tipo de residuo y metodología de certificación'},
-      {icon:'🌍',titulo:'Arquitectura multi-metodológica',desc:'Una certificadora por material: Verra AMS-III.AJ + VMR0007 orgánico · Gold Standard plástico · Verra AMS-III.AJ metal · Textil: sin metodología madura'},
+      {icon:'⚖️',titulo:'Balanza conectada',desc:'Peso registrado en la planta al ingresar cada entrega'},
+      {icon:'📝',titulo:'Registro digital y firma del acopiador',desc:'Remito digital firmado por un acopiador habilitado · la planta confirma el tratamiento'},
+      {icon:'📸',titulo:'Verificación con IA como capa de origen',desc:'Foto + GPS del generador o del vecino · Cloudflare Workers AI'},
+      {icon:'🌍',titulo:'Diseñado para cumplir los requisitos de Verra',desc:'Orgánicos: AMS-III.F · RAEE: AMS-III.BA + VMR0008'},
     ],
     bg: 'linear-gradient(135deg,#0a1a0a,#0a0e1a)',
   },
   {
     id: 6,
     titulo: 'El producto existe hoy',
-    subtitulo: 'Funcionando en producción — USD 0 de inversión',
+    subtitulo: 'Funcionando en producción — sin inversión externa',
     tipo: 'producto',
     contenido: [
-      {icon:'✅',texto:'App web con registro de residuos + IA (Cloudflare AI)'},
-      {icon:'✅',texto:'Dashboard con OLV, CO2eq y ruta de pagos'},
-      {icon:'✅',texto:'Red social OLIVIA con feed, likes y ranking'},
-      {icon:'✅',texto:'Simulador de ahorro para consorcios'},
-      {icon:'✅',texto:'Admin con gráficos, CRM y publicación multicanal'},
-      {icon:'✅',texto:'Whitepaper + One Pager + Pitch con NDA gate'},
+      {icon:'✅',texto:'App web en producción · oliviacirculab.com.ar'},
+      {icon:'✅',texto:'Verificación de residuos con IA (Cloudflare Workers AI)'},
+      {icon:'✅',texto:'Panel dMRV con validación manual'},
+      {icon:'✅',texto:'Kilos verificados del piloto, en vivo desde la plataforma'},
+      {icon:'✅',texto:'Conversaciones con cooperativas y plantas'},
     ],
     bg: 'linear-gradient(135deg,#0a1a0a,#050d1f)',
   },
   {
     id: 7,
-    titulo: 'Los 6 tramos del ecosistema',
-    subtitulo: 'Los que entran hoy en Semilla cobran primero en Árbol',
+    titulo: 'Hoja de ruta',
+    subtitulo: 'Tres etapas reales',
     tipo: 'tramos',
     contenido: [
-      {icon:'🌱',tramo:'SEMILLA',año:'2026 · Ahora',desc:'Piloto dMRV activo · OLV acumulándose · Historial para Verra',color:'#22c55e',activo:true},
-      {icon:'🌿',tramo:'BROTE',año:'Q4 2026',desc:'OLV canjeables · Convenios partner · Cooperativas integradas',color:'#3b82f6',activo:false},
-      {icon:'🌳',tramo:'ÁRBOL',año:'2027 💰',desc:'Certificación Verra VCS · USD 22-45/t · Primer pago real · ✅ Verra aprobó piloto dMRV Feb 2026 · 6.329 OLV = USD 1',color:'#f59e0b',activo:false},
-      {icon:'🌲',tramo:'BOSQUE',año:'2028',desc:'Art. 6.4 París · USD 50-130/t · Corredor AR MX CO BR CH DO · 2.198 OLV = USD 1',color:'#a855f7',activo:false},
-      {icon:'🏔️',tramo:'SELVA',año:'2029',desc:'OLIVIA Ocean + Waters + Space · PULSO estándar LATAM',color:'#ec4899',activo:false},
-      {icon:'🌊',tramo:'SUMIDERO',año:'2030+',desc:'Net positive verificado · Infraestructura climática global',color:'#06b6d4',activo:false},
+      {icon:'🌱',tramo:'SEMILLA',año:'Hoy',desc:'Piloto dMRV · software en producción · primeros kilos verificados',color:'#22c55e',activo:true},
+      {icon:'🌿',tramo:'BROTE',año:'Próxima',desc:'Planta aliada instalada · datos continuos de balanza · firma del acopiador',color:'#3b82f6',activo:false},
+      {icon:'🌳',tramo:'ÁRBOL',año:'Certificación',desc:'Validación por auditor acreditado bajo estándar Verra · sin precios ni fechas de pago comprometidas',color:'#f59e0b',activo:false},
     ],
     bg: 'linear-gradient(135deg,#0a1a0a,#0a0e1a)',
   },
   {
     id: 8,
-    titulo: '8 segmentos de clientes',
-    subtitulo: 'Desde el vecino hasta el municipio',
+    titulo: 'Clientes · operadores primero',
+    subtitulo: 'El vecino es la capa de origen, no el cliente',
     tipo: 'segmentos',
     contenido: [
-      {tipo:'Ciudadano libre',fee:'OLV',canal:'App'},
-      {tipo:'Verdulería / Feria',fee:'OLV',canal:'App + WhatsApp'},
-      {tipo:'Colegio',fee:'OLV',canal:'App'},
+      {tipo:'Planta / Acopiador',fee:'Servicio de datos',canal:'B2B'},
+      {tipo:'Gran generador',fee:'Consultoría + SaaS',canal:'B2B'},
       {tipo:'Consorcio',fee:'SaaS mensual',canal:'Admin'},
       {tipo:'Restaurante / Hotel',fee:'SaaS mensual',canal:'Admin'},
-      {tipo:'Casino / Comedor',fee:'SaaS mensual',canal:'Admin'},
       {tipo:'Empresa RSE',fee:'Por proyecto',canal:'B2B'},
       {tipo:'Municipio',fee:'Por contrato',canal:'B2G'},
+      {tipo:'Ciudadano',fee:'Capa de origen',canal:'App'},
     ],
     bg: 'linear-gradient(135deg,#0a0a1a,#0a0e1a)',
   },
   {
     id: 9,
-    titulo: '5 fuentes de valor',
-    subtitulo: 'Valores aproximados · Consorcio de 100 departamentos',
+    titulo: 'Modelo de ingresos',
+    subtitulo: 'En orden de cercanía',
     tipo: 'fuentes',
     contenido: [
-      {num:'01',titulo:'Créditos de carbono',valor:'USD 85/mes',desc:'VCS Verra · 25% para vecinos',color:'#22c55e'},
-      {num:'02',titulo:'Ahorro recolección',valor:'USD 800/mes',desc:'Estimado USD 8 por depto por mes',color:'#3b82f6'},
-      {num:'03',titulo:'Venta de materiales',valor:'USD 120/mes',desc:'Plástico, metal, textil, papel',color:'#f59e0b'},
-      {num:'04',titulo:'Abono orgánico',valor:'USD 45/mes',desc:'Compost · 25% al consorcio',color:'#f97316'},
-      {num:'05',titulo:'Certificación RSE',valor:'USD 75/mes',desc:'Badge Edificio Verde OLIVIA',color:'#ec4899'},
+      {num:'01',titulo:'Consultoría y software para grandes generadores',valor:'Hoy',desc:'Bajar el costo de la fracción húmeda y ordenar el cumplimiento',color:'#22c55e'},
+      {num:'02',titulo:'Servicio de datos para plantas',valor:'Brote',desc:'Balanza, remito digital y trazabilidad de cada entrada',color:'#3b82f6'},
+      {num:'03',titulo:'Créditos de carbono',valor:'Árbol',desc:'Solo después de la certificación',color:'#f59e0b'},
     ],
     bg: 'linear-gradient(135deg,#0a1a0a,#050d1f)',
   },
   {
-    id: 10,
-    titulo: 'El mercado',
-    subtitulo: 'TAM / SAM / SOM',
-    tipo: 'mercado',
-    contenido: [
-      {sigla:'TAM',valor:'USD 4.5B',desc:'Mercado carbono LATAM total',color:'#22c55e'},
-      {sigla:'SAM',valor:'USD 380M',desc:'Residuos urbanos certificables AR + MX + CO',color:'#3b82f6'},
-      {sigla:'SOM',valor:'USD 1.2M',desc:'CABA · año 1 · 300 consorcios',color:'#f59e0b'},
-    ],
-    bg: 'linear-gradient(135deg,#0a0a1a,#0a0e1a)',
-  },
-  {
     id: 11,
     titulo: 'El equipo',
-    subtitulo: 'Construido con USD 0 de inversión externa',
+    subtitulo: 'Construido sin inversión externa',
     tipo: 'equipo',
     contenido: [
       {nombre:'Juan Pablo Sanguinetti de Zapata',rol:'CEO & Founder',desc:'Director de teatro chileno y abogado. Product builder con IA. Especialidad en medio ambiente, tributación y gestión de proyectos. Arquitecto del ecosistema Circulab desde Buenos Aires.',foto:'/founders/founder-jp.jpg',color:'#22c55e'},
@@ -149,26 +129,13 @@ const SLIDES = [
   },
   {
     id: 12,
-    titulo: 'La ronda Seed 2026',
-    subtitulo: 'Producto activo · USD 0 gastado · Ronda abierta',
+    titulo: 'El pedido: USD 200.000',
+    subtitulo: '3 tramos contra hitos · 10% para un socio activo · USD 1,8M pre-money',
     tipo: 'ronda',
     contenido: [
-      {
-        opcion:'Opción A',
-        monto:'USD 500.000',
-        equity:'10%',
-        pre:'USD 4.5M pre-money',
-        uso:'CTO + auditoría código (mes 1-2) · 2 devs smart contracts (mes 1-3) · Certificación Verra AMS-III.AJ + VMR0007 (mes 3-6) · Piloto 3 consorcios · Reserva operativa 6 meses',
-        color:'#22c55e'
-      },
-      {
-        opcion:'Opción B',
-        monto:'USD 2.000.000',
-        equity:'15%',
-        pre:'USD 11.3M pre-money',
-        uso:'Todo lo anterior + Expansión LATAM + Serie A 2027',
-        color:'#3b82f6'
-      },
+      {opcion:'Tramo 1',monto:'USD 50.000',hito:'Sociedad constituida, acopiador firmado, balanza transmitiendo datos continuos',uso:'Sociedad, acuerdo con acopiador, primeras balanzas, 4 meses de equipo',color:'#22c55e'},
+      {opcion:'Tramo 2',monto:'USD 70.000',hito:'Documento de diseño presentado ante Verra',uso:'Desarrollador de carbono, línea de base, documento de diseño del proyecto, más nodos',color:'#3b82f6'},
+      {opcion:'Tramo 3',monto:'USD 80.000',hito:'Proyecto registrado',uso:'Auditoría de tercera parte, registro, operación',color:'#a855f7'},
     ],
     bg: 'linear-gradient(135deg,#0a0a1a,#050d1f)',
   },
@@ -178,10 +145,9 @@ const SLIDES = [
     subtitulo: '¿Querés ser parte?',
     tipo: 'cierre',
     contenido: [
-      {icon:'🏢',texto:'Piloto con 3 consorcios en CABA — Q3 2026'},
-      {icon:'✅',texto:'Certificación VCS Verra iniciada — Q4 2026'},
-      {icon:'🌎',texto:'Expansión México y Colombia — 2027'},
-      {icon:'📈',texto:'Serie A USD 5M — 2027'},
+      {icon:'🤝',texto:'Acuerdo con acopiador habilitado y balanza instalada'},
+      {icon:'🧪',texto:'Desarrollador de carbono contratado'},
+      {icon:'📄',texto:'Documento de diseño del proyecto presentado ante Verra'},
     ],
     bg: 'linear-gradient(135deg,#0a1a0a,#0a0e1a)',
   },
@@ -272,9 +238,9 @@ export default function Pitch() {
             <div style={{fontSize:32,fontWeight:900,marginBottom:12,lineHeight:1.2}}>{s.titulo}</div>
             <div style={{fontSize:14,color:'#22c55e',marginBottom:24,lineHeight:1.6}}>{s.subtitulo}</div>
             <div style={{display:'flex',gap:10,justifyContent:'center',flexWrap:'wrap'}}>
-              <div style={{background:'rgba(34,197,94,0.1)',border:'1px solid rgba(34,197,94,0.3)',borderRadius:10,padding:'8px 16px',fontSize:12,color:'#22c55e'}}>🌱 Tramo Semilla · 2026</div>
-              <div style={{background:'rgba(59,130,246,0.1)',border:'1px solid rgba(59,130,246,0.3)',borderRadius:10,padding:'8px 16px',fontSize:12,color:'#3b82f6'}}>Distrito Tecnológico · Buenos Aires</div>
-              <div style={{background:'rgba(168,85,247,0.1)',border:'1px solid rgba(168,85,247,0.3)',borderRadius:10,padding:'8px 16px',fontSize:12,color:'#a855f7'}}>Ley 27.506 · 1.4x</div>
+              <div style={{background:'rgba(34,197,94,0.1)',border:'1px solid rgba(34,197,94,0.3)',borderRadius:10,padding:'8px 16px',fontSize:12,color:'#22c55e'}}>🌱 Piloto 2026</div>
+              <div style={{background:'rgba(59,130,246,0.1)',border:'1px solid rgba(59,130,246,0.3)',borderRadius:10,padding:'8px 16px',fontSize:12,color:'#3b82f6'}}>Buenos Aires</div>
+              <div style={{background:'rgba(168,85,247,0.1)',border:'1px solid rgba(168,85,247,0.3)',borderRadius:10,padding:'8px 16px',fontSize:12,color:'#a855f7'}}>dMRV · Orgánicos y RAEE</div>
             </div>
           </div>
         )}
@@ -361,7 +327,7 @@ export default function Pitch() {
               ))}
             </div>
             <div style={{background:'rgba(34,197,94,0.08)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,padding:'14px',textAlign:'center'}}>
-              <div style={{fontSize:12,color:'#22c55e',fontWeight:700}}>🚀 Construido con USD 0 · Cloudflare AI + Supabase + Vercel</div>
+              <div style={{fontSize:12,color:'#22c55e',fontWeight:700}}>🚀 Construido sin inversión externa · Cloudflare AI + Supabase + Vercel</div>
               <div style={{fontSize:11,color:'#64748b',marginTop:4}}>Stack 100% gratuito · Sin equipo técnico externo</div>
             </div>
           </div>
@@ -388,7 +354,7 @@ export default function Pitch() {
               ))}
             </div>
             <div style={{marginTop:10,padding:'10px',background:'rgba(245,158,11,0.08)',border:'1px solid rgba(245,158,11,0.2)',borderRadius:10,textAlign:'center'}}>
-              <span style={{fontSize:11,color:'#f59e0b',fontWeight:700}}>💰 Los que entran hoy en Semilla cobran primero en Árbol — 2027</span>
+              <span style={{fontSize:11,color:'#f59e0b',fontWeight:700}}>⚠️ Hoy OLIVIA no emite créditos de carbono ni promete ingresos</span>
             </div>
           </div>
         )}
@@ -432,10 +398,6 @@ export default function Pitch() {
                 </div>
               ))}
             </div>
-            <div style={{marginTop:12,padding:'12px',background:'rgba(34,197,94,0.08)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,textAlign:'center'}}>
-              <div style={{fontSize:11,color:'#64748b',marginBottom:4}}>Total estimado · Estimación orientativa</div>
-              <div style={{fontSize:22,fontWeight:900,color:'#22c55e'}}>USD 1.125/mes</div>
-            </div>
           </div>
         )}
 
@@ -477,7 +439,7 @@ export default function Pitch() {
             </div>
             <div style={{marginTop:12,padding:'12px',background:'rgba(34,197,94,0.06)',borderRadius:12,textAlign:'center'}}>
               <div style={{fontSize:12,color:'#22c55e',fontWeight:700}}>🚀 Todo el producto construido por los fundadores con IA</div>
-              <div style={{fontSize:10,color:'#64748b',marginTop:2}}>Sin equipo técnico externo · USD 0 gastado · Distrito Tecnológico · Buenos Aires · Ley 27.506</div>
+              <div style={{fontSize:10,color:'#64748b',marginTop:2}}>Sin equipo técnico externo · Sin inversión externa · Buenos Aires</div>
             </div>
           </div>
         )}
@@ -495,8 +457,7 @@ export default function Pitch() {
                   <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,marginBottom:10}}>
                     {[
                       {l:'Monto',v:c.monto},
-                      {l:'Equity',v:c.equity},
-                      {l:'Pre-money',v:c.pre},
+                      {l:'Hito para liberar el siguiente',v:c.hito},
                     ].map(item=>(
                       <div key={item.l} style={{background:'rgba(255,255,255,0.03)',borderRadius:8,padding:'8px'}}>
                         <div style={{fontSize:9,color:'#64748b'}}>{item.l}</div>
@@ -518,7 +479,7 @@ export default function Pitch() {
                   {icon:'🔐',t:'Milestone-based disbursement'},
                   {icon:'🛡️',t:'Anti-dilution · Tag-along rights'},
                   {icon:'✅',t:'Sin costos fijos hasta inversión comprometida'},
-                  {icon:'💎',t:'USD 1 invertido = USD 1.4 efectivos · Ley 27.506'},
+                  {icon:'📋',t:'Inscripción planificada en el régimen de Economía del Conocimiento'},
                 ].map((g,i)=>(
                   <div key={i} style={{display:'flex',gap:8,alignItems:'center'}}>
                     <span style={{fontSize:14}}>{g.icon}</span>
@@ -529,7 +490,7 @@ export default function Pitch() {
             </div>
 
             <div style={{padding:'8px',background:'rgba(255,255,255,0.03)',borderRadius:10,fontSize:10,color:'#64748b',textAlign:'center'}}>
-              Equity directo · Sin ratchets · Sin intereses · Liquidation preference 1× · Distrito Tecnológico · Buenos Aires · Estabilidad fiscal 10 años
+              Valuación de referencia USD 1,8M pre-money (USD 2M post-money) · Montos por tramo a confirmar con cotizaciones
             </div>
           </div>
         )}

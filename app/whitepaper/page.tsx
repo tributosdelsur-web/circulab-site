@@ -4,19 +4,19 @@ import { supabase } from '../../lib/supabase'
 
 const SECCIONES_ES = [
 '📋 Resumen ejecutivo','🔴 El problema','🌿 La solución OLIVIA','🔬 Arquitectura dMRV',
-'📜 Certificación multi-metodológica','🪙 Tokenómica OLV','👥 Los 8 segmentos',
+'📜 Metodologías y certificación','🪙 Tokenómica OLV','👥 Los 8 segmentos',
 '💰 Las 5 fuentes de valor','🌍 Los 7 mercados','🤝 Modelo de convenios',
-'🔄 Incentivos cruzados','🚛 Recolección coordinada con IA','🌱 Los 6 tramos del ecosistema',
-'🌱 Familia OLIVIA','👨‍💻 Equipo y tecnología','📈 Ronda Seed 2026',
+'🔄 Incentivos cruzados','🚛 Recolección coordinada con IA','🌱 Hoja de ruta',
+'🌱 Familia OLIVIA','👨‍💻 Equipo y tecnología','📈 El pedido',
 '⚠️ Riesgos y mitigación','🏛️ Marco legal',
 ]
 
 const SECCIONES_EN = [
 '📋 Executive Summary','🔴 The Problem','🌿 OLIVIA Solution','🔬 dMRV Architecture',
-'📜 Multi-methodology Certification','🪙 OLV Tokenomics','👥 8 Customer Segments',
+'📜 Methodologies & Certification','🪙 OLV Tokenomics','👥 8 Customer Segments',
 '💰 5 Value Sources','🌍 7 Token Markets','🤝 Partnership Model',
-'🔄 Cross Incentives','🚛 AI-Coordinated Collection','🌱 The 6 Ecosystem Stages',
-'🌱 OLIVIA Family','👨‍💻 Team & Technology','📈 Seed Round 2026',
+'🔄 Cross Incentives','🚛 AI-Coordinated Collection','🌱 Roadmap',
+'🌱 OLIVIA Family','👨‍💻 Team & Technology','📈 The Ask',
 '⚠️ Risks & Mitigation','🏛️ Legal Framework',
 ]
 
@@ -58,6 +58,9 @@ setNdaEnviando(false)
 }
 
 const SECCIONES = lang==='es'?SECCIONES_ES:SECCIONES_EN
+// Versión corta y técnica para Climatech: solo estas secciones se muestran
+const VISIBLES = [0,1,2,3,4,12,14,15,16]
+const pos = Math.max(0,VISIBLES.indexOf(seccion))
 
 if(!ndaFirmado) return (
 <div style={{minHeight:'100vh',background:bg,color:text,fontFamily:'system-ui',display:'flex',alignItems:'center',justifyContent:'center',padding:24}}>
@@ -65,7 +68,7 @@ if(!ndaFirmado) return (
 <div style={{textAlign:'center',marginBottom:24}}>
 <div style={{width:56,height:56,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:16,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:24,color:'white',margin:'0 auto 12px'}}>O</div>
 <div style={{fontSize:20,fontWeight:900,color:text,marginBottom:4}}>{lang==='es'?'Whitepaper Técnico':'Technical Whitepaper'}</div>
-<div style={{fontSize:12,color:sub,marginBottom:4}}>OLIVIA Circulab · {lang==='es'?'Junio':'June'} 2026</div>
+<div style={{fontSize:12,color:sub,marginBottom:4}}>OLIVIA Circulab · {lang==='es'?'Septiembre':'September'} 2026</div>
 <div style={{fontSize:11,color:sub}}>{lang==='es'?'Documento confidencial · Firmá el NDA para acceder':'Confidential document · Sign NDA to access'}</div>
 </div>
 <div style={{background:card,border:`1px solid ${border}`,borderRadius:16,padding:24}}>
@@ -114,23 +117,22 @@ if(seccion===0) return (
 <div style={s.titulo}>{lang==='es'?'Resumen ejecutivo':'Executive Summary'}</div>
 <div style={s.highlight}>
 <div style={s.verde}>{lang==='es'?'OLIVIA Circulab en una oración':'OLIVIA Circulab in one sentence'}</div>
-<div style={s.p}>{lang==='es'?'La primera infraestructura de datos ambientales ciudadanos de América Latina — que convierte residuos domiciliarios en créditos de carbono verificados con IA, utilizando una arquitectura multi-metodológica con una certificadora específica por tipo de material.':'The first citizen environmental data infrastructure in Latin America — converting household waste into AI-verified carbon credits, using a multi-methodology architecture with a specific certifier per material type.'}</div>
+<div style={s.p}>{lang==='es'?'OLIVIA es la infraestructura de medición y verificación (dMRV) para las plantas y acopiadores de residuos que ya existen: balanza conectada, registro digital, firma del acopiador y confirmación del tratamiento. El vecino es una capa posterior que agrega trazabilidad de origen.':'OLIVIA is the measurement and verification (dMRV) infrastructure for the waste plants and collectors that already exist: connected scale, digital record, collector sign-off and treatment confirmation. The neighbor is a later layer that adds origin traceability.'}</div>
 </div>
 {(lang==='es'?[
-{t:'El problema',d:'6.000t de residuos/día solo en CABA. El 85% va al relleno sin separar. USD 0 capturado en carbono ciudadano. Un mercado de USD 4.5B en LATAM completamente sin tocar.',c:'#ef4444'},
-{t:'La solución',d:'OLIVIA digitaliza, verifica con IA y certifica el reciclaje ciudadano. Cada kilo genera tokens OLV que se convierten en créditos de carbono certificables bajo distintos estándares internacionales según el tipo de material.',c:'#22c55e'},
-{t:'El producto hoy',d:'App web en producción en oliviacirculab.com.ar. Registro con foto + GPS + IA (Cloudflare Workers AI). Dashboard con OLV y CO2eq. Red social activa con comunidad. Sistema de amigos y seguimiento. Admin con dMRV. Construido con USD 0 de inversión externa.',c:'#3b82f6'},
-{t:'Ecosistema de incentivos cruzados',d:'Las tres verticales de Circulab Tech (OLIVIA, PULSO/Quincena y Art of Money) se financian entre sí usando OLV como moneda interna antes de monetizar hacia afuera. Convenios con terceros que aceptan OLV acumulan activos ambientales que se convierten en USD cuando Verra certifique en 2027.',c:'#a855f7'},
-{t:'La ronda',d:'Seed 2026. Opción A: USD 500K por 10% · USD 4.5M pre. Opción B: USD 2M por 15% · USD 11.3M pre. Primer uso: CTO + auditoría + certificación Verra VM0036.',c:'#f59e0b'},
-{t:'Distrito Tecnológico y Ley 27.506',d:'Circulab Tech opera desde el Distrito Tecnológico de Buenos Aires. Bajo la Ley de Economía del Conocimiento 27.506: ganancias al 15%, reducción 70-80% cargas patronales, FONDCE, estabilidad fiscal 10 años. Cada USD 1 invertido vale USD 1.4 efectivos.',c:'#22c55e'},
-{t:lang==='es'?'Fundamentos científicos':'Scientific foundations',d:lang==='es'?'Ostrom (Nobel 2009): comunidades con monitoreo verificable gestionan mejor los bienes comunes. Fuller: la contaminación son recursos sin cosechar. Prigogine (Nobel 1977): sistemas vivos hacia menor entropía. Maturana y Varela: autopoiesis — sistemas que se producen a sí mismos. OLIVIA aplica estos principios a la economía circular urbana.':'Ostrom (Nobel 2009): communities with verifiable monitoring manage commons better. Fuller: pollution is resources not harvested. Prigogine (Nobel 1977): living systems toward lower entropy. Maturana & Varela: autopoiesis — systems that produce themselves. OLIVIA applies these principles to urban circular economy.',c:'#3b82f6'},
+{t:'El problema',d:'Las plantas y cooperativas de Buenos Aires tienen capacidad ociosa y, al mismo tiempo, los orgánicos siguen terminando en el relleno, donde generan metano. Falta el dato verificable que demuestre, kilo a kilo, qué se desvió y qué se trató.',c:'#ef4444'},
+{t:'La solución',d:'Balanza conectada en la planta, remito digital firmado por un acopiador habilitado y confirmación del tratamiento. La foto con GPS del generador o del vecino funciona como capa de origen.',c:'#22c55e'},
+{t:'El producto hoy',d:'App web en producción en oliviacirculab.com.ar. Registro con foto + GPS + IA (Cloudflare Workers AI). Panel dMRV con validación manual. Kilos verificados del piloto en vivo. Construido sin inversión externa.',c:'#3b82f6'},
+{t:'Metodologías',d:'Orgánicos: Verra AMS-III.F. RAEE: AMS-III.BA + VMR0008. OLIVIA se diseña para cumplir los requisitos de Verra; hoy no emite créditos de carbono ni promete ingresos.',c:'#a855f7'},
+{t:'El pedido',d:'USD 200.000 por el 10% (USD 1,8M pre-money), en tres tramos contra hitos (50K / 70K / 80K, a confirmar con cotizaciones), destinados íntegramente a llegar a la certificación. Para un socio activo.',c:'#f59e0b'},
+{t:'Economía del Conocimiento',d:'La sociedad se inscribirá en el régimen de Economía del Conocimiento: reducción de Ganancias de hasta 60% para micro y pequeñas empresas y bono de hasta 70% de contribuciones patronales, con el requisito de facturar al menos 70% en actividades promovidas.',c:'#22c55e'},
 ]:[
-{t:'The Problem',d:'6,000t of waste/day in Buenos Aires alone. 85% goes to landfill unsorted. USD 0 captured in citizen carbon. A USD 4.5B LATAM market completely untouched.',c:'#ef4444'},
-{t:'The Solution',d:'OLIVIA digitalizes, AI-verifies and certifies citizen recycling. Each kilo generates OLV tokens that become certifiable carbon credits under different international standards per material type.',c:'#22c55e'},
-{t:'The Product Today',d:'Web app in production at oliviacirculab.com.ar. Registration with photo + GPS + AI (Cloudflare Workers AI). OLV and CO2eq dashboard. Active social network with community. Friends and following system. Admin with dMRV. Built with USD 0 external investment.',c:'#3b82f6'},
-{t:'Cross-incentive ecosystem',d:'The three Circulab Tech verticals (OLIVIA, PULSO/Quincena and Art of Money) finance each other using OLV as internal currency before monetizing externally. Third-party partners who accept OLV accumulate environmental assets that convert to USD when Verra certifies in 2027.',c:'#a855f7'},
-{t:'The Round',d:'Seed 2026. Option A: USD 500K for 10% · USD 4.5M pre. Option B: USD 2M for 15% · USD 11.3M pre. First use: CTO + audit + Verra VM0036 certification.',c:'#f59e0b'},
-{t:'Distrito Tecnológico & Ley 27.506',d:'Circulab Tech opera en el Distrito Tecnológico de Buenos Aires (Ley 2.972 · operativo desde 2008 · vigente hasta 2035). Bajo la Ley de Economía del Conocimiento 27.506: ganancias al 15%, reducción 70-80% cargas patronales, FONDCE, estabilidad fiscal 10 años. Nota: el Distrito Tecnológico del Microcentro está actualmente en tramitación legislativa y aún no está operativo.',c:'#22c55e'},
+{t:'The Problem',d:'Buenos Aires plants and cooperatives have idle capacity while organics still end up in landfill, where they generate methane. The missing piece is verifiable data proving, kilo by kilo, what was diverted and treated.',c:'#ef4444'},
+{t:'The Solution',d:'Connected scale at the plant, digital receipt signed by a licensed collector and treatment confirmation. The GPS photo from the generator or neighbor works as an origin layer.',c:'#22c55e'},
+{t:'The Product Today',d:'Web app in production at oliviacirculab.com.ar. Registration with photo + GPS + AI (Cloudflare Workers AI). dMRV dashboard with manual validation. Live verified kilos from the pilot. Built without external investment.',c:'#3b82f6'},
+{t:'Methodologies',d:'Organics: Verra AMS-III.F. E-waste: AMS-III.BA + VMR0008. OLIVIA is designed to meet Verra requirements; today it issues no carbon credits and promises no income.',c:'#a855f7'},
+{t:'The Ask',d:'USD 200,000 for 10% (USD 1.8M pre-money), in three milestone-based tranches (50K / 70K / 80K, to be confirmed with quotes), fully allocated to reaching certification. For an active partner.',c:'#f59e0b'},
+{t:'Knowledge Economy',d:'The company will register under the Knowledge Economy regime: up to 60% income tax reduction for micro and small companies and a bonus of up to 70% of employer contributions, provided at least 70% of revenue comes from promoted activities.',c:'#22c55e'},
 ]).map(i=>(
 <div key={i.t} style={{...s.card,borderLeft:`3px solid ${i.c}`}}>
 <div style={{fontSize:12,fontWeight:700,color:i.c,marginBottom:4}}>{i.t}</div>
@@ -149,29 +151,16 @@ if(seccion===0) {
                 if(seccion===1) return (
 <div>
 <div style={s.titulo}>{lang==='es'?'El problema':'The Problem'}</div>
-<div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10,marginBottom:16}}>
-{[
-{stat:'6.000t',desc:lang==='es'?'residuos/día en CABA':'waste/day in Buenos Aires',c:'#ef4444'},
-{stat:'85%',desc:lang==='es'?'va al relleno sin separar':'goes to landfill unsorted',c:'#ef4444'},
-{stat:'USD 0',desc:lang==='es'?'capturado en carbono ciudadano':'captured in citizen carbon',c:'#f59e0b'},
-{stat:'USD 4.5B',desc:lang==='es'?'mercado carbono LATAM sin tocar':'untouched LATAM carbon market',c:'#22c55e'},
-].map(k=>(
-<div key={k.stat} style={{...s.card,textAlign:'center',borderTop:`3px solid ${k.c}`}}>
-<div style={{fontSize:24,fontWeight:900,color:k.c}}>{k.stat}</div>
-<div style={{fontSize:10,color:sub,marginTop:4}}>{k.desc}</div>
-</div>
-))}
-</div>
 {(lang==='es'?[
-{t:'El relleno como sumidero de valor',d:'Cada kilo de orgánico en el relleno genera 0.065 kg de metano — 84 veces más potente que el CO2. Argentina genera 16 millones de toneladas de RSU por año. El 85% termina en rellenos. Nadie captura ese valor.',c:'#ef4444'},
-{t:'La paradoja del reciclador',d:'Los ciudadanos que separan hacen trabajo de alto impacto ambiental pero no reciben beneficio económico. Las cooperativas capturan el valor de los materiales pero no del carbono. Los municipios pagan millones sin capturar el valor generado.',c:'#f59e0b'},
-{t:'El mercado de carbono sin tocar',d:'El mercado voluntario en LATAM vale USD 4.5B y crece al 30% anual. Los proyectos de reciclaje urbano ciudadano son prácticamente inexistentes porque no hay infraestructura de verificación a escala. OLIVIA es esa infraestructura.',c:'#22c55e'},
-{t:'La asimetría de información',d:'Las certificadoras como Verra necesitan datos verificados y trazables. Los ciudadanos los generan todos los días pero no tienen forma de registrarlos. OLIVIA cierra esa brecha.',c:'#3b82f6'},
+{t:'Capacidad ociosa',d:'Buenos Aires ya tiene plantas, cooperativas y acopiadores que tratan residuos. Muchas trabajan por debajo de su capacidad.',c:'#ef4444'},
+{t:'Orgánicos al relleno',d:'Al mismo tiempo, los orgánicos siguen terminando en el relleno. Ahí se degradan sin oxígeno y generan metano, un gas de efecto invernadero mucho más potente que el CO2.',c:'#f59e0b'},
+{t:'Falta el dato verificable',d:'Nadie puede demostrar, kilo a kilo, qué se desvió del relleno y qué se trató de verdad. Sin ese dato, el generador no puede respaldar su cumplimiento y la planta no puede demostrar su trabajo.',c:'#a855f7'},
+{t:'Sin dato no hay certificación',d:'Las certificadoras como Verra necesitan datos trazables y auditables, con un límite de proyecto claro. Ningún proyecto se puede certificar sobre registros incompletos o autodeclarados.',c:'#3b82f6'},
 ]:[
-{t:'Landfill as a value sink',d:'Every kilo of organic waste in landfill generates 0.065 kg of methane — 84 times more potent than CO2. Argentina generates 16 million tons of MSW per year. 85% ends in landfills. Nobody captures that value.',c:'#ef4444'},
-{t:'The recycler paradox',d:'Citizens who sort waste do high-impact environmental work but receive no economic benefit. Cooperatives capture material value but not carbon value. Municipalities pay millions without capturing the generated value.',c:'#f59e0b'},
-{t:'The untouched carbon market',d:'The voluntary market in LATAM is worth USD 4.5B and grows 30% annually. Urban citizen recycling projects are virtually nonexistent because there is no verification infrastructure at scale. OLIVIA is that infrastructure.',c:'#22c55e'},
-{t:'The information asymmetry',d:'Certifiers like Verra need verified, traceable data. Citizens generate that data every day but have no way to record it. OLIVIA closes that gap.',c:'#3b82f6'},
+{t:'Idle capacity',d:'Buenos Aires already has plants, cooperatives and collectors that treat waste. Many operate below capacity.',c:'#ef4444'},
+{t:'Organics to landfill',d:'At the same time, organics still end up in landfill, where they decompose without oxygen and generate methane, a greenhouse gas far more potent than CO2.',c:'#f59e0b'},
+{t:'The missing verifiable data',d:'Nobody can prove, kilo by kilo, what was diverted from landfill and actually treated. Without that data, generators cannot back their compliance and plants cannot prove their work.',c:'#a855f7'},
+{t:'No data, no certification',d:'Certifiers like Verra need traceable, auditable data with a clear project boundary. No project can be certified on incomplete or self-declared records.',c:'#3b82f6'},
 ]).map(i=>(
 <div key={i.t} style={{...s.card,borderLeft:`3px solid ${i.c}`}}>
 <div style={{fontSize:12,fontWeight:700,color:i.c,marginBottom:4}}>{i.t}</div>
@@ -185,20 +174,20 @@ if(seccion===2) return (
 <div>
 <div style={s.titulo}>{lang==='es'?'La solución OLIVIA':'The OLIVIA Solution'}</div>
 <div style={s.highlight}>
-<div style={s.p}>{lang==='es'?'OLIVIA no es una app de reciclaje con puntos. Es la primera infraestructura de datos ambientales ciudadanos de América Latina. Cada residuo verificado produce un crédito certificable, un dato verificado, un activo financiero real y un comportamiento registrado.':'OLIVIA is not a recycling app with points. It is the first citizen environmental data infrastructure in Latin America. Every verified waste item produces a certifiable credit, a verified data point, a real financial asset and a recorded behavior.'}</div>
+<div style={s.p}>{lang==='es'?'OLIVIA no compite con las plantas ni las compra: trabaja con quien ya procesa el material y le agrega la capa de datos que falta. Cada entrega queda registrada con origen, peso, firma y tratamiento.':'OLIVIA does not compete with plants or buy them: it works with those who already process the material and adds the missing data layer. Every delivery is recorded with origin, weight, sign-off and treatment.'}</div>
 </div>
 {(lang==='es'?[
-{icon:'📸',t:'Registro ciudadano',d:'El ciudadano registra su residuo desde su celular. Foto de origen + foto de entrega con GPS. La primera foto es referencial — los tokens OLV se acreditan solo con la segunda foto que confirma la disposición final.',c:'#22c55e'},
-{icon:'🤖',t:'Verificación con IA',d:'Cloudflare Workers AI (LLaVA 1.5 13B) analiza la foto: tipo de residuo, peso estimado con moneda de referencia, calidad de separación, posibles contaminantes. Resultado: VALIDAR / REVISAR / RECHAZAR con nivel de confianza. 10.000 análisis/día gratuitos.',c:'#3b82f6'},
-{icon:'📍',t:'Trazabilidad GPS completa',d:'GPS de origen y GPS de entrega. La cadena de custodia es verificable: quién generó qué, cuándo, dónde y adónde fue. Eso hace el crédito certificable.',c:'#f59e0b'},
-{icon:'🪙',t:'Generación de tokens OLV',d:'Cada kilo verificado genera tokens OLV taggeados por tipo de material y metodología de certificación. Los tokens se acreditan cuando se confirma la disposición final.',c:'#a855f7'},
-{icon:'🌍',t:'Certificación multi-metodológica',d:'Una certificadora específica por tipo de material. Orgánico → Verra VM0036. Plástico → Gold Standard. Metal → CAR. Nunca se mezclan en un mismo batch.',c:'#22c55e'},
+{icon:'🚛',t:'1 · El generador entrega',d:'Gran generador, consorcio o punto verde entrega su fracción separada. La foto con GPS registra el origen.',c:'#22c55e'},
+{icon:'⚖️',t:'2 · La balanza pesa y registra',d:'Balanza conectada en la planta: el peso de cada entrada se registra automáticamente, sin planillas.',c:'#3b82f6'},
+{icon:'📝',t:'3 · El acopiador firma',d:'Un acopiador habilitado firma el remito digital. Si hace falta, OLIVIA tramita su propia inscripción como acopiador.',c:'#f59e0b'},
+{icon:'🏭',t:'4 · La planta confirma el tratamiento',d:'Compost, biogás o recuperación de material. Sin esa confirmación no hay registro verificado.',c:'#a855f7'},
+{icon:'🤖',t:'Verificación con IA',d:'Cloudflare Workers AI analiza las fotos (tipo de residuo, estimación de peso con moneda de referencia, calidad de separación) y recomienda VALIDAR / REVISAR / RECHAZAR. El admin valida manualmente.',c:'#22c55e'},
 ]:[
-{icon:'📸',t:'Citizen registration',d:'The citizen registers their waste from their phone. Origin photo + delivery photo with GPS. The first photo is reference only — OLV tokens are credited only with the second photo confirming final disposal.',c:'#22c55e'},
-{icon:'🤖',t:'AI verification',d:'Cloudflare Workers AI (LLaVA 1.5 13B) analyzes the photo: waste type, estimated weight using coin reference, separation quality, possible contaminants. Result: VALIDATE / REVIEW / REJECT with confidence level. 10,000 analyses/day free.',c:'#3b82f6'},
-{icon:'📍',t:'Full GPS traceability',d:'Origin GPS and delivery GPS. The chain of custody is verifiable: who generated what, when, where and where it went. That makes the credit certifiable.',c:'#f59e0b'},
-{icon:'🪙',t:'OLV token generation',d:'Each verified kilo generates OLV tokens tagged by material type and certification methodology. Tokens are credited when final disposal is confirmed.',c:'#a855f7'},
-{icon:'🌍',t:'Multi-methodology certification',d:'One specific certifier per material type. Organic → Verra VM0036. Plastic → Gold Standard. Metal → CAR. Never mixed in the same batch.',c:'#22c55e'},
+{icon:'🚛',t:'1 · The generator delivers',d:'Large generator, building or green point delivers its separated fraction. The GPS photo records the origin.',c:'#22c55e'},
+{icon:'⚖️',t:'2 · The scale weighs and records',d:'Connected scale at the plant: the weight of every delivery is recorded automatically, with no spreadsheets.',c:'#3b82f6'},
+{icon:'📝',t:'3 · The collector signs',d:'A licensed collector signs the digital receipt. If needed, OLIVIA applies for its own collector registration.',c:'#f59e0b'},
+{icon:'🏭',t:'4 · The plant confirms treatment',d:'Compost, biogas or material recovery. Without that confirmation there is no verified record.',c:'#a855f7'},
+{icon:'🤖',t:'AI verification',d:'Cloudflare Workers AI analyzes photos (waste type, weight estimate using a coin reference, separation quality) and recommends VALIDATE / REVIEW / REJECT. The admin validates manually.',c:'#22c55e'},
 ]).map(i=>(
 <div key={i.t} style={{...s.card,display:'flex',gap:10,alignItems:'flex-start'}}>
 <span style={{fontSize:22,flexShrink:0}}>{i.icon}</span>
@@ -224,14 +213,14 @@ if(seccion===3) return (
 {t:'V — Verificación',d:'La segunda foto con GPS confirma la disposición final. El admin valida manualmente. La IA recomienda VALIDAR/REVISAR/RECHAZAR. Solo los validados generan OLV acreditados.',c:'#f59e0b'},
 {t:'Nodos de validación distribuidos — Fase 3',d:'En Fase 3 se incorporan validadores ciudadanos certificados — vecinos verificadores que confirman entregas en su zona a cambio de OLV adicionales. Esto descentraliza la validación, reduce la carga del admin central y genera una red de confianza territorial. Cada nodo valida máximo 50 registros/día para evitar colusión.',c:'#a855f7'},
 {t:'Estructura de datos por registro',d:'tipo | metodologia | batch_id | olv_generados | verificado | gps_origen [lat,lng] | gps_entrega [lat,lng] | foto_origen url | foto_entrega url | peso_ia_kg | confianza_ia | validado_por admin_id | nodo_validador_id',c:'#22c55e'},
-{t:'Por qué el dMRV ciudadano es nuevo',d:'Los proyectos dMRV existentes son forestales o industriales. El dMRV ciudadano a escala residencial es prácticamente inexistente en LATAM. OLIVIA es la primera infraestructura que lo hace posible con teléfonos celulares y IA gratuita.',c:'#3b82f6'},
+{t:'Por qué el dMRV urbano es poco común',d:'Los proyectos dMRV existentes son mayormente forestales o industriales. Hay muy pocas iniciativas de dMRV urbano en la región. OLIVIA lo hace posible con balanzas conectadas, teléfonos celulares e IA.',c:'#3b82f6'},
 ]:[
 {t:'M — Monitoring',d:'Each registration includes: material type, AI-estimated weight, origin photo, origin GPS, date and time, verified identity. Cloudflare Workers AI analyzes in real time with high/medium/low confidence level.',c:'#22c55e'},
 {t:'R — Reporting',d:'Each batch is grouped by material type and period. Data is consolidated into exportable reports (CSV, PDF) that meet the format required by Verra and Gold Standard.',c:'#3b82f6'},
 {t:'V — Verification',d:'The second GPS photo confirms final disposal. Admin validates manually. AI recommends VALIDATE/REVIEW/REJECT. Only validated ones generate credited OLV.',c:'#f59e0b'},
 {t:'Distributed validation nodes — Phase 3',d:'In Phase 3, certified citizen validators are incorporated — neighborhood verifiers who confirm deliveries in their area in exchange for additional OLV. This decentralizes validation, reduces central admin load and generates a territorial trust network. Each node validates maximum 50 records/day to prevent collusion.',c:'#a855f7'},
 {t:'Data structure per registration',d:'type | methodology | batch_id | olv_generated | verified | gps_origin [lat,lng] | gps_delivery [lat,lng] | photo_origin url | photo_delivery url | ai_weight_kg | ai_confidence | validated_by admin_id | validator_node_id',c:'#22c55e'},
-{t:'Why citizen dMRV is new',d:'Existing dMRV projects are forestry or industrial. Citizen dMRV at residential scale is virtually nonexistent in LATAM. OLIVIA is the first infrastructure that makes it possible with mobile phones and free AI.',c:'#3b82f6'},
+{t:'Why urban dMRV is uncommon',d:'Existing dMRV projects are mostly forestry or industrial. There are very few urban dMRV initiatives in the region. OLIVIA makes it possible with connected scales, mobile phones and AI.',c:'#3b82f6'},
 ]).map(i=>(
 <div key={i.t} style={{...s.card,borderLeft:`3px solid ${i.c}`}}>
 <div style={{fontSize:12,fontWeight:700,color:i.c,marginBottom:4}}>{i.t}</div>
@@ -243,47 +232,48 @@ if(seccion===3) return (
 
 if(seccion===4) return (
 <div>
-<div style={s.titulo}>{lang==='es'?'Arquitectura de certificación':'Multi-methodology Certification'}</div>
-<div style={{...s.highlight,border:'1px solid rgba(239,68,68,0.2)',background:'rgba(239,68,68,0.06)'}}>
-<div style={s.rojo}>{lang==='es'?'⚠️ Una certificadora por tipo de material — nunca mixto':'⚠️ One certifier per material type — never mixed'}</div>
-<div style={s.p}>{lang==='es'?'El mercado internacional requiere estándares específicos por material. OLIVIA usa una metodología distinta para cada tipo de residuo. Los tokens OLV están taggeados por metodología para que el comprador B2B elija exactamente qué tipo de crédito compra.':'The international market requires specific standards per material. OLIVIA uses a different methodology for each waste type. OLV tokens are tagged by methodology so the B2B buyer chooses exactly which type of credit they buy.'}</div>
+<div style={s.titulo}>{lang==='es'?'Metodologías y plan de certificación':'Methodologies and certification plan'}</div>
+<div style={{...s.highlight,border:'1px solid rgba(245,158,11,0.2)',background:'rgba(245,158,11,0.06)'}}>
+<div style={{fontSize:12,fontWeight:700,color:'#f59e0b',marginBottom:4}}>{lang==='es'?'Contexto':'Context'}</div>
+<div style={s.p}>{lang==='es'?'En febrero de 2026 Verra aprobó su primer piloto de dMRV de alta frecuencia: el estándar se está moviendo hacia la medición digital. No es una validación de OLIVIA; OLIVIA se diseña para cumplir esos requisitos.':'In February 2026 Verra approved its first high-frequency dMRV pilot: the standard is moving toward digital measurement. This is not a validation of OLIVIA; OLIVIA is designed to meet those requirements.'}</div>
 </div>
-<div style={{...s.highlight,border:'1px solid rgba(34,197,94,0.2)',background:'rgba(34,197,94,0.06)',marginBottom:12}}>
-<div style={s.verde}>{lang==='es'?'Programme of Activities (PoA) — la figura clave':'Programme of Activities (PoA) — the key structure'}</div>
-<div style={s.p}>{lang==='es'?'OLIVIA opera como PoA (Programme of Activities) bajo Verra y Gold Standard. Esto permite agregar múltiples proyectos ciudadanos bajo una sola certificación, reduciendo el costo de auditoría y haciendo viable la escala mínima de ~500t/año requerida por las certificadoras. El hito Verra dMRV de febrero 2026 valida exactamente este modelo para datos ciudadanos de alta frecuencia.':'OLIVIA operates as a PoA (Programme of Activities) under Verra and Gold Standard. This allows aggregating multiple citizen projects under a single certification, reducing audit costs and making viable the minimum scale of ~500t/year required by certifiers. The Verra dMRV milestone of February 2026 validates exactly this model for high-frequency citizen data.'}</div>
-</div>
-<div style={{...s.highlight,border:'1px solid rgba(245,158,11,0.2)',background:'rgba(245,158,11,0.06)',marginBottom:12}}>
-<div style={{fontSize:11,fontWeight:700,color:'#f59e0b',marginBottom:6}}>{lang==='es'?'Artículo 6.4 del Acuerdo de París — Bosque 2028+':'Paris Agreement Article 6.4 — Bosque 2028+'}</div>
-<div style={s.p}>{lang==='es'?'El tramo Bosque 2028 contempla el acceso al mercado regulado de la ONU (PACM · Art. 6.4). Para que esto ocurra se requiere que se den una o más de las siguientes condiciones: (a) que Argentina presente su NDC 3.0 y adhiera al mecanismo PACM, (b) que OLIVIA expanda al corredor LATAM (Chile · Colombia · Perú · Costa Rica) que ya participan en Art. 6 y registre proyectos en esos países, o (c) que se apruebe una metodología PACM específica para reciclaje doméstico urbano (actualmente en desarrollo). El mercado voluntario Verra VCS (Árbol 2027) no requiere ninguna de estas condiciones y es el camino principal de certificación. La tokenización de créditos Verra VCS se puede realizar desde Argentina con Toucan Protocol o Moss.earth sin autorización estatal.':'The Bosque 2028 stage contemplates access to the UN regulated market (PACM · Art. 6.4). For this to occur, one or more of the following conditions must be met: (a) Argentina presents its NDC 3.0 and joins the PACM mechanism, (b) OLIVIA expands to the LATAM corridor (Chile · Colombia · Peru · Costa Rica) that already participate in Art. 6 and registers projects there, or (c) a specific PACM methodology for urban household recycling is approved (currently in development). The Verra VCS voluntary market (Árbol 2027) does not require any of these conditions and is the main certification path. Tokenization of Verra VCS credits can be done from Argentina with Toucan Protocol or Moss.earth without state authorization.'}</div>
-</div>
-<div style={{display:'flex',flexDirection:'column',gap:8,marginBottom:16}}>
 {[
-{icon:'🌿',tipo:lang==='es'?'Orgánico':'Organic',cert:'Verra AMS-III.AJ + VMR0007',factor:'1.8 kg CO2eq/kg',precio:'USD 22/t',color:'#22c55e',fase:lang==='es'?'Árbol 2027':'Árbol 2027'},
-{icon:'♻️',tipo:lang==='es'?'Plástico':'Plastic',cert:'GS Solid Waste v1.0',factor:'1.5 kg CO2eq/kg',precio:'USD 20/t',color:'#3b82f6',fase:lang==='es'?'Árbol 2027':'Árbol 2027'},
-{icon:'📄',tipo:lang==='es'?'Papel':'Paper',cert:'Gold Standard AMS-III.AJ',factor:'0.9 kg CO2eq/kg',precio:'USD 18/t',color:'#f59e0b',fase:lang==='es'?'Árbol 2027':'Árbol 2027'},
-{icon:'🔩',tipo:lang==='es'?'Metal':'Metal',cert:'Verra AMS-III.AJ',factor:'8.0 kg CO2eq/kg',precio:'USD 35/t',color:'#ef4444',fase:lang==='es'?'Árbol 2027':'Árbol 2027'},
-{icon:'🛢️',tipo:lang==='es'?'Aceite':'Oil',cert:'Verra AMS-III.AK (solo si va a planta biodiesel)',factor:'2.5 kg CO2eq/kg',precio:'USD 25/t',color:'#f97316',fase:lang==='es'?'Bosque 2028':'Bosque 2028'},
-{icon:'👕',tipo:lang==='es'?'Textil':'Textile',cert:lang==='es'?'Sin metodología madura · En desarrollo':'No mature methodology · In development',factor:'5.5 kg CO2eq/kg',precio:lang==='es'?'TBD':'TBD',color:'#ec4899',fase:lang==='es'?'Pendiente':'Pending'},
-{icon:'🍾',tipo:lang==='es'?'Vidrio':'Glass',cert:'Verra AMS-III.AJ',factor:'0.3 kg CO2eq/kg',precio:'USD 15/t',color:'#a855f7',fase:lang==='es'?'Árbol 2027':'Árbol 2027'},
-{icon:'🍃',tipo:lang==='es'?'Hojas/Ramas':'Leaves/Branches',cert:'GS Solid Waste v1.0',factor:'2.1 kg CO2eq/kg',precio:'USD 20/t',color:'#22c55e',fase:lang==='es'?'Árbol 2027':'Árbol 2027'},
+{icon:'🌿',tipo:lang==='es'?'Orgánicos':'Organics',cert:'Verra AMS-III.F',mide:lang==='es'?'Peso de cada entrega y tratamiento (compost o biogás)':'Weight of each delivery and treatment (compost or biogas)',color:'#22c55e'},
+{icon:'💻',tipo:'RAEE',cert:'AMS-III.BA + VMR0008',mide:lang==='es'?'Peso por material y destino final':'Weight per material and final destination',color:'#9333ea'},
 ].map(r=>(
 <div key={r.tipo} style={{...s.card,borderLeft:`3px solid ${r.color}`}}>
-<div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',flexWrap:'wrap',gap:8}}>
-<div style={{display:'flex',gap:8,alignItems:'center'}}>
+<div style={{display:'flex',gap:8,alignItems:'center',marginBottom:6}}>
 <span style={{fontSize:20}}>{r.icon}</span>
 <div>
 <div style={{fontSize:13,fontWeight:700,color:r.color}}>{r.tipo}</div>
 <div style={{fontSize:10,color:sub}}>{r.cert}</div>
 </div>
 </div>
-<div style={{textAlign:'right'}}>
-<div style={{fontSize:11,fontWeight:700,color:r.color}}>{r.precio}</div>
-<div style={{fontSize:9,color:sub}}>{r.factor}</div>
-<div style={{fontSize:9,color:'#22c55e',marginTop:2}}>{r.fase}</div>
-</div>
-</div>
+<div style={s.p}>{r.mide}</div>
 </div>
 ))}
+<div style={s.card}>
+<div style={s.verde}>{lang==='es'?'Plan de certificación':'Certification plan'}</div>
+{(lang==='es'?[
+'Acuerdo con acopiador habilitado y primera balanza transmitiendo datos continuos',
+'Contratación de un desarrollador de carbono, línea de base y documento de diseño del proyecto',
+'Presentación del documento de diseño ante Verra',
+'Validación por auditor acreditado de tercera parte y registro del proyecto',
+]:[
+'Agreement with a licensed collector and first scale transmitting continuous data',
+'Hiring a carbon developer, baseline and project design document',
+'Submission of the project design document to Verra',
+'Validation by an accredited third-party auditor and project registration',
+]).map((p,i)=>(
+<div key={i} style={{display:'flex',gap:8,padding:'5px 0',borderBottom:`1px solid ${border}`}}>
+<span style={{fontSize:11,color:'#22c55e',fontWeight:700}}>{i+1}</span>
+<span style={{fontSize:12,color:sub}}>{p}</span>
+</div>
+))}
+</div>
+<div style={{...s.highlight,border:'1px solid rgba(239,68,68,0.2)',background:'rgba(239,68,68,0.04)'}}>
+<div style={s.rojo}>{lang==='es'?'Pendiente de confirmar: adicionalidad':'To be confirmed: additionality'}</div>
+<div style={s.p}>{lang==='es'?'Si la Ley 1.854 obliga a los grandes generadores a separar, su desvío podría no ser adicional. Lo estamos consultando con desarrolladores de carbono antes de definir el límite del proyecto.':'If Law 1854 requires large generators to separate, their diversion may not be additional. We are consulting carbon developers before defining the project boundary.'}</div>
 </div>
 </div>
 )
@@ -320,15 +310,13 @@ if(seccion===5) return (
 {(lang==='es'?[
 {t:'Generación de OLV',d:'Fórmula: kg × factor CO2eq del material × 100 = OLV. Ejemplo: 1 kg de metal × 8.0 × 100 = 800 OLV. Se acreditan cuando el admin valida la foto de entrega — nunca la de origen.',c:'#22c55e'},
 {t:'Las 3 capas de valor OLV',d:'Capa 1 — Utilidad (Semilla/Brote): historial ambiental verificado, canjeables por servicios de empresas partner. Capa 2 — Carbono (Árbol 2027): conversión a créditos Verra VCS voluntario, USD reales, sin requerir autorización estatal. Capa 3 — Financiero (Bosque 2028+): acceso al mercado regulado Art. 6.4 de la ONU, sujeto a adhesión de Argentina o expansión al corredor LATAM (Chile · Colombia · Perú). Tokenización Verra VCS posible desde Argentina con Toucan/Moss sin autorización estatal.',c:'#3b82f6'},
-{t:'Distribución del crédito',d:'50% OLIVIA Circulab · 35% ciudadano generador · 10% recolector/cooperativa · 5% fondo de reserva ecosistema. En consorcios: consorcio 20% + vecino 15% + recolector 10% + reserva 5% + OLIVIA 50%.',c:'#f59e0b'},
+{t:'Distribución del crédito',d:'Distribución prevista si el proyecto se certifica: 50% OLIVIA Circulab · 25% vecino · 15% recolector · 10% planta.',c:'#f59e0b'},
 {t:'Los que empiezan hoy',d:'Los OLV acumulados en Fase 1 mantienen su valor en Fase 3. Un usuario que acumula 50.000 OLV en 18 meses tiene un historial más valioso que quien empieza en Fase 3. El tiempo de participación es el activo más valioso.',c:'#a855f7'},
-{t:'Convenios como inversión diferida',d:'Las empresas partner que aceptan OLV reciben una cuenta por cobrar en activos ambientales. Cuando OLIVIA certifique en 2027, convierten sus OLV en dinero real. No es descuento — es inversión.',c:'#22c55e'},
 ]:[
 {t:'OLV generation',d:'Formula: kg × material CO2eq factor × 100 = OLV. Example: 1 kg metal × 8.0 × 100 = 800 OLV. Credited when admin validates delivery photo — never origin photo.',c:'#22c55e'},
 {t:'3 OLV value layers',d:'Layer 1 — Utility (Semilla/Brote): verified environmental history, redeemable for partner services. Layer 2 — Carbon (Árbol 2027): conversion to Verra VCS voluntary credits, real USD, no state authorization required. Layer 3 — Financial (Bosque 2028+): access to UN regulated market Art. 6.4, subject to Argentina joining or LATAM corridor expansion (Chile · Colombia · Peru). Verra VCS tokenization possible from Argentina with Toucan/Moss without state authorization.',c:'#3b82f6'},
-{t:'Credit distribution',d:'50% OLIVIA Circulab · 35% generating citizen · 10% collector/cooperative · 5% ecosystem reserve fund. In buildings: building 20% + neighbor 15% + collector 10% + reserve 5% + OLIVIA 50%.',c:'#f59e0b'},
+{t:'Credit distribution',d:'Planned distribution if the project is certified: 50% OLIVIA Circulab · 25% neighbor · 15% collector · 10% plant.',c:'#f59e0b'},
 {t:'Those who start today',d:'OLV accumulated in Phase 1 maintain their value in Phase 3. A user who accumulates 50,000 OLV in 18 months has a more valuable history than someone starting in Phase 3.',c:'#a855f7'},
-{t:'Partnerships as deferred investment',d:'Partner companies that accept OLV receive a receivable in environmental assets. When OLIVIA certifies in 2027, they convert OLV to real money. Not a discount — an investment.',c:'#22c55e'},
 ]).map(i=>(
 <div key={i.t} style={{...s.card,borderLeft:`3px solid ${i.c}`}}>
 <div style={{fontSize:12,fontWeight:700,color:i.c,marginBottom:4}}>{i.t}</div>
@@ -555,21 +543,18 @@ if(seccion===11) return (
 
 if(seccion===12) return (
 <div>
-<div style={s.titulo}>{lang==='es'?'Los 6 tramos del ecosistema':'The 6 Ecosystem Stages'}</div>
+<div style={s.titulo}>{lang==='es'?'Hoja de ruta':'Roadmap'}</div>
 <div style={{...s.highlight,marginBottom:16}}>
-<div style={s.verde}>{lang==='es'?'Como un árbol — de semilla a selva':'Like a tree — from seed to jungle'}</div>
-<div style={s.p}>{lang==='es'?'Los que entran hoy en Semilla cobran primero en Árbol. En Fase 1 los OLV no tienen valor monetario. El mercado los compra en Fase 3 si se logra la certificación Verra. OLIVIA no paga — facilita.':'Those who enter today in Seed earn first in Tree. In Phase 1 OLV have no monetary value. The market buys them in Phase 3 if Verra certification is achieved. OLIVIA doesn\'t pay — it facilitates.'}</div>
+<div style={s.p}>{lang==='es'?'Tres etapas reales. Hoy los OLV no tienen valor monetario y OLIVIA no emite créditos de carbono ni promete ingresos.':'Three real stages. Today OLV have no monetary value and OLIVIA issues no carbon credits and promises no income.'}</div>
 </div>
 {(lang==='es'?[
-{fase:'Fase 1',año:'2026 · Activa ahora',color:'#22c55e',items:['Piloto dMRV en CABA con usuarios reales','App web con verificación IA (Cloudflare Workers AI)','Tokens OLV acumulándose desde el día 1','Red social OLIVIA activa con comunidad','Sistema de amigos y seguimiento','Admin con CRM y validación dMRV','Encuesta de mercado con datos reales']},
-{fase:'Fase 2',año:'Q4 2026',color:'#3b82f6',items:['Primeros convenios con empresas partner','OLV canjeables por servicios reales','Módulo de transporte con rutas IA','3 consorcios piloto activos en CABA','Wallet empresarial para partners','Primeros nodos de validación ciudadana']},
-{fase:'Fase 3',año:'2027',color:'#f59e0b',items:['CTO + auditoría de código (mes 1-2 post-inversión)','Certificación Verra VM0036 — orgánico','Primer batch de créditos certificados','Primer pago en USD a usuarios pioneros','Gold Standard — plástico y papel','Nodos de validación distribuidos activos','Expansión México y Colombia','Serie A USD 5M']},
-{fase:'Fase 4',año:'2028',color:'#a855f7',items:['Art. 6.4 del Acuerdo de París · USD 90/t','CAR metal · GS Textile textil','OLIVIA Exchange — intercambio de OLV','API para compradores B2B directos','Integración Art of Money + PULSO completa','Corredor LATAM completo: AR MX CO BR CH DO']},
+{fase:'🌱 Semilla',año:'Hoy',color:'#22c55e',items:['Piloto dMRV en CABA','App web con verificación IA (Cloudflare Workers AI)','Panel dMRV con validación manual','Primeros kilos verificados']},
+{fase:'🌿 Brote',año:'Próxima',color:'#3b82f6',items:['Sociedad constituida','Acuerdo con acopiador habilitado','Planta aliada con balanza conectada','Datos continuos de balanza y firma del acopiador']},
+{fase:'🌳 Árbol',año:'Certificación',color:'#f59e0b',items:['Desarrollador de carbono y línea de base','Documento de diseño presentado ante Verra','Auditoría de tercera parte','Proyecto registrado']},
 ]:[
-{fase:'Phase 1',año:'2026 · Active now',color:'#22c55e',items:['dMRV pilot in Buenos Aires with real users','Web app with AI verification (Cloudflare Workers AI)','OLV tokens accumulating from day 1','Active OLIVIA social network with community','Friends and following system','Admin with CRM and dMRV validation','Market survey with real data']},
-{fase:'Phase 2',año:'Q4 2026',color:'#3b82f6',items:['First partnerships with companies','OLV redeemable for real services','Transport module with AI routes','3 pilot buildings active','Corporate wallet for partners','First citizen validation nodes']},
-{fase:'Phase 3',año:'2027',color:'#f59e0b',items:['CTO + code audit (months 1-2 post-investment)','Verra VM0036 certification — organic','First certified credit batch','First USD payment to pioneer users','Gold Standard — plastic and paper','Distributed validation nodes active','Expansion Mexico and Colombia','Series A USD 5M']},
-{fase:'Phase 4',año:'2028',color:'#a855f7',items:['Paris Agreement Art. 6.4 · USD 90/t','CAR metal · GS Textile textile','OLIVIA Exchange — OLV trading','API for direct B2B buyers','Full Art of Money + PULSO integration','LATAM corridor: AR MX CO BR CH DO']},
+{fase:'🌱 Seed',año:'Today',color:'#22c55e',items:['dMRV pilot in Buenos Aires','Web app with AI verification (Cloudflare Workers AI)','dMRV dashboard with manual validation','First verified kilos']},
+{fase:'🌿 Sprout',año:'Next',color:'#3b82f6',items:['Company incorporated','Agreement with a licensed collector','Partner plant with connected scale','Continuous scale data and collector sign-off']},
+{fase:'🌳 Tree',año:'Certification',color:'#f59e0b',items:['Carbon developer and baseline','Project design document submitted to Verra','Third-party audit','Project registered']},
 ]).map(f=>(
 <div key={f.fase} style={{...s.card,borderTop:`3px solid ${f.color}`,marginBottom:14}}>
 <div style={{display:'flex',justifyContent:'space-between',marginBottom:10}}>
@@ -584,6 +569,7 @@ if(seccion===12) return (
 ))}
 </div>
 ))}
+<div style={{...s.card,fontSize:11,color:sub}}>{lang==='es'?'Visión futura: módulo de transporte y otras ciudades de la región, una vez certificado el primer proyecto.':'Future vision: transport module and other cities in the region, once the first project is certified.'}</div>
 </div>
 )
 
@@ -618,7 +604,7 @@ if(seccion===14) return (
 <div>
 <div style={s.titulo}>{lang==='es'?'Equipo y tecnología':'Team & Technology'}</div>
 <div style={s.highlight}>
-<div style={s.verde}>{lang==='es'?'Construido con USD 0 · Distrito Tecnológico · Buenos Aires · Ley 27.506':'Built with USD 0 · Distrito Tecnológico · Buenos Aires · Law 27.506'}</div>
+<div style={s.verde}>{lang==='es'?'Construido sin inversión externa · Buenos Aires':'Built without external investment · Buenos Aires'}</div>
 <div style={s.p}>{lang==='es'?'Todo el producto fue construido por los fundadores usando IA como equipo técnico. Sin inversión externa. El primer uso de fondos es contratar un CTO y auditar el código.':'The entire product was built by the founders using AI as their technical team. No external investment. First use of funds is hiring a CTO and auditing the code.'}</div>
 </div>
 {[
@@ -654,30 +640,22 @@ if(seccion===14) return (
 
 if(seccion===15) return (
 <div>
-<div style={s.titulo}>{lang==='es'?'Ronda Seed 2026':'Seed Round 2026'}</div>
-<div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,marginBottom:16}}>
+<div style={s.titulo}>{lang==='es'?'El pedido':'The Ask'}</div>
 <div style={{...s.card,textAlign:'center',borderTop:'3px solid #22c55e'}}>
-<div style={{fontSize:11,color:sub,marginBottom:4}}>{lang==='es'?'Opción A':'Option A'}</div>
-<div style={{fontSize:24,fontWeight:900,color:'#22c55e'}}>USD 500K</div>
-<div style={{fontSize:11,color:sub,marginTop:4}}>10% equity</div>
-<div style={{fontSize:10,color:sub}}>USD 4.5M pre-money</div>
-</div>
-<div style={{...s.card,textAlign:'center',borderTop:'3px solid #3b82f6'}}>
-<div style={{fontSize:11,color:sub,marginBottom:4}}>{lang==='es'?'Opción B':'Option B'}</div>
-<div style={{fontSize:24,fontWeight:900,color:'#3b82f6'}}>USD 2M</div>
-<div style={{fontSize:11,color:sub,marginTop:4}}>15% equity</div>
-<div style={{fontSize:10,color:sub}}>USD 11.3M pre-money</div>
-</div>
+<div style={{fontSize:28,fontWeight:900,color:'#22c55e'}}>USD 200K</div>
+<div style={{fontSize:11,color:sub,marginTop:4}}>{lang==='es'?'3 tramos contra hitos · 10% para un socio activo':'3 milestone-based tranches · 10% for an active partner'}</div>
+<div style={{fontSize:10,color:sub}}>{lang==='es'?'USD 1,8M pre-money · USD 2M post-money':'USD 1.8M pre-money · USD 2M post-money'}</div>
 </div>
 {(lang==='es'?[
-{t:'Estructura del deal',d:'Equity directo. Sin convertible note. Sin intereses. Sin ratchets. Dual class shares: Clase A fundadores (10 votos/acción) · Clase B inversores (1 voto/acción). Liquidation preference 1× no participante estándar.'},
-{t:'Sin costos fijos hasta inversión comprometida',d:'Circulab Tech no incurrirá en gastos fijos hasta que la inversión esté formalmente comprometida y los fondos disponibles. Hasta ese momento el costo operativo es USD 0.'},
-{t:lang==='es'?'Garantías para el inversor':'Investor guarantees',d:lang==='es'?'Seat en el board · Reporting mensual verificado · Milestone-based disbursement · Anti-dilution protection · Tag-along rights · Auditoría de código mes 1-2 post-inversión · Sin costos fijos hasta inversión comprometida.':'Board seat · Verified monthly reporting · Milestone-based disbursement · Anti-dilution protection · Tag-along rights · Code audit months 1-2 post-investment · No fixed costs until committed.'},
-{t:'Ventajas fiscales — Ley 27.506',d:'Ganancias al 15% · Reducción 70-80% cargas patronales · FONDCE · Estabilidad fiscal 10 años. Circulab Tech opera desde el Distrito Tecnológico de Buenos Aires.'},
+{t:'Tramo 1 · USD 50.000',d:'Sociedad, acuerdo con acopiador, primeras balanzas, 4 meses de equipo. Libera el siguiente: sociedad constituida, acopiador firmado, balanza transmitiendo datos continuos.'},
+{t:'Tramo 2 · USD 70.000',d:'Desarrollador de carbono, línea de base, documento de diseño del proyecto, más nodos. Libera el siguiente: documento de diseño presentado ante Verra.'},
+{t:'Tramo 3 · USD 80.000',d:'Auditoría de tercera parte, registro, operación. Hito: proyecto registrado.'},
+{t:'Condiciones',d:'Valuación de referencia: USD 1,8M pre-money (USD 2M post-money) por el 10%. Montos por tramo a confirmar con cotizaciones de balanzas y del desarrollador de carbono. Sin costos fijos hasta inversión comprometida. Reporting mensual.'},
 ]:[
-{t:'Deal structure',d:'Direct equity. No convertible note. No interest. No ratchets. Dual class shares: Class A founders (10 votes/share) · Class B investors (1 vote/share). Standard 1× non-participating liquidation preference.'},
-{t:'No fixed costs until investment committed',d:'Circulab Tech will not incur fixed expenses until the investment is formally committed and funds are available. Until then, operating cost is USD 0.'},
-{t:'Tax advantages — Law 27.506',d:'15% income tax · 70-80% payroll reduction · FONDCE · 10-year fiscal stability. Circulab Tech opera en el Distrito Tecnológico de Buenos Aires (Ley 2.972 · vigente hasta 2035).'},
+{t:'Tranche 1 · USD 50,000',d:'Company, collector agreement, first scales, 4 months of team. Releases the next: company incorporated, collector signed, scale transmitting continuous data.'},
+{t:'Tranche 2 · USD 70,000',d:'Carbon developer, baseline, project design document, more nodes. Releases the next: project design document submitted to Verra.'},
+{t:'Tranche 3 · USD 80,000',d:'Third-party audit, registration, operations. Milestone: project registered.'},
+{t:'Terms',d:'Reference valuation: USD 1.8M pre-money (USD 2M post-money) for 10%. Tranche amounts to be confirmed with scale and carbon developer quotes. No fixed costs until investment is committed. Monthly reporting.'},
 ]).map(i=>(
 <div key={i.t} style={s.card}>
 <div style={s.verde}>{i.t}</div>
@@ -1017,17 +995,15 @@ if(seccion===16) return (
 <div>
 <div style={s.titulo}>{lang==='es'?'Riesgos y mitigación':'Risks & Mitigation'}</div>
 {(lang==='es'?[
-{r:'Complejidad operativa multi-metodológica',n:'MEDIO',c:'#f59e0b',m:'Fase 3 empieza con UNA sola certificación — Verra VM0036 orgánico. El CTO contratado en mes 1-2 audita y refactoriza el sistema para múltiples metodologías en paralelo.'},
-{r:'Caída del precio del carbono voluntario',n:'MEDIO',c:'#f59e0b',m:'4 de 5 fuentes de valor no dependen del carbono. Diversificación en 7 mercados. Art. 6.4 es regulado. Reserva estratégica de OLV.'},
-{r:'dMRV ciudadano no aprobado por certificadoras',n:'MEDIO',c:'#f59e0b',m:'En febrero de 2026 En feb 2026 Verra aprobó su primer piloto dMRV de alta frecuencia — el mismo modelo de verificación digital que implementa OLIVIA de alta frecuencia, validando exactamente el modelo que OLIVIA implementa. El riesgo bajó de ALTO a MEDIO: ya no es validez del método, sino de ejecución y escala. La estrategia sigue siendo construir historial de datos durante Fase 1-2 para presentar evidencia sólida bajo esa metodología ya aprobada.'},
-{r:'Adopción ciudadana insuficiente',n:'MEDIO',c:'#f59e0b',m:'El incentivo económico es el diferencial. Consorcios como canal de adquisición masiva. Red social OLIVIA como mecanismo de retención.'},
-{r:'Competencia de plataformas establecidas',n:'BAJO',c:'#22c55e',m:'No existe competencia directa en dMRV ciudadano en LATAM. La ventaja del primero en construir el historial de datos es insuperable.'},
+{r:'Adicionalidad para generadores obligados',n:'ALTO',c:'#ef4444',m:'Consulta con desarrolladores de carbono antes de definir el límite del proyecto. El modelo de ingresos no depende del carbono en las primeras etapas.'},
+{r:'Metodología no aprobada para el proyecto',n:'MEDIO',c:'#f59e0b',m:'Se empieza con una sola metodología (orgánicos, AMS-III.F) y un desarrollador de carbono con experiencia en Verra.'},
+{r:'Dependencia de una planta aliada',n:'MEDIO',c:'#f59e0b',m:'Dos formas de trabajar: acuerdo con un acopiador habilitado o inscripción propia de OLIVIA como acopiador.'},
+{r:'Caída del precio del carbono voluntario',n:'MEDIO',c:'#f59e0b',m:'Los primeros ingresos vienen de consultoría y software para generadores y del servicio de datos para plantas.'},
 ]:[
-{r:'Multi-methodology operational complexity',n:'MEDIUM',c:'#f59e0b',m:'Phase 3 starts with ONE certification — Verra VM0036 organic. CTO hired in months 1-2 audits and refactors the system for multiple parallel methodologies.'},
-{r:'Voluntary carbon price drop',n:'MEDIUM',c:'#f59e0b',m:'4 of 5 value sources do not depend on carbon. Diversification across 7 markets. Art. 6.4 is regulated. Strategic OLV reserve.'},
-{r:'Citizen dMRV not approved by certifiers',n:'HIGH',c:'#ef4444',m:'This is genuinely new. Strategy is to build data history during Phase 1-2 to present to Verra with solid evidence. Precedents exist in Africa and Asia.'},
-{r:'Insufficient citizen adoption',n:'MEDIUM',c:'#f59e0b',m:'Economic incentive is the key differentiator. Buildings as mass acquisition channel. OLIVIA social network as retention mechanism.'},
-{r:'Competition from established platforms',n:'LOW',c:'#22c55e',m:'No direct competition in citizen dMRV in LATAM. First mover advantage in building data history is insurmountable.'},
+{r:'Additionality for obligated generators',n:'HIGH',c:'#ef4444',m:'Consulting carbon developers before defining the project boundary. The revenue model does not depend on carbon in the early stages.'},
+{r:'Methodology not approved for the project',n:'MEDIUM',c:'#f59e0b',m:'Start with a single methodology (organics, AMS-III.F) and a carbon developer experienced with Verra.'},
+{r:'Dependence on a partner plant',n:'MEDIUM',c:'#f59e0b',m:'Two ways to work: agreement with a licensed collector or OLIVIA registering as a collector.'},
+{r:'Voluntary carbon price drop',n:'MEDIUM',c:'#f59e0b',m:'First revenues come from consulting and software for generators and the data service for plants.'},
 ]).map(r=>(
 <div key={r.r} style={{...s.card,borderLeft:`3px solid ${r.c}`}}>
 <div style={{display:'flex',justifyContent:'space-between',marginBottom:6,flexWrap:'wrap',gap:6}}>
@@ -1076,7 +1052,7 @@ return (
 <div style={{width:32,height:32,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:14,color:'white'}}>O</div>
 <div>
 <div style={{fontSize:13,fontWeight:800,color:text}}>OLIVIA Circulab</div>
-<div style={{fontSize:9,color:'#22c55e'}}>Whitepaper v2.0 · {lang==='es'?'Junio':'June'} 2026</div>
+<div style={{fontSize:9,color:'#22c55e'}}>Whitepaper v3.0 · {lang==='es'?'Septiembre':'September'} 2026</div>
 </div>
 </a>
 <div style={{display:'flex',gap:6,alignItems:'center'}}>
@@ -1088,24 +1064,24 @@ return (
 </div>
 
 <div style={{display:'flex',gap:4,padding:'8px 16px',borderBottom:`1px solid ${border}`,overflowX:'auto',background:dark?'#080c16':'#e8ecf0'}}>
-{SECCIONES.map((sec,i)=>(
+{VISIBLES.map(i=>{const sec=SECCIONES[i];return (
 <button key={i} onClick={()=>setSeccion(i)}
 style={{padding:'5px 10px',borderRadius:8,border:'none',cursor:'pointer',fontSize:10,fontWeight:seccion===i?700:400,background:seccion===i?'rgba(34,197,94,0.15)':'rgba(255,255,255,0.04)',color:seccion===i?'#22c55e':'#64748b',whiteSpace:'nowrap'}}>
 {sec}
 </button>
-))}
+)})}
 </div>
 
 <div style={{padding:'20px',maxWidth:640,margin:'0 auto'}}>
 {contenido()}
 <div style={{display:'flex',justifyContent:'space-between',marginTop:24,paddingTop:16,borderTop:`1px solid ${border}`}}>
-<button onClick={()=>{setSeccion(s=>Math.max(0,s-1));window.scrollTo(0,0)}} disabled={seccion===0}
+<button onClick={()=>{setSeccion(VISIBLES[Math.max(0,pos-1)]);window.scrollTo(0,0)}} disabled={seccion===0}
 style={{background:seccion===0?'rgba(255,255,255,0.02)':'rgba(255,255,255,0.08)',border:`1px solid ${border}`,borderRadius:10,padding:'10px 20px',color:seccion===0?sub:text,fontSize:13,cursor:seccion===0?'not-allowed':'pointer'}}>
 ← {lang==='es'?'Anterior':'Previous'}
 </button>
-<div style={{fontSize:11,color:sub,alignSelf:'center'}}>{seccion+1} / {SECCIONES.length}</div>
-<button onClick={()=>{setSeccion(s=>Math.min(SECCIONES.length-1,s+1));window.scrollTo(0,0)}} disabled={seccion===SECCIONES.length-1}
-style={{background:seccion===SECCIONES.length-1?'rgba(255,255,255,0.02)':'linear-gradient(135deg,#22c55e,#16a34a)',border:'none',borderRadius:10,padding:'10px 20px',color:seccion===SECCIONES.length-1?sub:'white',fontSize:13,cursor:seccion===SECCIONES.length-1?'not-allowed':'pointer'}}>
+<div style={{fontSize:11,color:sub,alignSelf:'center'}}>{pos+1} / {VISIBLES.length}</div>
+<button onClick={()=>{setSeccion(VISIBLES[Math.min(VISIBLES.length-1,pos+1)]);window.scrollTo(0,0)}} disabled={pos===VISIBLES.length-1}
+style={{background:pos===VISIBLES.length-1?'rgba(255,255,255,0.02)':'linear-gradient(135deg,#22c55e,#16a34a)',border:'none',borderRadius:10,padding:'10px 20px',color:pos===VISIBLES.length-1?sub:'white',fontSize:13,cursor:pos===VISIBLES.length-1?'not-allowed':'pointer'}}>
 {lang==='es'?'Siguiente':'Next'} →
 </button>
 </div>

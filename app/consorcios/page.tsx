@@ -77,11 +77,11 @@ export default function Consorcios() {
               </h3>
               <p style={{fontSize:12,color:sub,lineHeight:1.8,marginBottom:14}}>
                 {es
-                  ? 'Los edificios de más de 19 pisos tienen obligación legal bajo la Ley 1854 de CABA de separar y certificar la gestión de sus residuos. Las inspecciones del GCBA aumentaron fuertemente en 2026. OLIVIA te da el sistema verificado con IA y el certificado para presentar en cualquier inspección.'
-                  : 'Buildings over 19 floors have a legal obligation under CABA Law 1854 to separate and certify waste management. GCBA inspections increased significantly in 2026. OLIVIA gives you the AI-verified system and the certificate to present in any inspection.'}
+                  ? 'La Ley 1854 de CABA (Basura Cero) y su reglamentación establecen obligaciones de separación para los grandes generadores de residuos. OLIVIA te da el sistema verificado con IA y un registro verificable que respalda tu cumplimiento.'
+                  : 'CABA Law 1854 (Zero Waste) and its regulations set separation obligations for large waste generators. OLIVIA gives you the AI-verified system and a verifiable record that backs your compliance.'}
               </p>
               <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
-                {(es?['Ley 1854 CABA','Separación verificada','Certificado digital','Inspecciones GCBA']:['Law 1854 CABA','Verified separation','Digital certificate','GCBA inspections']).map((t,i)=>(
+                {(es?['Ley 1854 CABA','Separación verificada','Registro verificable']:['Law 1854 CABA','Verified separation','Verifiable record']).map((t,i)=>(
                   <span key={i} style={{fontSize:9,color:'#ef4444',background:'rgba(239,68,68,0.08)',border:'1px solid rgba(239,68,68,0.2)',borderRadius:20,padding:'3px 10px',fontWeight:700}}>{t}</span>
                 ))}
               </div>
@@ -119,12 +119,12 @@ export default function Consorcios() {
                 {es?'03 · Registros certificables':'03 · Certifiable records'}
               </div>
               <h3 style={{fontSize:18,fontWeight:900,color:text,marginBottom:10}}>
-                {es?'Los residuos que separan hoy valen dinero real en 2027.':'The waste you separate today is worth real money in 2027.'}
+                {es?'Los residuos que separan hoy podrán tener valor si el proyecto se certifica.':'The waste you separate today may have value if the project is certified.'}
               </h3>
               <p style={{fontSize:12,color:sub,lineHeight:1.8,marginBottom:14}}>
                 {es
-                  ? 'En febrero 2026 Verra aprobó su primer piloto de verificación digital dMRV de alta frecuencia — el mismo modelo que implementa OLIVIA. Cada kilo de residuo orgánico verificado en tu edificio queda registrado con origen, peso y destino, y sirve como evidencia de cumplimiento de la Ley 1854. Esos registros son además la base de un futuro proceso de certificación bajo estándar Verra, que lleva entre dos y tres años.'
-                  : 'In February 2026 Verra approved its first high-frequency digital dMRV verification pilot — the same model OLIVIA implements. Every kilo of verified organic waste in your building is recorded with origin, weight and destination as evidence of compliance. Those records are also the basis for a future Verra certification process, which takes two to three years.'}
+                  ? 'En febrero 2026 Verra aprobó su primer piloto de verificación digital dMRV de alta frecuencia: el estándar se está moviendo hacia la medición digital. Cada kilo de residuo orgánico verificado en tu edificio queda registrado con origen, peso y destino, y sirve como evidencia de cumplimiento de la Ley 1854. Esos registros son además la base de un futuro proceso de certificación bajo estándar Verra, que lleva entre dos y tres años.'
+                  : 'In February 2026 Verra approved its first high-frequency digital dMRV verification pilot: the standard is moving toward digital measurement. Every kilo of verified organic waste in your building is recorded with origin, weight and destination as evidence of compliance. Those records are also the basis for a future Verra certification process, which takes two to three years.'}
               </p>
               <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
                 {(es?['Trazabilidad verificada','Evidencia de cumplimiento','Metano evitado','Primer movedor']:['Verified traceability','Compliance evidence','Avoided methane','First mover']).map((t,i)=>(
@@ -148,15 +148,15 @@ export default function Consorcios() {
           {(es?[
             {n:'1',t:'Instalamos el kit en tu edificio',d:'Tachos brandeados OLIVIA para áreas comunes, cartel con QR en el hall y stickers para ascensores. Sin obra. Sin instalación compleja. El encargado recibe una capacitación de 20 minutos.',c:accent},
             {n:'2',t:'El encargado registra desde el celular',d:'Con la app OLIVIA, el encargado fotografía los residuos orgánicos del día. GPS automático. La IA verifica en segundos. Sin papeles ni planillas.',c:blue},
-            {n:'3',t:'Los vecinos se suman con el QR del hall',d:'Cada vecino puede registrar sus propios residuos desde su departamento. Acumulan OLV Verdes que en 2027 se convierten en valor real. El edificio acumula más volumen verificado.',c:'#a855f7'},
+            {n:'3',t:'Los vecinos se suman con el QR del hall',d:'Cada vecino puede registrar sus propios residuos desde su departamento. Acumulan OLV Verdes que podrán tener valor si el proyecto se certifica. El edificio acumula más volumen verificado.',c:'#a855f7'},
             {n:'4',t:'El administrador recibe el reporte mensual',d:'Dashboard en tiempo real con los kg verificados, el CO2 evitado y el progreso hacia la certificación Verra. Listo para presentar en la próxima asamblea.',c:'#f59e0b'},
-            {n:'5',t:'Certificado de gestión para el GCBA',d:'El certificado OLIVIA muestra datos reales verificados con IA. Válido ante inspectores de la Ley de Basura Cero. No es autodeclaración — es verificación digital.',c:'#ef4444'},
+            {n:'5',t:'Registro verificable de gestión',d:'El registro OLIVIA muestra datos reales verificados con IA y respalda tu cumplimiento de la Ley de Basura Cero. No es autodeclaración — es verificación digital.',c:'#ef4444'},
           ]:[
             {n:'1',t:'We install the kit in your building',d:'OLIVIA-branded bins for common areas, QR poster in the hall and elevator stickers. No construction. No complex installation. The superintendent receives a 20-minute training.',c:accent},
             {n:'2',t:'The superintendent registers from the phone',d:'With the OLIVIA app, the superintendent photographs the daily organic waste. Automatic GPS. AI verifies in seconds. No paperwork or spreadsheets.',c:blue},
-            {n:'3',t:'Residents join with the hall QR',d:'Each resident can register their own waste from their apartment. They accumulate Green OLV that in 2027 become real value. The building accumulates more verified volume.',c:'#a855f7'},
+            {n:'3',t:'Residents join with the hall QR',d:'Each resident can register their own waste from their apartment. They accumulate Green OLV that may have value if the project is certified. The building accumulates more verified volume.',c:'#a855f7'},
             {n:'4',t:'The administrator receives the monthly report',d:'Real-time dashboard with verified kg, avoided CO2 and progress toward Verra certification. Ready to present at the next assembly.',c:'#f59e0b'},
-            {n:'5',t:'Management certificate for GCBA',d:'The OLIVIA certificate shows real AI-verified data. Valid before Zero Waste Law inspectors. Not self-declaration — digital verification.',c:'#ef4444'},
+            {n:'5',t:'Verifiable management record',d:'The OLIVIA record shows real AI-verified data and backs your compliance with the Zero Waste Law. Not self-declaration — digital verification.',c:'#ef4444'},
           ]).map((p,i,arr)=>(
             <div key={i} style={{display:'flex',gap:20,paddingBottom:i<arr.length-1?28:0}}>
               <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
@@ -219,8 +219,8 @@ export default function Consorcios() {
             </h3>
             <p style={{fontSize:12,color:sub,lineHeight:1.8,marginBottom:20}}>
               {es
-                ? 'El encargado abre la app OLIVIA, fotografía el tacho de orgánicos, confirma el GPS y listo. La IA hace el análisis automáticamente. No hay planillas, no hay papeles, no hay capacitación compleja. Y cada registro que hace el encargado contribuye al certificado del edificio y a los créditos de carbono de 2027.'
-                : 'The superintendent opens the OLIVIA app, photographs the organic bin, confirms GPS and done. AI does the analysis automatically. No spreadsheets, no paperwork, no complex training. And every record the superintendent makes contributes to the building certificate and 2027 carbon credits.'}
+                ? 'El encargado abre la app OLIVIA, fotografía el tacho de orgánicos, confirma el GPS y listo. La IA hace el análisis automáticamente. No hay planillas, no hay papeles, no hay capacitación compleja. Y cada registro que hace el encargado contribuye al registro verificable del edificio y a un futuro proceso de certificación.'
+                : 'The superintendent opens the OLIVIA app, photographs the organic bin, confirms GPS and done. AI does the analysis automatically. No spreadsheets, no paperwork, no complex training. And every record the superintendent makes contributes to the building verifiable record and a future certification process.'}
             </p>
             <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10}}>
               {[
@@ -295,7 +295,7 @@ export default function Consorcios() {
             {l:'Metamorfosis',h:'/metamorfosis'},
             {l:'Consorcios',h:'/consorcios'},
             {l:es?'Grandes Generadores':'Large Generators',h:'/grandes-generadores'},
-            {l:es?'Grandes Emisores':'Large Emitters',h:'/grandes-emisores'},
+            {l:es?'Plantas y acopiadores':'Plants & collectors',h:'/operadores'},
             {l:'RAEE',h:'/raee'},
             {l:es?'Mapa':'Map',h:'/mapa'},
             {l:'Kits',h:'/kits'},
@@ -322,7 +322,7 @@ export default function Consorcios() {
           <a href="/privacidad" style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.7}}>{es?'Privacidad':'Privacy'}</a>
           <a href="https://www.linkedin.com/company/113160128/" style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.7}}>LinkedIn</a>
         </div>
-        <div style={{fontSize:9,color:sub,fontFamily:'monospace',letterSpacing:'0.05em',opacity:0.7}}>© 2026 Circulab Tech · Distrito Tecnológico · Buenos Aires · Ley 27.506</div>
+        <div style={{fontSize:9,color:sub,fontFamily:'monospace',letterSpacing:'0.05em',opacity:0.7}}>© 2026 Circulab Tech · Buenos Aires, Argentina</div>
       </footer>
 
     </div>

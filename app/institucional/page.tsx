@@ -17,12 +17,9 @@ export default function Institucional() {
   const es = lang==='es'
 
   const TRAMOS = [
-    {icon:'🌱',l:es?'SEMILLA · 2026':'SEED · 2026',d:es?'Piloto dMRV activo · OLV acumulándose · Historial para Verra · Product-market fit':'Active dMRV pilot · OLV accumulating · Verra history building · Product-market fit',c:'#22c55e',activo:true},
-    {icon:'🌿',l:es?'BROTE · Q4 2026':'SPROUT · Q4 2026',d:es?'OLV canjeables · Convenios partner · 3 consorcios piloto · Serie A Q1 2027':'OLV redeemable · Partner deals · 3 pilot buildings · Series A Q1 2027',c:'#3b82f6',activo:false},
-    {icon:'🌳',l:es?'ÁRBOL · certificación':'TREE · certification',d:es?'Etapa de certificación bajo estándar Verra. Requiere validación por auditor acreditado y entre doce y veinticuatro meses de registros acumulados. ✅ Verra validó el método dMRV en Feb 2026 — certeza técnica confirmada · 6.329 OLV = USD 1':'Verra VCS certification · First USD payment · ✅ Verra validated dMRV method Feb 2026 — technical certainty confirmed · 6.329 OLV = USD 1',c:'#f59e0b',activo:false},
-    {icon:'🌲',l:es?'BOSQUE · 2028':'FOREST · 2028',d:es?'Art. 6.4 París · 2.198 OLV = USD 1 · Corredor AR MX CO BR CH DO · OLIVIA Exchange blockchain':'Art. 6.4 Paris · 2.198 OLV = USD 1 · AR MX CO BR CH DO · OLIVIA Exchange blockchain',c:'#a855f7',activo:false},
-    {icon:'🏔️',l:es?'SELVA · 2029':'JUNGLE · 2029',d:es?'OLIVIA Ocean + Waters + Space · 1.429 OLV = USD 1 · PULSO estándar LATAM':'OLIVIA Ocean + Waters + Space · 1.429 OLV = USD 1 · PULSO LATAM standard',c:'#ec4899',activo:false},
-    {icon:'🌊',l:es?'SUMIDERO · 2030+':'SINK · 2030+',d:es?'Net positive verificado · 952 OLV = USD 1 · Infraestructura climática global':'Verified net positive · 952 OLV = USD 1 · Global climate infrastructure',c:'#06b6d4',activo:false},
+    {icon:'🌱',l:es?'SEMILLA · hoy':'SEED · today',d:es?'Piloto dMRV activo · Kilos verificados acumulándose · Se construye el historial verificado':'Active dMRV pilot · Verified kilos accumulating · Building the verified record',c:'#22c55e',activo:true},
+    {icon:'🌿',l:es?'BROTE · próxima':'SPROUT · next',d:es?'Planta aliada instalada · Datos continuos de balanza · Firma del acopiador':'Partner plant installed · Continuous scale data · Collector sign-off',c:'#3b82f6',activo:false},
+    {icon:'🌳',l:es?'ÁRBOL · certificación':'TREE · certification',d:es?'Etapa de certificación bajo estándar Verra. Requiere validación por auditor acreditado y entre doce y veinticuatro meses de registros acumulados. Sin precios ni fechas de pago comprometidas.':'Certification stage under the Verra standard. Requires validation by an accredited auditor and twelve to twenty-four months of accumulated records. No committed prices or payment dates.',c:'#f59e0b',activo:false},
   ]
 
   const GARANTIAS = [
@@ -33,8 +30,8 @@ export default function Institucional() {
     {icon:'🤝',t:es?'Tag-along rights':'Tag-along rights'},
     {icon:'✅',t:es?'Sin costos fijos hasta inversión comprometida':'No fixed costs until investment committed'},
     {icon:'🔍',t:es?'Auditoría de código mes 1-2':'Code audit months 1-2'},
-    {icon:'📋',t:es?'Estabilidad fiscal 10 años · Ley 27.506':'10-year fiscal stability · Law 27.506'},
-    {icon:'💎',t:es?'Cada USD 1 = USD 1.4 efectivos · Riesgo técnico reducido: Verra aprobó piloto dMRV Feb 2026':'Every USD 1 = USD 1.4 effective · Technical risk reduced: Verra validated dMRV Feb 2026'},
+    {icon:'📋',t:es?'Inscripción planificada en el régimen de Economía del Conocimiento':'Planned registration under the Knowledge Economy regime'},
+    {icon:'💎',t:es?'Contexto: en feb 2026 Verra aprobó su primer piloto de dMRV de alta frecuencia':'Context: in Feb 2026 Verra approved its first high-frequency dMRV pilot'},
   ]
 
   return (
@@ -80,9 +77,9 @@ export default function Institucional() {
               'AI-Native Ecosystems',
               'Buenos Aires Sandbox',
               'LATAM Infrastructure',
-              es?'Ley 27.506 · 1.4x':'Law 27.506 · 1.4x',
-              es?'🚀 USD 0 inversión externa':'🚀 USD 0 external investment',
-              es?'✅ En feb 2026 Verra aprobó su primer piloto dMRV de alta frecuencia — el mismo modelo de verificación digital que implementa OLIVIA':'✅ In Feb 2026 Verra approved its first high-frequency dMRV pilot — the same digital verification model OLIVIA implements',
+              es?'Economía del Conocimiento · inscripción planificada':'Knowledge Economy · planned registration',
+              es?'🚀 Construido sin inversión externa':'🚀 Built without external investment',
+              es?'✅ En feb 2026 Verra aprobó su primer piloto de dMRV de alta frecuencia: el estándar se mueve hacia la medición digital':'✅ In Feb 2026 Verra approved its first high-frequency dMRV pilot: the standard is moving toward digital measurement',
             ].map((tag,i)=>(
               <span key={i} style={{border:`1px solid ${border}`,borderRadius:20,padding:'5px 12px',fontSize:10,textTransform:'uppercase',letterSpacing:'0.1em',fontWeight:500,background:dark?'rgba(255,255,255,0.03)':'rgba(0,0,0,0.03)'}}>
                 {tag}
@@ -105,9 +102,9 @@ export default function Institucional() {
           <div style={{display:'inline-flex',alignItems:'center',gap:8,background:'rgba(34,197,94,0.08)',border:'1px solid rgba(34,197,94,0.25)',borderRadius:30,padding:'8px 16px',marginBottom:20,flexWrap:'wrap'}}>
             <span style={{fontSize:11,fontWeight:700,color:'#22c55e'}}>{es?'Ronda Seed abierta':'Seed Round open'}</span>
             <span style={{fontSize:10,color:sub}}>·</span>
-            <span style={{fontSize:11,color:sub}}>USD 500K · 10% equity</span>
+            <span style={{fontSize:11,color:sub}}>{es?'USD 200K · 3 tramos contra hitos':'USD 200K · 3 milestone-based tranches'}</span>
             <span style={{fontSize:10,color:sub}}>·</span>
-            <span style={{fontSize:11,color:sub}}>{es?'USD 1 = USD 1.4 efectivos · Ley 27.506':'USD 1 = USD 1.4 effective · Law 27.506'}</span>
+            <span style={{fontSize:11,color:sub}}>{es?'10% · USD 1,8M pre-money':'10% · USD 1.8M pre-money'}</span>
           </div>
           <div style={{display:'flex',gap:12,flexWrap:'wrap',marginBottom:40}}>
             <a href="mailto:hola@oliviacirculab.com.ar?subject=Reunion%20OLIVIA%20Seed" style={{background:accent,color:dark?'#050505':'white',padding:'13px 28px',borderRadius:40,fontSize:11,fontWeight:700,textDecoration:'none',textTransform:'uppercase',letterSpacing:'0.08em'}}>
@@ -130,8 +127,8 @@ export default function Institucional() {
               {[
                 {label:es?'01 / Autopoiesis Urbana':'01 / Urban Autopoiesis',desc:es?'En la naturaleza no hay basura — solo recursos sin infraestructura. OLIVIA es esa infraestructura. Un sistema que se produce a sí mismo convirtiendo el desorden urbano en activos verificables.':'In nature there is no waste — only resources without infrastructure. OLIVIA is that infrastructure. A system that produces itself by converting urban disorder into verifiable assets.'},
                 {label:es?'02 / Bienes Meritorios Monetizados':'02 / Monetized Merit Goods',desc:es?'Reciclar, reforestar, participar en roscas, crear arte — bienes meritorios sub-consumidos porque el mercado no los precia. OLIVIA les asigna precio a través del token OLV.':'Recycling, reforesting, joining savings circles, creating art — under-consumed merit goods because the market fails to price them. OLIVIA assigns price through the OLV token.'},
-                {label:es?'03 / Multiplicador 1.4x · Ley 27.506':'03 / 1.4x Multiplier · Law 27.506',desc:es?'Cada USD 1 invertido en Circulab Tech vale USD 1.4 efectivos: ganancias al 15%, reducción 70-80% cargas patronales, FONDCE, estabilidad fiscal 10 años. Distrito Tecnológico · Buenos Aires.':'Every USD 1 invested in Circulab Tech is worth USD 1.4 effective: 15% income tax, 70-80% payroll reduction, FONDCE, 10-year fiscal stability. Distrito Tecnológico Buenos Aires.'},
-                {label:es?'04 / Riesgo técnico reducido':'04 / Reduced technical risk',desc:es?'En febrero 2026 Verra aprobó los primeros créditos bajo dMRV de alta frecuencia. Esto valida exactamente el modelo de OLIVIA. El riesgo técnico pasó de ALTO a MEDIO.':'In February 2026 Verra approved the first credits under high-frequency dMRV. This validates exactly the OLIVIA model. Technical risk moved from HIGH to MEDIUM.'},
+                {label:es?'03 / Economía del Conocimiento (plan)':'03 / Knowledge Economy (plan)',desc:es?'La sociedad se inscribirá en el régimen de Economía del Conocimiento. El régimen prevé una reducción de Ganancias de hasta 60% para micro y pequeñas empresas y un bono de crédito fiscal de hasta 70% de las contribuciones patronales, con el requisito de facturar al menos 70% en actividades promovidas.':'The company will register under the Knowledge Economy regime. The regime provides an income tax reduction of up to 60% for micro and small companies and a tax credit bonus of up to 70% of employer contributions, provided at least 70% of revenue comes from promoted activities.'},
+                {label:es?'04 / Contexto técnico':'04 / Technical context',desc:es?'En febrero de 2026 Verra aprobó su primer piloto de dMRV de alta frecuencia: el estándar se está moviendo hacia la medición digital. No implica una validación de OLIVIA; OLIVIA se diseña para cumplir esos requisitos.':'In February 2026 Verra approved its first high-frequency dMRV pilot: the standard is moving toward digital measurement. This is not a validation of OLIVIA; OLIVIA is designed to meet those requirements.'},
               ].map((item,i)=>(
                 <div key={i} style={{borderLeft:`3px solid ${accent}`,paddingLeft:14}}>
                   <div style={{fontSize:10,fontWeight:700,color:accent,textTransform:'uppercase',letterSpacing:'0.1em',fontFamily:'monospace',marginBottom:4}}>{item.label}</div>
@@ -150,9 +147,9 @@ export default function Institucional() {
           <p style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:sub,marginBottom:16,textAlign:'center'}}>[ {es?'Por qué ahora':'Why now'} ]</p>
           <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:12}}>
             {[
-              {icon:'✅',title:es?'En feb 2026 Verra aprobó su primer piloto dMRV de alta frecuencia — el mismo modelo de verificación digital que implementa OLIVIA':'In Feb 2026 Verra approved its first high-frequency dMRV pilot — the same digital verification model OLIVIA implements',desc:es?'El mercado internacional de carbono aprobó la verificación digital de alta frecuencia. Nuestro modelo pasó de hipótesis a certeza técnica. El riesgo bajó de ALTO a MEDIO.':'The international carbon market approved high-frequency digital verification. Our model moved from hypothesis to technical certainty. Risk dropped from HIGH to MEDIUM.'},
+              {icon:'✅',title:es?'En feb 2026 Verra aprobó su primer piloto de dMRV de alta frecuencia':'In Feb 2026 Verra approved its first high-frequency dMRV pilot',desc:es?'El estándar de carbono más usado del mundo se está moviendo hacia la verificación digital. OLIVIA se diseña para cumplir esos requisitos desde el primer kilo.':'The world most used carbon standard is moving toward digital verification. OLIVIA is designed to meet those requirements from the first kilo.'},
               {icon:'🏗️',title:es?'USD 0 inversión externa · Producto activo':'USD 0 external investment · Active product',desc:es?'App en producción, IA verificando residuos, comunidad activa, admin con CRM. Todo funcionando hoy sin capital externo. Lo que otros tardan 2 años y USD 500K en construir.':'App in production, AI verifying waste, active community, admin with CRM. All running today without external capital. What others take 2 years and USD 500K to build.'},
-              {icon:'⚖️',title:es?'Ley 27.506 · 10 años de estabilidad fiscal':'Law 27.506 · 10-year fiscal stability',desc:es?'USD 1 invertido = USD 1.4 efectivos. Ganancias al 15%, reducción 70-80% cargas patronales. Ventaja fiscal única en LATAM que no existe en ningún otro país de la región.':'USD 1 invested = USD 1.4 effective. 15% income tax, 70-80% payroll reduction. Unique fiscal advantage in LATAM that exists nowhere else in the region.'},
+              {icon:'⚖️',title:es?'Economía del Conocimiento · inscripción planificada':'Knowledge Economy · planned registration',desc:es?'La sociedad se inscribirá en el régimen. Beneficios previstos: reducción de Ganancias de hasta 60% para micro y pequeñas y bono de hasta 70% de contribuciones patronales, con el requisito de 70% de facturación en actividades promovidas.':'The company will register under the regime. Expected benefits: up to 60% income tax reduction for micro and small companies and a bonus of up to 70% of employer contributions, with a 70% promoted-activity revenue requirement.'},
               {icon:'🏢',title:es?'Modelo SaaS · abono mensual premium por consorcio':'SaaS Model · premium monthly subscription per building',desc:es?'El consorcio paga el SaaS como gasto ordinario de expensas. Cubre el 100% del costo operativo. Los créditos de carbono generados arriba de eso son modelo de ingresos recurrentes.':'The building pays the SaaS as ordinary maintenance expense. Covers 100% of operating costs. Carbon credits generated above that are recurring revenue model.'},
             ].map((item,i)=>(
               <div key={i} style={{background:card,border:'1px solid rgba(34,197,94,0.15)',borderRadius:14,padding:'16px'}}>
@@ -207,8 +204,8 @@ export default function Institucional() {
             </div>
             <p style={{fontSize:11,color:sub,lineHeight:1.7,margin:0}}>
               {es
-                ? 'Argentina ya tiene el ecosistema Verra activo: la Mesa Argentina de Carbono, auditores acreditados, proyectos registrados. Pero todos son forestales y rurales. OLIVIA puede ser el primer proyecto de residuos orgánicos urbanos certificado bajo VCS en Argentina y en América Latina. Los datos que se acumulan desde hoy son exactamente lo que Verra necesita para certificar en 2027.'
-                : 'Argentina already has an active Verra ecosystem: the Argentine Carbon Board, accredited auditors, registered projects. But all are forest and rural. OLIVIA can be the first urban organic waste project certified under VCS in Argentina and Latin America. The data accumulated from today is exactly what Verra needs to certify in 2027.'}
+                ? 'Argentina ya tiene el ecosistema Verra activo: la Mesa Argentina de Carbono, auditores acreditados, proyectos registrados. Pero todos son forestales y rurales. OLIVIA busca ser uno de los primeros proyectos de residuos orgánicos urbanos bajo VCS en Argentina. Los datos que se acumulan desde hoy son la base para iniciar la certificación.'
+                : 'Argentina already has an active Verra ecosystem: the Argentine Carbon Board, accredited auditors, registered projects. But all are forest and rural. OLIVIA aims to be one of the first urban organic waste projects under VCS in Argentina. The data accumulated from today is the basis to start certification.'}
             </p>
           </div>
         </div>
@@ -231,57 +228,18 @@ export default function Institucional() {
           <a href="/mapa" style={{fontSize:12,color:'#0284c7',fontWeight:700,textDecoration:'none'}}>{es?'Ver el mapa territorial →':'View the territorial map →'}</a>
         </div>
       </section>
-      {/* GRANDES EMISORES GLOBALES */}
+      {/* DEMANDA DE CRÉDITOS */}
       <section style={{padding:'0 24px 32px',maxWidth:800,margin:'0 auto'}}>
         <div style={{background:'rgba(59,130,246,0.04)',border:'1px solid rgba(59,130,246,0.2)',borderRadius:16,padding:'24px'}}>
-          <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:'#3b82f6',marginBottom:12}}>[ {es?'Mercado regulatorio global':'Global regulatory market'} ]</div>
+          <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:'#3b82f6',marginBottom:12}}>[ {es?'Demanda de créditos':'Credit demand'} ]</div>
           <h3 style={{fontSize:18,fontWeight:900,marginBottom:12,color:text}}>
-            {es?'El ciudadano que recicla en Buenos Aires genera el crédito que la naviera necesita para el EU ETS.':'The citizen who recycles in Buenos Aires generates the credit the shipping company needs for EU ETS.'}
+            {es?'Mercado voluntario y, con autorización del país, CORSIA.':'Voluntary market and, with host-country authorization, CORSIA.'}
           </h3>
-          <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:10,marginBottom:16}}>
-            {[
-              {n:'USD 2.9B',l:es?'costo EU ETS navieras 2026':'EU ETS shipping cost 2026',c:'#3b82f6'},
-              {n:'CORSIA 2027',l:es?'aerolíneas = mayores compradores':'airlines = largest buyers',c:'#a855f7'},
-              {n:'EUR 60-80',l:es?'por tCO2 precio CBAM':'per tCO2 CBAM price',c:'#f59e0b'},
-              {n:'6.000+',l:es?'obligados Ley 1854 CABA':'required by Law 1854 CABA',c:'#ef4444'},
-            ].map((item,i)=>(
-              <div key={i} style={{background:'rgba(255,255,255,0.03)',border:'1px solid '+item.c+'33',borderRadius:10,padding:'12px',textAlign:'center' as const}}>
-                <div style={{fontSize:16,fontWeight:900,color:item.c,marginBottom:4}}>{item.n}</div>
-                <div style={{fontSize:9,color:sub,lineHeight:1.5}}>{item.l}</div>
-              </div>
-            ))}
-          </div>
-          <p style={{fontSize:12,color:sub,lineHeight:1.7,marginBottom:12}}>
+          <p style={{fontSize:12,color:sub,lineHeight:1.7,margin:0}}>
             {es
-              ? 'OLIVIA opera en la intersección de tres mercados regulados que convergen en 2026-2027: el EU ETS marítimo obliga a navieras a comprar créditos (costo sector: USD 2.900M en 2026), CORSIA convierte a las aerolíneas en los mayores compradores de créditos del mundo desde 2027, y el CBAM de la UE exige a los exportadores argentinos certificar su huella desde enero 2026.'
-              : 'OLIVIA operates at the intersection of three regulated markets converging in 2026-2027: maritime EU ETS forces shipping companies to buy credits (sector cost: USD 2.9B in 2026), CORSIA converts airlines into the world largest carbon credit buyers from 2027, and EU CBAM requires Argentine exporters to certify their footprint since January 2026.'}
+              ? 'Si el proyecto se certifica, los créditos podrán venderse en el mercado voluntario corporativo. Para CORSIA (aviación) se requiere además carta de autorización de Argentina y ajuste correspondiente. El EU ETS y el CBAM no aceptan créditos de carbono como compensación.'
+              : 'If the project is certified, credits could be sold in the corporate voluntary market. CORSIA (aviation) additionally requires a letter of authorization from Argentina and a corresponding adjustment. The EU ETS and CBAM do not accept carbon credits as offsets.'}
           </p>
-          <a href="/grandes-emisores" style={{fontSize:12,color:'#3b82f6',fontWeight:700,textDecoration:'none'}}>{es?'Ver mercado de grandes emisores globales →':'See global large emitters market →'}</a>
-        </div>
-      </section>
-
-      {/* VALIDACION EXTERNA INVERSOR */}
-      <section style={{padding:'0 24px 32px',maxWidth:800,margin:'0 auto'}}>
-        <div style={{background:'rgba(245,158,11,0.04)',border:'1px solid rgba(245,158,11,0.2)',borderRadius:16,padding:'24px'}}>
-          <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:'#f59e0b',marginBottom:12}}>[ {es?'Lo que dicen quienes lo analizan':'What analysts say'} ]</div>
-          <div style={{display:'flex',gap:16,alignItems:'flex-start'}}>
-            <div style={{fontSize:40,flexShrink:0,lineHeight:1}}>"</div>
-            <div>
-              <p style={{fontSize:14,color:sub,lineHeight:1.8,marginBottom:12,fontStyle:'italic'}}>
-                {es?'Si OLIVIA se apalanca en infraestructura inteligente y digitaliza el impacto para el mercado financiero, el techo no existe. La clave está en la velocidad de ejecución y en cerrar contratos corporativos clave antes de que sature la competencia.':'OLIVIA operates where the law already created the demand. EU ETS, CORSIA and CBAM are active regulations today that force shipping companies, airlines and exporters to buy verified carbon credits. The Verra voluntary market is the upside. The regulatory market is the base that funds operations.'}
-              </p>
-              <div style={{fontSize:11,color:'#f59e0b',fontWeight:700}}>— — OLIVIA Circulab · Análisis de mercado · Julio 2026</div>
-              <div style={{marginTop:12,display:'flex',gap:8,flexWrap:'wrap'}}>
-                {[
-                  es?'✅ En feb 2026 Verra aprobó su primer piloto dMRV de alta frecuencia — el mismo modelo de verificación digital que implementa OLIVIA':'✅ In Feb 2026 Verra approved its first high-frequency dMRV pilot — the same digital verification model OLIVIA implements',
-                  es?'✅ USD 0 inversión externa':'✅ USD 0 external investment',
-                  es?'✅ Producto activo hoy':'✅ Product active today',
-                ].map((b,i)=>(
-                  <span key={i} style={{fontSize:10,color:'#22c55e',background:'rgba(34,197,94,0.08)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:20,padding:'4px 10px',fontWeight:700}}>{b}</span>
-                ))}
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -299,8 +257,8 @@ export default function Institucional() {
             <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:10}}>
               {[
                 {feat:es?'Ciudadano directo':'Direct citizen',olivia:'✅',otros:es?'❌ MUTA/Glacier':'❌ MUTA/Glacier'},
-                {feat:es?'Créditos carbono reales':'Real carbon credits',olivia:'✅',otros:es?'❌ MUTA (solo trazabilidad)':'❌ MUTA (traceability only)'},
-                {feat:'dMRV ciudadano',olivia:'✅',otros:es?'❌ Nadie en LATAM':'❌ Nobody in LATAM'},
+                {feat:es?'Diseñado para certificación de carbono':'Designed for carbon certification',olivia:'✅',otros:es?'❌ MUTA (solo trazabilidad)':'❌ MUTA (traceability only)'},
+                {feat:'dMRV ciudadano',olivia:'✅',otros:es?'Muy pocas iniciativas en LATAM':'Very few initiatives in LATAM'},
                 {feat:es?'3 verticales integradas':'3 integrated verticals',olivia:'✅',otros:es?'❌ Ninguno':'❌ None'},
               ].map((row,i)=>(
                 <div key={i} style={{background:dark?'rgba(255,255,255,0.02)':'rgba(0,0,0,0.02)',borderRadius:10,padding:'10px 12px',border:`1px solid ${border}`}}>
@@ -334,32 +292,8 @@ export default function Institucional() {
           </div>
           <div style={{background:card,border:`1px solid ${border}`,borderRadius:16,padding:'24px',marginBottom:16}}>
             <p style={{fontSize:13,color:sub,lineHeight:1.7,marginBottom:16,fontStyle:'italic'}}>
-              {es?'"Los usuarios construyen un historial de datos verificados desde el primer día. Sin ese historial acumulado no hay nada que auditar. Eso crea el modelo de retención más poderoso: el usuario ya invirtió su tiempo y sus residuos. Espera el retorno. No se va."':'"Users accumulate OLV when worth zero. The market buys them in 2027. That creates the most powerful retention model: the user already invested their time and waste. They wait for the return. They don\'t leave."'}
+              {es?'"Los usuarios construyen un historial de datos verificados desde el primer día. Sin ese historial acumulado no hay nada que auditar. Eso crea el modelo de retención más poderoso: el usuario ya invirtió su tiempo y sus residuos. Espera el retorno. No se va."':'"Users build a verified data record from day one. Without that accumulated record there is nothing to audit. That creates the most powerful retention model: the user has already invested time and waste. They wait for the return. They don\'t leave."'}
             </p>
-            <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10,marginBottom:16}}>
-              {[
-                {tramo:es?'🌳 Árbol · certificación':'🌳 Tree · certification',olv:es?'Valor a definir por auditoría':'Value set by audit',c:'#f59e0b'},
-                {tramo:'🌲 Bosque 2028',olv:'2.198 OLV = USD 1',c:'#a855f7'},
-                {tramo:'🌊 Sumidero 2030+',olv:'952 OLV = USD 1',c:'#06b6d4'},
-              ].map((t,i)=>(
-                <div key={i} style={{textAlign:'center',background:dark?'rgba(255,255,255,0.02)':'rgba(0,0,0,0.02)',borderRadius:10,padding:'12px',border:`1px solid ${t.c}22`}}>
-                  <div style={{fontSize:11,fontWeight:700,color:t.c,marginBottom:4}}>{t.tramo}</div>
-                  <div style={{fontSize:11,color:sub}}>{t.olv}</div>
-                </div>
-              ))}
-            </div>
-            <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,padding:'14px'}}>
-              <div style={{fontSize:12,fontWeight:700,color:'#22c55e',marginBottom:8}}>{es?'Proyección de escala LATAM':'LATAM scale projection'}</div>
-              <div style={{display:'flex',flexDirection:'column',gap:6}}>
-                {[
-                  es?'1.000 familias activas → USD 47.000/año en Árbol':'1,000 active families → USD 47,000/year in Árbol',
-                  es?'100.000 familias → USD 4.7M/año en Árbol':'100,000 families → USD 4.7M/year in Árbol',
-                  es?'1.000.000 familias → USD 47M/año en Árbol · USD 136M/año en Bosque':'1,000,000 families → USD 47M/year in Árbol · USD 136M/year in Bosque',
-                ].map((item,i)=>(
-                  <div key={i} style={{fontSize:11,color:sub,paddingLeft:12,borderLeft:'2px solid rgba(34,197,94,0.3)'}}>{item}</div>
-                ))}
-              </div>
-            </div>
           </div>
         </section>
 
@@ -409,7 +343,7 @@ export default function Institucional() {
           <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:16}}>
             {[
               {img:'/ciudadano/metamorfosis.jpg',nombre:'Metamorfosis',badge:es?'✅ Activo · Semilla 2026':'✅ Active · Semilla 2026',desc:es?'El único producto con código activo hoy. SaaS dMRV para consorcios + verificación IA de residuos + originación de créditos de carbono bajo protocolo Verra VCS. El 100% del foco y el capital de la ronda Seed va aquí.':'The only product with active code today. dMRV SaaS for buildings + AI waste verification + carbon credit origination under Verra VCS protocol. 100% of Seed round focus and capital goes here.',href:'/metamorfosis',color:'#22c55e',locked:false},
-              {img:'/ciudadano/pulso.jpg',nombre:es?'Quincena · PULSO':'Quincena · PULSO',badge:es?'🔒 Post-certificación Verra':'🔒 Post-Verra certification · 2027',desc:es?'Infraestructura de pago para que el ciudadano cobre sus créditos de carbono sin cuenta bancaria formal. Nace cuando OLIVIA Circular emita su primer crédito Verra y el vecino necesite cobrar en USD. Cero líneas de código hasta ese hito.':'Payment infrastructure so citizens can collect their carbon credits without a formal bank account. Born when OLIVIA Circular issues its first Verra credit. Zero lines of code until that milestone.',href:'/quincena',color:'#3b82f6',locked:true},
+              {img:'/ciudadano/pulso.jpg',nombre:es?'Quincena · PULSO':'Quincena · PULSO',badge:es?'🔒 Post-certificación Verra':'🔒 Post-Verra certification',desc:es?'Infraestructura de pago para que el ciudadano cobre sus créditos de carbono sin cuenta bancaria formal. Nace cuando OLIVIA Circular emita su primer crédito Verra y el vecino necesite cobrar en USD. Cero líneas de código hasta ese hito.':'Payment infrastructure so citizens can collect their carbon credits without a formal bank account. Born when OLIVIA Circular issues its first Verra credit. Zero lines of code until that milestone.',href:'/quincena',color:'#3b82f6',locked:true},
               {img:'/ciudadano/aom.jpg',nombre:'Art of Money',badge:es?'🔒 Post-escala LATAM · 2028':'🔒 Post-LATAM scale · 2028',desc:es?'La misma infraestructura financiera de Quincena aplicada a creadores, artistas y deportistas. Activa cuando la plomería de Quincena ya esté funcionando. Misma tesis — nueva industria. Cero líneas de código hasta 2028.':'The same Quincena financial infrastructure applied to creators, artists and athletes. Activates when Quincena infrastructure is running. Same thesis — new industry. Zero lines of code until 2028.',href:'/aom',color:'#a855f7',locked:true},
             ].map((v:any)=>(
               <div key={v.nombre} style={{background:card,border:`1px solid ${v.locked?border:v.color+'44'}`,borderRadius:14,overflow:'hidden',opacity:v.locked?0.7:1}}>
@@ -433,7 +367,7 @@ export default function Institucional() {
         <section style={{padding:'32px 0',borderTop:`1px solid ${border}`}}>
           <div style={{textAlign:'center',marginBottom:24}}>
             <p style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:sub,marginBottom:8}}>[ {es?'Cronograma':'Timeline'} ]</p>
-            <h2 style={{fontSize:28,fontWeight:900,fontFamily:'Georgia,serif',fontStyle:'italic'}}>{es?'Los 6 tramos del ecosistema':'The 6 ecosystem stages'}</h2>
+            <h2 style={{fontSize:28,fontWeight:900,fontFamily:'Georgia,serif',fontStyle:'italic'}}>{es?'Hoja de ruta':'Roadmap'}</h2>
           </div>
           <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:12}}>
             {TRAMOS.map((tramo,i)=>(
@@ -462,34 +396,27 @@ export default function Institucional() {
               </div>
             ))}
           </div>
-          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,marginBottom:16}}>
-            <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,padding:'18px',textAlign:'center'}}>
-              <div style={{fontSize:10,color:sub,marginBottom:4}}>{es?'Opción A':'Option A'}</div>
-              <div style={{fontSize:28,fontWeight:900,color:'#22c55e'}}>USD 500K</div>
-              <div style={{fontSize:11,color:sub,marginTop:4}}>10% equity · USD 4.5M pre-money</div>
-            </div>
-            <div style={{background:'rgba(59,130,246,0.06)',border:'1px solid rgba(59,130,246,0.2)',borderRadius:12,padding:'18px',textAlign:'center'}}>
-              <div style={{fontSize:10,color:sub,marginBottom:4}}>{es?'Opción B':'Option B'}</div>
-              <div style={{fontSize:28,fontWeight:900,color:'#3b82f6'}}>USD 2M</div>
-              <div style={{fontSize:11,color:sub,marginTop:4}}>15% equity · USD 11.3M pre-money</div>
-            </div>
+          <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,padding:'18px',textAlign:'center',marginBottom:16}}>
+            <div style={{fontSize:10,color:sub,marginBottom:4}}>{es?'El pedido':'The ask'}</div>
+            <div style={{fontSize:28,fontWeight:900,color:'#22c55e'}}>USD 200K</div>
+            <div style={{fontSize:11,color:sub,marginTop:4}}>{es?'3 tramos contra hitos · 50K / 70K / 80K (a confirmar) · 10% para un socio activo · USD 1,8M pre-money (USD 2M post-money)':'3 milestone-based tranches · 50K / 70K / 80K (to be confirmed) · 10% for an active partner · USD 1.8M pre-money (USD 2M post-money)'}</div>
           </div>
           <div style={{background:'rgba(34,197,94,0.04)',border:'1px solid rgba(34,197,94,0.15)',borderRadius:10,padding:'12px',marginBottom:16,textAlign:'center'}}>
             <div style={{fontSize:11,color:sub,lineHeight:1.6}}>
-              {es?'Sin costos fijos hasta inversión comprometida · Equity directo · Sin ratchets · Sin intereses · Ley 27.506 · Estabilidad fiscal 10 años':'No fixed costs until committed · Direct equity · No ratchets · No interest · Law 27.506 · 10-year fiscal stability'}
+              {es?'Sin costos fijos hasta inversión comprometida · Cada tramo se libera al cumplir su hito · Valuación de referencia USD 1,8M pre-money':'No fixed costs until committed · Each tranche is released when its milestone is met · Reference valuation USD 1.8M pre-money'}
             </div>
           </div>
 
           
               <div style={{background:'rgba(34,197,94,0.04)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:14,padding:'20px',marginTop:12}}>
                 <div style={{fontSize:11,fontWeight:700,color:'#22c55e',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:12}}>
-                  {es?'Estructuras de inversion disponibles':'Available investment structures'}
+                  {es?'Tramos y destino de fondos':'Tranches and use of funds'}
                 </div>
                 <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10,marginBottom:12}}>
                   {[
-                    {titulo:es?'Inversion directa':'Direct investment',desc:es?'USD 500K 10% equity Ley 27.506 USD 1 = USD 1.4 efectivos Board seat':'USD 500K 10% equity Law 27.506 USD 1 = USD 1.4 effective Board seat',color:'#22c55e'},
-                    {titulo:'SAFE + Cap',desc:es?'Nota convertible YC Cap USD 3-5M 20% descuento proxima ronda Sin vencimiento':'YC convertible note USD 3-5M cap 20% next round discount No expiration',color:'#3b82f6'},
-                    {titulo:es?'Por hitos (opcional)':'Milestone-based (optional)',desc:es?'Tramos de capital por traccion real. Hitos y plazos disenados en conjunto. Flexibles y pro-equipo.':'Capital tranches by real traction. Milestones and timelines designed together. Flexible and pro-team.',color:'#a855f7'},
+                    {titulo:es?'Tramo 1 · USD 50K':'Tranche 1 · USD 50K',desc:es?'Sociedad, acuerdo con acopiador, primeras balanzas, 4 meses de equipo. Hito: balanza transmitiendo datos continuos.':'Company, collector agreement, first scales, 4 months of team. Milestone: scale transmitting continuous data.',color:'#22c55e'},
+                    {titulo:es?'Tramo 2 · USD 70K':'Tranche 2 · USD 70K',desc:es?'Desarrollador de carbono, línea de base, documento de diseño del proyecto, más nodos. Hito: documento presentado ante Verra.':'Carbon developer, baseline, project design document, more nodes. Milestone: document submitted to Verra.',color:'#3b82f6'},
+                    {titulo:es?'Tramo 3 · USD 80K':'Tranche 3 · USD 80K',desc:es?'Auditoría de tercera parte, registro, operación. Hito: proyecto registrado.':'Third-party audit, registration, operations. Milestone: project registered.',color:'#a855f7'},
                   ].map((item,i)=>(
                     <div key={i} style={{background:'rgba(255,255,255,0.03)',border:'1px solid rgba(255,255,255,0.06)',borderRadius:10,padding:'12px'}}>
                       <div style={{fontSize:11,fontWeight:700,color:item.color,marginBottom:6}}>{item.titulo}</div>
@@ -591,7 +518,7 @@ export default function Institucional() {
             {l:'Metamorfosis',h:'/metamorfosis'},
             {l:'Consorcios',h:'/consorcios'},
             {l:es?'Grandes Generadores':'Large Generators',h:'/grandes-generadores'},
-            {l:es?'Grandes Emisores':'Large Emitters',h:'/grandes-emisores'},
+            {l:es?'Plantas y acopiadores':'Plants & collectors',h:'/operadores'},
             {l:'RAEE',h:'/raee'},
             {l:es?'Mapa':'Map',h:'/mapa'},
             {l:'Kits',h:'/kits'},
@@ -618,7 +545,7 @@ export default function Institucional() {
           <a href="/privacidad" style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.7}}>{es?'Privacidad':'Privacy'}</a>
           <a href="https://www.linkedin.com/company/113160128/" style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.7}}>LinkedIn</a>
         </div>
-        <div style={{fontSize:9,color:sub,fontFamily:'monospace',letterSpacing:'0.05em',opacity:0.7}}>© 2026 Circulab Tech · Distrito Tecnológico · Buenos Aires · Ley 27.506</div>
+        <div style={{fontSize:9,color:sub,fontFamily:'monospace',letterSpacing:'0.05em',opacity:0.7}}>© 2026 Circulab Tech · Buenos Aires, Argentina</div>
       </footer>
 
     </div>

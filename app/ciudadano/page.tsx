@@ -94,7 +94,7 @@ export default function Ciudadano() {
     ctx.fillStyle = '#0a1a0a'; ctx.font = 'bold 48px system-ui'
     ctx.fillText('oliviacirculab.com.ar', 540, 1438)
     ctx.fillStyle = '#64748b'; ctx.font = '38px system-ui'
-    ctx.fillText(es?'Tu residuo vale dinero real':'Your waste is worth real money', 540, 1720)
+    ctx.fillText(es?'Tu residuo vuelve al ciclo':'Your waste returns to the cycle', 540, 1720)
     canvas.toBlob(async(blob)=>{
       if(!blob) return
       const file = new File([blob],'olivia-story.png',{type:'image/png'})
@@ -110,32 +110,19 @@ export default function Ciudadano() {
   }
 
   const TRAMOS = [
-    {icon:'🌱',t:es?'SEMILLA · 2026':'SEED · 2026',d:es?'ACTIVA · OLV sin valor monetario · Construís historial · Los que empiezan hoy cobran primero en Árbol':'ACTIVE · OLV no monetary value · Build history · Early starters earn first in Árbol',c:'#22c55e',activo:true},
-    {icon:'🌿',t:es?'BROTE · Q4 2026':'SPROUT · Q4 2026',d:es?'OLV canjeables · Salud, transporte, apps y créditos de IA · Convenios con partners':'OLV redeemable · Health, transport, apps and AI credits · Partner deals',c:'#3b82f6',activo:false},
-    {icon:'🌳',t:es?'ÁRBOL · certificación':'TREE · certification',d:es?'Etapa futura. Si el proyecto completa el proceso de certificación bajo estándar Verra, los registros acumulados pasan a tener valor en el mercado voluntario de carbono. El proceso lleva entre dos y tres años e incluye validación por auditor acreditado. OLIVIA no emite créditos hoy.':'Future stage. If the project completes Verra certification, accumulated records gain value in the voluntary carbon market. The process takes two to three years.',c:'#f59e0b',activo:false},
-    {icon:'🌲',t:es?'BOSQUE · 2028':'FOREST · 2028',d:es?'Art. 6.4 París · 2.198 OLV = USD 1 · Corredor AR MX CO BR CH DO':'Art. 6.4 Paris · 2.198 OLV = USD 1 · AR MX CO BR CH DO corridor',c:'#a855f7',activo:false},
-    {icon:'🏔️',t:es?'SELVA · 2029':'JUNGLE · 2029',d:es?'OLIVIA Ocean + Waters + Space · 1.429 OLV = USD 1':'OLIVIA Ocean + Waters + Space · 1.429 OLV = USD 1',c:'#ec4899',activo:false},
-    {icon:'🌊',t:es?'SUMIDERO · 2030+':'SINK · 2030+',d:es?'Net positive verificado · 952 OLV = USD 1 · Infraestructura climática global':'Verified net positive · 952 OLV = USD 1 · Global climate infrastructure',c:'#06b6d4',activo:false},
-  ]
-
-  const OLV_TRAMOS = [
-    {tramo:'🌱 Semilla',año:'2026',olv:es?'Sin valor · acumulás':'No value · accumulate',c:'#22c55e'},
-    {tramo:'🌿 Brote',año:'2026',olv:es?'Solo canje interno':'Internal exchange only',c:'#3b82f6'},
-    {tramo:'🌳 Árbol',año:es?'Certificación':'Certification',olv:es?'Valor a definir por auditoría':'Value set by audit',c:'#f59e0b'},
-    {tramo:'🌲 Bosque',año:'2028',olv:'2.198 OLV = USD 1',c:'#a855f7'},
-    {tramo:'🏔️ Selva',año:'2029',olv:'1.429 OLV = USD 1',c:'#ec4899'},
-    {tramo:'🌊 Sumidero',año:'2030+',olv:'952 OLV = USD 1',c:'#06b6d4'},
+    {icon:'🌱',t:es?'SEMILLA · hoy':'SEED · today',d:es?'ACTIVA · Piloto dMRV · OLV sin valor monetario · Construís historial verificado':'ACTIVE · dMRV pilot · OLV with no monetary value · Build a verified record',c:'#22c55e',activo:true},
+    {icon:'🌿',t:es?'BROTE · próxima':'SPROUT · next',d:es?'Planta aliada instalada · Datos continuos de balanza · Firma del acopiador':'Partner plant installed · Continuous scale data · Collector sign-off',c:'#3b82f6',activo:false},
   ]
 
   const GANANCIAS = [
-    {icon:'🌱',titulo:es?'Solo reciclás en casa':'You recycle at home',arbol:'USD 47/año',bosque:'USD 136/año',semana:'USD 0.90/sem',color:'#22c55e',
-     detalle:es?'Residuos + agua ahorrada + transporte verde':'Waste + saved water + green transport'},
-    {icon:'🏘️',titulo:es?'Organizás tu edificio':'You organize your building',arbol:'USD 117/año',bosque:'USD 339/año',semana:'USD 2.25/sem',color:'#3b82f6',
-     detalle:es?'Vos + coordinás 20 familias':'You + coordinate 20 families'},
-    {icon:'🍃',titulo:es?'Limpiás tu barrio':'You clean your neighborhood',arbol:'USD 115-289/año',bosque:'USD 333-836/año',semana:'USD 2.21-5.55/sem',color:'#22c55e',
+    {icon:'🌱',titulo:es?'Reciclás en casa':'You recycle at home',color:'#22c55e',
+     detalle:es?'Separás tus orgánicos y los registrás con foto':'You sort your organics and register them with a photo'},
+    {icon:'🏘️',titulo:es?'Organizás tu edificio':'You organize your building',color:'#3b82f6',
+     detalle:es?'Vos + coordinás a tus vecinos':'You + coordinate your neighbors'},
+    {icon:'🍃',titulo:es?'Limpiás tu barrio':'You clean your neighborhood',color:'#22c55e',
      detalle:es?'Hojas · ramas · residuos verdes del espacio público':'Leaves · branches · green urban waste'},
-    {icon:'🌍',titulo:es?'Coordinás tu zona':'You coordinate your zone',arbol:'USD 257/año',bosque:'USD 745/año',semana:'USD 4.94/sem',color:'#a855f7',
-     detalle:es?'5-8 edificios · 150-200 familias · 5% bonus zonal':'5-8 buildings · 150-200 families · 5% zone bonus'},
+    {icon:'🌍',titulo:es?'Coordinás tu zona':'You coordinate your zone',color:'#a855f7',
+     detalle:es?'Varios edificios · cientos de familias':'Several buildings · hundreds of families'},
   ]
 
   return (
@@ -227,13 +214,13 @@ export default function Ciudadano() {
         {/* HERO */}
         <section style={{padding:'24px 0 16px'}}>
           <div style={{display:'flex',flexWrap:'wrap',gap:6,marginBottom:14}}>
-            <span style={{fontSize:10,fontWeight:700,border:'1px solid #22c55e',color:'#22c55e',padding:'3px 10px',borderRadius:20}}>🌱 {es?'Tramo Semilla · 2026':'Seed Stage · 2026'}</span>
-            <span style={{fontSize:10,fontWeight:700,border:'1px solid #3b82f6',color:'#3b82f6',padding:'3px 10px',borderRadius:20}}>{es?'Distrito Tecnológico · Buenos Aires':'Distrito Tecnológico · Buenos Aires'}</span>
+            <span style={{fontSize:10,fontWeight:700,border:'1px solid #22c55e',color:'#22c55e',padding:'3px 10px',borderRadius:20}}>🌱 {es?'Piloto 2026':'Pilot 2026'}</span>
+            <span style={{fontSize:10,fontWeight:700,border:'1px solid #3b82f6',color:'#3b82f6',padding:'3px 10px',borderRadius:20}}>Buenos Aires</span>
           </div>
           <h1 style={{fontSize:36,fontWeight:900,lineHeight:1.15,marginBottom:12,letterSpacing:'-0.02em',textAlign:'center'}}>
             <span style={{color:text}}>{es?'Tu residuo vale.':'Your waste matters.'}</span><br/>
             <span style={{color:'#22c55e',fontStyle:'italic'}}>{es?'Tu árbol crece.':'Your tree grows.'}</span><br/>
-            <span style={{color:text}}>{es?'Tu dinero llega.':'Your money arrives.'}</span>
+            <span style={{color:text}}>{es?'Tu impacto queda medido.':'Your impact is measured.'}</span>
           </h1>
           <p style={{fontSize:13,color:sub,lineHeight:1.7,marginBottom:16}}>
             {es?'Cada kilo de residuo verificado con IA genera OLV Verdes: un registro de cuánto desviaste del relleno y cuánto metano se evitó con eso. Ese registro es la base de un futuro proceso de certificación.':'Each AI-verified kilo generates Green OLV: a record of how much you diverted from landfill and how much methane was avoided. That record is the basis for a future certification process.'}
@@ -260,16 +247,16 @@ export default function Ciudadano() {
             <div style={{background:'rgba(245,158,11,0.06)',border:'1px solid rgba(245,158,11,0.2)',borderRadius:14,padding:'16px'}}>
               <div style={{fontSize:20,marginBottom:8}}>⭐</div>
               <div style={{fontSize:13,fontWeight:700,color:'#f59e0b',marginBottom:6}}>{es?'OLV Bonus':'Bonus OLV'}</div>
-              <div style={{fontSize:11,color:sub,lineHeight:1.6}}>{es?'Por registrarte, referir amigos, publicar y dar likes. Canjeables por servicios en Brote. No se certifican con Verra.':'For registering, referring friends, posting and liking. Redeemable for services in Brote. Not Verra certifiable.'}</div>
+              <div style={{fontSize:11,color:sub,lineHeight:1.6}}>{es?'Por registrarte, referir amigos, publicar y dar likes. Sin valor ambiental. No se presentan a certificación.':'For registering, referring friends, posting and liking. No environmental value. Not submitted for certification.'}</div>
             </div>
           </div>
         </section>
 
         {/* ¿CUÁNTO GANÁS Y CUÁNDO? */}
         <section style={{padding:'24px 0',borderTop:`1px solid ${border}`}}>
-          <h2 style={{fontSize:20,fontWeight:900,marginBottom:6,color:text}}>{es?'¿Cuánto ganás y cuándo cobrás?':'How much do you earn and when?'}</h2>
+          <h2 style={{fontSize:20,fontWeight:900,marginBottom:6,color:text}}>{es?'¿Cómo participás?':'How do you take part?'}</h2>
           <p style={{fontSize:12,color:sub,marginBottom:16,lineHeight:1.6}}>
-            {es?'Depende de cómo participás. Todos empiezan en Semilla.':'Depends on how you participate. Everyone starts in Semilla.'}
+            {es?'Hay varias formas de sumar kilos verificados. La capa ciudadana se abre cuando la primera planta aliada esté operando.':'There are several ways to add verified kilos. The citizen layer opens when the first partner plant is operating.'}
           </p>
 
           {/* 4 versiones */}
@@ -283,49 +270,18 @@ export default function Ciudadano() {
                     <div style={{fontSize:11,color:sub,marginTop:2}}>{g.detalle}</div>
                   </div>
                 </div>
-                <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:8}}>
-                  <div style={{textAlign:'center',background:'rgba(255,255,255,0.03)',borderRadius:8,padding:'8px 4px'}}>
-                    <div style={{fontSize:9,color:sub,marginBottom:3}}>{es?'Por semana':'Per week'}</div>
-                    <div style={{fontSize:11,fontWeight:700,color:g.color}}>{g.semana}</div>
-                  </div>
-                  <div style={{textAlign:'center',background:'rgba(245,158,11,0.06)',borderRadius:8,padding:'8px 4px',border:'1px solid rgba(245,158,11,0.15)'}}>
-                    <div style={{fontSize:9,color:sub,marginBottom:3}}>🌳 Árbol</div>
-                    <div style={{fontSize:11,fontWeight:700,color:'#f59e0b'}}>{g.arbol}</div>
-                  </div>
-                  <div style={{textAlign:'center',background:'rgba(168,85,247,0.06)',borderRadius:8,padding:'8px 4px',border:'1px solid rgba(168,85,247,0.15)'}}>
-                    <div style={{fontSize:9,color:sub,marginBottom:3}}>🌲 Bosque 2028</div>
-                    <div style={{fontSize:11,fontWeight:700,color:'#a855f7'}}>{g.bosque}</div>
-                  </div>
-                </div>
               </div>
             ))}
           </div>
 
-          {/* Tabla OLV por tramo */}
-          <div style={{background:card,border:`1px solid ${border}`,borderRadius:14,padding:'16px',marginBottom:12}}>
-            <div style={{fontSize:12,fontWeight:700,color:text,marginBottom:10}}>{es?'¿Cuántos OLV = USD 1?':'How many OLV = USD 1?'}</div>
-            <div style={{display:'flex',flexDirection:'column',gap:6}}>
-              {OLV_TRAMOS.map((t,i)=>(
-                <div key={i} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'6px 0',borderBottom:i<OLV_TRAMOS.length-1?`1px solid ${border}`:'none'}}>
-                  <div>
-                    <span style={{fontSize:11,fontWeight:700,color:t.c}}>{t.tramo}</span>
-                    <span style={{fontSize:10,color:sub,marginLeft:6}}>{t.año}</span>
-                  </div>
-                  <span style={{fontSize:11,fontWeight:700,color:t.c}}>{t.olv}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Tu calendario */}
+          {/* Hoja de ruta */}
           <div style={{background:'rgba(34,197,94,0.04)',border:'1px solid rgba(34,197,94,0.15)',borderRadius:12,padding:'14px',marginBottom:12}}>
-            <div style={{fontSize:12,fontWeight:700,color:'#22c55e',marginBottom:8}}>{es?'📅 Tu calendario de cobro':'📅 Your payment calendar'}</div>
+            <div style={{fontSize:12,fontWeight:700,color:'#22c55e',marginBottom:8}}>{es?'📅 Hoja de ruta':'📅 Roadmap'}</div>
             <div style={{display:'flex',flexDirection:'column',gap:6}}>
               {[
-                {periodo:'HOY · Semilla 2026',desc:es?'Acumulás OLV Verdes gratis · construís historial':'Accumulate Green OLV free · build history',c:'#22c55e'},
-                {periodo:'Q4 2026 · Brote',desc:es?'Canjeás OLV por servicios de partners':'Redeem OLV for partner services',c:'#3b82f6'},
+                {periodo:es?'Hoy · Semilla':'Today · Seed',desc:es?'Piloto: acumulás OLV Verdes sin valor monetario · construís historial':'Pilot: accumulate Green OLV with no monetary value · build history',c:'#22c55e'},
+                {periodo:es?'Próxima · Brote':'Next · Sprout',desc:es?'Planta aliada con datos continuos de balanza':'Partner plant with continuous scale data',c:'#3b82f6'},
                 {periodo:es?'Etapa Árbol':'Tree stage',desc:es?'Si se completa la certificación bajo estándar Verra':'If Verra certification is completed',c:'#f59e0b'},
-                {periodo:'2028 · Bosque 💰💰',desc:es?'El salto — Art. 6.4 París · hasta 3x más':'The leap — Art. 6.4 Paris · up to 3x more',c:'#a855f7'},
               ].map((item,i)=>(
                 <div key={i} style={{display:'flex',gap:10,alignItems:'flex-start'}}>
                   <div style={{width:8,height:8,borderRadius:'50%',background:item.c,flexShrink:0,marginTop:4}}/>
@@ -342,14 +298,14 @@ export default function Ciudadano() {
           <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,padding:'14px',marginBottom:12}}>
             <div style={{fontSize:12,fontWeight:700,color:'#22c55e',marginBottom:6}}>💡 {es?'El argumento del primer movedor':'The first mover argument'}</div>
             <div style={{fontSize:11,color:sub,lineHeight:1.7}}>
-              {es?'Los que registran desde hoy construyen el historial de datos que hace posible cualquier certificación futura. Sin ese historial acumulado no hay nada que auditar. cada OLV tiene un residuo real verificado con IA detrás.':'Those who enter NOW in Semilla accumulate OLV when worth zero. When Árbol 2027 arrives they have 2 years of advantage. Not speculation — each OLV has a real AI-verified waste behind it.'}
+              {es?'Los que registran desde hoy construyen el historial de datos que hace posible cualquier certificación futura. Sin ese historial acumulado no hay nada que auditar. Cada OLV tiene un residuo real verificado con IA detrás.':'Those who register from today build the data record that makes any future certification possible. Without that accumulated record there is nothing to audit. Every OLV has a real AI-verified waste behind it.'}
             </div>
           </div>
 
           {/* Disclaimer */}
           <div style={{background:'rgba(245,158,11,0.04)',border:'1px solid rgba(245,158,11,0.15)',borderRadius:10,padding:'12px',marginBottom:16}}>
             <div style={{fontSize:10,color:sub,lineHeight:1.6,fontStyle:'italic'}}>
-              {es?'⚠️ Los valores son estimados y dependen de: (1) la conducta responsable del ciudadano al registrar y entregar sus residuos, (2) las certificaciones que se obtengan con Verra VCS, Gold Standard, Climate Action Reserve, GS Textile Exchange y demás certificadoras por tipo de material, y (3) el precio real de venta de los créditos en el mercado voluntario (Verra VCS, Gold Standard), en el mercado regulado (Art. 6.4 del Acuerdo de París) y en los mercados corporativos ESG al momento de la liquidación. OLIVIA crea el sistema, lo valida, lo certifica y permite que todos lo utilicemos. El sistema es de todos. OLIVIA no paga — el mercado paga.':'⚠️ Values are estimates and depend on: (1) responsible citizen behavior when registering and delivering waste, (2) certifications obtained with Verra VCS, Gold Standard, Climate Action Reserve, GS Textile Exchange and other certifiers per material type, and (3) the real sale price of credits in the voluntary market (Verra VCS, Gold Standard), regulated market (Paris Agreement Art. 6.4) and ESG corporate markets at liquidation. OLIVIA creates, validates and certifies the system so everyone can use it. The system belongs to everyone. OLIVIA does not pay — the market pays.'}
+              {es?'⚠️ OLIVIA no paga, el mercado paga. Hoy los OLV no tienen valor monetario y OLIVIA no promete ingresos. Si el proyecto se certifica, el valor dependerá de la certificación obtenida y del precio de los créditos en el mercado al momento de la venta.':'⚠️ OLIVIA does not pay, the market does. Today OLV have no monetary value and OLIVIA promises no income. If the project is certified, value will depend on the certification obtained and the credit price in the market at the time of sale.'}
             </div>
           </div>
 
@@ -372,7 +328,6 @@ export default function Ciudadano() {
                 {stat:'6.000t',desc:es?'residuos/día solo en CABA':'waste/day in CABA alone',c:'#ef4444'},
                 {stat:'85%',desc:es?'va al relleno sin separar':'goes to landfill unsorted',c:'#ef4444'},
                 {stat:'USD 0',desc:es?'capturado por el vecino':'captured by the citizen',c:'#f59e0b'},
-                {stat:'USD 4.5B',desc:es?'de mercado sin tocar en LATAM':'untapped market in LATAM',c:'#22c55e'},
               ].map((k,i)=>(
                 <div key={i} style={{background:tema==='dark'?'rgba(255,255,255,0.03)':card,borderRadius:10,padding:'12px',textAlign:'center',border:`1px solid ${k.c}22`}}>
                   <div style={{fontSize:22,fontWeight:900,color:k.c}}>{k.stat}</div>
@@ -438,20 +393,20 @@ export default function Ciudadano() {
         {/* TODOS LOS RESIDUOS */}
         <section style={{padding:'24px 0',borderTop:`1px solid ${border}`}}>
           <div style={{fontSize:11,color:'#3b82f6',fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:6}}>{es?'Residuos':'Waste types'}</div>
-          <h2 style={{fontSize:20,fontWeight:900,marginBottom:6,color:text}}>{es?'Todos los residuos generan valor':'All waste types generate value'}</h2>
+          <h2 style={{fontSize:20,fontWeight:900,marginBottom:6,color:text}}>{es?'Qué se registra por tipo de residuo':'What is recorded per waste type'}</h2>
           <p style={{fontSize:12,color:sub,marginBottom:16}}>
-            {es?'Valor neto por kg · Lo que vos recibís · Sin ecuaciones':'Net value per kg · What you receive · No equations'}
+            {es?'OLV por kg y metodología de referencia · Sin valor monetario hoy':'OLV per kg and reference methodology · No monetary value today'}
           </p>
           <div style={{display:'flex',flexDirection:'column',gap:8,marginBottom:12}}>
             {[
-              {icon:'🌿',tipo:es?'Orgánico':'Organic',olv:'180 OLV/kg',arbol:'USD 0.028/kg',bosque:'USD 0.082/kg',bolsa:'Verra AMS-III.AJ + VMR0007',color:'#22c55e'},
-              {icon:'♻️',tipo:es?'Plástico':'Plastic',olv:'150 OLV/kg',arbol:'USD 0.024/kg',bosque:'USD 0.068/kg',bolsa:'GS Solid Waste v1.0',color:'#3b82f6'},
-              {icon:'🔩',tipo:es?'Metal':'Metal',olv:'800 OLV/kg',arbol:'USD 0.102/kg',bosque:'USD 0.296/kg',bolsa:'Verra AMS-III.AJ',color:'#ef4444'},
-              {icon:'👕',tipo:es?'Textil':'Textile',olv:'550 OLV/kg',arbol:'USD 0.071/kg',bosque:'USD 0.205/kg',bolsa:'Sin metodología madura',color:'#ec4899'},
-              {icon:'🛢️',tipo:es?'Aceite':'Oil',olv:'250 OLV/kg',arbol:'USD 0.035/kg',bosque:'USD 0.100/kg',bolsa:'Verra AMS-III.AK',color:'#f97316'},
-              {icon:'📄',tipo:es?'Papel':'Paper',olv:'90 OLV/kg',arbol:'USD 0.013/kg',bosque:'USD 0.036/kg',bolsa:'Gold Standard',color:'#f59e0b'},
-              {icon:'🍾',tipo:es?'Vidrio':'Glass',olv:'30 OLV/kg',arbol:'USD 0.005/kg',bosque:'USD 0.014/kg',bolsa:'Verra',color:'#a855f7'},
-              {icon:'🍃',tipo:es?'Hojas/Ramas':'Leaves/Branches',olv:'210 OLV/kg',arbol:'USD 0.037/kg',bosque:'USD 0.107/kg',bolsa:'GS Solid Waste v1.0',color:'#22c55e'},
+              {icon:'🌿',tipo:es?'Orgánico':'Organic',olv:'180 OLV/kg',bolsa:'Verra AMS-III.F',color:'#22c55e'},
+              {icon:'♻️',tipo:es?'Plástico':'Plastic',olv:'150 OLV/kg',bolsa:'GS Solid Waste v1.0',color:'#3b82f6'},
+              {icon:'🔩',tipo:es?'Metal':'Metal',olv:'800 OLV/kg',bolsa:'Verra AMS-III.AJ',color:'#ef4444'},
+              {icon:'👕',tipo:es?'Textil':'Textile',olv:'550 OLV/kg',bolsa:'Sin metodología madura',color:'#ec4899'},
+              {icon:'🛢️',tipo:es?'Aceite':'Oil',olv:'250 OLV/kg',bolsa:'Verra AMS-III.AK',color:'#f97316'},
+              {icon:'📄',tipo:es?'Papel':'Paper',olv:'90 OLV/kg',bolsa:'Gold Standard',color:'#f59e0b'},
+              {icon:'🍾',tipo:es?'Vidrio':'Glass',olv:'30 OLV/kg',bolsa:'Verra',color:'#a855f7'},
+              {icon:'🍃',tipo:es?'Hojas/Ramas':'Leaves/Branches',olv:'210 OLV/kg',bolsa:'GS Solid Waste v1.0',color:'#22c55e'},
             ].map((r,i)=>(
               <div key={i} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'10px 14px',background:card,borderRadius:12,border:`1px solid ${r.color}22`}}>
                 <div style={{display:'flex',alignItems:'center',gap:10}}>
@@ -461,16 +416,12 @@ export default function Ciudadano() {
                     <div style={{fontSize:9,color:sub}}>{r.bolsa} · {r.olv}</div>
                   </div>
                 </div>
-                <div style={{textAlign:'right'}}>
-                  <div style={{fontSize:11,fontWeight:700,color:'#f59e0b'}}>🌳 {r.arbol}</div>
-                  <div style={{fontSize:10,color:'#a855f7'}}>🌲 {r.bosque}</div>
-                </div>
               </div>
             ))}
           </div>
           <div style={{background:'rgba(239,68,68,0.06)',border:'1px solid rgba(239,68,68,0.15)',borderRadius:10,padding:'10px 14px',textAlign:'center'}}>
             <span style={{fontSize:12,color:'#ef4444',fontWeight:700}}>
-              🔩 {es?'El metal genera 44× más valor que el vidrio. Cuanto más separás — más OLV acumulás.':'Metal generates 44× more value than glass. The more you sort — the more OLV you accumulate.'}
+              🔩 {es?'Cuanto más separás, más kilos verificados sumás.':'The more you sort, the more verified kilos you add.'}
             </span>
           </div>
         </section>
@@ -542,25 +493,20 @@ export default function Ciudadano() {
           <div style={{background:'rgba(59,130,246,0.06)',border:'2px solid rgba(59,130,246,0.3)',borderRadius:14,padding:'16px',marginBottom:12}}>
             <div style={{fontSize:12,color:'#3b82f6',fontWeight:700,marginBottom:4}}>🏢 {es?'Consorcios — el cliente ancla':'Buildings — the anchor client'}</div>
             <div style={{fontSize:10,color:'#f59e0b',marginBottom:10,lineHeight:1.5}}>
-              {es?'📊 Estimación referencial. Los valores dependen de una certificación futura que aún no se completó. OLIVIA no emite créditos ni promete ingresos.':'📊 Simulation of what your building could receive from Árbol 2027. OLIVIA does not pay — the carbon market does.'}
+              {es?'Los valores dependen de una certificación futura que aún no se completó. OLIVIA no emite créditos ni promete ingresos.':'Values depend on a future certification not yet completed. OLIVIA issues no credits and promises no income.'}
             </div>
             <div style={{display:'flex',flexDirection:'column',gap:6,marginBottom:10}}>
               {[
-                {l:es?'Créditos de carbono':'Carbon credits',v:'USD 85/mes'},
-                {l:es?'Ahorro recolección':'Collection savings',v:'USD 800/mes'},
-                {l:es?'Venta materiales':'Materials sale',v:'USD 120/mes'},
-                {l:es?'Abono orgánico':'Compost',v:'USD 45/mes'},
-                {l:es?'Certificación RSE':'CSR badge',v:'USD 75/mes'},
+                {l:es?'Registro verificable de cumplimiento':'Verifiable compliance record',v:'✓'},
+                {l:es?'Ahorro en recolección':'Collection savings',v:es?'a estimar':'to estimate'},
+                {l:es?'Venta de materiales':'Materials sale',v:es?'a estimar':'to estimate'},
+                {l:es?'Créditos de carbono (si se certifica)':'Carbon credits (if certified)',v:es?'a futuro':'future'},
               ].map((f,i)=>(
                 <div key={i} style={{display:'flex',justifyContent:'space-between',fontSize:11}}>
                   <span style={{color:sub}}>{f.l}</span>
                   <span style={{color:'#3b82f6',fontWeight:700}}>{f.v}</span>
                 </div>
               ))}
-            </div>
-            <div style={{borderTop:`1px solid ${border}`,paddingTop:10,display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-              <span style={{fontSize:12,color:sub}}>{es?'Total estimado (100 deptos)':'Estimated total (100 units)'}</span>
-              <span style={{fontSize:20,fontWeight:900,color:'#3b82f6'}}>USD 1.125/mes</span>
             </div>
             <div style={{display:'flex',gap:10,marginTop:12}}>
               <a href="/simulador" style={{flex:1,background:'linear-gradient(135deg,#3b82f6,#2563eb)',color:'white',padding:'10px',borderRadius:10,fontSize:12,fontWeight:700,textDecoration:'none',textAlign:'center'}}>
@@ -575,7 +521,7 @@ export default function Ciudadano() {
               {num:'02',tipo:es?'Ciudadano Comunitario':'Community Citizen',desc:es?'Recolectás hojas, ramas y residuos verdes del espacio público de tu barrio':'You collect leaves, branches and green waste from your neighborhood public space',color:'#22c55e'},
               {num:'03',tipo:es?'Verdulería / Feria':'Market / Store',desc:es?'Alto volumen orgánico diario — registrás vos mismo desde la app':'High daily organic volume — you register yourself from the app',color:'#22c55e'},
               {num:'04',tipo:es?'Colegio / Institución':'School / Institution',desc:es?'Reciclaje educativo con impacto verificable para toda la comunidad escolar':'Educational recycling with verifiable impact for the entire school community',color:'#3b82f6'},
-              {num:'05',tipo:es?'Consorcio / Edificio':'Building / Condo',desc:es?'El consorcio coordina a los vecinos y recibe ingresos adicionales desde Árbol 2027':'The building coordinates neighbors and receives additional income from Árbol 2027',color:'#3b82f6'},
+              {num:'05',tipo:es?'Consorcio / Edificio':'Building / Condo',desc:es?'El consorcio coordina a los vecinos y respalda su cumplimiento con un registro verificable':'The building coordinates neighbors and backs its compliance with a verifiable record',color:'#3b82f6'},
               {num:'06',tipo:es?'Restaurante / Hotel':'Restaurant / Hotel',desc:es?'Alto volumen de orgánico y aceite — SaaS mensual + créditos de carbono verificados':'High volume of organic and oil — monthly SaaS + verified carbon credits',color:'#f59e0b'},
               {num:'07',tipo:es?'Casino / Comedor':'Casino / Canteen',desc:es?'Mayor volumen aún — contrato específico con reporting mensual de impacto':'Even higher volume — specific contract with monthly impact reporting',color:'#f59e0b'},
               {num:'08',tipo:es?'Empresa RSE':'CSR Company',desc:es?'Compra créditos para compensar su huella y activa a sus empleados como recicladores':'Buys credits to offset footprint and activates employees as recyclers',color:'#a855f7'},
@@ -602,7 +548,7 @@ export default function Ciudadano() {
               es?'🌿 Reciclás → OLV Verdes → pagás el transporte con los mismos OLV que ganaste':'🌿 Recycle → Green OLV → pay for transport with the same OLV you earned',
               es?'🌳 OLV para plantar árboles → el árbol genera REDD+ → parte vuelve a vos':'🌳 OLV to plant trees → tree generates REDD+ → part returns to you',
               es?'👥 OLV sube tu PULSO → mejor PULSO → mejor tasa en AOM → más capital hoy':'👥 OLV raises your PULSO → better PULSO → better AOM rate → more capital today',
-              es?'🏥 Canjeás OLV por salud → la clínica acumula OLV como registro de impacto verificado':'🏥 Redeem OLV for health → clinic accumulates OLV → converts to USD 2027',
+              es?'🏥 Canjeás OLV por salud → la clínica acumula OLV como registro de impacto verificado':'🏥 Redeem OLV for health → clinic accumulates OLV as a verified impact record',
               es?'🤖 Reciclás más → canjeás OLV por créditos de IA (Claude, Gemini, etc)':'🤖 Recycle more → redeem OLV for AI credits (Claude, Gemini, etc)',
             ].map((inc,i)=>(
               <div key={i} style={{background:card,border:`1px solid ${border}`,borderRadius:10,padding:'10px 14px',fontSize:11,color:sub,lineHeight:1.6}}>{inc}</div>
@@ -616,7 +562,7 @@ export default function Ciudadano() {
           <h2 style={{fontSize:20,fontWeight:900,marginBottom:16,color:text}}>{es?'Tres verticales · Un ecosistema':'Three verticals · One ecosystem'}</h2>
           <div style={{display:'flex',flexDirection:'column',gap:12}}>
             {[
-              {img:'/ciudadano/metamorfosis.jpg',nombre:'OLIVIA Circulab',desc:es?'Residuos → compost → reforestación → créditos de carbono → dinero real':'Waste → compost → reforestation → carbon credits → real money',color:'#22c55e',href:'/metamorfosis'},
+              {img:'/ciudadano/metamorfosis.jpg',nombre:'OLIVIA Circulab',desc:es?'Residuos → compost → dato verificado → certificación':'Waste → compost → verified data → certification',color:'#22c55e',href:'/metamorfosis'},
               {img:'/ciudadano/pulso.jpg',nombre:'Quincena · PULSO',desc:es?'Roscas digitales → score crediticio → acceso al crédito formal · AR MX CO BR CH DO · Más OLV = mejor PULSO':'Digital savings circles → credit score → formal credit · AR MX CO BR CH DO · More OLV = better PULSO',color:'#3b82f6',href:'/quincena'},
               {img:'/ciudadano/aom.jpg',nombre:'Art of Money',desc:es?'Regalías musicales y deportivas → capital hoy · Más OLV → más puertas si sos creador':'Music and sports royalties → capital today · More OLV → more doors if you\'re a creator',color:'#a855f7',href:'/aom'},
             ].map(v=>(
@@ -700,7 +646,7 @@ export default function Ciudadano() {
           <h2 style={{fontSize:20,fontWeight:900,marginBottom:6,color:text}}>{es?'Compartí OLIVIA':'Share OLIVIA'}</h2>
           <p style={{fontSize:12,color:sub,marginBottom:16}}>{es?'⭐ +50 OLV Bonus por cada amigo que se registre':'⭐ +50 Bonus OLV for each friend who registers'}</p>
           <div style={{display:'flex',flexDirection:'column',gap:10}}>
-            <a href={`https://wa.me/?text=${encodeURIComponent(es?'Mirá esto — tu basura vale dinero real 🌿 https://oliviacirculab.com.ar/ciudadano':'Check this out — your trash is worth real money 🌿 https://oliviacirculab.com.ar/ciudadano')}`}
+            <a href={`https://wa.me/?text=${encodeURIComponent(es?'Mirá esto — tu residuo vuelve al ciclo 🌿 https://oliviacirculab.com.ar/ciudadano':'Check this out — your waste returns to the cycle 🌿 https://oliviacirculab.com.ar/ciudadano')}`}
               target="_blank" style={{display:'flex',alignItems:'center',gap:12,padding:'14px',borderRadius:12,background:'rgba(37,211,102,0.08)',border:'1px solid rgba(37,211,102,0.3)',textDecoration:'none'}}>
               <span style={{fontSize:22}}>💬</span>
               <div>
@@ -746,7 +692,7 @@ export default function Ciudadano() {
             {l:'Metamorfosis',h:'/metamorfosis'},
             {l:'Consorcios',h:'/consorcios'},
             {l:es?'Grandes Generadores':'Large Generators',h:'/grandes-generadores'},
-            {l:es?'Grandes Emisores':'Large Emitters',h:'/grandes-emisores'},
+            {l:es?'Plantas y acopiadores':'Plants & collectors',h:'/operadores'},
             {l:'RAEE',h:'/raee'},
             {l:es?'Mapa':'Map',h:'/mapa'},
             {l:'Kits',h:'/kits'},
@@ -773,7 +719,7 @@ export default function Ciudadano() {
           <a href="/privacidad" style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.7}}>{es?'Privacidad':'Privacy'}</a>
           <a href="https://www.linkedin.com/company/113160128/" style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.7}}>LinkedIn</a>
         </div>
-        <div style={{fontSize:9,color:sub,fontFamily:'monospace',letterSpacing:'0.05em',opacity:0.7}}>© 2026 Circulab Tech · Distrito Tecnológico · Buenos Aires · Ley 27.506</div>
+        <div style={{fontSize:9,color:sub,fontFamily:'monospace',letterSpacing:'0.05em',opacity:0.7}}>© 2026 Circulab Tech · Buenos Aires, Argentina</div>
       </footer>
 
       {/* POPUP ENCUESTA — 30 segundos después de cerrar el modal */}

@@ -86,7 +86,7 @@ export default function Equipo() {
         <h1 style={{fontSize:40,fontWeight:900,lineHeight:1.1,marginBottom:16}}>
           {es?'Construido en una cocina.':'Built in a kitchen.'}
           <br/>
-          <span style={{color:accent}}>{es?'USD 0 de inversión externa.':'USD 0 external investment.'}</span>
+          <span style={{color:accent}}>{es?'Sin inversión externa.':'No external investment.'}</span>
         </h1>
         <p style={{fontSize:15,color:sub,lineHeight:1.7,maxWidth:560,margin:'0 auto'}}>
           {es
@@ -166,18 +166,40 @@ export default function Equipo() {
             {(es?[
               {icon:'🎭',titulo:'Narrativa que convierte',desc:'Un director de teatro y una coreógrafa saben que la gente no cambia de comportamiento por datos — cambia por historias. OLIVIA está diseñada desde esa convicción.'},
               {icon:'⚖️',titulo:'Derecho ambiental real',desc:'No es un pitch con jerga legal. JP tiene especialización en derecho ambiental, tributario y propiedad intelectual. Los contratos de mandato y los T&C los escribimos nosotros.'},
-              {icon:'🤖',titulo:'IA como equipo de desarrollo',desc:'OLIVIA fue construida usando Claude, Gemini y Perplexity como co-desarrolladores. Lo que normalmente cuesta USD 500K en salarios, lo hicimos con USD 0.'},
+              {icon:'🤖',titulo:'IA como apoyo de desarrollo',desc:'OLIVIA fue construida sin inversión externa, usando IA (Claude, Gemini y Perplexity) como apoyo de desarrollo.'},
               {icon:'🌱',titulo:'Piel en el juego',desc:'Ninguno de los dos cobró un peso mientras construíamos esto. Los primeros salarios llegan con la inversión Seed. Eso es lo que significa creer en el proyecto.'},
             ]:[
               {icon:'🎭',titulo:'Narrative that converts',desc:'A theater director and a choreographer know that people do not change behavior through data — they change through stories. OLIVIA is designed from that conviction.'},
               {icon:'⚖️',titulo:'Real environmental law',desc:'Not a pitch with legal jargon. JP has specializations in environmental, tax and intellectual property law. We wrote the mandate contracts and T&C ourselves.'},
-              {icon:'🤖',titulo:'AI as development team',desc:'OLIVIA was built using Claude, Gemini and Perplexity as co-developers. What normally costs USD 500K in salaries, we did with USD 0.'},
+              {icon:'🤖',titulo:'AI as development support',desc:'OLIVIA was built without external investment, using AI (Claude, Gemini and Perplexity) as development support.'},
               {icon:'🌱',titulo:'Skin in the game',desc:'Neither of us received a peso while building this. First salaries come with Seed investment. That is what believing in the project means.'},
             ]).map((item,i)=>(
               <div key={i} style={{background:card,border:'1px solid ' + border,borderRadius:14,padding:'16px'}}>
                 <div style={{fontSize:24,marginBottom:8}}>{item.icon}</div>
                 <div style={{fontSize:12,fontWeight:700,color:accent,marginBottom:6}}>{item.titulo}</div>
                 <div style={{fontSize:11,color:sub,lineHeight:1.6}}>{item.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* VISIÓN · TRIÁNGULO DEL DESARROLLO */}
+      <section style={{padding:'48px 24px',borderTop:'1px solid ' + border}}>
+        <div style={{maxWidth:700,margin:'0 auto',textAlign:'center'}}>
+          <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:accent,marginBottom:12}}>[ {es?'Visión de Circulab Tech':'Circulab Tech vision'} ]</div>
+          <h2 style={{fontSize:22,fontWeight:900,marginBottom:12}}>{es?'El triángulo del desarrollo':'The development triangle'}</h2>
+          <p style={{fontSize:13,color:sub,lineHeight:1.7,marginBottom:20}}>{es?'OLIVIA es el primer vértice. A largo plazo, Circulab Tech imagina tres capas que se refuerzan: el dato ambiental, el ahorro comunitario y el financiamiento a creadores. Hoy solo existe la primera.':'OLIVIA is the first vertex. In the long run, Circulab Tech envisions three layers that reinforce each other: environmental data, community savings and creator financing. Today only the first exists.'}</p>
+          <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10}}>
+            {[
+              {icon:'🌿',t:'OLIVIA · Metamorfosis',d:es?'Dato ambiental verificado · activo hoy':'Verified environmental data · active today',c:accent},
+              {icon:'💜',t:'Quincena PULSO',d:es?'Ahorro comunitario · visión':'Community savings · vision',c:'#3b82f6'},
+              {icon:'🎨',t:'Art of Money',d:es?'Financiamiento a creadores · visión':'Creator financing · vision',c:'#a855f7'},
+            ].map(v=>(
+              <div key={v.t} style={{background:card,border:'1px solid '+v.c+'33',borderRadius:12,padding:'14px'}}>
+                <div style={{fontSize:22,marginBottom:6}}>{v.icon}</div>
+                <div style={{fontSize:11,fontWeight:700,color:v.c,marginBottom:4}}>{v.t}</div>
+                <div style={{fontSize:10,color:sub,lineHeight:1.5}}>{v.d}</div>
               </div>
             ))}
           </div>
@@ -207,7 +229,7 @@ export default function Equipo() {
             {l:'Metamorfosis',h:'/metamorfosis'},
             {l:'Consorcios',h:'/consorcios'},
             {l:es?'Grandes Generadores':'Large Generators',h:'/grandes-generadores'},
-            {l:es?'Grandes Emisores':'Large Emitters',h:'/grandes-emisores'},
+            {l:es?'Plantas y acopiadores':'Plants & collectors',h:'/operadores'},
             {l:'RAEE',h:'/raee'},
             {l:es?'Mapa':'Map',h:'/mapa'},
             {l:'Kits',h:'/kits'},
@@ -234,7 +256,7 @@ export default function Equipo() {
           <a href="/privacidad" style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.7}}>{es?'Privacidad':'Privacy'}</a>
           <a href="https://www.linkedin.com/company/113160128/" style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.7}}>LinkedIn</a>
         </div>
-        <div style={{fontSize:9,color:sub,fontFamily:'monospace',letterSpacing:'0.05em',opacity:0.7}}>© 2026 Circulab Tech · Distrito Tecnológico · Buenos Aires · Ley 27.506</div>
+        <div style={{fontSize:9,color:sub,fontFamily:'monospace',letterSpacing:'0.05em',opacity:0.7}}>© 2026 Circulab Tech · Buenos Aires, Argentina</div>
       </footer>
 
     </div>
