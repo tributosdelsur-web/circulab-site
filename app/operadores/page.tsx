@@ -1,7 +1,9 @@
 'use client'
 import { useState } from 'react'
 
-const WHATSAPP = '56952532739'
+// Número de WhatsApp Business (formato internacional, sin +). Vacío = no se muestra el botón.
+// Se configura con la variable NEXT_PUBLIC_WHATSAPP en Vercel cuando haya número argentino.
+const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP || ''
 
 export default function Operadores() {
   const [lang, setLang] = useState<'es'|'en'>('es')
@@ -155,10 +157,10 @@ export default function Operadores() {
                 style={{width:'100%',padding:'12px 14px',borderRadius:10,background:card,border:'1px solid '+border,color:text,fontSize:13,outline:'none',fontFamily:'inherit',boxSizing:'border-box'}} />
             ))}
             <div style={{display:'flex',gap:10,flexWrap:'wrap',marginTop:6}}>
-              <a href={waLink} target="_blank" rel="noopener noreferrer" style={{flex:1,minWidth:180,textAlign:'center',background:'linear-gradient(135deg,#22c55e,#16a34a)',borderRadius:12,padding:'13px',color:'white',fontSize:13,fontWeight:700,textDecoration:'none'}}>
+              {WHATSAPP&&<a href={waLink} target="_blank" rel="noopener noreferrer" style={{flex:1,minWidth:180,textAlign:'center',background:'linear-gradient(135deg,#22c55e,#16a34a)',borderRadius:12,padding:'13px',color:'white',fontSize:13,fontWeight:700,textDecoration:'none'}}>
                 {es?'Enviar por WhatsApp':'Send via WhatsApp'}
-              </a>
-              <a href={mailLink} style={{flex:1,minWidth:180,textAlign:'center',border:'1px solid '+border,borderRadius:12,padding:'13px',color:text,fontSize:13,fontWeight:700,textDecoration:'none'}}>
+              </a>}
+              <a href={mailLink} style={{flex:1,minWidth:180,textAlign:'center',background:WHATSAPP?'transparent':'linear-gradient(135deg,#22c55e,#16a34a)',border:WHATSAPP?'1px solid '+border:'none',borderRadius:12,padding:'13px',color:WHATSAPP?text:'white',fontSize:13,fontWeight:700,textDecoration:'none'}}>
                 {es?'Enviar por email':'Send via email'}
               </a>
             </div>
