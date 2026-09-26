@@ -749,9 +749,9 @@ if(seccion===18) return (
         </div>
       )
       const fila = (cols:string[], c:string, head:boolean, key:number) => (
-        <div key={key} style={{display:'grid',gridTemplateColumns:cols.length===7?'0.8fr 1.4fr 1.1fr 1fr 0.7fr 1fr 0.7fr':'1.4fr 1fr 1fr 0.7fr',gap:6,padding:head?'0 10px':'8px 10px',background:head?'transparent':'rgba(255,255,255,0.02)',borderRadius:8,border:head?'none':'1px solid ' + c + '22'}}>
+        <div key={key} style={{display:'grid',gridTemplateColumns:cols.length===5?'0.7fr 1.1fr 1fr 1fr 0.7fr':'1.4fr 1fr 1fr 0.7fr',gap:6,padding:head?'0 10px':'8px 10px',background:head?'transparent':'rgba(255,255,255,0.02)',borderRadius:8,border:head?'none':'1px solid ' + c + '22'}}>
           {cols.map((t,j)=>(
-            <div key={j} style={head?{fontSize:8,color:'#64748b',textTransform:'uppercase',letterSpacing:'0.05em'}:{fontSize:10,color:j===0||j===cols.length-1?c:'#94a3b8',fontWeight:j===0||j===cols.length-1?800:400}}>{t}</div>
+            <div key={j} style={head?{fontSize:8,color:'#64748b',textTransform:'uppercase',letterSpacing:'0.05em'}:{fontSize:10,whiteSpace:'nowrap',color:j===0||j===cols.length-1?c:'#94a3b8',fontWeight:j===0||j===cols.length-1?800:400}}>{t}</div>
           ))}
         </div>
       )
@@ -791,8 +791,8 @@ if(seccion===18) return (
               {d('Ronda Seed · USD 200K · 10% · USD 1,8M pre-money','Seed Round · USD 200K · 10% · USD 1.8M pre-money')}
             </div>
             <div style={{display:'flex',flexDirection:'column',gap:8,marginBottom:12}}>
-              {fila(es?['Año','Hito','Facturación','Valuación','% Seed','Valor Seed','Múltiplo']:['Year','Milestone','Revenue','Valuation','Seed %','Seed value','Multiple'],'#64748b',true,-1)}
-              {seed.map((r,i)=>fila([r.a,r.h,r.arr,r.val,r.pct,r.part,r.x],r.c,false,i))}
+              {fila(es?['Año','Facturación','Valuación','Valor Seed','Múltiplo']:['Year','Revenue','Valuation','Seed value','Multiple'],'#64748b',true,-1)}
+              {seed.map((r,i)=>fila([r.a,r.arr,r.val,r.part,r.x],r.c,false,i))}
             </div>
             {cards([
               {label:d('Múltiplo al año 3 (2029)','Year-3 multiple (2029)'),valor:base?'10x':'5x',sub:d('Sobre USD 200K','On USD 200K'),c:'#22c55e'},
