@@ -485,9 +485,9 @@ export default function Landing() {
           </h2>
           <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10,marginBottom:14}}>
             {[
-              {stat:'6.000t',desc:es?'residuos/día solo en CABA':'waste/day in CABA alone',c:'#ef4444'},
-              {stat:'85%',desc:es?'va al relleno sin separar':'goes to landfill unsorted',c:'#ef4444'},
-              {stat:'USD 0',desc:es?'capturado por el vecino':'captured by the citizen',c:'#f59e0b'},
+              {stat:'🗑️',desc:es?'los orgánicos terminan en el relleno':'organics end up in landfill',c:'#ef4444'},
+              {stat:'🏭',desc:es?'plantas con capacidad ociosa':'plants with idle capacity',c:'#ef4444'},
+              {stat:'📍',desc:es?'sin trazabilidad de origen a destino':'no traceability from source to destination',c:'#f59e0b'},
             ].map((k,i)=>(
               <div key={i} style={{background:dark?'rgba(255,255,255,0.03)':card,borderRadius:10,padding:'12px',textAlign:'center',border:`1px solid ${k.c}22`}}>
                 <div style={{fontSize:22,fontWeight:900,color:k.c}}>{k.stat}</div>

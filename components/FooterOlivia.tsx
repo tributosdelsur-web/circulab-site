@@ -32,6 +32,7 @@ export default function FooterOlivia({dark=true}:{dark?:boolean}) {
             <div style={{display:'flex',flexDirection:'column',gap:8}}>
               {[
                 {label:'🏭 Plantas y acopiadores',href:'/operadores'},
+                {label:'⚖️ Balanza conectada',href:'/balanza'},
                 {label:'🌿 Inicio',href:'/'},
                 {label:'👤 Ciudadano',href:'/ciudadano'},
                 {label:'🏛️ Inversionistas',href:'/institucional'},

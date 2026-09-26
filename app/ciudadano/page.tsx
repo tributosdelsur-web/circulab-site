@@ -28,8 +28,8 @@ export default function Ciudadano() {
   function compartirWA() {
     const url = 'https://oliviacirculab.com.ar/ciudadano'
     const txt = es
-      ?`El negocio del enterramiento factura millones. Vos no ves un peso. OLIVIA lo cambia 🌿 ${url}`
-      :`The landfill business earns millions. You see nothing. OLIVIA changes that 🌿 ${url}`
+      ?`Separás, pero nadie puede demostrar adónde fue. OLIVIA lo mide 🌿 ${url}`
+      :`You sort your waste, but no one can prove where it went. OLIVIA measures it 🌿 ${url}`
     window.open('https://wa.me/?text='+encodeURIComponent(txt))
   }
 
@@ -42,16 +42,16 @@ export default function Ciudadano() {
     ctx.fillStyle = grad; ctx.fillRect(0,0,1080,1920)
     ctx.textAlign = 'center'
     ctx.fillStyle = '#ef4444'; ctx.font = 'bold 80px system-ui'
-    ctx.fillText(es?'6.000 toneladas':'6,000 tons', 540, 380)
+    ctx.fillText(es?'Los orgánicos':'Organic waste', 540, 380)
     ctx.fillStyle = '#f1f5f9'; ctx.font = 'bold 58px system-ui'
-    ctx.fillText(es?'por día van al relleno.':'per day go to landfill.', 540, 480)
+    ctx.fillText(es?'terminan en el relleno.':'ends up in landfill.', 540, 480)
     ctx.fillStyle = '#f59e0b'; ctx.font = 'bold 54px system-ui'
     ctx.fillText(es?'¿Y si eso cambiara?':'What if that changed?', 540, 600)
     ctx.fillStyle = '#94a3b8'; ctx.font = '44px system-ui'
     ctx.fillText(es?'En las ciudades que funcionan,':'In cities that work,', 540, 900)
-    ctx.fillText(es?'el vecino cobra por reciclar.':'citizens get paid to recycle.', 540, 960)
+    ctx.fillText(es?'separar tiene recompensa.':'sorting is rewarded.', 540, 960)
     ctx.fillStyle = '#22c55e'; ctx.font = 'bold 52px system-ui'
-    ctx.fillText('OLIVIA lo hace en LATAM.', 540, 1060)
+    ctx.fillText(es?'OLIVIA construye el dato.':'OLIVIA builds the data.', 540, 1060)
     ctx.fillStyle = '#22c55e'; ctx.font = 'bold 48px system-ui'
     ctx.fillText('🌿 OLIVIA Circulab', 540, 1280)
     ctx.fillStyle = '#f1f5f9'; ctx.font = '40px system-ui'
@@ -321,13 +321,13 @@ export default function Ciudadano() {
           <div style={{background:'rgba(239,68,68,0.06)',border:'1px solid rgba(239,68,68,0.2)',borderRadius:14,padding:'20px'}}>
             <div style={{fontSize:11,color:'#ef4444',fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:10}}>{es?'El problema':'The problem'}</div>
             <h2 style={{fontSize:22,fontWeight:900,marginBottom:12,lineHeight:1.2,color:text}}>
-              {es?'El negocio de enterrar tu basura factura millones. Vos no ves un peso.':'The business of burying your trash earns millions. You don\'t see a cent.'}
+              {es?'Separás, pero nadie puede demostrar adónde fue.':'You sort your waste, but no one can prove where it went.'}
             </h2>
             <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10,marginBottom:14}}>
               {[
-                {stat:'6.000t',desc:es?'residuos/día solo en CABA':'waste/day in CABA alone',c:'#ef4444'},
-                {stat:'85%',desc:es?'va al relleno sin separar':'goes to landfill unsorted',c:'#ef4444'},
-                {stat:'USD 0',desc:es?'capturado por el vecino':'captured by the citizen',c:'#f59e0b'},
+                {stat:'🗑️',desc:es?'los orgánicos terminan en el relleno':'organics end up in landfill',c:'#ef4444'},
+                {stat:'🏭',desc:es?'plantas con capacidad ociosa':'plants with idle capacity',c:'#ef4444'},
+                {stat:'📍',desc:es?'sin trazabilidad de origen a destino':'no traceability from source to destination',c:'#f59e0b'},
               ].map((k,i)=>(
                 <div key={i} style={{background:tema==='dark'?'rgba(255,255,255,0.03)':card,borderRadius:10,padding:'12px',textAlign:'center',border:`1px solid ${k.c}22`}}>
                   <div style={{fontSize:22,fontWeight:900,color:k.c}}>{k.stat}</div>

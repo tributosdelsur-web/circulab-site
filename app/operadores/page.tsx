@@ -84,7 +84,7 @@ export default function Operadores() {
           <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(170px,1fr))',gap:10}}>
             {[
               {n:'01',t:es?'El generador entrega':'The generator delivers',d:es?'Gran generador, consorcio o punto verde.':'Large generator, building or green point.'},
-              {n:'02',t:es?'La balanza pesa y registra':'The scale weighs and records',d:es?'Peso automático, sin planillas.':'Automatic weight, no spreadsheets.'},
+              {n:'02',t:es?'La balanza pesa y registra':'The scale weighs and records',d:es?'Peso automático, sin planillas.':'Automatic weight, no spreadsheets.',h:'/balanza'},
               {n:'03',t:es?'El acopiador firma':'The collector signs',d:es?'Remito digital firmado.':'Signed digital receipt.'},
               {n:'04',t:es?'La planta confirma':'The plant confirms',d:es?'Compost, biogás o recuperación de material.':'Compost, biogas or material recovery.'},
             ].map(p=>(
@@ -92,6 +92,7 @@ export default function Operadores() {
                 <div style={{fontSize:11,fontFamily:'monospace',color:accent,marginBottom:6}}>{p.n}</div>
                 <div style={{fontSize:13,fontWeight:700,marginBottom:4}}>{p.t}</div>
                 <div style={{fontSize:11,color:sub,lineHeight:1.5}}>{p.d}</div>
+                {'h' in p&&p.h&&<a href={p.h} style={{display:'inline-block',marginTop:6,fontSize:11,color:accent,fontWeight:700,textDecoration:'none'}}>{es?'Cómo funciona la balanza →':'How the scale works →'}</a>}
               </div>
             ))}
           </div>
@@ -183,6 +184,7 @@ export default function Operadores() {
             {l:'Consorcios',h:'/consorcios'},
             {l:es?'Grandes Generadores':'Large Generators',h:'/grandes-generadores'},
             {l:es?'Plantas y acopiadores':'Plants & collectors',h:'/operadores'},
+            {l:es?'Balanza':'Scale',h:'/balanza'},
             {l:'RAEE',h:'/raee'},
             {l:es?'Mapa':'Map',h:'/mapa'},
             {l:'Kits',h:'/kits'},

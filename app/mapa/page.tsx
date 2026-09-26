@@ -135,14 +135,14 @@ export default function Mapa() {
   const verraSteps: [string,string][] = es ? [
     ['Elegir metodología.','Para orgánicos urbanos: AMS-III.F (compostaje que evita metano de relleno). Define cómo se calcula el CO₂ evitado.'],
     ['Definir la línea base.','Cuánto metano se habría emitido si esos orgánicos iban al relleno. Es el punto de comparación que Verra audita.'],
-    ['Diseñar el sistema dMRV.','Verificación digital de alta frecuencia: foto con IA + GPS + peso real + QR por contenedor. Verra aprobó este modelo en febrero 2026.'],
+    ['Diseñar el sistema dMRV.','Verificación digital de alta frecuencia: foto con IA + GPS + peso real + QR por contenedor. En febrero de 2026 Verra aprobó su primer piloto de dMRV de alta frecuencia.'],
     ['Validación por auditor acreditado (VVB).','DNV o Bureau Veritas revisan el diseño. Verra lo aprueba para empezar a acumular datos.'],
     ['Acumular datos 12–24 meses.','Cada registro se guarda con trazabilidad completa. No se puede acelerar: es tiempo real.'],
     ['Verificación y emisión de VCUs.','El auditor verifica los datos reales. Verra emite los créditos (1 VCU = 1 tCO₂e).'],
   ] : [
     ['Choose the methodology.','For urban organics: AMS-III.F (composting that avoids landfill methane). Defines how avoided CO₂ is calculated.'],
     ['Define the baseline.','How much methane would have been emitted had those organics gone to landfill. The benchmark Verra audits.'],
-    ['Design the dMRV system.','High-frequency digital verification: AI photo + GPS + real weight + QR per container. Verra approved this model in February 2026.'],
+    ['Design the dMRV system.','High-frequency digital verification: AI photo + GPS + real weight + QR per container. In February 2026 Verra approved its first high-frequency dMRV pilot.'],
     ['Validation by accredited auditor (VVB).','DNV or Bureau Veritas review the design. Verra approves it so data accumulation can begin.'],
     ['Accumulate data for 12–24 months.','Every record is stored with full traceability. It cannot be accelerated: it is real time.'],
     ['Verification and VCU issuance.','The auditor verifies the actual data. Verra issues the credits (1 VCU = 1 tCO₂e).'],

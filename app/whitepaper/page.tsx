@@ -8,7 +8,7 @@ const SECCIONES_ES = [
 '💰 Las 5 fuentes de valor','🌍 Los 7 mercados','🤝 Modelo de convenios',
 '🔄 Incentivos cruzados','🚛 Recolección coordinada con IA','🌱 Hoja de ruta',
 '🌱 Familia OLIVIA','👨‍💻 Equipo y tecnología','📈 El pedido',
-'⚠️ Riesgos y mitigación','🏛️ Marco legal',
+'⚠️ Riesgos y mitigación','🏛️ Marco legal','📊 Proyecciones financieras',
 ]
 
 const SECCIONES_EN = [
@@ -17,13 +17,14 @@ const SECCIONES_EN = [
 '💰 5 Value Sources','🌍 7 Token Markets','🤝 Partnership Model',
 '🔄 Cross Incentives','🚛 AI-Coordinated Collection','🌱 Roadmap',
 '🌱 OLIVIA Family','👨‍💻 Team & Technology','📈 The Ask',
-'⚠️ Risks & Mitigation','🏛️ Legal Framework',
+'⚠️ Risks & Mitigation','🏛️ Legal Framework','📊 Financial Projections',
 ]
 
 export default function Whitepaper() {
 const [lang, setLang] = useState<'es'|'en'>('es')
 const [dark, setDark] = useState(true)
 const [seccion, setSeccion] = useState(0)
+const [escenario, setEscenario] = useState<'base'|'cons'>('base')
 const [ndaFirmado, setNdaFirmado] = useState(false)
 const [ndaNombre, setNdaNombre] = useState('')
 const [ndaEmail, setNdaEmail] = useState('')
@@ -59,7 +60,7 @@ setNdaEnviando(false)
 
 const SECCIONES = lang==='es'?SECCIONES_ES:SECCIONES_EN
 // Versión corta y técnica para Climatech: solo estas secciones se muestran
-const VISIBLES = [0,1,2,3,4,12,14,15,16]
+const VISIBLES = [0,1,2,3,4,12,14,15,18,16]
 const pos = Math.max(0,VISIBLES.indexOf(seccion))
 
 if(!ndaFirmado) return (
@@ -709,151 +710,140 @@ if(seccion===18) return (
       </div>
     </div>
 
-    {/* Ronda Seed USD 500K */}
-    <div style={{...s.card,borderLeft:'3px solid #22c55e',marginBottom:16}}>
-      <div style={{fontSize:13,fontWeight:900,color:'#22c55e',marginBottom:12}}>
-        {lang==='es'?'Ronda Seed · USD 500K · 10% equity':'Seed Round · USD 500K · 10% equity'}
-      </div>
-      <div style={{display:'flex',flexDirection:'column',gap:8,marginBottom:12}}>
-        {(lang==='es'?[
-          {anio:'2026 (inicio)',arr:'USD 24.000',val:'USD 144.000',part:'USD 14.400',roi:'Pre-revenue',c:'#64748b'},
-          {anio:'2027 (Verra)',arr:'USD 176.750',val:'USD 1.060.000',part:'USD 106.000',roi:'0.2x',c:'#3b82f6'},
-          {anio:'2028 (escala)',arr:'USD 1.230.000',val:'USD 7.380.000',part:'USD 738.000',roi:'1.5x ✅',c:'#f59e0b'},
-          {anio:'2029 (LATAM)',arr:'USD 4.000.000',val:'USD 24.000.000',part:'USD 2.400.000',roi:'4.8x ✅✅',c:'#22c55e'},
-          {anio:'2030 (emisores)',arr:'USD 10.000.000',val:'USD 60.000.000',part:'USD 6.000.000',roi:'12x ✅✅✅',c:'#22c55e'},
-        ]:[
-          {anio:'2026 (start)',arr:'USD 24,000',val:'USD 144,000',part:'USD 14,400',roi:'Pre-revenue',c:'#64748b'},
-          {anio:'2027 (Verra)',arr:'USD 176,750',val:'USD 1,060,000',part:'USD 106,000',roi:'0.2x',c:'#3b82f6'},
-          {anio:'2028 (scale)',arr:'USD 1,230,000',val:'USD 7,380,000',part:'USD 738,000',roi:'1.5x',c:'#f59e0b'},
-          {anio:'2029 (LATAM)',arr:'USD 4,000,000',val:'USD 24,000,000',part:'USD 2,400,000',roi:'4.8x',c:'#22c55e'},
-          {anio:'2030 (emitters)',arr:'USD 10,000,000',val:'USD 60,000,000',part:'USD 6,000,000',roi:'12x',c:'#22c55e'},
-        ]).map((row,i)=>(
-          <div key={i} style={{display:'grid',gridTemplateColumns:'1.5fr 1.5fr 1.5fr 1fr 1fr',gap:6,padding:'8px 10px',background:'rgba(255,255,255,0.02)',borderRadius:8,border:'1px solid rgba(255,255,255,0.04)'}}>
-            <div style={{fontSize:10,fontWeight:700,color:row.c}}>{row.anio}</div>
-            <div style={{fontSize:10,color:'#94a3b8'}}>{row.arr}</div>
-            <div style={{fontSize:10,color:'#94a3b8'}}>{row.val}</div>
-            <div style={{fontSize:10,color:row.c,fontWeight:700}}>{row.part}</div>
-            <div style={{fontSize:10,color:row.c,fontWeight:900}}>{row.roi}</div>
-          </div>
-        ))}
-        <div style={{display:'grid',gridTemplateColumns:'1.5fr 1.5fr 1.5fr 1fr 1fr',gap:6,padding:'0 10px'}}>
-          {(lang==='es'?['Año','ARR','Valoracion 6x','10% inversor','ROI']:['Year','ARR','6x Valuation','10% investor','ROI']).map((h,i)=>(
-            <div key={i} style={{fontSize:8,color:'#64748b',textTransform:'uppercase',letterSpacing:'0.05em'}}>{h}</div>
+    {/* Escenarios · Seed USD 200K y Serie A USD 2M */}
+    {(()=>{
+      const es = lang==='es'
+      const base = escenario==='base'
+      const d = (a:string,b:string) => es?a:b
+      const seed = base ? [
+        {a:'2026',h:d('Entrada Seed','Seed entry'),arr:'USD 24K',val:'USD 2M',pct:'10%',part:'USD 200K',x:'1x',c:'#64748b'},
+        {a:'2027',h:d('Serie A','Series A'),arr:'USD 177K',val:'USD 12M',pct:d('8,3%','8.3%'),part:d('USD 1,0M','USD 1.0M'),x:'5x',c:'#3b82f6'},
+        {a:'2028',h:d('Vale la Serie A','Series A holds'),arr:d('USD 1,23M','USD 1.23M'),val:'USD 12M',pct:d('8,3%','8.3%'),part:d('USD 1,0M','USD 1.0M'),x:'5x',c:'#3b82f6'},
+        {a:'2029',h:d('6x facturación','6x revenue'),arr:d('USD 4,0M','USD 4.0M'),val:'USD 24M',pct:d('8,3%','8.3%'),part:d('USD 2,0M','USD 2.0M'),x:'10x',c:'#f59e0b'},
+        {a:'2030',h:d('6x facturación','6x revenue'),arr:d('USD 10,0M','USD 10.0M'),val:'USD 60M',pct:d('8,3%','8.3%'),part:d('USD 5,0M','USD 5.0M'),x:'25x',c:'#22c55e'},
+      ] : [
+        {a:'2026',h:d('Entrada Seed','Seed entry'),arr:'USD 12K',val:'USD 2M',pct:'10%',part:'USD 200K',x:'1x',c:'#64748b'},
+        {a:'2027',h:d('Serie A','Series A'),arr:'USD 88K',val:'USD 12M',pct:d('8,3%','8.3%'),part:d('USD 1,0M','USD 1.0M'),x:'5x',c:'#3b82f6'},
+        {a:'2028',h:d('Vale la Serie A','Series A holds'),arr:'USD 615K',val:'USD 12M',pct:d('8,3%','8.3%'),part:d('USD 1,0M','USD 1.0M'),x:'5x',c:'#3b82f6'},
+        {a:'2029',h:d('Vale la Serie A','Series A holds'),arr:d('USD 2,0M','USD 2.0M'),val:'USD 12M',pct:d('8,3%','8.3%'),part:d('USD 1,0M','USD 1.0M'),x:'5x',c:'#f59e0b'},
+        {a:'2030',h:d('6x facturación','6x revenue'),arr:d('USD 5,0M','USD 5.0M'),val:'USD 30M',pct:d('8,3%','8.3%'),part:d('USD 2,5M','USD 2.5M'),x:d('12,5x','12.5x'),c:'#22c55e'},
+      ]
+      const serieA = base ? [
+        {a:d('2028 (año 1)','2028 (year 1)'),val:'USD 12M',part:d('USD 2,0M','USD 2.0M'),x:'1x',c:'#3b82f6'},
+        {a:d('2029 (año 2)','2029 (year 2)'),val:'USD 24M',part:d('USD 4,0M','USD 4.0M'),x:'2x',c:'#f59e0b'},
+        {a:d('2030 (año 3)','2030 (year 3)'),val:'USD 60M',part:d('USD 10,0M','USD 10.0M'),x:'5x',c:'#22c55e'},
+      ] : [
+        {a:d('2028 (año 1)','2028 (year 1)'),val:'USD 12M',part:d('USD 2,0M','USD 2.0M'),x:'1x',c:'#3b82f6'},
+        {a:d('2029 (año 2)','2029 (year 2)'),val:'USD 12M',part:d('USD 2,0M','USD 2.0M'),x:'1x',c:'#f59e0b'},
+        {a:d('2030 (año 3)','2030 (year 3)'),val:'USD 30M',part:d('USD 5,0M','USD 5.0M'),x:d('2,5x','2.5x'),c:'#22c55e'},
+      ]
+      const cards = (items:{label:string,valor:string,sub:string,c:string}[]) => (
+        <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8,marginTop:8}}>
+          {items.map((item,i)=>(
+            <div key={i} style={{background:'rgba(255,255,255,0.02)',border:'1px solid ' + item.c + '22',borderRadius:8,padding:'10px',textAlign:'center'}}>
+              <div style={{fontSize:9,color:'#64748b',marginBottom:4}}>{item.label}</div>
+              <div style={{fontSize:12,fontWeight:900,color:item.c,marginBottom:2}}>{item.valor}</div>
+              <div style={{fontSize:9,color:'#64748b'}}>{item.sub}</div>
+            </div>
           ))}
         </div>
-      </div>
-      <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8,marginTop:8}}>
-        {[
-          {label:lang==='es'?'Break-even operativo':'Operational break-even',valor:'Mayo 2027',sub:lang==='es'?'11 meses post-cierre':'11 months post-close',c:'#22c55e'},
-          {label:lang==='es'?'ROI equilibrio inversor':'Investor breakeven ROI',valor:'Fin 2028',sub:lang==='es'?'USD 738K sobre USD 500K':'USD 738K on USD 500K',c:'#f59e0b'},
-          {label:'IRR ' + (lang==='es'?'ano 3':'year 3'),valor:'~70% anual',sub:lang==='es'?'Con Ley 27.506: ~95%':'With Law 27.506: ~95%',c:'#a855f7'},
-        ].map((item,i)=>(
-          <div key={i} style={{background:'rgba(255,255,255,0.02)',border:'1px solid ' + item.c + '22',borderRadius:8,padding:'10px',textAlign:'center'}}>
-            <div style={{fontSize:9,color:'#64748b',marginBottom:4}}>{item.label}</div>
-            <div style={{fontSize:12,fontWeight:900,color:item.c,marginBottom:2}}>{item.valor}</div>
-            <div style={{fontSize:9,color:'#64748b'}}>{item.sub}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-
-    {/* Ronda Serie A USD 2M */}
-    <div style={{...s.card,borderLeft:'3px solid #3b82f6',marginBottom:16}}>
-      <div style={{fontSize:13,fontWeight:900,color:'#3b82f6',marginBottom:4}}>
-        {lang==='es'?'Ronda Serie A · USD 2M · ~17% equity':'Series A Round · USD 2M · ~17% equity'}
-      </div>
-      <div style={{fontSize:10,color:'#64748b',marginBottom:12}}>
-        {lang==='es'
-          ? 'Estimada para Q4 2027 post-certificacion Verra. Valoracion pre-money: USD 10M.'
-          : 'Estimated for Q4 2027 post-Verra certification. Pre-money valuation: USD 10M.'}
-      </div>
-      <div style={{display:'flex',flexDirection:'column',gap:8,marginBottom:12}}>
-        {(lang==='es'?[
-          {anio:'2028 (ano 1)',arr:'USD 1.230.000',val:'USD 7.380.000',part:'USD 1.254.600',roi:'0.6x',c:'#3b82f6'},
-          {anio:'2029 (ano 2)',arr:'USD 3.800.000',val:'USD 22.800.000',part:'USD 3.876.000',roi:'1.9x ✅',c:'#f59e0b'},
-          {anio:'2030 (ano 3)',arr:'USD 10.200.000',val:'USD 61.200.000',part:'USD 10.404.000',roi:'5.2x ✅✅',c:'#22c55e'},
-          {anio:'2032 (ano 5)',arr:'USD 50.000.000',val:'USD 300.000.000',part:'USD 51.000.000',roi:'25.5x ✅✅✅',c:'#22c55e'},
-        ]:[
-          {anio:'2028 (year 1)',arr:'USD 1,230,000',val:'USD 7,380,000',part:'USD 1,254,600',roi:'0.6x',c:'#3b82f6'},
-          {anio:'2029 (year 2)',arr:'USD 3,800,000',val:'USD 22,800,000',part:'USD 3,876,000',roi:'1.9x',c:'#f59e0b'},
-          {anio:'2030 (year 3)',arr:'USD 10,200,000',val:'USD 61,200,000',part:'USD 10,404,000',roi:'5.2x',c:'#22c55e'},
-          {anio:'2032 (year 5)',arr:'USD 50,000,000',val:'USD 300,000,000',part:'USD 51,000,000',roi:'25.5x',c:'#22c55e'},
-        ]).map((row,i)=>(
-          <div key={i} style={{display:'grid',gridTemplateColumns:'1.5fr 1.5fr 1.5fr 1fr 1fr',gap:6,padding:'8px 10px',background:'rgba(255,255,255,0.02)',borderRadius:8,border:'1px solid rgba(255,255,255,0.04)'}}>
-            <div style={{fontSize:10,fontWeight:700,color:row.c}}>{row.anio}</div>
-            <div style={{fontSize:10,color:'#94a3b8'}}>{row.arr}</div>
-            <div style={{fontSize:10,color:'#94a3b8'}}>{row.val}</div>
-            <div style={{fontSize:10,color:row.c,fontWeight:700}}>{row.part}</div>
-            <div style={{fontSize:10,color:row.c,fontWeight:900}}>{row.roi}</div>
-          </div>
-        ))}
-        <div style={{display:'grid',gridTemplateColumns:'1.5fr 1.5fr 1.5fr 1fr 1fr',gap:6,padding:'0 10px'}}>
-          {(lang==='es'?['Año','ARR','Valoracion 6x','17% inversor','ROI']:['Year','ARR','6x Valuation','17% investor','ROI']).map((h,i)=>(
-            <div key={i} style={{fontSize:8,color:'#64748b',textTransform:'uppercase',letterSpacing:'0.05em'}}>{h}</div>
+      )
+      const fila = (cols:string[], c:string, head:boolean, key:number) => (
+        <div key={key} style={{display:'grid',gridTemplateColumns:cols.length===7?'0.8fr 1.4fr 1.1fr 1fr 0.7fr 1fr 0.7fr':'1.4fr 1fr 1fr 0.7fr',gap:6,padding:head?'0 10px':'8px 10px',background:head?'transparent':'rgba(255,255,255,0.02)',borderRadius:8,border:head?'none':'1px solid ' + c + '22'}}>
+          {cols.map((t,j)=>(
+            <div key={j} style={head?{fontSize:8,color:'#64748b',textTransform:'uppercase',letterSpacing:'0.05em'}:{fontSize:10,color:j===0||j===cols.length-1?c:'#94a3b8',fontWeight:j===0||j===cols.length-1?800:400}}>{t}</div>
           ))}
         </div>
-      </div>
-      <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8,marginTop:8}}>
-        {[
-          {label:lang==='es'?'Break-even operativo':'Operational break-even',valor:lang==='es'?'Ya alcanzado':'Already reached',sub:lang==='es'?'Antes de la Serie A':'Before Series A',c:'#22c55e'},
-          {label:lang==='es'?'ROI equilibrio inversor':'Investor breakeven ROI',valor:lang==='es'?'Fin 2029':'End 2029',sub:lang==='es'?'USD 3.9M sobre USD 2M':'USD 3.9M on USD 2M',c:'#f59e0b'},
-          {label:'IRR ' + (lang==='es'?'ano 3':'year 3'),valor:'~80% anual',sub:lang==='es'?'Escenario base conservador':'Conservative base scenario',c:'#a855f7'},
-        ].map((item,i)=>(
-          <div key={i} style={{background:'rgba(255,255,255,0.02)',border:'1px solid ' + item.c + '22',borderRadius:8,padding:'10px',textAlign:'center'}}>
-            <div style={{fontSize:9,color:'#64748b',marginBottom:4}}>{item.label}</div>
-            <div style={{fontSize:12,fontWeight:900,color:item.c,marginBottom:2}}>{item.valor}</div>
-            <div style={{fontSize:9,color:'#64748b'}}>{item.sub}</div>
+      )
+      const comp = es ? [
+        ['','Seed USD 200K','Serie A USD 2M'],
+        ['Momento','Hoy · 2026','Q4 2027 · post-Verra'],
+        ['Riesgo','Alto','Medio-bajo'],
+        ['Valuación de entrada','USD 2M post-money','USD 12M post-money'],
+        ['Participación','10% → 8,3% tras la Serie A','~17%'],
+        ['Múltiplo al año 3',base?'10x':'5x',base?'5x':'2,5x'],
+        ['TIR al año 3',base?'~115%':'~71%',base?'~71%':'~36%'],
+      ] : [
+        ['','Seed USD 200K','Series A USD 2M'],
+        ['Timing','Today · 2026','Q4 2027 · post-Verra'],
+        ['Risk','High','Medium-low'],
+        ['Entry valuation','USD 2M post-money','USD 12M post-money'],
+        ['Stake','10% → 8.3% after Series A','~17%'],
+        ['Year-3 multiple',base?'10x':'5x',base?'5x':'2.5x'],
+        ['Year-3 IRR',base?'~115%':'~71%',base?'~71%':'~36%'],
+      ]
+      return (
+        <>
+          <div style={{display:'flex',gap:6,marginBottom:10}}>
+            {(['base','cons'] as const).map(k=>(
+              <button key={k} onClick={()=>setEscenario(k)} style={{padding:'6px 12px',borderRadius:8,border:'1px solid rgba(34,197,94,0.3)',cursor:'pointer',fontSize:11,fontWeight:escenario===k?800:500,background:escenario===k?'rgba(34,197,94,0.15)':'transparent',color:escenario===k?'#22c55e':'#94a3b8'}}>
+                {k==='base'?d('Escenario base','Base scenario'):d('Escenario conservador','Conservative scenario')}
+              </button>
+            ))}
           </div>
-        ))}
-      </div>
-    </div>
+          <div style={{...s.p,marginBottom:16}}>
+            {d('Método: cada año la empresa vale lo más alto entre el precio de la última ronda y 6 veces su facturación anual. La participación Seed se diluye con la Serie A. El escenario conservador proyecta la mitad de la facturación del base. Los dos suponen la Serie A de 2027.',
+               'Method: each year the company is valued at the higher of the last round price and 6x annual revenue. The Seed stake is diluted by the Series A. The conservative scenario projects half the base revenue. Both assume the 2027 Series A.')}
+          </div>
 
-    {/* Tabla comparativa */}
-    <div style={{...s.card,borderLeft:'3px solid #a855f7'}}>
-      <div style={{fontSize:12,fontWeight:700,color:'#a855f7',marginBottom:12}}>
-        {lang==='es'?'Comparativa Seed vs Serie A':'Seed vs Series A comparison'}
-      </div>
-      <div style={{display:'grid',gridTemplateColumns:'2fr 1fr 1fr',gap:8}}>
-        {(lang==='es'?[
-          ['','Seed USD 500K','Serie A USD 2M'],
-          ['Momento','Hoy 2026','Post-Verra 2027'],
-          ['Riesgo','Alto','Medio-bajo'],
-          ['Break-even op.','Mayo 2027','Ya alcanzado'],
-          ['Equity','10%','~17%'],
-          ['Valor empresa ano 3','USD 24M','USD 61M'],
-          ['Participacion ano 3','USD 2.4M','USD 10.4M'],
-          ['ROI ano 3','4.8x','5.2x'],
-          ['IRR ano 3','~70%','~80%'],
-          ['Con Ley 27.506','~95% IRR','N/A si externo'],
-        ]:[
-          ['','Seed USD 500K','Series A USD 2M'],
-          ['Timing','Today 2026','Post-Verra 2027'],
-          ['Risk','High','Medium-low'],
-          ['Op. break-even','May 2027','Already reached'],
-          ['Equity','10%','~17%'],
-          ['Company value yr 3','USD 24M','USD 61M'],
-          ['Investor stake yr 3','USD 2.4M','USD 10.4M'],
-          ['ROI year 3','4.8x','5.2x'],
-          ['IRR year 3','~70%','~80%'],
-          ['With Law 27.506','~95% IRR','N/A if external'],
-        ]).map((row,i)=>(
-          row[0]===''
-            ? row.slice(1).map((h,j)=>(
-                <div key={j} style={{fontSize:9,fontWeight:700,color:'#a855f7',textTransform:'uppercase',letterSpacing:'0.05em',padding:'4px 0'}}>{h}</div>
-              ))
-            : [
-                <div key={0} style={{fontSize:10,color:'#64748b',padding:'4px 0',borderTop:'1px solid rgba(255,255,255,0.04)'}}>{row[0]}</div>,
-                <div key={1} style={{fontSize:10,color:'#22c55e',fontWeight:600,padding:'4px 0',borderTop:'1px solid rgba(255,255,255,0.04)'}}>{row[1]}</div>,
-                <div key={2} style={{fontSize:10,color:'#3b82f6',fontWeight:600,padding:'4px 0',borderTop:'1px solid rgba(255,255,255,0.04)'}}>{row[2]}</div>,
-              ]
-        ))}
-      </div>
-      <div style={{marginTop:16,padding:'12px',background:'rgba(168,85,247,0.06)',border:'1px solid rgba(168,85,247,0.15)',borderRadius:10,fontSize:11,color:'#94a3b8',lineHeight:1.7,fontStyle:'italic'}}>
-        {lang==='es'
-          ? '"El inversor Seed toma mas riesgo y recibe el beneficio de la Ley 27.506 (USD 1 = USD 1.4 efectivos). El inversor Serie A entra con riesgo mucho menor pero sin el multiplicador fiscal. Ambos tienen ROI de 5x en el ano 3 con proyecciones conservadoras."'
-          : '"The Seed investor takes more risk and receives the benefit of Law 27.506 (USD 1 = USD 1.4 effective). The Series A investor enters with much lower risk but without the fiscal multiplier. Both have 5x ROI in year 3 with conservative projections."'}
-      </div>
-    </div>
+          <div style={{...s.card,borderLeft:'3px solid #22c55e',marginBottom:16}}>
+            <div style={{fontSize:13,fontWeight:900,color:'#22c55e',marginBottom:12}}>
+              {d('Ronda Seed · USD 200K · 10% · USD 1,8M pre-money','Seed Round · USD 200K · 10% · USD 1.8M pre-money')}
+            </div>
+            <div style={{display:'flex',flexDirection:'column',gap:8,marginBottom:12}}>
+              {fila(es?['Año','Hito','Facturación','Valuación','% Seed','Valor Seed','Múltiplo']:['Year','Milestone','Revenue','Valuation','Seed %','Seed value','Multiple'],'#64748b',true,-1)}
+              {seed.map((r,i)=>fila([r.a,r.h,r.arr,r.val,r.pct,r.part,r.x],r.c,false,i))}
+            </div>
+            {cards([
+              {label:d('Múltiplo al año 3 (2029)','Year-3 multiple (2029)'),valor:base?'10x':'5x',sub:d('Sobre USD 200K','On USD 200K'),c:'#22c55e'},
+              {label:d('TIR al año 3','Year-3 IRR'),valor:base?d('~115% anual','~115% per year'):d('~71% anual','~71% per year'),sub:d('Sin beneficios fiscales','No tax benefits'),c:'#a855f7'},
+              {label:d('Participación tras la Serie A','Stake after Series A'),valor:d('8,3%','8.3%'),sub:d('10% diluido','10% diluted'),c:'#f59e0b'},
+            ])}
+          </div>
+
+          <div style={{...s.card,borderLeft:'3px solid #3b82f6',marginBottom:16}}>
+            <div style={{fontSize:13,fontWeight:900,color:'#3b82f6',marginBottom:4}}>
+              {d('Ronda Serie A · USD 2M · ~17% · USD 10M pre-money','Series A Round · USD 2M · ~17% · USD 10M pre-money')}
+            </div>
+            <div style={{fontSize:10,color:'#64748b',marginBottom:12}}>
+              {d('Estimada para Q4 2027, después de la certificación Verra.','Estimated for Q4 2027, after Verra certification.')}
+            </div>
+            <div style={{display:'flex',flexDirection:'column',gap:8,marginBottom:12}}>
+              {fila(es?['Año','Valuación','Valor Serie A','Múltiplo']:['Year','Valuation','Series A value','Multiple'],'#64748b',true,-1)}
+              {serieA.map((r,i)=>fila([r.a,r.val,r.part,r.x],r.c,false,i))}
+            </div>
+            {cards([
+              {label:d('Múltiplo al año 3 (2030)','Year-3 multiple (2030)'),valor:base?'5x':d('2,5x','2.5x'),sub:d('Sobre USD 2M','On USD 2M'),c:'#22c55e'},
+              {label:d('TIR al año 3','Year-3 IRR'),valor:base?d('~71% anual','~71% per year'):d('~36% anual','~36% per year'),sub:d('Escenario seleccionado','Selected scenario'),c:'#a855f7'},
+              {label:d('Break-even operativo','Operational break-even'),valor:d('Ya alcanzado','Already reached'),sub:d('Antes de la Serie A','Before Series A'),c:'#3b82f6'},
+            ])}
+          </div>
+
+          <div style={{...s.card,borderLeft:'3px solid #a855f7'}}>
+            <div style={{fontSize:12,fontWeight:700,color:'#a855f7',marginBottom:12}}>
+              {d('Comparativa Seed vs Serie A','Seed vs Series A comparison')}
+            </div>
+            <div style={{display:'grid',gridTemplateColumns:'2fr 1.4fr 1.4fr',gap:8}}>
+              {comp.map((row,i)=>(
+                row[0]===''
+                  ? [<div key={i+'-0'} />, ...row.slice(1).map((h,j)=>(
+                      <div key={i+'-'+(j+1)} style={{fontSize:9,fontWeight:700,color:'#a855f7',textTransform:'uppercase',letterSpacing:'0.05em',padding:'4px 0'}}>{h}</div>
+                    ))]
+                  : [
+                      <div key={i+'-0'} style={{fontSize:10,color:'#64748b',padding:'4px 0',borderTop:'1px solid rgba(255,255,255,0.04)'}}>{row[0]}</div>,
+                      <div key={i+'-1'} style={{fontSize:10,color:'#22c55e',fontWeight:600,padding:'4px 0',borderTop:'1px solid rgba(255,255,255,0.04)'}}>{row[1]}</div>,
+                      <div key={i+'-2'} style={{fontSize:10,color:'#3b82f6',fontWeight:600,padding:'4px 0',borderTop:'1px solid rgba(255,255,255,0.04)'}}>{row[2]}</div>,
+                    ]
+              ))}
+            </div>
+            <div style={{marginTop:16,padding:'12px',background:'rgba(168,85,247,0.06)',border:'1px solid rgba(168,85,247,0.15)',borderRadius:10,fontSize:11,color:'#94a3b8',lineHeight:1.7,fontStyle:'italic'}}>
+              {d('El inversor Seed entra antes de la certificación, con más riesgo y a menor valuación. El inversor Serie A entra después de la certificación, con menos riesgo y a mayor valuación.',
+                 'The Seed investor enters before certification, with more risk and at a lower valuation. The Series A investor enters after certification, with less risk and at a higher valuation.')}
+            </div>
+          </div>
+        </>
+      )
+    })()}
   </div>
 )
 
