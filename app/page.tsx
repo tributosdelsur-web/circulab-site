@@ -70,7 +70,7 @@ export default function Landing() {
 
   async function cargarStats() {
     const m = await metricasPublicas()
-    setStats({usuarios:m.usuarios,kg:Math.round(m.kg),co2:Math.round(m.kg*1.8)})
+    setStats({usuarios:m.usuarios,kg:Math.round(m.kg*10)/10,co2:Math.round(m.kg*1.8)})
   }
 
   async function enviarLead() {
@@ -429,7 +429,7 @@ export default function Landing() {
         <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10,marginBottom:16}}>
           {[
             {v:stats.usuarios||'0',l:es?'Vecinos activos':'Active neighbors',c:'#22c55e'},
-            {v:stats.kg?stats.kg+'kg':'0kg',l:es?'Kg verificados':'Verified kg',c:'#3b82f6'},
+            {v:(stats.kg||0).toLocaleString(es?'es-AR':'en-US',{minimumFractionDigits:1,maximumFractionDigits:1})+' kg',l:es?'Kg verificados':'Verified kg',c:'#3b82f6'},
           ].map(k=>(
             <div key={k.l} style={{background:card,borderRadius:12,padding:'14px 8px',textAlign:'center',border:`1px solid ${k.c}22`}}>
               <div style={{fontSize:22,fontWeight:900,color:k.c}}>{k.v}</div>

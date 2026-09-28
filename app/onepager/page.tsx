@@ -181,7 +181,7 @@ return (
       <div style={{background:card,border:`1px solid ${border}`,borderRadius:12,padding:'14px',marginBottom:12}}>
         <div style={{fontSize:11,fontWeight:700,color:'#3b82f6',marginBottom:8,textTransform:'uppercase',letterSpacing:'0.05em'}}>{t.traccion_titulo}</div>
         <div style={{display:'flex',alignItems:'baseline',gap:8,marginBottom:10}}>
-          <div style={{fontSize:26,fontWeight:900,color:'#3b82f6'}}>{kg.toLocaleString(es?'es-AR':'en-US',{maximumFractionDigits:1})} kg</div>
+          <div style={{fontSize:26,fontWeight:900,color:'#3b82f6'}}>{kg.toLocaleString(es?'es-AR':'en-US',{minimumFractionDigits:1,maximumFractionDigits:1})} kg</div>
           <div style={{fontSize:11,color:sub}}>{es?'verificados en el piloto · dato en vivo':'verified in the pilot · live data'}</div>
         </div>
         <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:6}}>

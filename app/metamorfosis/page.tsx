@@ -95,7 +95,7 @@ export default function Metamorfosis() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 16, maxWidth: 500, margin: '0 auto 40px' }}>
           {[
             { valor: totalUsuarios.toString(), label: es ? 'Ciudadanos activos' : 'Active citizens', color: accent },
-            { valor: totalKg.toFixed(1) + ' kg', label: es ? 'Verificados con IA' : 'AI-verified', color: '#3b82f6' },
+            { valor: totalKg.toLocaleString(es ? 'es-AR' : 'en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ' kg', label: es ? 'Verificados con IA' : 'AI-verified', color: '#3b82f6' },
             { valor: '🌱', label: es ? 'Piloto en curso' : 'Pilot in progress', color: '#f59e0b' },
           ].map((kpi, i) => (
             <div key={i} style={{ background: card, border: `1px solid ${border}`, borderRadius: 14, padding: '16px 12px' }}>
