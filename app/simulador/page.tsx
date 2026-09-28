@@ -4,10 +4,6 @@
 
 import { useState } from 'react'
 
-const PRECIOS = {
-  arbol: { t: 45, label: '🌳 Árbol · certificación', color: '#f59e0b', olv_usd: 6329 },
-  bosque: { t: 130, label: '🌲 Bosque', color: '#a855f7', olv_usd: 2198 },
-}
 
 const TIPOS = [
   { v:'organico', l:'Orgánico', icon:'🌿', color:'#22c55e', co2_kg:0.0018, kg_depto:15, kg_sem_ciudadano:3 },
@@ -29,7 +25,6 @@ const PERFILES = [
 
 export default function Simulador() {
   const [perfil, setPerfil] = useState('edificio')
-  const [tramo, setTramo] = useState<'arbol'|'bosque'>('arbol')
   const [deptos, setDeptos] = useState(50)
   const [participacion, setParticipacion] = useState(60)
   const [cuadras, setCuadras] = useState(4)
@@ -41,43 +36,29 @@ export default function Simulador() {
     setTiposActivos(prev=>prev.includes(v)?prev.filter(t=>t!==v):[...prev,v])
   }
 
-  const precio = PRECIOS[tramo]
   const deptos_activos = Math.round(deptos * participacion / 100)
 
-  function calcularUSD(kg_mes: number) {
-    return kg_mes * 0.0018 * precio.t * 0.35
-  }
 
-  let resultado_usd_mes = 0
-  let resultado_co2_mes = 0
   let resultado_kg_mes = 0
 
   if(perfil === 'casa') {
     const tipos_sel = TIPOS.filter(t=>tipos_activos.includes(t.v))
     resultado_kg_mes = kg_sem * 4.33
-    resultado_co2_mes = tipos_sel.reduce((a,t)=>a + (kg_sem/tipos_sel.length)*4.33*t.co2_kg, 0)
-    resultado_usd_mes = tipos_sel.reduce((a,t)=>a + calcularUSD((kg_sem/tipos_sel.length)*4.33), 0)
   } else if(perfil === 'edificio') {
     const tipos_sel = TIPOS.filter(t=>tipos_activos.includes(t.v) && t.v !== 'hojas')
     resultado_kg_mes = tipos_sel.reduce((a,t)=>a + deptos_activos*t.kg_depto, 0)
-    resultado_co2_mes = tipos_sel.reduce((a,t)=>a + deptos_activos*t.kg_depto*t.co2_kg, 0)
-    resultado_usd_mes = tipos_sel.reduce((a,t)=>a + calcularUSD(deptos_activos*t.kg_depto), 0)
   } else if(perfil === 'barrio') {
     const kg_cuadra_dia = 5
     resultado_kg_mes = cuadras * kg_cuadra_dia * 22
-    resultado_co2_mes = resultado_kg_mes * 0.0021
-    resultado_usd_mes = calcularUSD(resultado_kg_mes) * 1.5
   } else if(perfil === 'zona') {
     const tipos_sel = TIPOS.filter(t=>tipos_activos.includes(t.v) && t.v !== 'hojas')
     const kg_por_edificio = tipos_sel.reduce((a,t)=>a + 30*t.kg_depto, 0)
     resultado_kg_mes = edificios * kg_por_edificio
-    resultado_co2_mes = tipos_sel.reduce((a,t)=>a + edificios*30*t.kg_depto*t.co2_kg, 0)
-    resultado_usd_mes = calcularUSD(resultado_kg_mes) * 1.05
   }
 
-  const resultado_usd_anual = resultado_usd_mes * 12
-  const resultado_usd_sem = resultado_usd_mes / 4.33
-  const resultado_5anios = resultado_usd_anual * 5
+  const resultado_kg_sem = resultado_kg_mes / 4.33
+  const resultado_kg_anual = resultado_kg_mes * 12
+  const resultado_t_5anios = resultado_kg_anual * 5 / 1000
 
   return (
     <div style={{minHeight:'100vh',background:'#0a0e1a',color:'#f1f5f9',fontFamily:'system-ui',padding:'24px 20px 60px'}}>
@@ -93,10 +74,10 @@ export default function Simulador() {
         </div>
 
         <div style={{fontSize:22,fontWeight:900,marginBottom:4}}>
-          💰 ¿Cuánto podés ganar con OLIVIA?
+          🌿 ¿Cuánto podés medir con OLIVIA?
         </div>
         <div style={{fontSize:13,color:'#64748b',marginBottom:24,lineHeight:1.5}}>
-          Calculá tu ganancia estimada según cómo participás en el ecosistema.
+          Calculá cuántos kilos podés separar y registrar según cómo participás.
         </div>
 
         {/* SELECTOR DE PERFIL */}
@@ -112,21 +93,6 @@ export default function Simulador() {
                   <div style={{fontSize:11,color:'#64748b'}}>{p.desc}</div>
                 </div>
                 {perfil===p.id&&<div style={{marginLeft:'auto',color:'#22c55e',fontWeight:700}}>✓</div>}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* TOGGLE ÁRBOL / BOSQUE */}
-        <div style={{background:'#111827',border:'1px solid rgba(255,255,255,0.06)',borderRadius:16,padding:'16px',marginBottom:12}}>
-          <div style={{fontSize:12,color:'#94a3b8',marginBottom:10,fontWeight:700}}>¿En qué tramo querés ver la proyección?</div>
-          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}}>
-            {(['arbol','bosque'] as const).map(t=>(
-              <button key={t} onClick={()=>setTramo(t)}
-                style={{padding:'12px',borderRadius:10,border:`1px solid ${tramo===t?PRECIOS[t].color+'66':'rgba(255,255,255,0.06)'}`,background:tramo===t?`${PRECIOS[t].color}11`:'transparent',cursor:'pointer'}}>
-                <div style={{fontSize:13,fontWeight:700,color:tramo===t?PRECIOS[t].color:'#94a3b8'}}>{PRECIOS[t].label}</div>
-                <div style={{fontSize:10,color:'#64748b',marginTop:2}}>{t==='arbol'?'Verra VCS · USD 45/t':'Art. 6.4 París · USD 130/t'}</div>
-                <div style={{fontSize:10,color:PRECIOS[t].color,marginTop:2}}>{'estimación referencial'}</div>
               </button>
             ))}
           </div>
@@ -244,85 +210,54 @@ export default function Simulador() {
               </div>
               <div style={{fontSize:11,color:'#64748b'}}>
                 Estimado: 30 deptos por edificio · 60% participación<br/>
-                + 5% bonus zonal sobre todos los OLV de tu zona
               </div>
             </>
           )}
         </div>
 
         {/* RESULTADO PRINCIPAL */}
-        <div style={{background:'linear-gradient(135deg,#0f1f10,#050d1f)',border:`2px solid ${precio.color}66`,borderRadius:16,padding:'24px',marginBottom:12,textAlign:'center'}}>
-          <div style={{fontSize:12,color:'#64748b',marginBottom:4}}>{precio.label} · Ganancia estimada</div>
-          <div style={{fontSize:52,fontWeight:900,color:precio.color,lineHeight:1}}>
-            {/* ESTIMACION REFERENCIAL */}
-            <div style={{fontSize:9.5,color:'#92400e',background:'rgba(146,64,14,0.08)',border:'1px solid rgba(146,64,14,0.22)',borderRadius:8,padding:'8px 10px',marginBottom:10,lineHeight:1.55,textAlign:'left'}}>
-              Estimación referencial. Depende de una certificación bajo estándar Verra que aún no se completó y cuyo resultado no depende de OLIVIA. Hoy no se emiten créditos ni se prometen ingresos.
-            </div>
-            USD {resultado_usd_mes.toFixed(0)}
+        <div style={{background:'linear-gradient(135deg,#0f1f10,#050d1f)',border:'2px solid rgba(34,197,94,0.4)',borderRadius:16,padding:'24px',marginBottom:12,textAlign:'center'}}>
+          <div style={{fontSize:12,color:'#64748b',marginBottom:4}}>Residuos separados y registrados</div>
+          <div style={{fontSize:52,fontWeight:900,color:'#22c55e',lineHeight:1}}>
+            {resultado_kg_mes.toFixed(0)} kg
           </div>
           <div style={{fontSize:14,color:'#64748b',marginBottom:20}}>por mes</div>
-
-          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:10,marginBottom:16}}>
+          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:10}}>
             <div style={{background:'rgba(255,255,255,0.04)',borderRadius:10,padding:'10px'}}>
-              <div style={{fontSize:15,fontWeight:800,color:precio.color}}>USD {resultado_usd_sem.toFixed(1)}</div>
+              <div style={{fontSize:15,fontWeight:800,color:'#22c55e'}}>{resultado_kg_sem.toFixed(1)} kg</div>
               <div style={{fontSize:9,color:'#64748b',marginTop:2}}>por semana</div>
             </div>
             <div style={{background:'rgba(255,255,255,0.04)',borderRadius:10,padding:'10px'}}>
-              <div style={{fontSize:15,fontWeight:800,color:precio.color}}>USD {resultado_usd_anual.toFixed(0)}</div>
+              <div style={{fontSize:15,fontWeight:800,color:'#22c55e'}}>{resultado_kg_anual.toFixed(0)} kg</div>
               <div style={{fontSize:9,color:'#64748b',marginTop:2}}>por año</div>
             </div>
             <div style={{background:'rgba(255,255,255,0.04)',borderRadius:10,padding:'10px'}}>
-              <div style={{fontSize:15,fontWeight:800,color:'#22c55e'}}>USD {resultado_5anios.toFixed(0)}</div>
+              <div style={{fontSize:15,fontWeight:800,color:'#22c55e'}}>{resultado_t_5anios.toFixed(1)} t</div>
               <div style={{fontSize:9,color:'#64748b',marginTop:2}}>en 5 años</div>
             </div>
           </div>
-
-          <div style={{background:'rgba(255,255,255,0.03)',borderRadius:10,padding:'10px',marginBottom:12}}>
-            <div style={{fontSize:11,color:'#64748b'}}>
-              {resultado_kg_mes.toFixed(0)} kg/mes · {(resultado_co2_mes*1000).toFixed(0)} kg CO2eq evitado
-            </div>
-          </div>
-
-          {/* Comparación entre tramos */}
-          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}}>
-            <div style={{background:'rgba(245,158,11,0.06)',borderRadius:10,padding:'10px',border:'1px solid rgba(245,158,11,0.2)'}}>
-              <div style={{fontSize:10,color:'#f59e0b',fontWeight:700}}>🌳 Árbol</div>
-              <div style={{fontSize:13,fontWeight:800,color:'#f59e0b'}}>
-                USD {(resultado_kg_mes*0.0018*45*0.35*12).toFixed(0)}/año
-              </div>
-            </div>
-            <div style={{background:'rgba(168,85,247,0.06)',borderRadius:10,padding:'10px',border:'1px solid rgba(168,85,247,0.2)'}}>
-              <div style={{fontSize:10,color:'#a855f7',fontWeight:700}}>🌲 Bosque 2028</div>
-              <div style={{fontSize:13,fontWeight:800,color:'#a855f7'}}>
-                USD {(resultado_kg_mes*0.0018*130*0.35*12).toFixed(0)}/año
-              </div>
-            </div>
-          </div>
         </div>
 
-        {/* ARGUMENTO PRIMER MOVEDOR */}
+        {/* POR QUÉ MEDIR */}
         <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,padding:'14px',marginBottom:12}}>
-          <div style={{fontSize:12,fontWeight:700,color:'#22c55e',marginBottom:6}}>
-            💡 El argumento del primer movedor
-          </div>
+          <div style={{fontSize:12,fontWeight:700,color:'#22c55e',marginBottom:6}}>💡 Por qué medir</div>
           <div style={{fontSize:11,color:'#94a3b8',lineHeight:1.7}}>
-            Los que entran HOY en Semilla acumulan OLV cuando valen cero.
-            Cuando llegue la etapa de certificación ya tienen dos años de historial verificado, que es lo único auditable.
-            No es especulación — cada OLV tiene un residuo real verificado con IA detrás.
+            Cada kilo que registrás y se verifica en planta suma al dato de tu barrio: cuánto se separa y cuánto deja de ir al relleno.
+            Ese dato es lo que permite que las plantas trabajen con más volumen y que la Ciudad sepa qué pasa con sus residuos.
           </div>
         </div>
 
-        {/* DISCLAIMER */}
+        {/* ACLARACIÓN */}
         <div style={{background:'rgba(245,158,11,0.04)',border:'1px solid rgba(245,158,11,0.15)',borderRadius:10,padding:'12px',marginBottom:20}}>
           <div style={{fontSize:10,color:'#64748b',lineHeight:1.6,fontStyle:'italic'}}>
-            ⚠️ Los valores son estimados y dependen de: (1) la conducta responsable del ciudadano al registrar y entregar sus residuos, (2) las certificaciones que se obtengan con Verra VCS, Gold Standard, Climate Action Reserve, GS Textile Exchange y demás certificadoras, y (3) el precio real de venta de los créditos en el mercado voluntario, regulado (Art. 6.4 París) y mercados ESG al momento de la liquidación. OLIVIA no paga — el mercado paga.
+            Estimación de kilos según promedios de referencia por hogar y por edificio. Los OLV son puntos de participación sin valor monetario: OLIVIA no paga ni promete ingresos.
           </div>
         </div>
 
         {/* CTAs */}
         <div style={{display:'flex',flexDirection:'column',gap:10}}>
           <a href="/registro" style={{background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',padding:'16px',borderRadius:14,fontSize:15,fontWeight:700,textDecoration:'none',display:'block',textAlign:'center'}}>
-            Empezar a acumular OLV gratis →
+            Empezar a registrar gratis →
           </a>
           <a href="mailto:hola@oliviacirculab.com.ar?subject=Quiero sumar mi consorcio a OLIVIA"
             style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.08)',color:'#f1f5f9',padding:'14px',borderRadius:14,fontSize:14,fontWeight:700,textDecoration:'none',display:'block',textAlign:'center'}}>

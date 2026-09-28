@@ -130,7 +130,7 @@ const SLIDES = [
   {
     id: 12,
     titulo: 'El pedido: USD 200.000',
-    subtitulo: '3 tramos contra hitos · 10% para un socio activo · USD 1,8M pre-money',
+    subtitulo: '3 tramos contra hitos · para un socio activo · instrumento y valuación a conversar',
     tipo: 'ronda',
     contenido: [
       {opcion:'Tramo 1',monto:'USD 50.000',hito:'Sociedad constituida, acopiador firmado, balanza transmitiendo datos continuos',uso:'Sociedad, acuerdo con acopiador, primeras balanzas, 4 meses de equipo',color:'#22c55e'},
@@ -490,7 +490,7 @@ export default function Pitch() {
             </div>
 
             <div style={{padding:'8px',background:'rgba(255,255,255,0.03)',borderRadius:10,fontSize:10,color:'#64748b',textAlign:'center'}}>
-              Valuación de referencia USD 1,8M pre-money (USD 2M post-money) · Montos por tramo a confirmar con cotizaciones
+              Instrumento y valuación a conversar · Montos por tramo a confirmar con cotizaciones
             </div>
           </div>
         )}

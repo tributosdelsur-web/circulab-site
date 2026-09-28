@@ -150,7 +150,7 @@ export default function Kits() {
         'Cartel hall A3 + QR vecinos',
         'Badge Edificio Verde OLIVIA',
         'Reporte mensual para asamblea',
-        'Certificado gestión Ley Basura Cero CABA',
+        'Registro verificable de la gestión de residuos',
       ] : [
         'Real-time building dashboard',
         'Up to 50 functional units',
@@ -181,7 +181,7 @@ export default function Kits() {
         'Bolsas industriales x50/mes',
         'Stickers para ascensores y pasillos',
         'Dashboard por piso',
-        'Reporte trimestral certificado',
+        'Reporte trimestral verificable',
         'Prioridad en el proceso de certificación',
       ] : [
         'Everything in Basic Building Plan',
@@ -299,7 +299,7 @@ export default function Kits() {
         'Reporte GRI/SASB/TCFD completo exportable',
         'Badge Empresa Verde OLIVIA verificado',
         'Compensación huella carbono verificada con IA',
-        'Certificado a nombre de la empresa cuando se complete el proceso',
+        'Registro a nombre de la empresa con los kilos verificados',
         'Integración con sistemas ESG existentes',
       ] : [
         'Office kit: per-floor bins + bags',

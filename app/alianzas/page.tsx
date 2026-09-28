@@ -6,7 +6,7 @@ const T = {
  es: {
    badge:'Alianzas · OLIVIA Circulab',
    titulo:'¿Querés ser parte del ecosistema?',
-   subtitulo:'Los OLV que recibís hoy son una cuenta por cobrar — no un descuento. Las empresas que entran antes acumulan más cuando valen poco y cobran más cuando valen más.',
+   subtitulo:'Sumate a la red que mide y verifica el residuo de Buenos Aires. Los OLV son puntos de participación sin valor monetario: reconocen a quienes separan, no son un pago.',
    segmentos_titulo:'¿Qué tipo de organización sos?',
    form_titulo:'Contactanos',
    form_sub:'Completá el formulario y te contactamos en 48 horas',
@@ -24,7 +24,7 @@ const T = {
  en: {
    badge:'Partnerships · OLIVIA Circulab',
    titulo:'Want to be part of the ecosystem?',
-   subtitulo:'OLV you receive today are a receivable — not a discount. Companies that join early accumulate more when they\'re cheap and earn more when they\'re worth more.',
+   subtitulo:'Join the network that measures and verifies Buenos Aires waste. OLV are participation points with no monetary value: they recognize people who sort their waste, they are not a payment.',
    segmentos_titulo:'What type of organization are you?',
    form_titulo:'Contact us',
    form_sub:'Fill out the form and we\'ll contact you within 48 hours',
@@ -66,8 +66,8 @@ const SEGMENTOS = [
    icon:'🏥',
    titulo_es:'Salud y bienestar',
    titulo_en:'Health & wellness',
-   desc_es:'Aceptás OLV como pago por tus servicios. Los OLV que acumulás son una cuenta por cobrar que se convierte en dinero real en Fase 3.',
-   desc_en:'Accept OLV as payment for your services. Accumulated OLV are a receivable that becomes real money in Phase 3.',
+   desc_es:'Ofrecés beneficios a quienes separan y verifican sus residuos. Los OLV son puntos sin valor monetario: no se convierten en dinero.',
+   desc_en:'You offer benefits to people who sort and verify their waste. OLV are points with no monetary value: they do not convert into money.',
    beneficio_es:'OLV como inversión diferida',
    beneficio_en:'OLV as deferred investment',
    color:'#3b82f6',

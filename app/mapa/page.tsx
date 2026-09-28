@@ -284,8 +284,8 @@ export default function Mapa() {
                 <div style={{fontSize:10,fontWeight:800,textTransform:'uppercase',letterSpacing:'.09em',marginBottom:10,color:morado}}>{es?'El nicho está vacío':'The niche is empty'}</div>
                 <p style={{fontSize:11,lineHeight:1.7,color:sub}}>
                   {es
-                    ? <>Metodología Verra <b style={{color:text}}>AMS-III.BA + VMR0008</b>, activa desde septiembre 2023.<br/><br/>Hoy existe <b style={{color:text}}>1 solo proyecto verificado en el mundo</b> (India). En América Latina: ninguno.<br/><br/>Compradores naturales: empresas tecnológicas con compromisos públicos de dispositivos circulares.</>
-                    : <>Verra methodology <b style={{color:text}}>AMS-III.BA + VMR0008</b>, active since September 2023.<br/><br/>Today there is <b style={{color:text}}>only 1 verified project in the world</b> (India). In Latin America: none.<br/><br/>Natural buyers: technology companies with public circular device commitments.</>}
+                    ? <>Metodología Verra <b style={{color:text}}>AMS-III.BA + VMR0008</b>, activa desde septiembre 2023.<br/><br/>Hoy hay <b style={{color:text}}>muy pocos proyectos verificados en el mundo</b> y ninguno que conozcamos en América Latina.<br/><br/>Compradores naturales: empresas tecnológicas con compromisos públicos de dispositivos circulares.</>
+                    : <>Verra methodology <b style={{color:text}}>AMS-III.BA + VMR0008</b>, active since September 2023.<br/><br/>Today there are <b style={{color:text}}>very few verified projects worldwide</b> and none we know of in Latin America.<br/><br/>Natural buyers: technology companies with public circular device commitments.</>}
                 </p>
               </div>
             </div>

@@ -54,7 +54,7 @@ export default function RAEE() {
           </div>
           <div style={{display:'flex',gap:16,justifyContent:'center',flexWrap:'wrap'}}>
             {([
-              ['1',es?'único proyecto RAEE verificado en el mundo hoy':'only verified e-waste project in the world today',morado],
+              ['Pocos',es?'proyectos RAEE verificados en el mundo':'verified e-waste projects worldwide',morado],
               ['3-5 tCO₂',es?'evitadas por tonelada recuperada':'avoided per recovered ton',naranja],
               ['0',es?'proyectos RAEE en América Latina':'e-waste projects in Latin America',rojo],
               ['AMS-III.BA',es?'metodología Verra activa':'active Verra methodology',azul],
@@ -187,8 +187,8 @@ export default function RAEE() {
           </h2>
           <p style={{fontSize:13,color:sub,textAlign:'center',lineHeight:1.7,maxWidth:560,margin:'0 auto 40px'}}>
             {es
-              ? 'Verra tiene la metodología AMS-III.BA (con la revisión VMR0008) para certificar la recuperación y reciclaje de materiales de residuos electrónicos. Hoy existe solo 1 proyecto verificado en el mundo, en India. En América Latina no hay ninguno.'
-              : 'Verra has the AMS-III.BA methodology (with VMR0008 review) to certify recovery and recycling of materials from electronic waste. Today only 1 verified project exists worldwide, in India. In Latin America there are none.'}
+              ? 'Verra tiene la metodología AMS-III.BA (con la revisión VMR0008) para certificar la recuperación y reciclaje de materiales de residuos electrónicos. Hoy hay muy pocos proyectos verificados en el mundo y ninguno que conozcamos en América Latina.'
+              : 'Verra has the AMS-III.BA methodology (with VMR0008 review) to certify recovery and recycling of materials from electronic waste. Today there are very few verified projects worldwide and none we know of in Latin America.'}
           </p>
           <div style={{display:'flex',flexDirection:'column',gap:12}}>
             {(es?[

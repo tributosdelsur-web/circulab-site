@@ -36,17 +36,17 @@ export default function Consorcios() {
             [ {es?'Para administradores y encargados':'For building managers and administrators'} ]
           </div>
           <h1 style={{fontSize:34,fontWeight:900,lineHeight:1.15,marginBottom:16}}>
-            {es?'Tu edificio puede ser uno de los primeros certificados de Buenos Aires.':'Your building can be one of the first certified in Buenos Aires.'}
+            {es?'Tu edificio puede ser uno de los primeros con su gestión de residuos medida y verificada.':'Your building can be one of the first with its waste management measured and verified.'}
             <br/><span style={{color:accent}}>{es?'Sin inversión. Sin complicaciones.':'No investment. No complications.'}</span>
           </h1>
           <p style={{fontSize:14,color:sub,lineHeight:1.7,marginBottom:28,maxWidth:520,margin:'0 auto 28px'}}>
             {es
-              ? 'OLIVIA ayuda a tu edificio a cumplir la Ley de Basura Cero de CABA, certificar la gestión de residuos con inteligencia artificial y generar créditos de carbono verificados — todo desde el celular del encargado.'
-              : 'OLIVIA helps your building comply with the CABA Zero Waste Law, certify waste management with artificial intelligence and generate verified carbon credits — all from the superintendent phone.'}
+              ? 'OLIVIA registra y verifica la gestión de residuos de tu edificio, un respaldo concreto para la Ley de Basura Cero de CABA, todo desde el celular del encargado.'
+              : 'OLIVIA records and verifies your building waste management, concrete backing for the CABA Zero Waste Law, all from the superintendent phone.'}
           </p>
           <div style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap'}}>
             <a href="/nda" style={{background:'linear-gradient(135deg,#22c55e,#16a34a)',borderRadius:40,padding:'14px 32px',color:'white',fontSize:13,fontWeight:700,textDecoration:'none'}}>
-              {es?'Quiero certificar mi edificio →':'I want to certify my building →'}
+              {es?'Quiero sumar mi edificio →':'I want to add my building →'}
             </a>
             <a href="/simulador" style={{background:'transparent',border:'1px solid '+border,borderRadius:40,padding:'14px 32px',color:text,fontSize:13,fontWeight:700,textDecoration:'none'}}>
               {es?'Calcular el impacto de mi edificio':'Calculate my building impact'}
@@ -100,8 +100,8 @@ export default function Consorcios() {
               </h3>
               <p style={{fontSize:12,color:sub,lineHeight:1.8,marginBottom:14}}>
                 {es
-                  ? 'El certificado OLIVIA con los datos verificados de tu edificio es el argumento más concreto que podés presentar en la asamblea de copropietarios. No es una intención de reciclar — son kilos reales verificados con IA y GPS. Y en el mercado inmobiliario, un edificio con certificación ambiental verificada vale más.'
-                  : 'The OLIVIA certificate with your building verified data is the most concrete argument you can present at the owners assembly. Not an intention to recycle — real kilograms verified with AI and GPS. And in the real estate market, a building with verified environmental certification is worth more.'}
+                  ? 'El registro OLIVIA con los datos verificados de tu edificio es el argumento más concreto que podés presentar en la asamblea de copropietarios. No es una intención de reciclar: son kilos reales, verificados.'
+                  : 'The OLIVIA record with your building verified data is the most concrete argument you can present at the owners assembly. Not an intention to recycle: real, verified kilograms.'}
               </p>
               <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
                 {(es?['Badge Edificio Verde','Datos para la asamblea','Mayor valor inmobiliario','Vecinos activos']:['Green Building badge','Assembly data','Higher property value','Active residents']).map((t,i)=>(

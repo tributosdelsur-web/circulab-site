@@ -104,7 +104,7 @@ export default function Institucional() {
             <span style={{fontSize:10,color:sub}}>·</span>
             <span style={{fontSize:11,color:sub}}>{es?'USD 200K · 3 tramos contra hitos':'USD 200K · 3 milestone-based tranches'}</span>
             <span style={{fontSize:10,color:sub}}>·</span>
-            <span style={{fontSize:11,color:sub}}>{es?'10% · USD 1,8M pre-money':'10% · USD 1.8M pre-money'}</span>
+            <span style={{fontSize:11,color:sub}}>{es?'Instrumento y valuación a conversar':'Instrument and valuation to be discussed'}</span>
           </div>
           <div style={{display:'flex',gap:12,flexWrap:'wrap',marginBottom:40}}>
             <a href="mailto:hola@oliviacirculab.com.ar?subject=Reunion%20OLIVIA%20Seed" style={{background:accent,color:dark?'#050505':'white',padding:'13px 28px',borderRadius:40,fontSize:11,fontWeight:700,textDecoration:'none',textTransform:'uppercase',letterSpacing:'0.08em'}}>
@@ -399,11 +399,11 @@ export default function Institucional() {
           <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,padding:'18px',textAlign:'center',marginBottom:16}}>
             <div style={{fontSize:10,color:sub,marginBottom:4}}>{es?'El pedido':'The ask'}</div>
             <div style={{fontSize:28,fontWeight:900,color:'#22c55e'}}>USD 200K</div>
-            <div style={{fontSize:11,color:sub,marginTop:4}}>{es?'3 tramos contra hitos · 50K / 70K / 80K (a confirmar) · 10% para un socio activo · USD 1,8M pre-money (USD 2M post-money)':'3 milestone-based tranches · 50K / 70K / 80K (to be confirmed) · 10% for an active partner · USD 1.8M pre-money (USD 2M post-money)'}</div>
+            <div style={{fontSize:11,color:sub,marginTop:4}}>{es?'3 tramos contra hitos · 50K / 70K / 80K (a confirmar) · para un socio activo · instrumento y valuación a conversar':'3 milestone-based tranches · 50K / 70K / 80K (to be confirmed) · for an active partner · instrument and valuation to be discussed'}</div>
           </div>
           <div style={{background:'rgba(34,197,94,0.04)',border:'1px solid rgba(34,197,94,0.15)',borderRadius:10,padding:'12px',marginBottom:16,textAlign:'center'}}>
             <div style={{fontSize:11,color:sub,lineHeight:1.6}}>
-              {es?'Sin costos fijos hasta inversión comprometida · Cada tramo se libera al cumplir su hito · Valuación de referencia USD 1,8M pre-money':'No fixed costs until committed · Each tranche is released when its milestone is met · Reference valuation USD 1.8M pre-money'}
+              {es?'Sin costos fijos hasta inversión comprometida · Cada tramo se libera al cumplir su hito · Instrumento y valuación a conversar':'No fixed costs until committed · Each tranche is released when its milestone is met · Instrument and valuation to be discussed'}
             </div>
           </div>
 

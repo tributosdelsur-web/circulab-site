@@ -125,14 +125,14 @@ if(seccion===0) return (
 {t:'La solución',d:'Balanza conectada en la planta, remito digital firmado por un acopiador habilitado y confirmación del tratamiento. La foto con GPS del generador o del vecino funciona como capa de origen.',c:'#22c55e'},
 {t:'El producto hoy',d:'App web en producción en oliviacirculab.com.ar. Registro con foto + GPS + IA (Cloudflare Workers AI). Panel dMRV con validación manual. Kilos verificados del piloto en vivo. Construido sin inversión externa.',c:'#3b82f6'},
 {t:'Metodologías',d:'Orgánicos: Verra AMS-III.F. RAEE: AMS-III.BA + VMR0008. OLIVIA se diseña para cumplir los requisitos de Verra; hoy no emite créditos de carbono ni promete ingresos.',c:'#a855f7'},
-{t:'El pedido',d:'USD 200.000 por el 10% (USD 1,8M pre-money), en tres tramos contra hitos (50K / 70K / 80K, a confirmar con cotizaciones), destinados íntegramente a llegar a la certificación. Para un socio activo.',c:'#f59e0b'},
+{t:'El pedido',d:'USD 200.000 en tres tramos contra hitos (50K / 70K / 80K, a confirmar con cotizaciones), destinados íntegramente a llegar a la certificación. Para un socio activo.',c:'#f59e0b'},
 {t:'Economía del Conocimiento',d:'La sociedad se inscribirá en el régimen de Economía del Conocimiento: reducción de Ganancias de hasta 60% para micro y pequeñas empresas y bono de hasta 70% de contribuciones patronales, con el requisito de facturar al menos 70% en actividades promovidas.',c:'#22c55e'},
 ]:[
 {t:'The Problem',d:'Buenos Aires plants and cooperatives have idle capacity while organics still end up in landfill, where they generate methane. The missing piece is verifiable data proving, kilo by kilo, what was diverted and treated.',c:'#ef4444'},
 {t:'The Solution',d:'Connected scale at the plant, digital receipt signed by a licensed collector and treatment confirmation. The GPS photo from the generator or neighbor works as an origin layer.',c:'#22c55e'},
 {t:'The Product Today',d:'Web app in production at oliviacirculab.com.ar. Registration with photo + GPS + AI (Cloudflare Workers AI). dMRV dashboard with manual validation. Live verified kilos from the pilot. Built without external investment.',c:'#3b82f6'},
 {t:'Methodologies',d:'Organics: Verra AMS-III.F. E-waste: AMS-III.BA + VMR0008. OLIVIA is designed to meet Verra requirements; today it issues no carbon credits and promises no income.',c:'#a855f7'},
-{t:'The Ask',d:'USD 200,000 for 10% (USD 1.8M pre-money), in three milestone-based tranches (50K / 70K / 80K, to be confirmed with quotes), fully allocated to reaching certification. For an active partner.',c:'#f59e0b'},
+{t:'The Ask',d:'USD 200,000 in three milestone-based tranches (50K / 70K / 80K, to be confirmed with quotes), fully allocated to reaching certification. For an active partner.',c:'#f59e0b'},
 {t:'Knowledge Economy',d:'The company will register under the Knowledge Economy regime: up to 60% income tax reduction for micro and small companies and a bonus of up to 70% of employer contributions, provided at least 70% of revenue comes from promoted activities.',c:'#22c55e'},
 ]).map(i=>(
 <div key={i.t} style={{...s.card,borderLeft:`3px solid ${i.c}`}}>
@@ -644,19 +644,19 @@ if(seccion===15) return (
 <div style={s.titulo}>{lang==='es'?'El pedido':'The Ask'}</div>
 <div style={{...s.card,textAlign:'center',borderTop:'3px solid #22c55e'}}>
 <div style={{fontSize:28,fontWeight:900,color:'#22c55e'}}>USD 200K</div>
-<div style={{fontSize:11,color:sub,marginTop:4}}>{lang==='es'?'3 tramos contra hitos · 10% para un socio activo':'3 milestone-based tranches · 10% for an active partner'}</div>
-<div style={{fontSize:10,color:sub}}>{lang==='es'?'USD 1,8M pre-money · USD 2M post-money':'USD 1.8M pre-money · USD 2M post-money'}</div>
+<div style={{fontSize:11,color:sub,marginTop:4}}>{lang==='es'?'3 tramos contra hitos · para un socio activo':'3 milestone-based tranches · for an active partner'}</div>
+<div style={{fontSize:10,color:sub}}>{lang==='es'?'Instrumento y valuación a conversar':'Instrument and valuation to be discussed'}</div>
 </div>
 {(lang==='es'?[
 {t:'Tramo 1 · USD 50.000',d:'Sociedad, acuerdo con acopiador, primeras balanzas, 4 meses de equipo. Libera el siguiente: sociedad constituida, acopiador firmado, balanza transmitiendo datos continuos.'},
 {t:'Tramo 2 · USD 70.000',d:'Desarrollador de carbono, línea de base, documento de diseño del proyecto, más nodos. Libera el siguiente: documento de diseño presentado ante Verra.'},
 {t:'Tramo 3 · USD 80.000',d:'Auditoría de tercera parte, registro, operación. Hito: proyecto registrado.'},
-{t:'Condiciones',d:'Valuación de referencia: USD 1,8M pre-money (USD 2M post-money) por el 10%. Montos por tramo a confirmar con cotizaciones de balanzas y del desarrollador de carbono. Sin costos fijos hasta inversión comprometida. Reporting mensual.'},
+{t:'Condiciones',d:'Instrumento y valuación a conversar. Montos por tramo a confirmar con cotizaciones de balanzas y del desarrollador de carbono. Sin costos fijos hasta inversión comprometida. Reporting mensual.'},
 ]:[
 {t:'Tranche 1 · USD 50,000',d:'Company, collector agreement, first scales, 4 months of team. Releases the next: company incorporated, collector signed, scale transmitting continuous data.'},
 {t:'Tranche 2 · USD 70,000',d:'Carbon developer, baseline, project design document, more nodes. Releases the next: project design document submitted to Verra.'},
 {t:'Tranche 3 · USD 80,000',d:'Third-party audit, registration, operations. Milestone: project registered.'},
-{t:'Terms',d:'Reference valuation: USD 1.8M pre-money (USD 2M post-money) for 10%. Tranche amounts to be confirmed with scale and carbon developer quotes. No fixed costs until investment is committed. Monthly reporting.'},
+{t:'Terms',d:'Instrument and valuation to be discussed. Tranche amounts to be confirmed with scale and carbon developer quotes. No fixed costs until investment is committed. Monthly reporting.'},
 ]).map(i=>(
 <div key={i.t} style={s.card}>
 <div style={s.verde}>{i.t}</div>
@@ -710,68 +710,25 @@ if(seccion===18) return (
       </div>
     </div>
 
-    {/* Escenarios · Seed USD 200K y Serie A USD 2M */}
+    {/* Escenarios de facturación y valor de la empresa (sin valuación de la ronda) */}
     {(()=>{
       const es = lang==='es'
       const base = escenario==='base'
       const d = (a:string,b:string) => es?a:b
-      const seed = base ? [
-        {a:'2026',h:d('Entrada Seed','Seed entry'),arr:'USD 24K',val:'USD 2M',pct:'10%',part:'USD 200K',x:'1x',c:'#64748b'},
-        {a:'2027',h:d('Serie A','Series A'),arr:'USD 177K',val:'USD 12M',pct:d('8,3%','8.3%'),part:d('USD 1,0M','USD 1.0M'),x:'5x',c:'#3b82f6'},
-        {a:'2028',h:d('Vale la Serie A','Series A holds'),arr:d('USD 1,23M','USD 1.23M'),val:'USD 12M',pct:d('8,3%','8.3%'),part:d('USD 1,0M','USD 1.0M'),x:'5x',c:'#3b82f6'},
-        {a:'2029',h:d('6x facturación','6x revenue'),arr:d('USD 4,0M','USD 4.0M'),val:'USD 24M',pct:d('8,3%','8.3%'),part:d('USD 2,0M','USD 2.0M'),x:'10x',c:'#f59e0b'},
-        {a:'2030',h:d('6x facturación','6x revenue'),arr:d('USD 10,0M','USD 10.0M'),val:'USD 60M',pct:d('8,3%','8.3%'),part:d('USD 5,0M','USD 5.0M'),x:'25x',c:'#22c55e'},
+      const filas = base ? [
+        {a:'2026',arr:'USD 24K',val:'USD 144K',c:'#64748b'},
+        {a:'2027',arr:'USD 177K',val:d('USD 1,06M','USD 1.06M'),c:'#3b82f6'},
+        {a:'2028',arr:d('USD 1,23M','USD 1.23M'),val:d('USD 7,4M','USD 7.4M'),c:'#3b82f6'},
+        {a:'2029',arr:d('USD 4,0M','USD 4.0M'),val:'USD 24M',c:'#f59e0b'},
+        {a:'2030',arr:d('USD 10,0M','USD 10.0M'),val:'USD 60M',c:'#22c55e'},
       ] : [
-        {a:'2026',h:d('Entrada Seed','Seed entry'),arr:'USD 12K',val:'USD 2M',pct:'10%',part:'USD 200K',x:'1x',c:'#64748b'},
-        {a:'2027',h:d('Serie A','Series A'),arr:'USD 88K',val:'USD 12M',pct:d('8,3%','8.3%'),part:d('USD 1,0M','USD 1.0M'),x:'5x',c:'#3b82f6'},
-        {a:'2028',h:d('Vale la Serie A','Series A holds'),arr:'USD 615K',val:'USD 12M',pct:d('8,3%','8.3%'),part:d('USD 1,0M','USD 1.0M'),x:'5x',c:'#3b82f6'},
-        {a:'2029',h:d('Vale la Serie A','Series A holds'),arr:d('USD 2,0M','USD 2.0M'),val:'USD 12M',pct:d('8,3%','8.3%'),part:d('USD 1,0M','USD 1.0M'),x:'5x',c:'#f59e0b'},
-        {a:'2030',h:d('6x facturación','6x revenue'),arr:d('USD 5,0M','USD 5.0M'),val:'USD 30M',pct:d('8,3%','8.3%'),part:d('USD 2,5M','USD 2.5M'),x:d('12,5x','12.5x'),c:'#22c55e'},
+        {a:'2026',arr:'USD 12K',val:'USD 72K',c:'#64748b'},
+        {a:'2027',arr:'USD 88K',val:'USD 530K',c:'#3b82f6'},
+        {a:'2028',arr:'USD 615K',val:d('USD 3,7M','USD 3.7M'),c:'#3b82f6'},
+        {a:'2029',arr:d('USD 2,0M','USD 2.0M'),val:'USD 12M',c:'#f59e0b'},
+        {a:'2030',arr:d('USD 5,0M','USD 5.0M'),val:'USD 30M',c:'#22c55e'},
       ]
-      const serieA = base ? [
-        {a:d('2028 (año 1)','2028 (year 1)'),val:'USD 12M',part:d('USD 2,0M','USD 2.0M'),x:'1x',c:'#3b82f6'},
-        {a:d('2029 (año 2)','2029 (year 2)'),val:'USD 24M',part:d('USD 4,0M','USD 4.0M'),x:'2x',c:'#f59e0b'},
-        {a:d('2030 (año 3)','2030 (year 3)'),val:'USD 60M',part:d('USD 10,0M','USD 10.0M'),x:'5x',c:'#22c55e'},
-      ] : [
-        {a:d('2028 (año 1)','2028 (year 1)'),val:'USD 12M',part:d('USD 2,0M','USD 2.0M'),x:'1x',c:'#3b82f6'},
-        {a:d('2029 (año 2)','2029 (year 2)'),val:'USD 12M',part:d('USD 2,0M','USD 2.0M'),x:'1x',c:'#f59e0b'},
-        {a:d('2030 (año 3)','2030 (year 3)'),val:'USD 30M',part:d('USD 5,0M','USD 5.0M'),x:d('2,5x','2.5x'),c:'#22c55e'},
-      ]
-      const cards = (items:{label:string,valor:string,sub:string,c:string}[]) => (
-        <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8,marginTop:8}}>
-          {items.map((item,i)=>(
-            <div key={i} style={{background:'rgba(255,255,255,0.02)',border:'1px solid ' + item.c + '22',borderRadius:8,padding:'10px',textAlign:'center'}}>
-              <div style={{fontSize:9,color:'#64748b',marginBottom:4}}>{item.label}</div>
-              <div style={{fontSize:12,fontWeight:900,color:item.c,marginBottom:2}}>{item.valor}</div>
-              <div style={{fontSize:9,color:'#64748b'}}>{item.sub}</div>
-            </div>
-          ))}
-        </div>
-      )
-      const fila = (cols:string[], c:string, head:boolean, key:number) => (
-        <div key={key} style={{display:'grid',gridTemplateColumns:cols.length===5?'0.7fr 1.1fr 1fr 1fr 0.7fr':'1.4fr 1fr 1fr 0.7fr',gap:6,padding:head?'0 10px':'8px 10px',background:head?'transparent':'rgba(255,255,255,0.02)',borderRadius:8,border:head?'none':'1px solid ' + c + '22'}}>
-          {cols.map((t,j)=>(
-            <div key={j} style={head?{fontSize:8,color:'#64748b',textTransform:'uppercase',letterSpacing:'0.05em'}:{fontSize:10,whiteSpace:'nowrap',color:j===0||j===cols.length-1?c:'#94a3b8',fontWeight:j===0||j===cols.length-1?800:400}}>{t}</div>
-          ))}
-        </div>
-      )
-      const comp = es ? [
-        ['','Seed USD 200K','Serie A USD 2M'],
-        ['Momento','Hoy · 2026','Q4 2027 · post-Verra'],
-        ['Riesgo','Alto','Medio-bajo'],
-        ['Valuación de entrada','USD 2M post-money','USD 12M post-money'],
-        ['Participación','10% → 8,3% tras la Serie A','~17%'],
-        ['Múltiplo al año 3',base?'10x':'5x',base?'5x':'2,5x'],
-        ['TIR al año 3',base?'~115%':'~71%',base?'~71%':'~36%'],
-      ] : [
-        ['','Seed USD 200K','Series A USD 2M'],
-        ['Timing','Today · 2026','Q4 2027 · post-Verra'],
-        ['Risk','High','Medium-low'],
-        ['Entry valuation','USD 2M post-money','USD 12M post-money'],
-        ['Stake','10% → 8.3% after Series A','~17%'],
-        ['Year-3 multiple',base?'10x':'5x',base?'5x':'2.5x'],
-        ['Year-3 IRR',base?'~115%':'~71%',base?'~71%':'~36%'],
-      ]
+      const grid = {display:'grid',gridTemplateColumns:'0.7fr 1.2fr 1.2fr',gap:6} as const
       return (
         <>
           <div style={{display:'flex',gap:6,marginBottom:10}}>
@@ -782,64 +739,29 @@ if(seccion===18) return (
             ))}
           </div>
           <div style={{...s.p,marginBottom:16}}>
-            {d('Método: cada año la empresa vale lo más alto entre el precio de la última ronda y 6 veces su facturación anual. La participación Seed se diluye con la Serie A. El escenario conservador proyecta la mitad de la facturación del base. Los dos suponen la Serie A de 2027.',
-               'Method: each year the company is valued at the higher of the last round price and 6x annual revenue. The Seed stake is diluted by the Series A. The conservative scenario projects half the base revenue. Both assume the 2027 Series A.')}
+            {d('Facturación anual proyectada y valor de la empresa estimado en 6 veces esa facturación. El escenario conservador proyecta la mitad del base. No son una promesa de retorno: la valuación de la ronda se conversa con cada inversor.',
+               'Projected annual revenue and company value estimated at 6x that revenue. The conservative scenario projects half the base. They are not a return promise: the round valuation is discussed with each investor.')}
           </div>
-
           <div style={{...s.card,borderLeft:'3px solid #22c55e',marginBottom:16}}>
-            <div style={{fontSize:13,fontWeight:900,color:'#22c55e',marginBottom:12}}>
-              {d('Ronda Seed · USD 200K · 10% · USD 1,8M pre-money','Seed Round · USD 200K · 10% · USD 1.8M pre-money')}
-            </div>
-            <div style={{display:'flex',flexDirection:'column',gap:8,marginBottom:12}}>
-              {fila(es?['Año','Facturación','Valuación','Valor Seed','Múltiplo']:['Year','Revenue','Valuation','Seed value','Multiple'],'#64748b',true,-1)}
-              {seed.map((r,i)=>fila([r.a,r.arr,r.val,r.part,r.x],r.c,false,i))}
-            </div>
-            {cards([
-              {label:d('Múltiplo al año 3 (2029)','Year-3 multiple (2029)'),valor:base?'10x':'5x',sub:d('Sobre USD 200K','On USD 200K'),c:'#22c55e'},
-              {label:d('TIR al año 3','Year-3 IRR'),valor:base?d('~115% anual','~115% per year'):d('~71% anual','~71% per year'),sub:d('Sin beneficios fiscales','No tax benefits'),c:'#a855f7'},
-              {label:d('Participación tras la Serie A','Stake after Series A'),valor:d('8,3%','8.3%'),sub:d('10% diluido','10% diluted'),c:'#f59e0b'},
-            ])}
-          </div>
-
-          <div style={{...s.card,borderLeft:'3px solid #3b82f6',marginBottom:16}}>
-            <div style={{fontSize:13,fontWeight:900,color:'#3b82f6',marginBottom:4}}>
-              {d('Ronda Serie A · USD 2M · ~17% · USD 10M pre-money','Series A Round · USD 2M · ~17% · USD 10M pre-money')}
-            </div>
-            <div style={{fontSize:10,color:'#64748b',marginBottom:12}}>
-              {d('Estimada para Q4 2027, después de la certificación Verra.','Estimated for Q4 2027, after Verra certification.')}
-            </div>
-            <div style={{display:'flex',flexDirection:'column',gap:8,marginBottom:12}}>
-              {fila(es?['Año','Valuación','Valor Serie A','Múltiplo']:['Year','Valuation','Series A value','Multiple'],'#64748b',true,-1)}
-              {serieA.map((r,i)=>fila([r.a,r.val,r.part,r.x],r.c,false,i))}
-            </div>
-            {cards([
-              {label:d('Múltiplo al año 3 (2030)','Year-3 multiple (2030)'),valor:base?'5x':d('2,5x','2.5x'),sub:d('Sobre USD 2M','On USD 2M'),c:'#22c55e'},
-              {label:d('TIR al año 3','Year-3 IRR'),valor:base?d('~71% anual','~71% per year'):d('~36% anual','~36% per year'),sub:d('Escenario seleccionado','Selected scenario'),c:'#a855f7'},
-              {label:d('Break-even operativo','Operational break-even'),valor:d('Ya alcanzado','Already reached'),sub:d('Antes de la Serie A','Before Series A'),c:'#3b82f6'},
-            ])}
-          </div>
-
-          <div style={{...s.card,borderLeft:'3px solid #a855f7'}}>
-            <div style={{fontSize:12,fontWeight:700,color:'#a855f7',marginBottom:12}}>
-              {d('Comparativa Seed vs Serie A','Seed vs Series A comparison')}
-            </div>
-            <div style={{display:'grid',gridTemplateColumns:'2fr 1.4fr 1.4fr',gap:8}}>
-              {comp.map((row,i)=>(
-                row[0]===''
-                  ? [<div key={i+'-0'} />, ...row.slice(1).map((h,j)=>(
-                      <div key={i+'-'+(j+1)} style={{fontSize:9,fontWeight:700,color:'#a855f7',textTransform:'uppercase',letterSpacing:'0.05em',padding:'4px 0'}}>{h}</div>
-                    ))]
-                  : [
-                      <div key={i+'-0'} style={{fontSize:10,color:'#64748b',padding:'4px 0',borderTop:'1px solid rgba(255,255,255,0.04)'}}>{row[0]}</div>,
-                      <div key={i+'-1'} style={{fontSize:10,color:'#22c55e',fontWeight:600,padding:'4px 0',borderTop:'1px solid rgba(255,255,255,0.04)'}}>{row[1]}</div>,
-                      <div key={i+'-2'} style={{fontSize:10,color:'#3b82f6',fontWeight:600,padding:'4px 0',borderTop:'1px solid rgba(255,255,255,0.04)'}}>{row[2]}</div>,
-                    ]
+            <div style={{display:'flex',flexDirection:'column',gap:8}}>
+              <div style={{...grid,padding:'0 10px'}}>
+                {(es?['Año','Facturación','Valor de la empresa']:['Year','Revenue','Company value']).map(h=>(
+                  <div key={h} style={{fontSize:8,color:'#64748b',textTransform:'uppercase',letterSpacing:'0.05em'}}>{h}</div>
+                ))}
+              </div>
+              {filas.map(r=>(
+                <div key={r.a} style={{...grid,padding:'8px 10px',background:'rgba(255,255,255,0.02)',borderRadius:8,border:'1px solid ' + r.c + '22'}}>
+                  <div style={{fontSize:10,fontWeight:800,color:r.c,whiteSpace:'nowrap'}}>{r.a}</div>
+                  <div style={{fontSize:10,color:'#94a3b8',whiteSpace:'nowrap'}}>{r.arr}</div>
+                  <div style={{fontSize:10,fontWeight:800,color:r.c,whiteSpace:'nowrap'}}>{r.val}</div>
+                </div>
               ))}
             </div>
-            <div style={{marginTop:16,padding:'12px',background:'rgba(168,85,247,0.06)',border:'1px solid rgba(168,85,247,0.15)',borderRadius:10,fontSize:11,color:'#94a3b8',lineHeight:1.7,fontStyle:'italic'}}>
-              {d('El inversor Seed entra antes de la certificación, con más riesgo y a menor valuación. El inversor Serie A entra después de la certificación, con menos riesgo y a mayor valuación.',
-                 'The Seed investor enters before certification, with more risk and at a lower valuation. The Series A investor enters after certification, with less risk and at a higher valuation.')}
-            </div>
+          </div>
+          <div style={{...s.card,borderLeft:'3px solid #3b82f6'}}>
+            <div style={{fontSize:12,fontWeight:700,color:'#3b82f6',marginBottom:6}}>{d('La ronda','The round')}</div>
+            <div style={s.p}>{d('USD 200K en 3 tramos contra hitos. El primer tramo, de USD 50K, se activa con la planta firmada y la balanza transmitiendo. Instrumento y valuación a conversar.',
+              'USD 200K in 3 milestone-based tranches. The first, USD 50K, is released once the plant is signed and the scale is transmitting. Instrument and valuation to be discussed.')}</div>
           </div>
         </>
       )

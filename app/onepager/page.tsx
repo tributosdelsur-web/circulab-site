@@ -265,7 +265,7 @@ return (
         <div style={{fontSize:11,fontWeight:700,color:'#f59e0b',marginBottom:10,textTransform:'uppercase',letterSpacing:'0.05em'}}>{t.ronda_titulo}</div>
         <div style={{display:'flex',justifyContent:'space-between',alignItems:'baseline',flexWrap:'wrap',gap:8,marginBottom:10}}>
           <div style={{fontSize:22,fontWeight:900,color:'#22c55e'}}>USD 200K</div>
-          <div style={{fontSize:10,color:sub}}>{es?'3 tramos contra hitos · 10% para un socio activo · USD 1,8M pre-money (USD 2M post-money)':'3 milestone-based tranches · 10% for an active partner · USD 1.8M pre-money (USD 2M post-money)'}</div>
+          <div style={{fontSize:10,color:sub}}>{es?'3 tramos contra hitos · para un socio activo · instrumento y valuación a conversar':'3 milestone-based tranches · for an active partner · instrument and valuation to be discussed'}</div>
         </div>
         <div style={{display:'flex',flexDirection:'column',gap:6,marginBottom:8}}>
           {(es?[
@@ -291,8 +291,8 @@ return (
         </div>
         <div style={{fontSize:9,color:sub,lineHeight:1.6,textAlign:'center'}}>
           {es
-            ?'Valuación de referencia: USD 1,8M pre-money · Montos por tramo a confirmar con cotizaciones de balanzas y del desarrollador de carbono · Reporting mensual · La sociedad se inscribirá en el régimen de Economía del Conocimiento'
-            :'Reference valuation: USD 1.8M pre-money · Tranche amounts to be confirmed with scale and carbon developer quotes · Monthly reporting · The company will register under the Knowledge Economy regime'}
+            ?'Instrumento y valuación a conversar · Montos por tramo a confirmar con cotizaciones de balanzas y del desarrollador de carbono · Reporting mensual · La sociedad se inscribirá en el régimen de Economía del Conocimiento'
+            :'Instrument and valuation to be discussed · Tranche amounts to be confirmed with scale and carbon developer quotes · Monthly reporting · The company will register under the Knowledge Economy regime'}
         </div>
       </div>
 
