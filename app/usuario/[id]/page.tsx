@@ -24,8 +24,8 @@ export default function PerfilUsuario() {
   useEffect(()=>{
     if(!id) return
     Promise.all([
-      supabase.from('usuarios').select('*').eq('id',id).single(),
-      supabase.from('residuos').select('id,tipo,kg,status,created_at').eq('usuario_id',id).order('created_at',{ascending:false}),
+      supabase.from('usuarios_publicos').select('*').eq('id',id).single(),
+      supabase.from('residuos_publicos').select('id,tipo,kg,status,created_at').eq('usuario_id',id).order('created_at',{ascending:false}),
       supabase.from('posts').select('*').eq('usuario_id',id).order('created_at',{ascending:false}).limit(20),
     ]).then(([u,r,p])=>{
       setUsuario(u.data)

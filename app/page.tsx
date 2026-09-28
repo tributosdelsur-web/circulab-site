@@ -1,11 +1,12 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
 import { supabase } from '../lib/supabase'
+import { conAutores, metricasPublicas } from '../lib/publico'
 
 function ComunidadFeed({dark, card, border, sub, text}: any) {
   const [posts, setPosts] = useState<any[]>([])
   useEffect(()=>{
-    supabase.from('posts').select('*, usuarios(nombre,apellido)').order('created_at',{ascending:false}).limit(4).then(({data})=>setPosts(data||[]))
+    supabase.from('posts').select('*').order('created_at',{ascending:false}).limit(4).then(async ({data})=>setPosts(await conAutores(data)))
   },[])
   function tiempoRelativo(fecha: string) {
     const diff = Date.now()-new Date(fecha).getTime()
@@ -68,12 +69,8 @@ export default function Landing() {
   useEffect(()=>{ cargarStats() },[])
 
   async function cargarStats() {
-    const [u,r] = await Promise.all([
-      supabase.from('usuarios').select('id',{count:'exact'}),
-      supabase.from('residuos').select('kg').eq('status','validado'),
-    ])
-    const kg = (r.data||[]).reduce((a:number,r:any)=>a+Number(r.kg),0)
-    setStats({usuarios:u.count||0,kg:Math.round(kg),co2:Math.round(kg*1.8)})
+    const m = await metricasPublicas()
+    setStats({usuarios:m.usuarios,kg:Math.round(m.kg),co2:Math.round(m.kg*1.8)})
   }
 
   async function enviarLead() {

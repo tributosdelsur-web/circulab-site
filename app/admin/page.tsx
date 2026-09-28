@@ -3,7 +3,6 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 
-const ADMIN_PASSWORD = 'circulab2026'
 
 function BarChart({datos, color='#22c55e'}: {datos:{label:string,value:number}[], color?:string}) {
  const max = Math.max(...datos.map(d=>d.value), 1)
@@ -496,8 +495,10 @@ function ManualOperativo() {
 
 export default function Admin() {
  const [auth, setAuth] = useState(false)
+ const [email, setEmail] = useState('')
  const [pwd, setPwd] = useState('')
- const [error, setError] = useState(false)
+ const [error, setError] = useState('')
+ const [entrando, setEntrando] = useState(false)
  const [tab, setTab] = useState('dashboard')
  const [loading, setLoading] = useState(true)
 
@@ -557,6 +558,23 @@ export default function Admin() {
    setLoading(false)
  }
 
+ // Acceso con cuenta de Supabase: solo entra quien figura en la tabla admins (ver supabase/privacidad.sql)
+ async function verificarAdmin() {
+   const {data} = await supabase.rpc('es_admin')
+   return data === true
+ }
+ useEffect(()=>{
+   supabase.auth.getSession().then(async ({data})=>{
+     if(data.session && await verificarAdmin()) setAuth(true)
+   })
+ },[])
+ async function entrar() {
+   setEntrando(true); setError('')
+   const {error:e} = await supabase.auth.signInWithPassword({email:email.trim().toLowerCase(), password:pwd})
+   if(e){ setError('Email o contraseña incorrectos'); setEntrando(false); return }
+   if(!(await verificarAdmin())){ await supabase.auth.signOut(); setError('Esta cuenta no tiene acceso de admin'); setEntrando(false); return }
+   setEntrando(false); setAuth(true)
+ }
  useEffect(()=>{if(auth) cargar()},[auth])
 
  async function validar(id: string) {
@@ -695,14 +713,17 @@ export default function Admin() {
          <div style={{fontSize:12,color:'#64748b',marginTop:4}}>Circulab Tech · Acceso restringido</div>
        </div>
        <div style={{background:'#111827',border:'1px solid rgba(255,255,255,0.06)',borderRadius:16,padding:'28px'}}>
-         <input type="password" value={pwd} onChange={e=>setPwd(e.target.value)}
-           onKeyDown={e=>e.key==='Enter'&&(pwd===ADMIN_PASSWORD?(setAuth(true),setError(false)):setError(true))}
-           placeholder="Contraseña de admin"
+         <input type="email" value={email} onChange={e=>setEmail(e.target.value)}
+           placeholder="Email de admin" autoComplete="username"
            style={{width:'100%',padding:'12px 16px',borderRadius:10,background:'rgba(255,255,255,0.04)',border:`1px solid ${error?'rgba(239,68,68,0.5)':'rgba(255,255,255,0.08)'}`,color:'#f1f5f9',fontSize:14,outline:'none',fontFamily:'inherit',boxSizing:'border-box',marginBottom:error?8:16}} />
-         {error&&<div style={{fontSize:12,color:'#ef4444',marginBottom:12}}>Contraseña incorrecta</div>}
-         <button onClick={()=>pwd===ADMIN_PASSWORD?(setAuth(true),setError(false)):setError(true)}
+         <input type="password" value={pwd} onChange={e=>setPwd(e.target.value)}
+           onKeyDown={e=>e.key==='Enter'&&entrar()}
+           placeholder="Contraseña" autoComplete="current-password"
+           style={{width:'100%',padding:'12px 16px',borderRadius:10,background:'rgba(255,255,255,0.04)',border:`1px solid ${error?'rgba(239,68,68,0.5)':'rgba(255,255,255,0.08)'}`,color:'#f1f5f9',fontSize:14,outline:'none',fontFamily:'inherit',boxSizing:'border-box',marginBottom:error?8:16}} />
+         {error&&<div style={{fontSize:12,color:'#ef4444',marginBottom:12}}>{error}</div>}
+         <button onClick={entrar} disabled={entrando}
            style={{width:'100%',padding:'12px',borderRadius:10,border:'none',background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',fontSize:14,fontWeight:700,cursor:'pointer'}}>
-           Entrar →
+           {entrando?'Entrando…':'Entrar →'}
          </button>
        </div>
      </div>

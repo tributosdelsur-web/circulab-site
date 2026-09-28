@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { supabase } from '../../lib/supabase'
+import { metricasPublicas } from '../../lib/publico'
 
 export default function OnePager() {
 const [lang, setLang] = useState<'es'|'en'>('es')
@@ -13,9 +14,7 @@ const [kg, setKg] = useState(0)
 const es = lang==='es'
 
 useEffect(()=>{
-  supabase.from('residuos').select('kg').eq('status','validado').then(({data})=>{
-    setKg((data||[]).reduce((a:number,r:any)=>a+Number(r.kg||0),0))
-  })
+  metricasPublicas().then(m=>setKg(m.kg))
 },[])
 
 const bg = dark?'#0a0e1a':'#f0f4f8'

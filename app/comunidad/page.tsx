@@ -2,6 +2,7 @@
 import { useEffect, useState, useRef, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { supabase } from '../../lib/supabase'
+import { conAutores } from '../../lib/publico'
 
 function getYouTubeId(url: string) {
   const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/)
@@ -92,13 +93,13 @@ function ComunidadContent() {
 
   async function cargarFeed() {
     const [p,s,l] = await Promise.all([
-      supabase.from('posts').select('*, usuarios(nombre,apellido)').order('created_at',{ascending:false}).limit(50),
-      supabase.from('stories').select('*, usuarios(nombre,apellido)').gte('expires_at',new Date().toISOString()).order('created_at',{ascending:false}),
+      supabase.from('posts').select('*').order('created_at',{ascending:false}).limit(50),
+      supabase.from('stories').select('*').gte('expires_at',new Date().toISOString()).order('created_at',{ascending:false}),
       supabase.from('likes').select('post_id, usuario_id'),
     ])
-    const posts = p.data||[]
+    const [posts, storiesConAutor] = await Promise.all([conAutores(p.data), conAutores(s.data)])
     setPosts(posts)
-    setStories(s.data||[])
+    setStories(storiesConAutor)
     // Contar likes por post
     const counts: any = {}
     const myLikes: string[] = []
@@ -110,13 +111,13 @@ function ComunidadContent() {
   }
 
   async function cargarRanking() {
-    const {data} = await supabase.from('usuarios').select('id,nombre,apellido,score_pulso,nivel').order('score_pulso',{ascending:false}).limit(10)
+    const {data} = await supabase.from('usuarios_publicos').select('id,nombre,apellido,score_pulso,nivel').order('score_pulso',{ascending:false}).limit(10)
     setRankingUsuarios(data||[])
   }
 
   async function buscarUsuarios(q: string) {
     if(!q||q.length<2){setResultados([]);return}
-    const {data} = await supabase.from('usuarios').select('id,nombre,apellido,score_pulso,nivel').or(`nombre.ilike.%${q}%,apellido.ilike.%${q}%`).limit(10)
+    const {data} = await supabase.from('usuarios_publicos').select('id,nombre,apellido,score_pulso,nivel').or(`nombre.ilike.%${q}%,apellido.ilike.%${q}%`).limit(10)
     setResultados(data||[])
   }
 
@@ -176,8 +177,9 @@ function ComunidadContent() {
   }
 
   async function cargarComentarios(postId: string) {
-    const {data} = await supabase.from('comentarios').select('*, usuarios(nombre)').eq('post_id',postId).order('created_at',{ascending:true})
-    setComentarios((prev:any)=>({...prev,[postId]:data||[]}))
+    const {data} = await supabase.from('comentarios').select('*').eq('post_id',postId).order('created_at',{ascending:true})
+    const conNombre = await conAutores(data)
+    setComentarios((prev:any)=>({...prev,[postId]:conNombre}))
   }
 
   async function publicarComentario(postId: string) {
