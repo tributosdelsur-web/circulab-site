@@ -178,7 +178,7 @@ export default function Alianzas() {
      {/* Nav */}
      <nav style={{padding:'12px 20px',borderBottom:`1px solid ${border}`,display:'flex',alignItems:'center',justifyContent:'space-between',background:dark?'rgba(8,12,22,0.98)':'rgba(240,244,248,0.98)',backdropFilter:'blur(10px)',position:'sticky',top:0,zIndex:100}}>
        <a href="/" style={{display:'flex',alignItems:'center',gap:8,textDecoration:'none'}}>
-         <div style={{width:32,height:32,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:14,color:'white'}}>O</div>
+         <img src="/logoOC.png" alt="OLIVIA" style={{width:32,height:32,borderRadius:8,objectFit:'contain',flexShrink:0}} />
          <div>
            <div style={{fontSize:13,fontWeight:800,color:text}}>OLIVIA Circulab</div>
            <div style={{fontSize:9,color:'#a855f7',textTransform:'uppercase'}}>Alianzas</div>

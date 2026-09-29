@@ -708,7 +708,7 @@ export default function Admin() {
    <div style={{minHeight:'100vh',background:'#0a0e1a',display:'flex',alignItems:'center',justifyContent:'center',padding:24,fontFamily:'system-ui'}}>
      <div style={{width:'100%',maxWidth:360}}>
        <div style={{textAlign:'center',marginBottom:32}}>
-         <div style={{width:56,height:56,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:16,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:24,color:'white',margin:'0 auto 16px'}}>C</div>
+         <img src="/logoOC.png" alt="OLIVIA" style={{width:56,height:56,borderRadius:16,margin:'0 auto 16px',objectFit:'contain',flexShrink:0,display:'block'}} />
          <div style={{fontSize:20,fontWeight:900,color:'#f1f5f9'}}>Panel Admin</div>
          <div style={{fontSize:12,color:'#64748b',marginTop:4}}>Circulab Tech · Acceso restringido</div>
        </div>
@@ -748,7 +748,7 @@ export default function Admin() {
 
      <div style={{padding:'14px 20px',borderBottom:'1px solid rgba(255,255,255,0.06)',display:'flex',alignItems:'center',justifyContent:'space-between',background:'#080c16',position:'sticky',top:0,zIndex:100}}>
        <div style={{display:'flex',alignItems:'center',gap:10}}>
-         <div style={{width:32,height:32,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:14,color:'white'}}>C</div>
+         <img src="/logoOC.png" alt="OLIVIA" style={{width:32,height:32,borderRadius:8,objectFit:'contain',flexShrink:0}} />
          <div>
            <div style={{fontSize:13,fontWeight:800}}>Admin OLIVIA Circulab</div>
            <div style={{fontSize:9,color:'#64748b'}}>Panel de control</div>

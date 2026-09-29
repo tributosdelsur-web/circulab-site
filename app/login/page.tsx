@@ -55,7 +55,7 @@ export default function Login() {
 
         <div style={{textAlign:'center',marginBottom:32}}>
           <a href="/" style={{textDecoration:'none'}}>
-            <div style={{width:48,height:48,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:14,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:20,color:'white',margin:'0 auto 16px',cursor:'pointer'}}>C</div>
+            <img src="/logoOC.png" alt="OLIVIA" style={{width:48,height:48,borderRadius:14,margin:'0 auto 16px',objectFit:'contain',flexShrink:0,display:'block'}} />
           </a>
           <h1 style={{fontSize:22,fontWeight:900,color:'#f1f5f9',margin:0}}>Circulab Tech</h1>
           <p style={{fontSize:13,color:'#64748b',marginTop:8}}>{modoReset?'Recuperar contraseña':'Ingresá a tu panel'}</p>

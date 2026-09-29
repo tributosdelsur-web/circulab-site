@@ -31,7 +31,7 @@ export default function NuevaContrasena() {
     <div style={{minHeight:'100vh',background:'#0a0e1a',display:'flex',alignItems:'center',justifyContent:'center',padding:20,fontFamily:'system-ui'}}>
       <div style={{width:'100%',maxWidth:400}}>
         <div style={{textAlign:'center',marginBottom:32}}>
-          <a href="/"><div style={{width:48,height:48,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:14,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:20,color:'white',margin:'0 auto 16px',cursor:'pointer'}}>C</div></a>
+          <a href="/"><img src="/logoOC.png" alt="OLIVIA" style={{width:48,height:48,borderRadius:14,margin:'0 auto 16px',objectFit:'contain',flexShrink:0,display:'block'}} /></a>
           <h1 style={{fontSize:22,fontWeight:900,color:'#f1f5f9',margin:0}}>Nueva contraseña</h1>
           <p style={{fontSize:13,color:'#64748b',marginTop:8}}>Elegí una contraseña segura</p>
         </div>

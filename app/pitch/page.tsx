@@ -179,7 +179,7 @@ export default function Pitch() {
     <div style={{minHeight:'100vh',background:'linear-gradient(135deg,#0a1a0a,#0a0e1a,#0a0a1a)',display:'flex',alignItems:'center',justifyContent:'center',padding:24,fontFamily:'system-ui'}}>
       <div style={{width:'100%',maxWidth:420}}>
         <div style={{textAlign:'center',marginBottom:32}}>
-          <div style={{width:64,height:64,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:20,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:28,color:'white',margin:'0 auto 16px'}}>O</div>
+          <img src="/logoOC.png" alt="OLIVIA" style={{width:64,height:64,borderRadius:20,margin:'0 auto 16px',objectFit:'contain',flexShrink:0,display:'block'}} />
           <div style={{fontSize:24,fontWeight:900,color:'#f1f5f9',marginBottom:8}}>OLIVIA Circulab</div>
           <div style={{fontSize:13,color:'#64748b',lineHeight:1.6}}>Pitch deck confidencial · Ronda Seed 2026</div>
         </div>
@@ -214,7 +214,7 @@ export default function Pitch() {
       {/* Header */}
       <div style={{padding:'12px 20px',display:'flex',alignItems:'center',justifyContent:'space-between',borderBottom:'1px solid rgba(255,255,255,0.06)'}}>
         <div style={{display:'flex',alignItems:'center',gap:8}}>
-          <div style={{width:28,height:28,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:6,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:12,color:'white'}}>O</div>
+          <img src="/logoOC.png" alt="OLIVIA" style={{width:28,height:28,borderRadius:6,objectFit:'contain',flexShrink:0}} />
           <span style={{fontSize:12,fontWeight:700,color:'#f1f5f9'}}>OLIVIA Circulab</span>
         </div>
         <div style={{display:'flex',alignItems:'center',gap:12}}>
@@ -234,7 +234,7 @@ export default function Pitch() {
         {/* Portada */}
         {s.tipo==='portada'&&(
           <div style={{textAlign:'center'}}>
-            <div style={{width:80,height:80,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:24,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:36,color:'white',margin:'0 auto 24px'}}>O</div>
+            <img src="/logoOC.png" alt="OLIVIA" style={{width:80,height:80,borderRadius:24,margin:'0 auto 24px',objectFit:'contain',flexShrink:0,display:'block'}} />
             <div style={{fontSize:32,fontWeight:900,marginBottom:12,lineHeight:1.2}}>{s.titulo}</div>
             <div style={{fontSize:14,color:'#22c55e',marginBottom:24,lineHeight:1.6}}>{s.subtitulo}</div>
             <div style={{display:'flex',gap:10,justifyContent:'center',flexWrap:'wrap'}}>

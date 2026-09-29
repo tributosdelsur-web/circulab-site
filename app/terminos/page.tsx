@@ -4,7 +4,7 @@ export default function Terminos() {
     <div style={{minHeight:'100vh',background:'#0a0e1a',color:'#f1f5f9',fontFamily:'system-ui',padding:'24px 20px 60px'}}>
       <div style={{maxWidth:600,margin:'0 auto'}}>
         <a href="/" style={{display:'flex',alignItems:'center',gap:8,textDecoration:'none',marginBottom:32}}>
-          <div style={{width:32,height:32,background:'linear-gradient(135deg,#22c55e,#3b82f6)',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:14,color:'white'}}>O</div>
+          <img src="/logoOC.png" alt="OLIVIA" style={{width:32,height:32,borderRadius:8,objectFit:'contain',flexShrink:0}} />
           <span style={{fontSize:13,fontWeight:800,color:'#f1f5f9'}}>OLIVIA Circulab</span>
         </a>
         <div style={{fontSize:24,fontWeight:900,marginBottom:8}}>Términos y Condiciones</div>
