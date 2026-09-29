@@ -158,6 +158,17 @@ export default function Quincena() {
           <p style={{fontSize:13,color:sub,lineHeight:1.7}}>{t.subtitulo}</p>
         </div>
 
+        {/* En espera hasta que Metamorfosis esté activa */}
+        <div style={{background:'rgba(245,158,11,0.08)',border:'1px solid rgba(245,158,11,0.35)',borderRadius:14,padding:'14px 16px',marginBottom:28}}>
+          <div style={{fontSize:11,fontWeight:700,color:'#f59e0b',letterSpacing:'0.06em',marginBottom:6}}>{lang==='es'?'⏸ EN ESPERA':'⏸ ON HOLD'}</div>
+          <div style={{fontSize:12,color:text,lineHeight:1.6}}>
+            {lang==='es'
+              ?'Quincena · PULSO viene una vez que Metamorfosis esté activa. Hoy empujamos solo Metamorfosis: no se escribirá ni una línea de código de Quincena · PULSO hasta que crezca. Lo que ves acá es el diseño.'
+              :'Quincena · PULSO comes once Metamorfosis is active. Today we push only Metamorfosis: not a single line of Quincena · PULSO code will be written until it grows. What you see here is the design.'}
+          </div>
+          <a href="/metamorfosis" style={{display:'inline-block',marginTop:8,fontSize:11,fontWeight:700,color:'#22c55e',textDecoration:'none'}}>{lang==='es'?'Ver Metamorfosis →':'See Metamorfosis →'}</a>
+        </div>
+
         {/* ¿Qué es una rosca? */}
         <div style={{background:'rgba(59,130,246,0.06)',border:'1px solid rgba(59,130,246,0.2)',borderRadius:14,padding:'16px',marginBottom:24}}>
           <div style={{fontSize:14,fontWeight:700,color:'#3b82f6',marginBottom:8}}>{t.rosca_titulo}</div>

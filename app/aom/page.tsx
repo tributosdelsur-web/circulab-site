@@ -21,7 +21,7 @@ const T = {
     conexion_titulo:'Más OLV + mejor PULSO = mejor tasa en AOM',
     conexion_sub:'Los tres verticales de Circulab Tech se potencian entre sí',
     cta_titulo:'¿Querés acceder a AOM?',
-    cta_sub:'Dejá tus datos y te contactamos para evaluar tu caso',
+    cta_sub:'Dejá tus datos y te avisamos cuando AOM abra',
     nombre:'Tu nombre',
     email:'Tu email',
     tipo_regalias:'Tipo de regalías',
@@ -48,7 +48,7 @@ const T = {
     conexion_titulo:'More OLV + better PULSO = better rate in AOM',
     conexion_sub:'All three Circulab Tech verticals power each other',
     cta_titulo:'Want to access AOM?',
-    cta_sub:'Leave your details and we\'ll contact you to evaluate your case',
+    cta_sub:'Leave your details and we\'ll let you know when AOM opens',
     nombre:'Your name',
     email:'Your email',
     tipo_regalias:'Royalty type',
@@ -220,6 +220,17 @@ export default function AOM() {
             <span style={{color:'#a855f7'}}>{t.titulo2}</span>
           </h1>
           <p style={{fontSize:14,color:sub,lineHeight:1.7}}>{t.subtitulo}</p>
+        </div>
+
+        {/* En espera hasta que Metamorfosis esté activa */}
+        <div style={{background:'rgba(245,158,11,0.08)',border:'1px solid rgba(245,158,11,0.35)',borderRadius:14,padding:'14px 16px',marginBottom:28}}>
+          <div style={{fontSize:11,fontWeight:700,color:'#f59e0b',letterSpacing:'0.06em',marginBottom:6}}>{lang==='es'?'⏸ EN ESPERA':'⏸ ON HOLD'}</div>
+          <div style={{fontSize:12,color:text,lineHeight:1.6}}>
+            {lang==='es'
+              ?'Art of Money viene una vez que Metamorfosis esté activa. Hoy empujamos solo Metamorfosis: no se escribirá ni una línea de código de Art of Money hasta que crezca. Lo que ves acá es el diseño.'
+              :'Art of Money comes once Metamorfosis is active. Today we push only Metamorfosis: not a single line of Art of Money code will be written until it grows. What you see here is the design.'}
+          </div>
+          <a href="/metamorfosis" style={{display:'inline-block',marginTop:8,fontSize:11,fontWeight:700,color:'#22c55e',textDecoration:'none'}}>{lang==='es'?'Ver Metamorfosis →':'See Metamorfosis →'}</a>
         </div>
 
         {/* Tipos de creador */}
