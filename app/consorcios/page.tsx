@@ -183,16 +183,16 @@ export default function Consorcios() {
           </h2>
           <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:14}}>
             {[
-              {img:'/kits/kit-consorcio-basico.png',nombre:es?'Kit Consorcio Básico':'Basic Building Kit',desc:es?'Para edificios hasta 50 unidades. Tacho orgánicos 120L + cartel hall + QR vecinos + bolsas industriales.':'For buildings up to 50 units. 120L organic bin + hall poster + resident QR + industrial bags.',c:accent},
-              {img:'/kits/kit-consorcio-premium.png',nombre:es?'Kit Consorcio Premium':'Premium Building Kit',desc:es?'Para edificios hasta 150 unidades. Todo el kit básico + tacho secos 120L + stickers ascensores + dashboard por piso.':'For buildings up to 150 units. Everything in basic kit + 120L dry bin + elevator stickers + per-floor dashboard.',c:blue,destacado:true},
+              {img:'/kits/ref/compost-edificio.jpg',nombre:es?'Kit Compost Edificio':'Building Compost Kit',desc:es?'Para consorcios con patio o terraza. Composteras comunitarias, tachos de 20 L con QR por piso, cartelería y capacitación. El edificio composta en el lugar: no necesita retiro ni planta.':'For buildings with a yard or rooftop. Community composters, 20 L bins with QR per floor, signage and training. The building composts on site: no pickup or plant needed.',c:blue,destacado:true,asunto:'Kit Compost Edificio'},
+              {img:'/kits/ref/retiro-edificio.jpg',nombre:es?'Kit Retiro Edificio':'Building Pickup Kit',desc:es?'Para consorcios sin espacio. Tachos de 120 L con QR y cartelería; retiramos con frecuencia fija, pesamos en cada retiro y mandamos el reporte mensual de kilos.':'For buildings without space. 120 L bins with QR and signage; we pick up on a fixed schedule, weigh every pickup and send a monthly kilo report.',c:accent,asunto:'Kit Retiro Edificio'},
             ].map((k,i)=>(
               <div key={i} style={{background:card,border:'2px solid '+(k.destacado?blue:border),borderRadius:16,overflow:'hidden',position:'relative'}}>
-                {k.destacado&&<div style={{position:'absolute',top:10,right:10,background:blue,color:'white',fontSize:9,fontWeight:700,padding:'3px 10px',borderRadius:20,zIndex:2}}>⭐ {es?'Más popular':'Most popular'}</div>}
+                {k.destacado&&<div style={{position:'absolute',top:10,right:10,background:blue,color:'white',fontSize:9,fontWeight:700,padding:'3px 10px',borderRadius:20,zIndex:2}}>⭐ {es?'Recomendado':'Recommended'}</div>}
                 <img src={k.img} alt={k.nombre} style={{width:'100%',height:180,objectFit:'cover'}} />
                 <div style={{padding:'16px'}}>
                   <div style={{fontSize:13,fontWeight:700,color:k.c,marginBottom:6}}>{k.nombre}</div>
                   <div style={{fontSize:11,color:sub,lineHeight:1.6,marginBottom:14}}>{k.desc}</div>
-                  <a href="/nda" style={{display:'block',background:'linear-gradient(135deg,'+k.c+','+k.c+'bb)',borderRadius:10,padding:'10px',color:'white',fontSize:11,fontWeight:700,textDecoration:'none',textAlign:'center'}}>
+                  <a href={'mailto:hola@oliviacirculab.com.ar?subject='+k.asunto} style={{display:'block',background:'linear-gradient(135deg,'+k.c+','+k.c+'bb)',borderRadius:10,padding:'10px',color:'white',fontSize:11,fontWeight:700,textDecoration:'none',textAlign:'center'}}>
                     {es?'Solicitar propuesta →':'Request proposal →'}
                   </a>
                 </div>
