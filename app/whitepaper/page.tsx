@@ -606,7 +606,7 @@ if(seccion===14) return (
 <div style={s.titulo}>{lang==='es'?'Equipo y tecnología':'Team & Technology'}</div>
 <div style={s.highlight}>
 <div style={s.verde}>{lang==='es'?'Construido sin inversión externa · Buenos Aires':'Built without external investment · Buenos Aires'}</div>
-<div style={s.p}>{lang==='es'?'Todo el producto fue construido por los fundadores usando IA como equipo técnico. Sin inversión externa. El primer uso de fondos es contratar un CTO y auditar el código.':'The entire product was built by the founders using AI as their technical team. No external investment. First use of funds is hiring a CTO and auditing the code.'}</div>
+<div style={s.p}>{lang==='es'?'Todo el producto fue construido por los fundadores usando IA como equipo técnico. Sin inversión externa. El primer uso de fondos es sumar un CTO a tiempo parcial, con participación accionaria, que audite el código y conecte las balanzas.':'The entire product was built by the founders using AI as their technical team. No external investment. First use of funds is bringing on a part-time CTO, with equity, to audit the code and connect the scales.'}</div>
 </div>
 {[
 {foto:'/founders/founder-jp.jpg',n:'Juan Pablo Sanguinetti de Zapata',rol:'CEO & Founder',d:lang==='es'?'Director de teatro chileno y abogado. Product builder con IA. Arquitecto del ecosistema Circulab. Especialidad en medio ambiente, tributación y gestión de proyectos.':'Chilean theater director and lawyer. AI product builder. Circulab ecosystem architect. Expertise in environmental law, taxation and project management.',c:'#22c55e'},
@@ -648,12 +648,12 @@ if(seccion===15) return (
 <div style={{fontSize:10,color:sub}}>{lang==='es'?'Instrumento y valuación a conversar':'Instrument and valuation to be discussed'}</div>
 </div>
 {(lang==='es'?[
-{t:'Tramo 1 · USD 50.000',d:'Sociedad, acuerdo con acopiador, primeras balanzas, 4 meses de equipo. Libera el siguiente: sociedad constituida, acopiador firmado, balanza transmitiendo datos continuos.'},
+{t:'Tramo 1 · USD 50.000',d:'Sociedad, acuerdo con acopiador, primeras balanzas, 4 meses de equipo: CTO a tiempo parcial (honorarios + participación con vesting) y fundadores. Libera el siguiente: sociedad constituida, acopiador firmado, balanza transmitiendo datos continuos.'},
 {t:'Tramo 2 · USD 70.000',d:'Desarrollador de carbono, línea de base, documento de diseño del proyecto, más nodos. Libera el siguiente: documento de diseño presentado ante Verra.'},
 {t:'Tramo 3 · USD 80.000',d:'Auditoría de tercera parte, registro, operación. Hito: proyecto registrado.'},
 {t:'Condiciones',d:'Instrumento y valuación a conversar. Montos por tramo a confirmar con cotizaciones de balanzas y del desarrollador de carbono. Sin costos fijos hasta inversión comprometida. Reporting mensual.'},
 ]:[
-{t:'Tranche 1 · USD 50,000',d:'Company, collector agreement, first scales, 4 months of team. Releases the next: company incorporated, collector signed, scale transmitting continuous data.'},
+{t:'Tranche 1 · USD 50,000',d:'Company, collector agreement, first scales, 4 months of team: part-time CTO (fees + vested equity) and founders. Releases the next: company incorporated, collector signed, scale transmitting continuous data.'},
 {t:'Tranche 2 · USD 70,000',d:'Carbon developer, baseline, project design document, more nodes. Releases the next: project design document submitted to Verra.'},
 {t:'Tranche 3 · USD 80,000',d:'Third-party audit, registration, operations. Milestone: project registered.'},
 {t:'Terms',d:'Instrument and valuation to be discussed. Tranche amounts to be confirmed with scale and carbon developer quotes. No fixed costs until investment is committed. Monthly reporting.'},
@@ -801,7 +801,7 @@ if(seccion===17) return (
         t:'Fase 2 · Post-inversion (2026-2027) · Smart contracts',
         c:'#3b82f6',
         items:[
-          'Con el capital Seed, el CTO disenara y auditara el smart contract de distribucion.',
+          'El smart contract de distribucion se diseña recien despues de la certificacion; con el capital Seed, el CTO audita el codigo y conecta las balanzas.',
           'Los OLV Verdes migran progresivamente a una wallet on-chain por usuario.',
           'El smart contract codifica la tabla de distribucion: X% ciudadano, Y% recolector, Z% Circulab Tech, W% reserva ecosistema.',
           'La auditoria del smart contract es obligatoria antes del deploy: empresa especializada externa verifica que el codigo hace exactamente lo que dice.',
@@ -849,7 +849,7 @@ if(seccion===17) return (
         t:'Phase 2 · Post-investment (2026-2027) · Smart contracts',
         c:'#3b82f6',
         items:[
-          'With Seed capital, the CTO will design and audit the distribution smart contract.',
+          'The distribution smart contract is designed only after certification; with Seed capital, the CTO audits the code and connects the scales.',
           'Green OLV progressively migrate to an on-chain wallet per user.',
           'Smart contract codifies the distribution table: X% citizen, Y% collector, Z% Circulab Tech, W% ecosystem reserve.',
           'Smart contract audit is mandatory before deploy: external specialized firm verifies code does exactly what it says.',

@@ -46,8 +46,8 @@ export default function Equipo() {
     {
       nombre: es ? 'CTO · Primer contratado' : 'CTO · First hire',
       desc: es
-        ? 'Buscamos un CTO con experiencia en blockchain, smart contracts y mercados de carbono. Es el primer uso del capital Seed. Si querés postular: hola@oliviacirculab.com.ar'
-        : 'We are looking for a CTO with experience in blockchain, smart contracts and carbon markets. This is the first use of Seed capital. To apply: hola@oliviacirculab.com.ar',
+        ? 'Buscamos un CTO a tiempo parcial, con participación accionaria, que audite el código y conecte las balanzas a la plataforma. Es el primer uso del capital Seed. Si querés postular: hola@oliviacirculab.com.ar'
+        : 'We are looking for a part-time CTO, with equity, to audit the code and connect the scales to the platform. This is the first use of Seed capital. To apply: hola@oliviacirculab.com.ar',
       color: '#f59e0b',
       open: true,
     },

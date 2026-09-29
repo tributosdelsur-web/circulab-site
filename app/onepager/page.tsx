@@ -269,11 +269,11 @@ return (
         </div>
         <div style={{display:'flex',flexDirection:'column',gap:6,marginBottom:8}}>
           {(es?[
-            {n:'1',m:'USD 50K',d:'Sociedad, acuerdo con acopiador, primeras balanzas, 4 meses de equipo',h:'Sociedad constituida, acopiador firmado, balanza transmitiendo datos continuos'},
+            {n:'1',m:'USD 50K',d:'Sociedad, acuerdo con acopiador, primeras balanzas, 4 meses de equipo: CTO a tiempo parcial (honorarios + participación con vesting) y fundadores',h:'Sociedad constituida, acopiador firmado, balanza transmitiendo datos continuos'},
             {n:'2',m:'USD 70K',d:'Desarrollador de carbono, línea de base, documento de diseño del proyecto, más nodos',h:'Documento de diseño presentado ante Verra'},
             {n:'3',m:'USD 80K',d:'Auditoría de tercera parte, registro, operación',h:'Proyecto registrado'},
           ]:[
-            {n:'1',m:'USD 50K',d:'Company, collector agreement, first scales, 4 months of team',h:'Company incorporated, collector signed, scale transmitting continuous data'},
+            {n:'1',m:'USD 50K',d:'Company, collector agreement, first scales, 4 months of team: part-time CTO (fees + vested equity) and founders',h:'Company incorporated, collector signed, scale transmitting continuous data'},
             {n:'2',m:'USD 70K',d:'Carbon developer, baseline, project design document, more nodes',h:'Project design document submitted to Verra'},
             {n:'3',m:'USD 80K',d:'Third-party audit, registration, operations',h:'Project registered'},
           ]).map(r=>(

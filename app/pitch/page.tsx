@@ -133,7 +133,7 @@ const SLIDES = [
     subtitulo: '3 tramos contra hitos · para un socio activo · instrumento y valuación a conversar',
     tipo: 'ronda',
     contenido: [
-      {opcion:'Tramo 1',monto:'USD 50.000',hito:'Sociedad constituida, acopiador firmado, balanza transmitiendo datos continuos',uso:'Sociedad, acuerdo con acopiador, primeras balanzas, 4 meses de equipo',color:'#22c55e'},
+      {opcion:'Tramo 1',monto:'USD 50.000',hito:'Sociedad constituida, acopiador firmado, balanza transmitiendo datos continuos',uso:'Sociedad, acuerdo con acopiador, primeras balanzas, 4 meses de equipo: CTO a tiempo parcial (honorarios + participación con vesting) y fundadores',color:'#22c55e'},
       {opcion:'Tramo 2',monto:'USD 70.000',hito:'Documento de diseño presentado ante Verra',uso:'Desarrollador de carbono, línea de base, documento de diseño del proyecto, más nodos',color:'#3b82f6'},
       {opcion:'Tramo 3',monto:'USD 80.000',hito:'Proyecto registrado',uso:'Auditoría de tercera parte, registro, operación',color:'#a855f7'},
     ],

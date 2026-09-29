@@ -414,7 +414,7 @@ export default function Institucional() {
                 </div>
                 <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10,marginBottom:12}}>
                   {[
-                    {titulo:es?'Tramo 1 · USD 50K':'Tranche 1 · USD 50K',desc:es?'Sociedad, acuerdo con acopiador, primeras balanzas, 4 meses de equipo. Hito: balanza transmitiendo datos continuos.':'Company, collector agreement, first scales, 4 months of team. Milestone: scale transmitting continuous data.',color:'#22c55e'},
+                    {titulo:es?'Tramo 1 · USD 50K':'Tranche 1 · USD 50K',desc:es?'Sociedad, acuerdo con acopiador, primeras balanzas, 4 meses de equipo: CTO a tiempo parcial (honorarios + participación con vesting) y fundadores. Hito: balanza transmitiendo datos continuos.':'Company, collector agreement, first scales, 4 months of team: part-time CTO (fees + vested equity) and founders. Milestone: scale transmitting continuous data.',color:'#22c55e'},
                     {titulo:es?'Tramo 2 · USD 70K':'Tranche 2 · USD 70K',desc:es?'Desarrollador de carbono, línea de base, documento de diseño del proyecto, más nodos. Hito: documento presentado ante Verra.':'Carbon developer, baseline, project design document, more nodes. Milestone: document submitted to Verra.',color:'#3b82f6'},
                     {titulo:es?'Tramo 3 · USD 80K':'Tranche 3 · USD 80K',desc:es?'Auditoría de tercera parte, registro, operación. Hito: proyecto registrado.':'Third-party audit, registration, operations. Milestone: project registered.',color:'#a855f7'},
                   ].map((item,i)=>(
