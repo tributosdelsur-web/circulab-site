@@ -270,6 +270,21 @@ export default function Operadores() {
         </div>
       </section>
 
+      {/* ═══ DONDE ESTAMOS HOY ═══ */}
+      <section style={{maxWidth:580,margin:'0 auto',padding:'8px 20px 44px'}}>
+        <div style={{background:card,border:`1px solid ${border}`,borderRadius:14,padding:'20px 20px 18px'}}>
+          <div style={{fontSize:11,textTransform:'uppercase',letterSpacing:'.1em',fontWeight:800,color:sub,marginBottom:10}}>
+            {es?'Dónde estamos hoy':'Where we stand today'}
+          </div>
+          <p style={{fontSize:14,lineHeight:1.6,margin:'0 0 14px'}}>
+            {es?'El circuito ya está identificado. Estamos en conversaciones con una cooperativa de RAEE habilitada en CABA, con un operador privado de residuos orgánicos y con una dirección del Gobierno de la Ciudad. No publicamos nombres hasta tener acuerdos firmados: nos parece lo correcto con quienes todavía están decidiendo.':'The circuit is already mapped. We are in conversation with a licensed e-waste cooperative in Buenos Aires, a private organic waste operator and a City Government agency. We do not publish names before agreements are signed.'}
+          </p>
+          <p style={{fontSize:13,lineHeight:1.6,color:sub,margin:0}}>
+            {es?'Si operás material y querés ser el primero en tener el dato que lo demuestre, es el momento de hablar.':'If you move material and want to be the first with the data to prove it, now is the time to talk.'}
+          </p>
+        </div>
+      </section>
+
       <footer style={{borderTop:'1px solid '+border,padding:'32px 24px',textAlign:'center'}}>
         <a href="/"><img src="/logoOC.png" alt="OLIVIA" style={{width:44,height:44,objectFit:'contain',display:'block',margin:'0 auto 10px'}} /></a>
         <div style={{fontSize:13,fontWeight:800,color:text,marginBottom:6}}>OLIVIA Circulab</div>

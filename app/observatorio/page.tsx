@@ -53,6 +53,13 @@ export default function Observatorio() {
 
         <a href="/" style={{ color: SUB, textDecoration: 'none', fontSize: 13 }}>← Inicio</a>
 
+        <section style={{ textAlign: 'center', padding: '28px 0 6px' }}>
+          <img src="/logoOC.png" alt="OLIVIA Circulab" style={{ width: '100%', maxWidth: 260, height: 'auto', display: 'block', margin: '0 auto 14px' }} />
+          <div style={{ fontSize: 11, color: SUB, lineHeight: 1.6, maxWidth: 400, margin: '0 auto' }}>
+            Oficina Latinoamericana de Información para la Valorización e Inteligencia Ambiental
+          </div>
+        </section>
+
         <h1 style={{ fontSize: 'clamp(30px,6vw,46px)', lineHeight: 1.1, fontWeight: 900, margin: '22px 0 14px', letterSpacing: '-0.02em' }}>
           Observatorio
         </h1>
