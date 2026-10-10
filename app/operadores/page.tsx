@@ -74,7 +74,7 @@ export default function Operadores() {
             'What can be proven to an auditor',
           ]).map((q,i)=>(
             <div key={i} style={{display:'flex',gap:10,alignItems:'flex-start',background:card,border:'1px solid '+border,borderRadius:10,padding:'13px 15px'}}>
-              <span style={{fontSize:14,color:marron,fontWeight:900,flexShrink:0,lineHeight:1.3}}>?</span>
+              <span style={{width:5,height:5,borderRadius:'50%',background:marron,flexShrink:0,marginTop:6}} />
               <span style={{fontSize:12,color:sub,lineHeight:1.6}}>{q}</span>
             </div>
           ))}
