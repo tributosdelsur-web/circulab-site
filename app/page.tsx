@@ -368,22 +368,6 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* ═══ BANDA RAEE ═══ */}
-      <section style={{padding:'0 20px 28px',maxWidth:580,margin:'0 auto'}}>
-        <a href="/raee" style={{display:'block',textDecoration:'none',background:dark?'rgba(147,51,234,0.10)':'rgba(147,51,234,0.05)',border:'1px solid rgba(147,51,234,0.25)',borderRadius:14,padding:'18px'}}>
-          <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:'#9333ea',marginBottom:8}}>
-            [ {es?'Diagnóstico abierto':'Open diagnosis'} ]
-          </div>
-          <div style={{fontSize:16,fontWeight:900,color:text,marginBottom:6,lineHeight:1.3}}>
-            {es?'¿Qué pasa con los electrónicos que ya no usás?':'What happens to the electronics you no longer use?'}
-          </div>
-          <p style={{fontSize:12,color:sub,lineHeight:1.7,marginBottom:8}}>
-            {es?'Cada habitante genera 11 kilos por año. La única ley de la Ciudad es de 2008 y sólo cubre al sector público. Para el vecino, todo es voluntario.':'Each resident generates 11 kilos per year. For residents, everything is voluntary.'}
-          </p>
-          <span style={{fontSize:12,color:'#9333ea',fontWeight:700}}>{es?'Leer el diagnóstico RAEE →':'Read the e-waste diagnosis →'}</span>
-        </a>
-      </section>
-
       {/* ═══ BANDA OPERADORES ═══ */}
       <section style={{padding:'0 20px 28px',maxWidth:580,margin:'0 auto'}}>
         <a href="/operadores" style={{display:'block',textDecoration:'none',background:dark?'rgba(2,132,199,0.10)':'rgba(2,132,199,0.05)',border:'1px solid rgba(2,132,199,0.28)',borderRadius:14,padding:'18px'}}>
@@ -400,20 +384,21 @@ export default function Landing() {
         </a>
       </section>
 
-      {/* ═══ BANDA ORGANICOS ═══ */}
+      {/* ═══ ACCESOS ═══ */}
       <section style={{padding:'0 20px 28px',maxWidth:580,margin:'0 auto'}}>
-        <a href="/organicos" style={{display:'block',textDecoration:'none',background:dark?'rgba(146,64,14,0.10)':'rgba(146,64,14,0.05)',border:'1px solid rgba(146,64,14,0.25)',borderRadius:14,padding:'18px'}}>
-          <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:'#92400e',marginBottom:8}}>
-            [ {es?'Diagnóstico abierto':'Open diagnosis'} ]
-          </div>
-          <div style={{fontSize:16,fontWeight:900,color:text,marginBottom:6,lineHeight:1.3}}>
-            {es?'¿Qué pasa realmente con los orgánicos en Buenos Aires?':'What really happens to organic waste in Buenos Aires?'}
-          </div>
-          <p style={{fontSize:12,color:sub,lineHeight:1.7,marginBottom:8}}>
-            {es?'Las tres fracciones, los tres tipos de orgánico, el SERFO y la figura del Acopiador. Todo lo que existe hoy y lo que falta.':'The three fractions, the three organic types, SERFO and the Acopiador figure.'}
-          </p>
-          <span style={{fontSize:12,color:'#92400e',fontWeight:700}}>{es?'Leer el diagnóstico →':'Read the diagnosis →'}</span>
-        </a>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8}}>
+          {[
+            {l:es?'Orgánicos':'Organics',s:es?'El diagnóstico':'Diagnosis',h:'/organicos',c:'#92400e',i:'🥬'},
+            {l:'RAEE',s:es?'Electrónicos':'E-waste',h:'/raee',c:'#9333ea',i:'🔌'},
+            {l:es?'Datos':'Data',s:es?'En vivo':'Live',h:'/observatorio',c:'#16a34a',i:'📊'},
+          ].map((a,i)=>(
+            <a key={i} href={a.h} style={{display:'block',textDecoration:'none',textAlign:'center',background:card,border:`1px solid ${border}`,borderRadius:12,padding:'14px 8px'}}>
+              <div style={{fontSize:20,marginBottom:5}}>{a.i}</div>
+              <div style={{fontSize:12,fontWeight:800,color:a.c,marginBottom:2}}>{a.l}</div>
+              <div style={{fontSize:9.5,color:sub}}>{a.s}</div>
+            </a>
+          ))}
+        </div>
       </section>
 
       {/* ═══ SECCIÓN 2 — DOS VIDEOS ═══ */}
