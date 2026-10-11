@@ -380,22 +380,6 @@ export default function Landing({ ini }: { ini: Ini }) {
         </div>
       </section>
 
-      {/* ═══ BANDA OPERADORES ═══ */}
-      <section style={{padding:'0 20px 28px',maxWidth:580,margin:'0 auto'}}>
-        <a href="/operadores" style={{display:'block',textDecoration:'none',background:dark?'rgba(2,132,199,0.10)':'rgba(2,132,199,0.05)',border:'1px solid rgba(2,132,199,0.28)',borderRadius:14,padding:'18px'}}>
-          <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:'#0284c7',marginBottom:8}}>
-            [ {es?'Cooperativas · plantas · obligados':'Cooperatives · plants · generators'} ]
-          </div>
-          <div style={{fontSize:16,fontWeight:900,color:text,marginBottom:6,lineHeight:1.3}}>
-            {es?'Ya hacés el trabajo. Falta el dato que lo demuestre.':'You already do the work. The data is missing.'}
-          </div>
-          <p style={{fontSize:12,color:sub,lineHeight:1.7,marginBottom:8}}>
-            {es?'Instalamos el sistema de medición sin costo en cooperativas y plantas. Para generadores obligados, el servicio siempre cuesta menos que el ahorro que genera.':'We install the measurement system at no cost for cooperatives and plants.'}
-          </p>
-          <span style={{fontSize:12,color:'#0284c7',fontWeight:700}}>{es?'Ver cómo funciona →':'See how it works →'}</span>
-        </a>
-      </section>
-
       {/* ═══ ACCESOS ═══ */}
       <section style={{padding:'0 20px 28px',maxWidth:580,margin:'0 auto'}}>
         <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8}}>
