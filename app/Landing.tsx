@@ -370,6 +370,16 @@ export default function Landing({ ini }: { ini: Ini }) {
         </div>
       </section>
 
+      <section style={{padding:'0 20px 28px',maxWidth:580,margin:'0 auto'}}>
+        <div style={{borderLeft:`3px solid #22c55e`,paddingLeft:14}}>
+          <div style={{fontSize:13.5,lineHeight:1.65,color:sub}}>
+            {es
+              ? <>La yerba es por dónde empieza un vecino. Lo que vendemos es la capa que convierte eso en un <strong style={{color:text,fontWeight:700}}>dato que una planta, un generador obligado o un auditor pueden usar</strong>.</>
+              : <>Yerba is where a neighbour starts. What we sell is the layer that turns it into <strong style={{color:text,fontWeight:700}}>data a plant, an obligated generator or an auditor can use</strong>.</>}
+          </div>
+        </div>
+      </section>
+
       {/* ═══ BANDA OPERADORES ═══ */}
       <section style={{padding:'0 20px 28px',maxWidth:580,margin:'0 auto'}}>
         <a href="/operadores" style={{display:'block',textDecoration:'none',background:dark?'rgba(2,132,199,0.10)':'rgba(2,132,199,0.05)',border:'1px solid rgba(2,132,199,0.28)',borderRadius:14,padding:'18px'}}>
