@@ -350,6 +350,81 @@ export default function Inversion() {
           </div>
         </Card>
 
+        <H n={es ? 'La oferta' : 'The offer'} tt={es ? 'Qué recibe el cliente, y cuándo.' : 'What the client gets, and when.'} />
+        <P>
+          {es
+            ? 'Una propuesta de valor no es una oferta. Esto es la oferta: cuatro entregables con plazo, y qué pasa si no cumplimos.'
+            : 'A value proposition is not an offer. This is the offer: four deliverables with deadlines, and what happens if we miss them.'}
+        </P>
+        <div style={{ display: 'grid', gap: 9 }}>
+          {(es ? [
+            ['Semanas 1 y 2', 'Diagnóstico', 'Medimos la generación real del sitio durante dos semanas, separada por fracción. Sale un informe con los kilos que hoy se van como húmedo y cuántos son desviables. Si el ahorro no justifica el servicio, lo decimos y no seguimos. El diagnóstico se cobra y se descuenta del primer mes si el cliente avanza.'],
+            ['Semana 3', 'Instalación', 'Balanza instalada, calibrada y transmitiendo. Tachos identificados con QR y tara registrada. Capacitación al personal que la va a usar, que son veinte minutos. Se cobra una vez y contra equipo funcionando.'],
+            ['Mensual', 'Reporte verificado', 'Kilos por fracción, con origen, peso, traslado y confirmación de procesamiento. Formato presentable ante la autoridad y ante casa matriz. Antes del día 10 de cada mes.'],
+            ['Permanente', 'Expediente al día', 'Alta y mantenimiento en el ReGE-FH, constancias de transporte y disposición archivadas y accesibles. Si llega una inspección, el expediente está.'],
+          ] : [
+            ['Weeks 1-2', 'Assessment', 'We measure the site\u2019s actual generation for two weeks, by fraction. If the saving does not justify the service, we say so and stop.'],
+            ['Week 3', 'Installation', 'Scale installed, calibrated and transmitting. Bins tagged with QR and registered tare. Charged once, against a working device.'],
+            ['Monthly', 'Verified report', 'Kilos by fraction with origin, weight, transfer and processing confirmation. Before the 10th of each month.'],
+            ['Ongoing', 'Compliance file', 'ReGE-FH registration and maintenance, transport and disposal certificates filed and accessible.'],
+          ]).map((x, i) => (
+            <div key={i} style={{ background: card, border: `1px solid ${border}`, borderRadius: 16, padding: '18px 20px' }}>
+              <div style={{ display: 'flex', gap: 12, alignItems: 'baseline', flexWrap: 'wrap', marginBottom: 7 }}>
+                <span style={{ fontSize: 10, fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '0.2em', color: accent, fontWeight: 700 }}>{x[0]}</span>
+                <span style={{ fontSize: 15.5, fontWeight: 800 }}>{x[1]}</span>
+              </div>
+              <div style={{ fontSize: 13.5, color: sub, lineHeight: 1.6 }}>{x[2]}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: 14 }}>
+          <Card>
+            <Rubro t={t}>{es ? 'Si no cumplimos' : 'If we fall short'}</Rubro>
+            <div style={{ fontSize: 13.5, color: sub, lineHeight: 1.7 }}>
+              {es
+                ? 'Un mes sin reporte es un mes sin factura. Si la balanza deja de transmitir más de setenta y dos horas y no la reponemos, el mes no se cobra. El contrato es mensual y se corta avisando con treinta días: no atamos a nadie a un servicio que no le sirve. Los datos del cliente son del cliente y se entregan exportados si decide irse.'
+                : 'A month without a report is a month without an invoice. If the scale stops transmitting for more than seventy-two hours and we do not replace it, that month is not charged. The contract is monthly with thirty days notice, and the client\u2019s data is theirs on exit.'}
+            </div>
+          </Card>
+        </div>
+
+        <H n={es ? 'Unit economics' : 'Unit economics'} tt={es ? 'La cuenta por sitio.' : 'The per-site arithmetic.'} />
+        <P>
+          {es
+            ? 'Separamos lo que sabemos de lo que estimamos, porque en esta etapa casi todo es lo segundo y conviene que se vea cuál es cuál.'
+            : 'We separate what we know from what we estimate, because at this stage most of it is the latter.'}
+        </P>
+        <Card>
+          <div style={{ display: 'grid', gap: 13 }}>
+            {(es ? [
+              ['Equipo por nodo', 'Estimación propia', 'Celdas de carga, conversor HX711, microcontrolador con conectividad, gabinete, fuente y calibración. Son componentes estándar y de bajo costo; la cifra exacta sale de la primera serie fabricada, que es parte del tramo 1.'],
+              ['Instalación', 'A medir', 'Visita, montaje, identificación de tachos y capacitación. Se cobra al cliente contra entrega, así que no consume caja: es neutro.'],
+              ['Operación mensual por sitio', 'Estimación propia', 'Conectividad del equipo, infraestructura de datos y tiempo de validación. Hoy la validación es manual y es el costo que más baja cuando la balanza entra en operación.'],
+              ['Ingreso mensual por sitio', 'Fórmula', 'Un 30 a 40 % del ahorro verificado del cliente. Depende de dos variables que el cliente conoce: sus kilos y su tarifa. Por eso publicamos una calculadora en vez de una lista de precios.'],
+              ['Punto de equilibrio', 'Fórmula', 'Cantidad de sitios = costo fijo mensual dividido por el margen promedio por sitio. Las dos variables se determinan con el primer cliente real y la primera serie de equipos.'],
+            ] : [
+              ['Device per node', 'Own estimate', 'Load cells, HX711 converter, microcontroller, enclosure, power and calibration. Standard low-cost components; the exact figure comes from the first production run.'],
+              ['Installation', 'To be measured', 'Charged to the client on delivery, so it does not consume cash.'],
+              ['Monthly cost per site', 'Own estimate', 'Connectivity, data infrastructure and validation time.'],
+              ['Monthly revenue per site', 'Formula', '30 to 40 % of the client\u2019s verified saving.'],
+              ['Break-even', 'Formula', 'Sites = fixed monthly cost divided by average margin per site.'],
+            ]).map((x, i) => (
+              <div key={i}>
+                <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap', marginBottom: 4 }}>
+                  <span style={{ fontSize: 14.5, fontWeight: 700 }}>{x[0]}</span>
+                  <span style={{ fontSize: 10, fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '0.1em', color: sub, border: `1px solid ${border}`, borderRadius: 20, padding: '2px 8px' }}>{x[1]}</span>
+                </div>
+                <div style={{ fontSize: 13.5, color: sub, lineHeight: 1.6 }}>{x[2]}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ fontSize: 13, color: sub, lineHeight: 1.65, marginTop: 16, paddingTop: 14, borderTop: `1px solid ${border}` }}>
+            {es
+              ? 'No publicamos cifras de costo todavía porque no tenemos ni una unidad fabricada ni un cliente instalado, y un número inventado en esta tabla invalidaría todo lo demás que decimos sobre medir antes de afirmar. Las dos cuentas que faltan se cierran con el tramo 1: la primera serie de equipos y el primer sitio en operación.'
+              : 'We do not publish cost figures yet because we have neither a manufactured unit nor an installed client, and an invented number here would invalidate everything else we say about measuring before claiming.'}
+          </div>
+        </Card>
+
         <H n={es ? 'El pedido' : 'The ask'} tt={es ? 'USD 200.000 en tres tramos contra hitos.' : 'USD 200,000 in three milestone-based tranches.'} />
         <P>
           {es
