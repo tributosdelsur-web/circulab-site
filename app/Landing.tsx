@@ -381,6 +381,14 @@ export default function Landing({ ini }: { ini: Ini }) {
       </section>
 
       {/* ═══ ACCESOS ═══ */}
+      <section style={{padding:'4px 20px 10px',maxWidth:580,margin:'0 auto'}}>
+        <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:sub,marginBottom:7}}>
+          [ {es?'Explorá':'Explore'} ]
+        </div>
+        <h2 style={{fontSize:19,fontWeight:900,fontFamily:'Georgia,serif',fontStyle:'italic',lineHeight:1.25,margin:0}}>
+          {es?'El sistema, por dentro':'Inside the system'}
+        </h2>
+      </section>
       <section style={{padding:'0 20px 28px',maxWidth:580,margin:'0 auto'}}>
         <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8}}>
           {[
