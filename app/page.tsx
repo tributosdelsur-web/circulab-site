@@ -612,7 +612,7 @@ export default function Landing() {
               <span style={{fontSize:36}}>🌿</span>
               <div>
                 <div style={{fontSize:16,fontWeight:900,color:'#22c55e'}}>{es?'Soy ciudadano':'I\'m a citizen'}</div>
-                <div style={{fontSize:12,color:sub,marginTop:2}}>{es?'Quiero reciclar y ganar OLV':'I want to recycle and earn OLV'}</div>
+                <div style={{fontSize:12,color:sub,marginTop:2}}>{es?'Quiero separar y que quede registrado':'I want to sort and have it recorded'}</div>
               </div>
             </div>
             <span style={{color:'#22c55e',fontSize:20,fontWeight:700}}>→</span>
@@ -622,7 +622,7 @@ export default function Landing() {
               <span style={{fontSize:36}}>🏛️</span>
               <div>
                 <div style={{fontSize:16,fontWeight:900,color:'#f59e0b'}}>{es?'Soy inversor':'I\'m an investor'}</div>
-                <div style={{fontSize:12,color:sub,marginTop:2}}>{es?'Ver el ecosistema completo':'See the full ecosystem'}</div>
+                <div style={{fontSize:12,color:sub,marginTop:2}}>{es?'El caso de negocio y el pedido':'The business case and the ask'}</div>
               </div>
             </div>
             <span style={{color:'#f59e0b',fontSize:20,fontWeight:700}}>→</span>

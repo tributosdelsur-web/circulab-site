@@ -1,27 +1,29 @@
 'use client'
-import { useState } from 'react'
+import { useTema, gridFondo, Rubro, Titulo, Pildoras, FUENTE } from '../../lib/ui'
+
+const FACTOR_PENDIENTE = true
 
 export default function Inversion() {
-  const [dark, setDark] = useState(true)
-  const [lang, setLang] = useState('es')
-  const es = lang === 'es'
+  const t = useTema()
+  const { es, dark, bg, text, card, border, sub, accent } = t
 
-  const bg = dark ? '#080c16' : '#f0f4f8'
-  const text = dark ? '#f5f5f5' : '#0f172a'
-  const card = dark ? 'rgba(255,255,255,0.04)' : '#ffffff'
-  const border = dark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'
-  const sub = dark ? '#8a94a6' : '#5a6474'
-
-  const H = ({ n, t, c }: { n: string; t: string; c: string }) => (
-    <h2 style={{ fontSize: 13, textTransform: 'uppercase', letterSpacing: '0.1em', color: c, fontWeight: 800, margin: '52px 0 16px' }}>
-      {n} · {t}
-    </h2>
+  const H = ({ n, tt }: { n: string; tt: string }) => (
+    <div style={{ margin: '56px 0 18px' }}>
+      <Rubro t={t}>{n}</Rubro>
+      <Titulo>{tt}</Titulo>
+    </div>
   )
   const P = ({ children }: any) => (
-    <p style={{ fontSize: 15, lineHeight: 1.65, color: sub, margin: '0 0 14px' }}>{children}</p>
+    <p style={{ fontSize: 15, lineHeight: 1.7, color: sub, margin: '0 0 14px' }}>{children}</p>
   )
-  const Box = ({ children }: any) => (
-    <div style={{ background: card, border: `1px solid ${border}`, borderRadius: 14, padding: '20px 20px 18px' }}>{children}</div>
+  const Card = ({ children }: any) => (
+    <div style={{ background: card, border: `1px solid ${border}`, borderRadius: 16, padding: '22px 22px 20px' }}>{children}</div>
+  )
+  const Punto = ({ c, children }: any) => (
+    <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+      <span style={{ width: 6, height: 6, borderRadius: '50%', background: c, flexShrink: 0, marginTop: 7 }} />
+      <span style={{ fontSize: 14, lineHeight: 1.55 }}>{children}</span>
+    </div>
   )
 
   const mercado = [
@@ -37,17 +39,23 @@ export default function Inversion() {
 
   const estado = [
     { p: 'Plataforma de registro y trazabilidad', e: 'Funcionando', c: '#22c55e' },
-    { p: 'Balanza con firma en hardware', e: 'Diseño cerrado, sin fabricar', c: '#d97706' },
+    { p: 'Balanza con firma en hardware', e: 'Diseño cerrado, sin fabricar', c: '#f59e0b' },
     { p: 'Operador con planta habilitada que firme', e: 'En conversaciones, sin acuerdo', c: '#ef4444' },
-    { p: 'Inscripción en Economía del Conocimiento', e: 'Pendiente, ventana abierta', c: '#d97706' },
-    { p: 'Metodología de certificación de carbono', e: 'Identificada, no iniciada', c: '#8a94a6' },
+    { p: 'Inscripción en Economía del Conocimiento', e: 'Pendiente, ventana abierta', c: '#f59e0b' },
+    { p: 'Metodología de certificación de carbono', e: 'Identificada, no iniciada', c: '#94a3b8' },
+  ]
+
+  const tramos = [
+    { t: 'Tramo 1 · USD 50.000', h: 'Sociedad constituida, operador firmado, balanza transmitiendo datos continuos', u: 'Sociedad, acuerdo con operador, primeras balanzas, cuatro meses de equipo' },
+    { t: 'Tramo 2 · USD 70.000', h: 'Documento de diseño del proyecto presentado', u: 'Desarrollador de carbono, línea de base, documento de diseño, más nodos' },
+    { t: 'Tramo 3 · USD 80.000', h: 'Proyecto registrado', u: 'Auditoría de tercera parte, registro, operación' },
   ]
 
   const secuencia = [
     { h: 'Hito 1', t: 'Sitios verificados en CABA con confirmado de procesamiento', d: 'Hasta que esto no exista, nada de lo de abajo se activa. Es el prerequisito, no una etapa.' },
-    { h: 'Hito 2', t: 'Chile — Ley REP', d: 'El cumplimiento se prueba cuando el material entra a la planta de valorización. Es el mismo dato que ya producimos. Se licencia a los Sistemas de Gestión.' },
-    { h: 'Hito 3', t: 'Colombia — impuesto al carbono', d: 'Existe no causación: el impuesto se compensa con créditos locales. Hay demanda de dato verificado que ya está pagando alguien.' },
-    { h: 'Hito 4', t: 'Brasil y México — escala industrial', d: 'PNRS y exigencias de casas matrices bajo TMEC. Volumen grande, ciclo de venta largo. No antes de tener los tres anteriores.' },
+    { h: 'Hito 2', t: 'Chile — Ley REP', d: 'El cumplimiento se prueba cuando el material entra a la planta de valorización. Es el mismo dato que ya producimos.' },
+    { h: 'Hito 3', t: 'Colombia — impuesto al carbono', d: 'Existe no causación: el impuesto se compensa con créditos locales. Hay demanda de dato verificado que alguien ya está pagando.' },
+    { h: 'Hito 4', t: 'Brasil y México — escala industrial', d: 'PNRS y exigencias de casas matrices bajo TMEC. Volumen grande, ciclo de venta largo.' },
   ]
 
   const noAfirmamos = [
@@ -58,184 +66,193 @@ export default function Inversion() {
   ]
 
   return (
-    <div style={{ minHeight: '100vh', background: bg, color: text, fontFamily: 'system-ui', transition: 'all 0.2s' }}>
+    <div style={{ minHeight: '100vh', background: bg, color: text, fontFamily: FUENTE, transition: 'all 0.3s', overflowX: 'hidden' }}>
 
-      <nav style={{ padding: '12px 20px', borderBottom: `1px solid ${border}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', rowGap: 8, background: dark ? 'rgba(8,12,22,0.98)' : 'rgba(240,244,248,0.98)', backdropFilter: 'blur(10px)', position: 'sticky', top: 0, zIndex: 100 }}>
-        <a href="/" style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0, flexShrink: 1, textDecoration: 'none' }}>
-          <img src="/logoOC.png" alt="OLIVIA" style={{ width: 40, height: 40, objectFit: 'contain', borderRadius: 8 }} />
+      <nav style={{ position: 'sticky', top: 0, zIndex: 50, backdropFilter: 'blur(16px)', background: dark ? 'rgba(10,14,26,0.9)' : 'rgba(240,244,248,0.9)', borderBottom: `1px solid ${border}`, padding: '12px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', rowGap: 8 }}>
+        <a href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', minWidth: 0, flexShrink: 1 }}>
+          <img src="/logoOC.png" alt="OLIVIA Circulab" style={{ width: 32, height: 32, objectFit: 'contain', borderRadius: 6 }} />
           <div>
-            <div style={{ fontSize: 14, fontWeight: 900, color: text }}>OLIVIA Circulab</div>
-            <div style={{ fontSize: 9, color: '#22c55e', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{es ? 'Inversión' : 'Investment'}</div>
+            <div style={{ fontSize: 12, fontWeight: 700, color: text, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Circulab Tech</div>
+            <div style={{ fontSize: 9, color: sub, textTransform: 'uppercase', letterSpacing: '0.15em', fontFamily: 'monospace' }}>
+              {es ? 'Caso de negocio' : 'Business case'}
+            </div>
           </div>
         </a>
         <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexShrink: 0 }}>
-          <button onClick={() => setLang(es ? 'en' : 'es')} style={{ background: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.3)', borderRadius: 6, padding: '4px 10px', color: '#22c55e', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>
+          <a href="/institucional" style={{ background: accent, color: dark ? '#050505' : 'white', padding: '6px 14px', borderRadius: 20, fontSize: 10, fontWeight: 700, textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+            {es ? 'Quiénes somos' : 'About us'}
+          </a>
+          <button onClick={() => t.setLang(es ? 'en' : 'es')} style={{ border: `1px solid ${border}`, borderRadius: 20, padding: '5px 12px', fontSize: 10, fontWeight: 700, cursor: 'pointer', background: 'transparent', color: text, fontFamily: 'monospace' }}>
             {es ? 'EN' : 'ES'}
           </button>
-          <button onClick={() => setDark(!dark)} style={{ background: dark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)', border: `1px solid ${border}`, borderRadius: 6, padding: '4px 8px', fontSize: 14, cursor: 'pointer' }}>
+          <button onClick={() => t.setDark(!dark)} style={{ border: `1px solid ${border}`, borderRadius: 20, padding: '5px 9px', fontSize: 12, cursor: 'pointer', background: 'transparent', color: text }}>
             {dark ? '☀️' : '🌙'}
           </button>
         </div>
       </nav>
 
-      <div style={{ maxWidth: 760, margin: '0 auto', padding: '32px 20px 80px' }}>
+      <section style={{ padding: '56px 24px 48px', position: 'relative', ...gridFondo(dark) }}>
+        <div style={{ maxWidth: 800, margin: '0 auto' }}>
+          <Pildoras t={t} items={[
+            'Buenos Aires · Ley 1854',
+            'Ronda Seed 2026',
+            es ? 'Producto en producción' : 'Product live',
+            es ? 'Sin inversión externa' : 'No external investment',
+            es ? 'Economía del Conocimiento · inscripción pendiente' : 'Knowledge Economy · registration pending',
+          ]} />
 
-        <section style={{ textAlign: 'center', padding: '12px 0 6px' }}>
-          <img src="/logoOC.png" alt="OLIVIA Circulab" style={{ width: '100%', maxWidth: 230, height: 'auto', display: 'block', margin: '0 auto 14px' }} />
-          <div style={{ fontSize: 11, color: sub, lineHeight: 1.6, maxWidth: 400, margin: '0 auto' }}>
-            {es ? 'Oficina Latinoamericana de Información para la Valorización e Inteligencia Ambiental' : 'Latin American Office for Environmental Valuation and Intelligence Information'}
+          <h1 style={{ fontSize: 'clamp(30px,5.4vw,44px)', fontWeight: 900, lineHeight: 1.02, letterSpacing: '-0.03em', marginBottom: 20, maxWidth: 720 }}>
+            {es ? (
+              <>Hoy no hay bonos de carbono. Hay una <span style={{ color: accent, fontStyle: 'italic' }}>factura que puede ser más baja.</span></>
+            ) : (
+              <>There are no carbon credits yet. There is an <span style={{ color: accent, fontStyle: 'italic' }}>invoice that can be lower.</span></>
+            )}
+          </h1>
+
+          <p style={{ fontSize: 15.5, lineHeight: 1.7, color: sub, maxWidth: 620, marginBottom: 26 }}>
+            {es
+              ? 'En la Ciudad de Buenos Aires hay empresas obligadas por ley a pagar la recolección de su basura húmeda, mientras el Estado retira gratis la fracción orgánica separada. Esa diferencia es dinero, se cobra todos los meses y no depende de ningún mercado de carbono. Para poder cobrarla hay que demostrarla. Eso es lo que hacemos.'
+              : 'In Buenos Aires some companies are legally required to pay for their wet waste collection, while the State collects the separated organic fraction for free. That difference is money, it recurs every month and it does not depend on any carbon market. To claim it, you have to prove it. That is what we do.'}
+          </p>
+
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            <a href="mailto:hola@oliviacirculab.com.ar?subject=Reunion%20OLIVIA" style={{ background: accent, color: dark ? '#050505' : 'white', padding: '13px 28px', borderRadius: 40, fontSize: 11, fontWeight: 700, textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              {es ? 'Agendar reunión · 20 min' : 'Schedule meeting · 20 min'}
+            </a>
+            <a href="/observatorio" style={{ border: `1px solid ${border}`, color: text, padding: '13px 28px', borderRadius: 40, fontSize: 11, fontWeight: 700, textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              {es ? 'Ver los datos' : 'See the data'}
+            </a>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <h1 style={{ fontSize: 'clamp(28px,5.6vw,44px)', lineHeight: 1.12, fontWeight: 900, margin: '34px 0 16px', letterSpacing: '-0.02em' }}>
-          Hoy no hay bonos de carbono.<br />Hay una factura que puede ser más baja.
-        </h1>
-        <p style={{ fontSize: 17, lineHeight: 1.6, color: sub, margin: 0 }}>
-          En la Ciudad de Buenos Aires hay empresas que están obligadas por ley a pagar la recolección de su basura húmeda,
-          mientras el Estado retira gratis la fracción orgánica separada. Esa diferencia es dinero, se cobra todos los meses
-          y no depende de ningún mercado de carbono. Para poder cobrarla hay que demostrarla. Eso es lo que hacemos.
-        </p>
+      <div style={{ maxWidth: 800, margin: '0 auto', padding: '0 24px 80px' }}>
 
-        <H n="1" t="La asimetría" c="#22c55e" />
+        <H n={es ? 'La asimetría' : 'The asymmetry'} tt={es ? 'Una fracción se paga, la otra la retira el Estado.' : 'One fraction is paid for, the other the State collects.'} />
         <P>
-          Un generador especial —hotel de cuatro estrellas, banco, supermercado de más de cuatro cajas, cualquier comercio
-          de más de 500 litros diarios— no puede usar el servicio público para su fracción húmeda. Debe contratar transporte
-          privado habilitado, darse de alta en el programa de generadores privados de CEAMSE y acreditar la disposición final
-          con constancias. Todo eso lo paga.
+          {es
+            ? 'Un generador especial —hotel de cuatro estrellas, banco, supermercado de más de cuatro cajas, cualquier comercio de más de 500 litros diarios— no puede usar el servicio público para su fracción húmeda. Debe contratar transporte privado habilitado, darse de alta en el programa de generadores privados de CEAMSE y acreditar la disposición final con constancias. Todo eso lo paga.'
+            : 'A special generator cannot use the public service for its wet fraction. It must hire licensed private transport, register with the CEAMSE private generators programme and document final disposal. All of that it pays for.'}
         </P>
         <P>
-          La fracción orgánica separada, en cambio, la retira el SERFO sin cargo para el generador, a pedido, por Ley 4.120.
+          {es
+            ? 'La fracción orgánica separada, en cambio, la retira el SERFO sin cargo para el generador, a pedido, por Ley 4.120.'
+            : 'The separated organic fraction, by contrast, is collected by SERFO at no cost to the generator, on request, under Law 4.120.'}
         </P>
-        <Box>
-          <div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 800, color: sub, marginBottom: 12 }}>
-            El ahorro, como fórmula
+        <Card>
+          <Rubro t={t}>{es ? 'El ahorro, como fórmula' : 'The saving, as a formula'}</Rubro>
+          <div style={{ fontFamily: 'ui-monospace, monospace', fontSize: 14.5, lineHeight: 1.9, marginBottom: 12 }}>
+            {es ? 'ahorro mensual = kg desviados × tarifa de fracción húmeda' : 'monthly saving = kg diverted × wet fraction tariff'}
           </div>
-          <div style={{ fontFamily: 'ui-monospace, monospace', fontSize: 14, lineHeight: 1.9, marginBottom: 12 }}>
-            ahorro mensual = kg desviados × tarifa de fracción húmeda
+          <div style={{ fontSize: 13, color: sub, lineHeight: 1.65 }}>
+            {es
+              ? 'Publicamos la fórmula y no un número porque la tarifa vigente la define CEAMSE y la estamos solicitando por escrito. Preferimos una fórmula verificable a una cifra que no podamos sostener. Nuestro precio se fija siempre por debajo de ese ahorro: si no hay ahorro, no hay propuesta.'
+              : 'We publish the formula rather than a figure because the tariff is set by CEAMSE and we are requesting it in writing. Our price is always set below that saving: if there is no saving, there is no proposal.'}
           </div>
-          <div style={{ fontSize: 13, color: sub, lineHeight: 1.6 }}>
-            Publicamos la fórmula y no un número porque la tarifa vigente la define CEAMSE y la estamos solicitando por
-            escrito. Preferimos una fórmula verificable a una cifra que no podamos sostener. Nuestro precio se fija siempre
-            por debajo de ese ahorro: si no hay ahorro, no hay propuesta.
-          </div>
-        </Box>
+        </Card>
 
-        <H n="2" t="Qué compra el cliente" c="#0891b2" />
+        <H n={es ? 'El producto' : 'The product'} tt={es ? 'El expediente que ya está obligado a producir.' : 'The record it is already required to produce.'} />
         <P>
-          No compra conciencia ambiental. Compra el expediente que ya está obligado a producir, producido solo y en forma
-          continua: alta y mantenimiento en el ReGE-FH, constancias de transporte y disposición, y el reporte de la fracción
-          desviada con los cuatro datos que lo hacen defendible —origen, peso, traslado y confirmación de procesamiento—.
+          {es
+            ? 'No compra conciencia ambiental. Compra el expediente que ya debe producir, producido solo y en forma continua: alta y mantenimiento en el ReGE-FH, constancias de transporte y disposición, y el reporte de la fracción desviada con los cuatro datos que lo hacen defendible: origen, peso, traslado y confirmación de procesamiento.'
+            : 'It does not buy environmental conscience. It buys the record it already must produce, produced continuously and on its own: ReGE-FH registration, transport and disposal certificates, and the diverted fraction report with the four data points that make it defensible.'}
         </P>
         <P>
-          El cuarto dato es el que nadie más produce hoy, y es el que convierte un registro en algo certificable más adelante.
-          También es el que nos obliga a tener un operador con planta habilitada: sin destino verificado no hay dato completo.
-          Lo decimos acá porque es nuestro principal riesgo y preferimos que se lea de nosotros.
+          {es
+            ? 'El cuarto dato es el que nadie más produce hoy, y es el que convierte un registro en algo certificable más adelante. También es el que nos obliga a tener un operador con planta habilitada: sin destino verificado no hay dato completo. Lo decimos acá porque es nuestro principal riesgo y preferimos que se lea de nosotros.'
+            : 'The fourth data point is the one nobody else produces today. It is also what forces us to have an operator with a licensed plant: without a verified destination the record is incomplete. We say so here because it is our main risk and we would rather it be read from us.'}
         </P>
 
-        <H n="3" t="Mercado direccionable" c="#8b5cf6" />
-        <P>
-          Las categorías obligadas están definidas por el Art. 14 inc. c) de la Ley 1854 y la Resolución 454-MEPUGC/21:
-        </P>
-        <Box>
+        <H n={es ? 'Mercado' : 'Market'} tt={es ? 'Las categorías ya están definidas por ley.' : 'The categories are already defined by law.'} />
+        <P>{es ? 'Art. 14 inc. c) de la Ley 1854 y Resolución 454-MEPUGC/21:' : 'Art. 14 (c) of Law 1854 and Resolution 454-MEPUGC/21:'}</P>
+        <Card>
           <div style={{ display: 'grid', gap: 9 }}>
-            {mercado.map((x, i) => (
-              <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#8b5cf6', flexShrink: 0, marginTop: 7 }} />
-                <span style={{ fontSize: 14, lineHeight: 1.5 }}>{x}</span>
-              </div>
-            ))}
+            {mercado.map((x, i) => <Punto key={i} c="#8b5cf6">{x}</Punto>)}
           </div>
-          <div style={{ fontSize: 12.5, color: sub, lineHeight: 1.6, marginTop: 14, paddingTop: 14, borderTop: `1px solid ${border}` }}>
-            El padrón del ReGE-FH no es público. Solicitamos la cantidad de inscriptos a la Dirección de Limpieza del
-            Ministerio de Espacio Público e Higiene Urbana. Hasta tenerla por escrito, no publicamos un número de mercado:
-            dimensionar con una estimación propia y presentarla como dato sería exactamente lo que este proyecto existe para
-            corregir.
+          <div style={{ fontSize: 12.5, color: sub, lineHeight: 1.65, marginTop: 16, paddingTop: 14, borderTop: `1px solid ${border}` }}>
+            {es
+              ? 'El padrón del ReGE-FH no es público. Solicitamos la cantidad de inscriptos a la Dirección de Limpieza. Hasta tenerla por escrito, no publicamos un número de mercado: dimensionar con una estimación propia y presentarla como dato sería exactamente lo que este proyecto existe para corregir.'
+              : 'The ReGE-FH register is not public. We have requested the number of registrants. Until we have it in writing we publish no market figure.'}
           </div>
-        </Box>
+        </Card>
 
-        <H n="4" t="Estado real de cada pieza" c="#d97706" />
+        <H n={es ? 'Estado real' : 'Real status'} tt={es ? 'Qué funciona, qué falta y qué todavía no existe.' : 'What works, what is missing, what does not exist yet.'} />
         <div style={{ display: 'grid', gap: 8 }}>
           {estado.map((x, i) => (
-            <div key={i} style={{ background: card, border: `1px solid ${border}`, borderRadius: 12, padding: '14px 16px', display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+            <div key={i} style={{ background: card, border: `1px solid ${border}`, borderRadius: 12, padding: '14px 18px', display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
               <span style={{ fontSize: 14, flex: 1, minWidth: 180 }}>{x.p}</span>
-              <span style={{ fontSize: 12, fontWeight: 800, color: x.c, whiteSpace: 'nowrap' }}>{x.e}</span>
+              <span style={{ fontSize: 11, fontWeight: 800, color: x.c, textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap' }}>{x.e}</span>
             </div>
           ))}
         </div>
 
-        <H n="5" t="Secuencia regional, por hitos" c="#0891b2" />
+        <H n={es ? 'Secuencia regional' : 'Regional sequence'} tt={es ? 'Hitos, no fechas.' : 'Milestones, not dates.'} />
         <P>
-          La regulación que hace falta ya existe en varios países de la región. Lo que no existe todavía es nuestro primer
-          circuito cerrado. Por eso la expansión está atada a hitos y no a fechas: una fecha es una promesa, un hito es una
-          condición.
+          {es
+            ? 'La regulación que hace falta ya existe en varios países de la región. Lo que no existe todavía es nuestro primer circuito cerrado. Una fecha es una promesa; un hito es una condición.'
+            : 'The regulation we need already exists in several countries. What does not exist yet is our first closed circuit. A date is a promise; a milestone is a condition.'}
         </P>
         <div style={{ display: 'grid', gap: 9 }}>
           {secuencia.map((x, i) => (
-            <div key={i} style={{ background: card, border: `1px solid ${border}`, borderRadius: 14, padding: '16px 18px' }}>
-              <div style={{ fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 800, color: '#22c55e', marginBottom: 6 }}>{x.h}</div>
-              <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 6 }}>{x.t}</div>
-              <div style={{ fontSize: 13.5, color: sub, lineHeight: 1.55 }}>{x.d}</div>
+            <div key={i} style={{ background: card, border: `1px solid ${border}`, borderRadius: 16, padding: '18px 20px' }}>
+              <div style={{ fontSize: 9, fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '0.3em', color: accent, marginBottom: 7 }}>[ {x.h} ]</div>
+              <div style={{ fontSize: 15.5, fontWeight: 700, marginBottom: 6 }}>{x.t}</div>
+              <div style={{ fontSize: 13.5, color: sub, lineHeight: 1.6 }}>{x.d}</div>
             </div>
           ))}
         </div>
 
-        <H n="6" t="Marco fiscal" c="#22c55e" />
+        <H n={es ? 'Marco fiscal' : 'Tax framework'} tt={es ? 'Una ventana que se cierra.' : 'A closing window.'} />
         <P>
-          Circulab Tech califica hoy para el Régimen de Promoción de la Economía del Conocimiento (Ley 27.506) por una
-          ventana que se cierra: las micro empresas con menos de tres años de actividad solo deben acreditar que la actividad
-          promovida es su actividad principal, sin exigencia todavía de inversión en I+D, exportaciones ni certificación de
-          calidad, que se requieren a los cuatro años de la inscripción.
+          {es
+            ? 'Circulab Tech califica hoy para el Régimen de Promoción de la Economía del Conocimiento (Ley 27.506) por una ventana con plazo: las micro empresas con menos de tres años de actividad solo deben acreditar que la actividad promovida es su actividad principal, sin exigencia todavía de inversión en I+D, exportaciones ni certificación de calidad, que se requieren a los cuatro años de la inscripción.'
+            : 'Circulab Tech currently qualifies for Argentina\u2019s Knowledge Economy regime (Law 27,506) through a time-limited window for micro companies under three years old.'}
         </P>
         <P>
-          Los beneficios son un bono de crédito fiscal de hasta el 70% de las contribuciones patronales —aplicable contra IVA
-          y otros impuestos nacionales, no contra Ganancias— y una reducción del 60% del Impuesto a las Ganancias para micro
-          y pequeñas empresas. No es un subsidio prometido: es una inscripción pendiente con requisitos que hoy cumplimos.
+          {es
+            ? 'Los beneficios son un bono de crédito fiscal de hasta el 70 % de las contribuciones patronales —aplicable contra IVA y otros impuestos nacionales, no contra Ganancias— y una reducción del 60 % del Impuesto a las Ganancias para micro y pequeñas empresas. No es un subsidio prometido: es una inscripción pendiente con requisitos que hoy cumplimos.'
+            : 'Benefits are a tax credit bond of up to 70 % of employer contributions — applicable against VAT and other national taxes, not income tax — and a 60 % income tax reduction for micro and small companies.'}
         </P>
 
-        <H n="8" t="El pedido" c="#f59e0b" />
+        <H n={es ? 'El pedido' : 'The ask'} tt={es ? 'USD 200.000 en tres tramos contra hitos.' : 'USD 200,000 in three milestone-based tranches.'} />
         <P>
-          USD 200.000 en tres tramos, cada uno liberado contra un hito verificable y no contra una fecha. El producto ya
-          está en producción y la empresa llegó hasta acá sin inversión externa.
+          {es
+            ? 'Cada tramo se libera contra un hito verificable y no contra una fecha. El producto ya está en producción y la empresa llegó hasta acá sin inversión externa.'
+            : 'Each tranche is released against a verifiable milestone, not a date. The product is already live and the company got here with no external investment.'}
         </P>
-        <div style={{ display: "grid", gap: 9 }}>
-          {[
-            { t: "Tramo 1 · USD 50.000", h: "Sociedad constituida, operador firmado, balanza transmitiendo datos continuos", u: "Sociedad, acuerdo con operador, primeras balanzas, cuatro meses de equipo" },
-            { t: "Tramo 2 · USD 70.000", h: "Documento de diseño del proyecto presentado", u: "Desarrollador de carbono, línea de base, documento de diseño, más nodos" },
-            { t: "Tramo 3 · USD 80.000", h: "Proyecto registrado", u: "Auditoría de tercera parte, registro, operación" },
-          ].map((x, i) => (
-            <div key={i} style={{ background: card, border: `1px solid ${border}`, borderRadius: 14, padding: "16px 18px" }}>
-              <div style={{ fontSize: 15, fontWeight: 800, color: "#f59e0b", marginBottom: 7 }}>{x.t}</div>
-              <div style={{ fontSize: 13.5, lineHeight: 1.55, marginBottom: 6 }}><strong>Hito:</strong> {x.h}</div>
-              <div style={{ fontSize: 13, color: sub, lineHeight: 1.55 }}>{x.u}</div>
+        <div style={{ display: 'grid', gap: 9 }}>
+          {tramos.map((x, i) => (
+            <div key={i} style={{ background: card, border: `1px solid ${border}`, borderRadius: 16, padding: '18px 20px' }}>
+              <div style={{ fontSize: 15, fontWeight: 800, color: '#f59e0b', marginBottom: 8 }}>{x.t}</div>
+              <div style={{ fontSize: 13.5, lineHeight: 1.6, marginBottom: 6 }}><strong>{es ? 'Hito' : 'Milestone'}:</strong> {x.h}</div>
+              <div style={{ fontSize: 13, color: sub, lineHeight: 1.6 }}>{x.u}</div>
             </div>
           ))}
         </div>
         <P>
-          La participación societaria y el instrumento se definen en conversación, no en una página web. Estamos abiertos a
-          un socio activo con rol operativo, no solo a capital.
+          {es
+            ? 'La participación societaria y el instrumento se definen en conversación, no en una página web. Estamos abiertos a un socio activo con rol operativo, no solo a capital.'
+            : 'Equity and instrument are defined in conversation, not on a web page. We are open to an active partner with an operating role, not only capital.'}
         </P>
 
-        <H n="7" t="Lo que no afirmamos" c="#ef4444" />
-        <Box>
+        <H n={es ? 'Lo que no afirmamos' : 'What we do not claim'} tt={es ? 'Los límites, escritos por nosotros.' : 'The limits, written by us.'} />
+        <Card>
           <div style={{ display: 'grid', gap: 11 }}>
-            {noAfirmamos.map((x, i) => (
-              <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#ef4444', flexShrink: 0, marginTop: 7 }} />
-                <span style={{ fontSize: 14, lineHeight: 1.55 }}>{x}</span>
-              </div>
-            ))}
+            {noAfirmamos.map((x, i) => <Punto key={i} c="#ef4444">{x}</Punto>)}
           </div>
-          <div style={{ fontSize: 13, color: sub, lineHeight: 1.6, marginTop: 14, paddingTop: 14, borderTop: `1px solid ${border}` }}>
-            Esta sección está acá a propósito. Un sistema de verificación que exagera sobre sí mismo no tiene nada que vender.
+          <div style={{ fontSize: 13, color: sub, lineHeight: 1.65, marginTop: 16, paddingTop: 14, borderTop: `1px solid ${border}` }}>
+            {es
+              ? 'Esta sección está acá a propósito. Un sistema de verificación que exagera sobre sí mismo no tiene nada que vender.'
+              : 'This section is here on purpose. A verification system that overstates itself has nothing to sell.'}
           </div>
-        </Box>
+        </Card>
 
-        <div style={{ display: 'flex', gap: 10, marginTop: 38, flexWrap: 'wrap' }}>
-          <a href="/operadores" style={{ background: '#22c55e', color: '#07140c', textDecoration: 'none', padding: '14px 24px', borderRadius: 11, fontSize: 14, fontWeight: 800 }}>
-            Cómo funciona con operadores
+        <div style={{ display: 'flex', gap: 12, marginTop: 40, flexWrap: 'wrap' }}>
+          <a href="/institucional" style={{ background: accent, color: dark ? '#050505' : 'white', textDecoration: 'none', padding: '14px 28px', borderRadius: 40, fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+            {es ? 'Quiénes somos' : 'About us'}
           </a>
-          <a href="/observatorio" style={{ color: text, textDecoration: 'none', padding: '14px 24px', borderRadius: 11, fontSize: 14, fontWeight: 700, border: `1px solid ${border}` }}>
-            Los datos
+          <a href="/operadores" style={{ color: text, textDecoration: 'none', padding: '14px 28px', borderRadius: 40, fontSize: 11, fontWeight: 700, border: `1px solid ${border}`, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+            {es ? 'Cómo funciona con operadores' : 'How it works with operators'}
           </a>
         </div>
 
