@@ -640,46 +640,24 @@ export default function Landing({ ini }: { ini: Ini }) {
             </div>
             <span style={{color:'#22c55e',fontSize:20,fontWeight:700}}>→</span>
           </a>
-          <a href="/inversion" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(245,158,11,0.12),rgba(245,158,11,0.06))',border:'2px solid rgba(245,158,11,0.4)',textDecoration:'none'}}>
-            <div style={{display:'flex',alignItems:'center',gap:14}}>
-              <span style={{fontSize:36}}>🏛️</span>
-              <div>
-                <div style={{fontSize:16,fontWeight:900,color:'#f59e0b'}}>{es?'Soy inversor':'I\'m an investor'}</div>
-                <div style={{fontSize:12,color:sub,marginTop:2}}>{es?'El caso de negocio y el pedido':'The business case and the ask'}</div>
-              </div>
-            </div>
-            <span style={{color:'#f59e0b',fontSize:20,fontWeight:700}}>→</span>
-          </a>
-          <a href="/ciudadano" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(34,197,94,0.12),rgba(34,197,94,0.06))',border:'2px solid rgba(34,197,94,0.4)',textDecoration:'none'}}>
-            <div style={{display:'flex',alignItems:'center',gap:14}}>
-              <span style={{fontSize:36}}>🌿</span>
-              <div>
-                <div style={{fontSize:16,fontWeight:900,color:'#22c55e'}}>{es?'Soy ciudadano':'I\'m a citizen'}</div>
-                <div style={{fontSize:12,color:sub,marginTop:2}}>{es?'Quiero separar y que quede registrado':'I want to sort and have it recorded'}</div>
-              </div>
-            </div>
-            <span style={{color:'#22c55e',fontSize:20,fontWeight:700}}>→</span>
-          </a>
-          <a href="/raee" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(147,51,234,0.12),rgba(147,51,234,0.05))',border:'2px solid rgba(147,51,234,0.4)',textDecoration:'none'}}>
-            <div style={{display:'flex',alignItems:'center',gap:14}}>
-              <span style={{fontSize:36}}>♻️</span>
-              <div>
-                <div style={{fontSize:16,fontWeight:900,color:'#9333ea'}}>{es?'Gestiono residuos electrónicos':'I manage electronic waste'}</div>
-                <div style={{fontSize:12,color:sub,marginTop:2}}>{es?'RAEE · Certificación Verra · Minería urbana':'E-waste · Verra certification · Urban mining'}</div>
-              </div>
-            </div>
-            <span style={{color:'#9333ea',fontSize:20,fontWeight:700}}>→</span>
-          </a>
-          <a href="/institucional" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(148,163,184,0.12),rgba(148,163,184,0.06))',border:'2px solid rgba(148,163,184,0.35)',textDecoration:'none'}}>
-            <div style={{display:'flex',alignItems:'center',gap:14}}>
-              <span style={{fontSize:36}}>🌎</span>
-              <div>
-                <div style={{fontSize:16,fontWeight:900,color:'#94a3b8'}}>{es?'Quiero conocer el proyecto':'I want to know the project'}</div>
-                <div style={{fontSize:12,color:sub,marginTop:2}}>{es?'Quiénes somos · la tesis · el equipo':'Who we are · the thesis · the team'}</div>
-              </div>
-            </div>
-            <span style={{color:'#94a3b8',fontSize:20,fontWeight:700}}>→</span>
-          </a>
+          {/* PUERTAS SECUNDARIAS */}
+          <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:8,marginTop:4}}>
+            {[
+              {l:es?'Soy inversor':'Investor',s:es?'El caso de negocio':'Business case',h:'/inversion',c:'#f59e0b',i:'🏛️'},
+              {l:es?'Soy vecino':'Neighbour',s:es?'Separar y registrar':'Sort and register',h:'/ciudadano',c:'#22c55e',i:'🌿'},
+              {l:es?'Electrónicos':'E-waste',s:'RAEE',h:'/raee',c:'#9333ea',i:'♻️'},
+              {l:es?'El proyecto':'The project',s:es?'Quiénes somos':'About us',h:'/institucional',c:'#94a3b8',i:'🌎'},
+            ].map((x,i)=>(
+              <a key={i} href={x.h} style={{display:'flex',alignItems:'center',gap:10,padding:'13px 14px',borderRadius:12,background:card,border:`1px solid ${border}`,textDecoration:'none'}}>
+                <span style={{fontSize:20,flexShrink:0}}>{x.i}</span>
+                <div style={{minWidth:0}}>
+                  <div style={{fontSize:12.5,fontWeight:800,color:x.c,lineHeight:1.2}}>{x.l}</div>
+                  <div style={{fontSize:10.5,color:sub,marginTop:2}}>{x.s}</div>
+                </div>
+              </a>
+            ))}
+          </div>
+
         <p style={{fontSize:12,color:sub,textAlign:'center',marginBottom:20}}>{es?'Elegí tu camino en OLIVIA':'Choose your path in OLIVIA'}</p>
         <div style={{display:'flex',flexDirection:'column',gap:12}}>
         </div>
