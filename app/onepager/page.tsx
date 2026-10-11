@@ -225,6 +225,19 @@ return (
         <div style={{background:card,border:`1px solid ${border}`,borderRadius:12,padding:'14px'}}>
           <div style={{fontSize:11,fontWeight:700,color:'#a855f7',marginBottom:8,textTransform:'uppercase',letterSpacing:'0.05em'}}>{t.modelo_titulo}</div>
           <div style={{fontSize:9,color:sub,marginBottom:8}}>{es?'En orden de cercanía':'In order of proximity'}</div>
+          <div style={{background:'rgba(34,197,94,0.07)',border:'1px solid rgba(34,197,94,0.25)',borderRadius:8,padding:'9px 10px',marginBottom:9}}>
+            <div style={{fontSize:9.5,color:text,lineHeight:1.5,marginBottom:6}}>
+              {es
+                ? 'El generador especial paga la recolección de su fracción húmeda. La fracción orgánica separada la retira el SERFO sin cargo (Ley 4.120). Cada kilo que pasa de una a otra es ahorro mensual, sin depender de ningún mercado de carbono.'
+                : 'Special generators pay for wet fraction collection. The separated organic fraction is collected by SERFO at no charge (Law 4.120). Every kilo moved from one to the other is a monthly saving, independent of any carbon market.'}
+            </div>
+            <div style={{fontSize:9,fontFamily:'ui-monospace,monospace',color:'#22c55e',marginBottom:5}}>
+              {es ? 'ahorro = kg desviados × tarifa de fracción húmeda · tarifa OLIVIA = 30-40 % de ese ahorro' : 'saving = kg diverted × wet fraction tariff · OLIVIA fee = 30-40 % of that saving'}
+            </div>
+            <div style={{fontSize:8.5,color:sub}}>
+              {es ? 'Calculadora: oliviacirculab.com.ar/ahorro' : 'Calculator: oliviacirculab.com.ar/ahorro'}
+            </div>
+          </div>
           {(es?[
             {n:'1',t:'Consultoría y software para grandes generadores',d:'Bajar el costo de la fracción húmeda y ordenar el cumplimiento'},
             {n:'2',t:'Servicio de datos para plantas',d:'Balanza, remito digital y trazabilidad de cada entrada'},
