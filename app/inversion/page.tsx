@@ -214,6 +214,79 @@ export default function Inversion() {
             : 'Benefits are a tax credit bond of up to 70 % of employer contributions — applicable against VAT and other national taxes, not income tax — and a 60 % income tax reduction for micro and small companies.'}
         </P>
 
+        <H n={es ? 'Cómo cobramos' : 'How we charge'} tt={es ? 'Un porcentaje del ahorro, nunca más que el ahorro.' : 'A share of the saving, never more than the saving.'} />
+        <P>
+          {es
+            ? 'La tarifa no es un número fijo que el cliente tenga que justificar: es una fracción de lo que deja de pagar. Eso hace la propuesta autolimitante —si no hay ahorro, no hay factura— y convierte el precio en algo que se calcula, no que se negocia.'
+            : 'The fee is not a fixed number the client has to justify: it is a share of what it stops paying. That makes the offer self-limiting — no saving, no invoice.'}
+        </P>
+        <Card>
+          <div style={{ fontFamily: 'ui-monospace, monospace', fontSize: 14, lineHeight: 1.9, marginBottom: 14 }}>
+            {es ? 'tarifa mensual por sitio = 30 a 40 % del ahorro verificado' : 'monthly fee per site = 30 to 40 % of the verified saving'}
+          </div>
+          <div style={{ display: 'grid', gap: 11 }}>
+            {(es ? [
+              ['Piso mínimo por sitio', 'Cubre el costo de operar el nodo con independencia del volumen. Por debajo de cierto tonelaje el servicio no se instala: lo decimos antes y no después.'],
+              ['Instalación', 'Se cobra una vez, contra entrega de la balanza funcionando y transmitiendo. No hay cargo por un equipo que no mide.'],
+              ['El cliente conserva la mayor parte', 'Entre el 60 y el 70 % del ahorro queda en el generador. Un modelo que se queda con casi todo el beneficio no se renueva al segundo año.'],
+            ] : [
+              ['Minimum per site', 'Covers the cost of running the node regardless of volume. Below a certain tonnage the service is not installed, and we say so upfront.'],
+              ['Installation', 'Charged once, on delivery of a scale that is working and transmitting.'],
+              ['The client keeps most of it', 'Between 60 and 70 % of the saving stays with the generator.'],
+            ]).map((x, i) => (
+              <div key={i}>
+                <div style={{ fontSize: 14.5, fontWeight: 700, marginBottom: 4 }}>{x[0]}</div>
+                <div style={{ fontSize: 13.5, color: sub, lineHeight: 1.6 }}>{x[1]}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ fontSize: 13, color: sub, lineHeight: 1.65, marginTop: 16, paddingTop: 14, borderTop: `1px solid ${border}` }}>
+            {es
+              ? 'El monto absoluto queda determinado en cuanto CEAMSE nos confirme por escrito la tarifa vigente de fracción húmeda, que es el único insumo que falta. Preferimos publicar la estructura antes que un número que todavía no podemos sostener.'
+              : 'The absolute figure is determined as soon as CEAMSE confirms the current wet fraction tariff in writing, the only missing input.'}
+          </div>
+        </Card>
+
+        <H n={es ? 'El riesgo de certificación' : 'Certification risk'} tt={es ? 'Si Verra no llega, o llega tarde, qué queda.' : 'If Verra does not arrive, or arrives late, what remains.'} />
+        <P>
+          {es
+            ? 'Es la primera pregunta que hace cualquiera que conozca el proceso, y conviene que esté contestada antes de que la haga. La certificación de carbono no es el producto: es el último escalón de un producto que tiene valor en cada escalón anterior.'
+            : 'It is the first question anyone familiar with the process asks. Carbon certification is not the product: it is the last step of a product that has value at every earlier step.'}
+        </P>
+        <Card>
+          <div style={{ display: 'grid', gap: 12 }}>
+            {(es ? [
+              ['El ahorro de fracción húmeda', 'No depende de ninguna certificación. Es la diferencia entre lo que el generador paga hoy y lo que pagaría separando. Se cobra todos los meses, desde el primero.'],
+              ['El cumplimiento de la Ley 1854', 'El generador especial debe inscribirse en el ReGE-FH, acreditar transporte y disposición y sostener el expediente. Hoy eso es trabajo administrativo que alguien hace a mano.'],
+              ['El reporte para casa matriz', 'Las multinacionales que operan en Argentina reportan métricas de residuos a sus sedes. Hoy las estiman. Un dato trazable vale más que una estimación, con o sin crédito emitido.'],
+              ['La capacidad ociosa de las plantas', 'Un operador con planta habilitada y capacidad sin usar necesita materia prima. Conectarlo con quien genera el material es valor por sí mismo.'],
+            ] : [
+              ['The wet fraction saving', 'Does not depend on any certification. It recurs every month, from the first one.'],
+              ['Law 1854 compliance', 'Special generators must register in ReGE-FH and document transport and disposal. Today that is manual administrative work.'],
+              ['Parent company reporting', 'Multinationals operating in Argentina report waste metrics to headquarters. Today they estimate them.'],
+              ['Idle plant capacity', 'An operator with a licensed plant and unused capacity needs feedstock.'],
+            ]).map((x, i) => (
+              <div key={i}>
+                <div style={{ fontSize: 14.5, fontWeight: 700, marginBottom: 4 }}>{x[0]}</div>
+                <div style={{ fontSize: 13.5, color: sub, lineHeight: 1.6 }}>{x[1]}</div>
+              </div>
+            ))}
+          </div>
+        </Card>
+        <div style={{ marginTop: 14 }}>
+          <Card>
+            <Rubro t={t}>{es ? 'Y no hay una sola puerta' : 'And there is more than one door'}</Rubro>
+            <div style={{ fontSize: 13.5, color: sub, lineHeight: 1.7 }}>
+              {es
+                ? 'Verra es la vía más madura para residuos orgánicos y es la que estamos trabajando. El mecanismo del Artículo 6.4 del Acuerdo de París es una segunda vía, todavía en construcción de metodologías, que hoy no está disponible para un proyecto nuevo de este tipo. Y hay una tercera: los acuerdos bilaterales del Artículo 6.2, donde Chile es el país más avanzado de la región, con un acuerdo vigente con Suiza y una ley marco que ordena reglamento y registro público. Argentina, en cambio, no tiene acuerdos bilaterales firmados y su marco de autorización sigue en desarrollo. Esa es una restricción real de nuestra base y no la escondemos: es una de las razones por las que Chile está en el hito 2 y no en el último.'
+                : 'Verra is the most mature route for organic waste and the one we are working on. The Paris Agreement Article 6.4 mechanism is a second route, still building methodologies, not available today for a new project of this type. A third exists: Article 6.2 bilateral agreements, where Chile is the most advanced country in the region. Argentina has no signed bilateral agreements and its authorisation framework is still in development. That is a real constraint of our base and we do not hide it.'}
+            </div>
+            <div style={{ fontSize: 12, color: sub, lineHeight: 1.6, marginTop: 12, opacity: 0.8 }}>
+              {es ? 'Estado del Artículo 6 en la región según el relevamiento regional de octubre de 2024. Verificamos antes de cada actualización.' : 'Article 6 regional status per the October 2024 regional survey.'}
+            </div>
+          </Card>
+        </div>
+
         <H n={es ? 'El pedido' : 'The ask'} tt={es ? 'USD 200.000 en tres tramos contra hitos.' : 'USD 200,000 in three milestone-based tranches.'} />
         <P>
           {es
