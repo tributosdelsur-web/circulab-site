@@ -374,7 +374,7 @@ export default function Ciudadano() {
           <p style={{fontSize:12,color:sub,marginBottom:16}}>{es?'Rutas optimizadas · Transportes verdes':'Optimized routes · Green transport'}</p>
           <div style={{display:'flex',flexDirection:'column',gap:8,marginBottom:14}}>
             {[
-              {icon:'🏠',t:es?'Vos separás y fotografiás':'You sort and photograph',d:es?'Foto + GPS activa tus OLV Verdes. La IA analiza tipo y peso.':'Photo + GPS activates your Green OLV. AI analyzes type and weight.',c:'#22c55e'},
+              {icon:'🏠',t:es?'Vos separás y registrás':'You sort and register',d:es?'La foto con GPS deja constancia de qué separaste y desde dónde. La foto clasifica el material; no es el peso de registro. El peso surge de la balanza en el punto de entrega.':'The photo with GPS records what you sorted and from where. The photo classifies the material; it is not the weight of record. Weight comes from the scale at the drop-off point.'},
               {icon:'🤖',t:es?'IA optimiza la ruta':'AI optimizes the route',d:es?'Asigna el recolector más cercano con el vehículo más verde disponible.':'Assigns nearest collector with greenest available vehicle.',c:'#3b82f6'},
               {icon:'🚲',t:es?'Recolector verde prioritario':'Priority green collector',d:es?'🚲 Bicicleta · 🛵 Moto eléctrica · ⚡ Auto eléctrico — bonus OLV por transporte verde':'🚲 Bicycle · 🛵 Electric scooter · ⚡ Electric car — OLV bonus for green transport',c:'#22c55e'},
               {icon:'🏭',t:es?'Planta verificada':'Verified plant',d:es?'El residuo llega con GPS y foto verificados. Listo para certificar con Verra.':'Waste arrives GPS and photo verified. Ready to certify with Verra.',c:'#a855f7'},
@@ -529,7 +529,7 @@ export default function Ciudadano() {
         {/* COMPARTIR */}
         <section style={{padding:'24px 0',borderTop:`1px solid ${border}`}}>
           <h2 style={{fontSize:20,fontWeight:900,marginBottom:6,color:text}}>{es?'Compartí OLIVIA':'Share OLIVIA'}</h2>
-          <p style={{fontSize:12,color:sub,marginBottom:16}}>{es?'⭐ +50 OLV Bonus por cada amigo que se registre':'⭐ +50 Bonus OLV for each friend who registers'}</p>
+          <p style={{fontSize:12,color:sub,marginBottom:16}}>{es?'Invitar suma OLV Bonus, que son puntos de participación sin valor ambiental ni monetario':'Inviting adds Bonus OLV: participation points with no environmental or monetary value'}</p>
           <div style={{display:'flex',flexDirection:'column',gap:10}}>
             <a href={`https://wa.me/?text=${encodeURIComponent(es?'Mirá esto — tu residuo vuelve al ciclo 🌿 https://oliviacirculab.com.ar/ciudadano':'Check this out — your waste returns to the cycle 🌿 https://oliviacirculab.com.ar/ciudadano')}`}
               target="_blank" style={{display:'flex',alignItems:'center',gap:12,padding:'14px',borderRadius:12,background:'rgba(37,211,102,0.08)',border:'1px solid rgba(37,211,102,0.3)',textDecoration:'none'}}>

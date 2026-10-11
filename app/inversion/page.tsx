@@ -316,6 +316,40 @@ export default function Inversion() {
             : 'For an investor that means two bets rather than one, with different risks: in organics the revenue is clear and the plant is missing; in e-waste the plant is identified and the revenue depends on the credit.'}
         </P>
 
+        <H n={es ? 'Integridad del dato' : 'Data integrity'} tt={es ? 'Cómo evitamos que el dato se falsifique.' : 'How we keep the data from being faked.'} />
+        <P>
+          {es
+            ? 'Es la objeción técnica que más importa, porque si el dato se puede inventar no hay nada que vender. Un auditor no acepta un peso estimado visualmente, y nosotros tampoco.'
+            : 'This is the technical objection that matters most: if the data can be invented there is nothing to sell. An auditor does not accept a visually estimated weight, and neither do we.'}
+        </P>
+        <Card>
+          <div style={{ display: 'grid', gap: 12 }}>
+            {(es ? [
+              ['La foto clasifica, no pesa', 'La imagen con GPS sirve para identificar el tipo de material y el origen. No es el peso de registro y no la presentamos como tal. El peso surge de la balanza.'],
+              ['El peso se firma en el origen', 'Celdas de carga con conversor dedicado y firma criptográfica generada en el propio equipo, antes de salir al teléfono. Un dato alterado después de la pesada no valida.'],
+              ['Tara por recipiente', 'Cada tacho lleva un QR con su tara registrada. El peso neto se calcula contra esa tara y no contra un valor declarado por el usuario.'],
+              ['Antiduplicado', 'Un lote no puede registrarse dos veces: el identificador del recipiente y la marca de tiempo de la pesada cierran el registro.'],
+              ['El operador cierra el circuito', 'El registro queda pendiente hasta que la instalación habilitada confirma la recepción y el procesamiento. Sin esa confirmación no computa, aunque todo lo anterior esté bien.'],
+            ] : [
+              ['The photo classifies, it does not weigh', 'The GPS image identifies material type and origin. It is not the weight of record and we do not present it as one.'],
+              ['Weight is signed at source', 'Load cells with a dedicated converter and a cryptographic signature generated in the device itself, before reaching the phone.'],
+              ['Tare per container', 'Each bin carries a QR with its registered tare. Net weight is computed against that tare, not a user-declared value.'],
+              ['Anti-duplication', 'A batch cannot be registered twice: the container identifier and the weighing timestamp close the record.'],
+              ['The operator closes the circuit', 'The record stays pending until the licensed facility confirms reception and processing.'],
+            ]).map((x, i) => (
+              <div key={i}>
+                <div style={{ fontSize: 14.5, fontWeight: 700, marginBottom: 4 }}>{x[0]}</div>
+                <div style={{ fontSize: 13.5, color: sub, lineHeight: 1.6 }}>{x[1]}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ fontSize: 13, color: sub, lineHeight: 1.65, marginTop: 16, paddingTop: 14, borderTop: `1px solid ${border}` }}>
+            {es
+              ? 'La balanza está diseñada y sin fabricar: es el tramo 1 del pedido. Hasta que exista, los registros se validan a mano y por eso el contador de verificados está en cero. Preferimos un cero explicado a un número que no resista una auditoría.'
+              : 'The scale is designed and not yet built: that is tranche 1 of the ask. Until it exists, records are validated manually, which is why the verified counter reads zero.'}
+          </div>
+        </Card>
+
         <H n={es ? 'El pedido' : 'The ask'} tt={es ? 'USD 200.000 en tres tramos contra hitos.' : 'USD 200,000 in three milestone-based tranches.'} />
         <P>
           {es
