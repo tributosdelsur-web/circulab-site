@@ -55,7 +55,7 @@ export default function Landing() {
   const [empresa, setEmpresa] = useState('')
   const [enviando, setEnviando] = useState(false)
   const [enviado, setEnviado] = useState(false)
-  const [stats, setStats] = useState({usuarios:0,kg:0,co2:0})
+  const [stats, setStats] = useState({usuarios:0,kg:0,co2:0,registrados:0})
   const [videoModal, setVideoModal] = useState(true)
   const videoRef = useRef<HTMLVideoElement>(null)
 
@@ -70,7 +70,7 @@ export default function Landing() {
 
   async function cargarStats() {
     const m = await metricasPublicas()
-    setStats({usuarios:m.usuarios,kg:Math.round(m.kg*10)/10,co2:Math.round(m.kg*0.8)})
+    setStats({usuarios:m.usuarios,kg:Math.round(m.kg*10)/10,co2:Math.round(m.kg*0.8),registrados:Math.round(m.kgRegistrados*10)/10})
   }
 
   async function enviarLead() {
@@ -442,8 +442,8 @@ export default function Landing() {
         {/* PILOTO EN CURSO */}
         <div style={{fontSize:11,color:sub,lineHeight:1.6,textAlign:'center',maxWidth:460,margin:'0 auto 14px'}}>
           {es
-            ? 'Piloto en curso · 11 kg registrados, aún sin kilos verificados: el primer registro con confirmación de procesamiento requiere una planta firmada.'
-            : 'Pilot running · 11 kg registered, no verified kilos yet: the first record with processing confirmation requires a signed plant.'}
+            ? `Piloto en curso · ${stats.registrados} kg registrados, aún sin kilos verificados: el primer registro con confirmación de procesamiento requiere una planta firmada.`
+            : `Pilot running · ${stats.registrados} kg registered, no verified kilos yet: the first record with processing confirmation requires a signed plant.`}
         </div>
         <div style={{fontSize:11,color:'#94a3b8',textAlign:'center',marginTop:10}}>{es?'Piloto en curso · datos en vivo desde la plataforma':'Pilot in progress · live data from the platform'}</div>
 

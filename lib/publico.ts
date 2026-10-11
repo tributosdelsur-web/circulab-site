@@ -18,8 +18,12 @@ export async function conAutores<T extends { usuario_id?: string | null }>(
 }
 
 // Totales para la home, /metamorfosis y el onepager.
-export async function metricasPublicas(): Promise<{ kg: number; usuarios: number }> {
+export async function metricasPublicas(): Promise<{ kg: number; kgRegistrados: number; usuarios: number }> {
   const { data } = await supabase.rpc('metricas_publicas')
-  const m = (data || {}) as { kg_validados?: number | string; usuarios?: number | string }
-  return { kg: Number(m.kg_validados || 0), usuarios: Number(m.usuarios || 0) }
+  const m = (data || {}) as { kg_validados?: number | string; kg_registrados?: number | string; usuarios?: number | string }
+  return {
+    kg: Number(m.kg_validados || 0),
+    kgRegistrados: Number(m.kg_registrados || 0),
+    usuarios: Number(m.usuarios || 0),
+  }
 }

@@ -8,7 +8,7 @@ export default function Observatorio() {
   const [dark, setDark] = useState(true)
   const [lang, setLang] = useState('es')
   const es = lang === 'es'
-  const [m, setM] = useState<{ kg: number; usuarios: number } | null>(null)
+  const [m, setM] = useState<{ kg: number; kgRegistrados: number; usuarios: number } | null>(null)
 
   useEffect(() => { metricasPublicas().then(setM) }, [])
 
@@ -22,6 +22,7 @@ export default function Observatorio() {
 
   const metricas = [
     { l: es ? 'Kilos verificados' : 'Verified kilos', v: m ? n(m.kg, 1) : '—', u: 'kg', c: '#22c55e' },
+    { l: es ? 'Kilos registrados' : 'Registered kilos', v: m ? n(m.kgRegistrados, 1) : '—', u: 'kg', c: '#65a30d' },
     { l: es ? 'Metano evitado' : 'Methane avoided', v: m ? n(m.kg * FACTOR, 1) : '—', u: 'kg CO₂eq', c: '#0891b2' },
     { l: es ? 'Personas midiendo' : 'People measuring', v: m ? n(m.usuarios) : '—', u: '', c: '#d97706' },
   ]
