@@ -70,7 +70,7 @@ export default function Landing() {
 
   async function cargarStats() {
     const m = await metricasPublicas()
-    setStats({usuarios:m.usuarios,kg:Math.round(m.kg*10)/10,co2:Math.round(m.kg*1.8)})
+    setStats({usuarios:m.usuarios,kg:Math.round(m.kg*10)/10,co2:Math.round(m.kg*0.8)})
   }
 
   async function enviarLead() {
@@ -85,8 +85,8 @@ export default function Landing() {
   function compartirVideo(tipo: 'whatsapp'|'story', esLanding=true) {
     const url = 'https://oliviacirculab.com.ar'
     const txt = es
-      ?`Mirá esto — OLIVIA Circulab convierte tu basura en dinero real 🌿 ${url}`
-      :`Watch this — OLIVIA Circulab turns your waste into real money 🌿 ${url}`
+      ?`Mirá esto — OLIVIA Circulab mide lo que tu barrio devuelve al ciclo 🌿 ${url}`
+      :`Watch this — OLIVIA Circulab measures what your neighbourhood returns to the cycle 🌿 ${url}`
     if(tipo==='whatsapp'){
       window.open(`https://wa.me/?text=${encodeURIComponent(txt)}`)
     } else {

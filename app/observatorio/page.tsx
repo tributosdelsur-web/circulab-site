@@ -111,6 +111,55 @@ export default function Observatorio() {
             : `We count verified records only: those with origin, weight, transfer and processing confirmation. Unverified entries do not appear here. Methane avoided uses a factor of ${FACTOR} kg CO₂eq per kilo diverted from landfill — a conservative value we chose ourselves, not an issued carbon credit.`}
         </p>
 
+        <div style={{ background: card, border: `1px solid ${border}`, borderRadius: 14, padding: "20px 20px 18px", marginTop: 14 }}>
+          <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 800, color: sub, marginBottom: 12 }}>
+            {es ? "Cómo calculamos el metano evitado" : "How we calculate avoided methane"}
+          </div>
+
+          <div style={{ fontFamily: "ui-monospace, monospace", fontSize: 13.5, lineHeight: 1.9, marginBottom: 6 }}>
+            L₀ = MCF × DOC × DOC<sub>f</sub> × F × 16/12
+          </div>
+          <div style={{ fontSize: 12.5, color: sub, lineHeight: 1.6, marginBottom: 16 }}>
+            {es
+              ? "Con los valores por defecto del IPCC para residuo alimentario en relleno manejado (MCF 1,0 · DOC 0,15 · DOCf 0,5 · F 0,5) el resultado es 0,05 kg de metano por kilo de residuo. Multiplicado por el potencial de calentamiento global del metano a 100 años (28, según el quinto informe del IPCC) da un bruto teórico de aproximadamente 1,4 kg CO₂eq por kilo desviado."
+              : "Using IPCC defaults for food waste in a managed landfill (MCF 1.0 · DOC 0.15 · DOCf 0.5 · F 0.5) the result is 0.05 kg of methane per kilo of waste. Multiplied by methane\u2019s 100-year global warming potential (28, IPCC AR5) this gives a theoretical gross of roughly 1.4 kg CO₂eq per kilo diverted."}
+          </div>
+
+          <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 800, color: sub, marginBottom: 10 }}>
+            {es ? "Lo que hay que descontar de ese bruto" : "What must be deducted from that gross"}
+          </div>
+          <div style={{ display: "grid", gap: 10, marginBottom: 16 }}>
+            {(es ? [
+              ["Oxidación en la cobertura", "Parte del metano se oxida al atravesar la cobertura del relleno antes de llegar a la atmósfera. Del orden del 10 %."],
+              ["Captura de biogás del relleno", "El relleno ya captura una fracción del gas que genera. Todo lo que captura es metano que no se evita por desviar el residuo, porque ya no se emitía."],
+              ["Emisiones del propio tratamiento", "Compostar no es neutro: el proceso emite. Del orden de 0,1 a 0,2 kg CO₂eq por kilo."],
+            ] : [
+              ["Cover oxidation", "Part of the methane oxidises crossing the landfill cover. Around 10 %."],
+              ["Landfill gas capture", "The landfill already captures a share of the gas it generates. Whatever it captures is methane that diversion does not avoid, because it was no longer being emitted."],
+              ["Treatment emissions", "Composting is not neutral: the process emits. Around 0.1 to 0.2 kg CO₂eq per kilo."],
+            ]).map((x, i) => (
+              <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#0891b2", flexShrink: 0, marginTop: 7 }} />
+                <div>
+                  <div style={{ fontSize: 13.5, fontWeight: 700, marginBottom: 3 }}>{x[0]}</div>
+                  <div style={{ fontSize: 12.5, color: sub, lineHeight: 1.55 }}>{x[1]}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ fontSize: 12.5, color: sub, lineHeight: 1.65, paddingTop: 14, borderTop: `1px solid ${border}` }}>
+            {es
+              ? `Con esos tres descuentos el valor neto defendible queda por debajo de 1,0. Publicamos ${FACTOR} porque preferimos subestimar: si alguien audita este número, el resultado será que contamos de menos. En un sistema de verificación, equivocarse hacia abajo es un activo y equivocarse hacia arriba es el final.`
+              : `With those three deductions the defensible net value falls below 1.0. We publish ${FACTOR} because we prefer to undercount: if anyone audits this figure, the finding will be that we counted too little.`}
+          </div>
+          <div style={{ fontSize: 12.5, color: sub, lineHeight: 1.65, marginTop: 10 }}>
+            {es
+              ? "El factor definitivo no lo elegimos nosotros. Sale del estudio de línea de base del proyecto, con la tasa de captura real del relleno y la metodología que corresponda, validado por un auditor acreditado. Hasta entonces, este número es una estimación propia declarada y no un crédito de carbono."
+              : "The final factor is not ours to choose. It comes from the project baseline study, with the landfill\u2019s actual capture rate and the applicable methodology, validated by an accredited auditor. Until then this figure is a declared estimate of our own, not a carbon credit."}
+          </div>
+        </div>
+
         <H n="2" t={es ? 'Contexto de la ciudad' : 'City context'} c="#0891b2" />
         <div style={{ display: 'grid', gap: 9 }}>
           {contexto.map((c, i) => (
