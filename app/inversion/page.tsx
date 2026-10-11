@@ -46,7 +46,7 @@ export default function Inversion() {
   ]
 
   const tramos = [
-    { t: 'Tramo 1 · USD 50.000', h: 'Sociedad constituida, operador firmado, balanza transmitiendo datos continuos', u: 'Sociedad, acuerdo con operador, primeras balanzas, cuatro meses de equipo' },
+    { t: 'Tramo 1 · USD 50.000', h: 'Sociedad constituida, planta habilitada firmada, balanza transmitiendo datos continuos', u: 'Sociedad, acuerdo con operador, primeras balanzas, cuatro meses de equipo' },
     { t: 'Tramo 2 · USD 70.000', h: 'Documento de diseño del proyecto presentado', u: 'Desarrollador de carbono, línea de base, documento de diseño, más nodos' },
     { t: 'Tramo 3 · USD 80.000', h: 'Proyecto registrado', u: 'Auditoría de tercera parte, registro, operación' },
   ]

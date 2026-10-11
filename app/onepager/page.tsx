@@ -277,16 +277,17 @@ return (
       <div style={{background:'linear-gradient(135deg,rgba(34,197,94,0.06),rgba(59,130,246,0.06))',border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,padding:'14px',marginBottom:12}}>
         <div style={{fontSize:11,fontWeight:700,color:'#f59e0b',marginBottom:10,textTransform:'uppercase',letterSpacing:'0.05em'}}>{t.ronda_titulo}</div>
         <div style={{display:'flex',justifyContent:'space-between',alignItems:'baseline',flexWrap:'wrap',gap:8,marginBottom:10}}>
-          <div style={{fontSize:22,fontWeight:900,color:'#22c55e'}}>USD 200K</div>
+          <div style={{fontSize:22,fontWeight:900,color:'#22c55e'}}>USD 50K</div>
+          <div style={{fontSize:9,color:sub,marginTop:3,lineHeight:1.5}}>{es?'Pre-semilla, por SAFE con tope de valuación. El plan completo son USD 200K en tres tramos: lo de abajo es plan, no pedido, y no compromete a ninguna de las partes.':'Pre-seed, via SAFE with a valuation cap. The full plan is USD 200K in three tranches: a plan, not an ask, binding neither party.'}</div>
           <div style={{fontSize:10,color:sub}}>{es?'3 tramos contra hitos · para un socio activo · instrumento y valuación a conversar':'3 milestone-based tranches · for an active partner · instrument and valuation to be discussed'}</div>
         </div>
         <div style={{display:'flex',flexDirection:'column',gap:6,marginBottom:8}}>
           {(es?[
-            {n:'1',m:'USD 50K',d:'Sociedad, acuerdo con acopiador, primeras balanzas, 4 meses de equipo: CTO a tiempo parcial (honorarios + participación con vesting) y fundadores',h:'Sociedad constituida, acopiador firmado, balanza transmitiendo datos continuos'},
+            {n:'1',m:'USD 50K',d:'Sociedad, acuerdo con acopiador, 10 balanzas, 6 meses de equipo: CTO a tiempo parcial (honorarios + participación con vesting) y fundadores',h:'Sociedad constituida, acopiador firmado, balanza transmitiendo datos continuos'},
             {n:'2',m:'USD 70K',d:'Desarrollador de carbono, línea de base, documento de diseño del proyecto, más nodos',h:'Documento de diseño presentado ante Verra'},
             {n:'3',m:'USD 80K',d:'Auditoría de tercera parte, registro, operación',h:'Proyecto registrado'},
           ]:[
-            {n:'1',m:'USD 50K',d:'Company, collector agreement, first scales, 4 months of team: part-time CTO (fees + vested equity) and founders',h:'Company incorporated, collector signed, scale transmitting continuous data'},
+            {n:'1',m:'USD 50K',d:'Company, collector agreement, 10 scales, 6 months of team: part-time CTO (fees + vested equity) and founders',h:'Company incorporated, collector signed, scale transmitting continuous data'},
             {n:'2',m:'USD 70K',d:'Carbon developer, baseline, project design document, more nodes',h:'Project design document submitted to Verra'},
             {n:'3',m:'USD 80K',d:'Third-party audit, registration, operations',h:'Project registered'},
           ]).map(r=>(

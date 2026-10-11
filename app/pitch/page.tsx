@@ -39,6 +39,18 @@ const SLIDES = [
   },
   {
     id: 4,
+    titulo: 'Por dónde empieza esto en la vida real',
+    subtitulo: 'Dos entradas concretas. Ninguna espera a Verra.',
+    tipo: 'porquefunciona',
+    contenido: [
+      {icon:'🧉',titulo:'La yerba',desc:'Es el residuo orgánico más fácil de separar que existe en este país: aparece todos los días, en casi todas las casas, no gotea y casi no huele. No hay que enseñar un hábito nuevo, hay que darle un destino al que ya existe. Por eso es la puerta de entrada del vecino y no los restos de comida.'},
+      {icon:'🪜',titulo:'El olor de la escalera',desc:'El metano no tiene olor. Lo que se huele en el cuarto de residuos son ácidos grasos volátiles, amoníaco y compuestos azufrados, que aparecen cuando lo orgánico se descompone sin aire. Las mismas condiciones que producen ese olor producen metano. El olor es el aviso de lo que no se ve.'},
+      {icon:'⏱️',titulo:'Lo único que se percibe en una semana',desc:'Separar la fracción orgánica y sacarla con frecuencia corta el olor y el metano a la vez. Para un administrador de consorcio ese es el argumento que funciona: no es un crédito de carbono en 2029, es la queja que deja de aparecer en la próxima asamblea.'},
+    ],
+    bg: 'linear-gradient(135deg,#1a1405,#0a0e1a)',
+  },
+  {
+    id: 5,
     titulo: 'En la naturaleza no existe la basura',
     subtitulo: 'Existe materia que vuelve al ciclo. Nosotros la medimos.',
     tipo: 'porquefunciona',
@@ -50,7 +62,7 @@ const SLIDES = [
     bg: 'linear-gradient(135deg,#0a1a0a,#0a0e1a)',
   },
   {
-    id: 5,
+    id: 6,
     titulo: 'La solución',
     subtitulo: 'Balanza + registro digital + firma del acopiador',
     tipo: 'solucion',
@@ -63,7 +75,7 @@ const SLIDES = [
     bg: 'linear-gradient(135deg,#0a1a0a,#0a0e1a)',
   },
   {
-    id: 6,
+    id: 7,
     titulo: 'El producto existe hoy',
     subtitulo: 'Funcionando en producción — sin inversión externa',
     tipo: 'producto',
@@ -77,7 +89,7 @@ const SLIDES = [
     bg: 'linear-gradient(135deg,#0a1a0a,#050d1f)',
   },
   {
-    id: 7,
+    id: 8,
     titulo: 'Hoja de ruta',
     subtitulo: 'Tres etapas reales',
     tipo: 'tramos',
@@ -89,7 +101,7 @@ const SLIDES = [
     bg: 'linear-gradient(135deg,#0a1a0a,#0a0e1a)',
   },
   {
-    id: 8,
+    id: 9,
     titulo: 'Clientes · operadores primero',
     subtitulo: 'El vecino es la capa de origen, no el cliente',
     tipo: 'segmentos',
@@ -105,7 +117,7 @@ const SLIDES = [
     bg: 'linear-gradient(135deg,#0a0a1a,#0a0e1a)',
   },
   {
-    id: 9,
+    id: 10,
     titulo: 'Modelo de ingresos',
     subtitulo: 'En orden de cercanía',
     tipo: 'fuentes',
@@ -129,7 +141,7 @@ const SLIDES = [
   },
   {
     id: 12,
-    titulo: 'El pedido: USD 200.000',
+    titulo: 'El pedido: USD 50.000 pre-semilla, por SAFE',
     subtitulo: '3 tramos contra hitos · para un socio activo · instrumento y valuación a conversar',
     tipo: 'ronda',
     contenido: [
