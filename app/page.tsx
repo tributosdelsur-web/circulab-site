@@ -777,6 +777,7 @@ export default function Landing() {
           {[
             {l:'Whitepaper',h:'/whitepaper'},
             {l:'One Pager',h:'/onepager'},
+            {l:es?'Institucional':'About us',h:'/institucional'},
             {l:'Pitch',h:'/pitch'},
             {l:es?'Equipo':'Team',h:'/equipo'},
             {l:es?'Alianzas':'Partners',h:'/alianzas'},
