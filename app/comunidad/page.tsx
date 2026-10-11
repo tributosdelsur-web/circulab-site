@@ -322,7 +322,7 @@ function ComunidadContent() {
   }
 
   async function compartirPost(post: any) {
-    const texto = `${post.contenido||'Acción climática verificada'} 🌿\n\n#OliviaCirculab #ReFi\noliviacirculab.com.ar`
+    const texto = `${post.contenido||'Acción climática verificada'} 🌿\n\n#OliviaCirculab\noliviacirculab.com.ar`
     if(navigator.share) {
       try { await navigator.share({title:'OLIVIA Circulab',text:texto,url:'https://circulab-site.vercel.app/comunidad'}) } catch(e) {}
     } else {

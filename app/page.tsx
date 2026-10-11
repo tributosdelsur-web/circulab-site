@@ -440,6 +440,11 @@ export default function Landing() {
         </div>
 
         {/* PILOTO EN CURSO */}
+        <div style={{fontSize:11,color:sub,lineHeight:1.6,textAlign:'center',maxWidth:460,margin:'0 auto 14px'}}>
+          {es
+            ? 'Piloto en curso · 11 kg registrados, aún sin kilos verificados: el primer registro con confirmación de procesamiento requiere una planta firmada.'
+            : 'Pilot running · 11 kg registered, no verified kilos yet: the first record with processing confirmation requires a signed plant.'}
+        </div>
         <div style={{fontSize:11,color:'#94a3b8',textAlign:'center',marginTop:10}}>{es?'Piloto en curso · datos en vivo desde la plataforma':'Pilot in progress · live data from the platform'}</div>
 
         {/* FRASE CENTRAL */}
@@ -537,8 +542,6 @@ export default function Landing() {
         <div style={{display:'flex',flexDirection:'column',gap:10,marginBottom:16}}>
           {[
             {icon:'🌿',nombre:'Metamorfosis',desc:es?'Reciclás y sumás OLV Verdes respaldados por kilos verificados':'You recycle and add Green OLV backed by verified kilos',color:'#22c55e',href:'/metamorfosis'},
-            {icon:'💜',nombre:'Quincena PULSO',desc:es?'Próxima etapa: círculos de ahorro que reconocen tu historial':'Next stage: savings circles that recognize your track record',color:'#3b82f6',href:'/quincena'},
-            {icon:'🎨',nombre:'Art of Money',desc:es?'Próxima etapa: herramientas financieras para creadores':'Next stage: financial tools for creators',color:'#a855f7',href:'/aom'},
           ].map(v=>(
             <div key={v.nombre} style={{padding:'16px',background:card,borderRadius:14,border:`1px solid ${v.color}22`}}>
               <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:6}}>
