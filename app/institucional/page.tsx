@@ -102,7 +102,7 @@ export default function Institucional() {
           <div style={{display:'inline-flex',alignItems:'center',gap:8,background:'rgba(34,197,94,0.08)',border:'1px solid rgba(34,197,94,0.25)',borderRadius:30,padding:'8px 16px',marginBottom:20,flexWrap:'wrap'}}>
             <span style={{fontSize:11,fontWeight:700,color:'#22c55e'}}>{es?'Ronda Seed abierta':'Seed Round open'}</span>
             <span style={{fontSize:10,color:sub}}>·</span>
-            <span style={{fontSize:11,color:sub}}>{es?'USD 200K · 3 tramos contra hitos':'USD 200K · 3 milestone-based tranches'}</span>
+            <span style={{fontSize:11,color:sub}}>{es?'Producto en producción · sin inversión externa':'Product live · no external investment'}</span>
             <span style={{fontSize:10,color:sub}}>·</span>
             <span style={{fontSize:11,color:sub}}>{es?'Instrumento y valuación a conversar':'Instrument and valuation to be discussed'}</span>
           </div>
@@ -297,7 +297,7 @@ export default function Institucional() {
               {[
                 {icon:'🏛️',t:es?'Elinor Ostrom · Nobel 2009':'Elinor Ostrom · Nobel 2009',d:es?'Las comunidades gestionan mejor los bienes comunes con monitoreo verificable. OLIVIA es ese monitoreo.':'Communities manage commons better with verifiable monitoring. OLIVIA is that monitoring.'},
                 {icon:'♻️',t:'Buckminster Fuller',d:es?'"La contaminación son recursos que no estamos cosechando." OLIVIA convierte esa contaminación en activo financiero.':'"Pollution is nothing but resources we\'re not harvesting." OLIVIA converts that pollution into financial assets.'},
-                {icon:'🔄',t:es?'Flywheel imparable':'Unstoppable flywheel',d:es?'Más usuarios → más OLV → más usos → más datos para Verra → precio más alto → más usuarios':'More users → more OLV → more uses → more Verra data → higher price → more users'},
+                {icon:'🔄',t:es?'Lo que se refuerza solo':'What reinforces itself',d:es?'Más operadores con destino verificado → más material con los cuatro datos completos → una base más defendible ante un auditor → más razones para que entre el siguiente operador. El circuito se vuelve más sólido con cada planta que firma, no con cada usuario que se registra.':'More operators with verified destination → more material with all four data points → a stronger case before an auditor → more reason for the next operator to join.'},
               ].map((item,i)=>(
                 <div key={i} style={{background:card,border:`1px solid ${border}`,borderRadius:12,padding:'14px'}}>
                   <div style={{fontSize:22,marginBottom:8}}>{item.icon}</div>
