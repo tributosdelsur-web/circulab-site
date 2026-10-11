@@ -259,12 +259,12 @@ export default function GrandesEmisores() {
           </h2>
           <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:16}}>
             {(es?[
-              {icon:'🔍',t:'Trazabilidad completa dMRV',d:'Cada crédito OLIVIA tiene: foto del origen, coordenadas GPS, peso verificado por IA y registro en blockchain. El comprador puede auditar cada gramo de CO2 evitado.',c:accent},
+              {icon:'🔍',t:'Trazabilidad completa dMRV',d:'Cada registro OLIVIA tiene cuatro datos: foto del origen con coordenadas GPS, peso, traslado y confirmación de procesamiento de la planta. El comprador puede auditar el recorrido completo de cada kilo, desde quién lo separó hasta dónde se transformó. El cuarto dato es el que casi ningún sistema produce hoy, y es el que hace defendible el registro ante un auditor.',c:accent},
               {icon:'✅',t:'Verra VCS · metodología validada',d:'En febrero 2026 Verra aprobó su primer piloto dMRV de alta frecuencia — el mismo modelo que implementa OLIVIA. El camino a la certificación está validado.',c:blue},
               {icon:'🌿',t:'Origen urbano ciudadano',d:'Los créditos OLIVIA vienen del reciclaje de residuos orgánicos urbanos por ciudadanos reales. Impacto medible, verificable y con co-beneficios sociales (cooperativistas que cobran por su trabajo).',c:purple},
               {icon:'📊',t:'Datos en tiempo real',d:'Dashboard con datos verificados actualizables en tiempo real. Compatible con reportes GRI · SASB · TCFD · CORSIA · EU ETS. No es una estimación — son datos reales de pesaje.',c:orange},
             ]:[
-              {icon:'🔍',t:'Complete dMRV traceability',d:'Each OLIVIA credit has: origin photo, GPS coordinates, AI-verified weight and blockchain record. The buyer can audit every gram of CO2 avoided.',c:accent},
+              {icon:'🔍',t:'Complete dMRV traceability',d:'Each OLIVIA record has four data points: origin photo with GPS coordinates, weight, transfer and processing confirmation from the plant. The buyer can audit the full path of every kilo, from who sorted it to where it was transformed.',c:accent},
               {icon:'✅',t:'Verra VCS · validated methodology',d:'In February 2026 Verra approved its first high-frequency dMRV pilot — the same model OLIVIA implements. The path to certification is validated.',c:blue},
               {icon:'🌿',t:'Urban citizen origin',d:'OLIVIA credits come from urban organic waste recycling by real citizens. Measurable, verifiable impact with social co-benefits (cooperatives paid for their work).',c:purple},
               {icon:'📊',t:'Real-time data',d:'Dashboard with real-time verifiable data. Compatible with GRI · SASB · TCFD · CORSIA · EU ETS reports. Not an estimate — real weighing data.',c:orange},
