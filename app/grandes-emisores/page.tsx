@@ -300,7 +300,7 @@ export default function GrandesEmisores() {
           </a>
           <div style={{fontSize:11,color:sub}}>
             {es?'O escribinos directamente:':'Or write to us directly:'}{' '}
-            <a href="mailto:hola@oliviacirculab.com.ar?subject=Grandes Emisores OLIVIA" style={{color:blue}}>hola@oliviacirculab.com.ar</a>
+            <a href="/contacto" style={{color:blue}}>hola@oliviacirculab.com.ar</a>
           </div>
         </div>
       </section>

@@ -192,7 +192,7 @@ export default function Consorcios() {
                 <div style={{padding:'16px'}}>
                   <div style={{fontSize:13,fontWeight:700,color:k.c,marginBottom:6}}>{k.nombre}</div>
                   <div style={{fontSize:11,color:sub,lineHeight:1.6,marginBottom:14}}>{k.desc}</div>
-                  <a href={'mailto:hola@oliviacirculab.com.ar?subject='+k.asunto} style={{display:'block',background:'linear-gradient(135deg,'+k.c+','+k.c+'bb)',borderRadius:10,padding:'10px',color:'white',fontSize:11,fontWeight:700,textDecoration:'none',textAlign:'center'}}>
+                  <a href="/contacto" style={{display:'block',background:'linear-gradient(135deg,'+k.c+','+k.c+'bb)',borderRadius:10,padding:'10px',color:'white',fontSize:11,fontWeight:700,textDecoration:'none',textAlign:'center'}}>
                     {es?'Solicitar propuesta →':'Request proposal →'}
                   </a>
                 </div>
@@ -275,7 +275,7 @@ export default function Consorcios() {
           </a>
           <div style={{fontSize:11,color:sub}}>
             {es?'O escribinos directo:':'Or write to us directly:'}{' '}
-            <a href="mailto:hola@oliviacirculab.com.ar?subject=Propuesta consorcio OLIVIA" style={{color:accent}}>hola@oliviacirculab.com.ar</a>
+            <a href="/contacto" style={{color:accent}}>hola@oliviacirculab.com.ar</a>
           </div>
         </div>
       </section>

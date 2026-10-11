@@ -229,7 +229,7 @@ export default function RAEE() {
           </a>
           <div style={{fontSize:11,color:sub}}>
             {es?'O escribinos:':'Or write to us:'}{' '}
-            <a href="mailto:hola@oliviacirculab.com.ar?subject=RAEE OLIVIA" style={{color:morado}}>hola@oliviacirculab.com.ar</a>
+            <a href="/contacto" style={{color:morado}}>hola@oliviacirculab.com.ar</a>
           </div>
         </div>
       </section>

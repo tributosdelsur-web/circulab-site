@@ -116,7 +116,7 @@ export default function Inversion() {
           </p>
 
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-            <a href="mailto:hola@oliviacirculab.com.ar?subject=Reunion%20OLIVIA" style={{ background: accent, color: dark ? '#050505' : 'white', padding: '13px 28px', borderRadius: 40, fontSize: 11, fontWeight: 700, textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+            <a href="/contacto" style={{ background: accent, color: dark ? '#050505' : 'white', padding: '13px 28px', borderRadius: 40, fontSize: 11, fontWeight: 700, textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
               {es ? 'Agendar reunión · 20 min' : 'Schedule meeting · 20 min'}
             </a>
             <a href="/observatorio" style={{ border: `1px solid ${border}`, color: text, padding: '13px 28px', borderRadius: 40, fontSize: 11, fontWeight: 700, textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.08em' }}>

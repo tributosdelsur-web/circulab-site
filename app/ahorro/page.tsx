@@ -139,7 +139,7 @@ export default function Ahorro() {
         </div>
 
         <div style={{ display: 'flex', gap: 12, marginTop: 36, flexWrap: 'wrap' }}>
-          <a href="mailto:hola@oliviacirculab.com.ar?subject=Diagnostico%20inicial%20OLIVIA" style={{ background: accent, color: dark ? '#050505' : 'white', textDecoration: 'none', padding: '14px 28px', borderRadius: 40, fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          <a href="/contacto" style={{ background: accent, color: dark ? '#050505' : 'white', textDecoration: 'none', padding: '14px 28px', borderRadius: 40, fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
             {es ? 'Pedir el diagnóstico' : 'Request the assessment'}
           </a>
           <a href="/organicos" style={{ color: text, textDecoration: 'none', padding: '14px 28px', borderRadius: 40, fontSize: 11, fontWeight: 700, border: `1px solid ${border}`, textTransform: 'uppercase', letterSpacing: '0.08em' }}>

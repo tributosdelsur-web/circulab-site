@@ -70,7 +70,7 @@ export default function NDA() {
           <div>· {es ? 'Vigencia' : 'Term'}: {es ? '3 años' : '3 years'}</div>
           <div>· {es ? 'Marco legal' : 'Legal framework'}: {es ? 'Ley 25.506 · CABA Argentina' : 'Law 25.506 · Buenos Aires Argentina'}</div>
         </div>
-        <a href="mailto:hola@oliviacirculab.com.ar?subject=NDA firmado - ${empresa}" style={{display:'inline-block',background:'linear-gradient(135deg,#22c55e,#16a34a)',borderRadius:12,padding:'12px 28px',color:'white',fontSize:13,fontWeight:700,textDecoration:'none'}}>
+        <a href="/contacto" style={{display:'inline-block',background:'linear-gradient(135deg,#22c55e,#16a34a)',borderRadius:12,padding:'12px 28px',color:'white',fontSize:13,fontWeight:700,textDecoration:'none'}}>
           {es ? 'Contactar al equipo →' : 'Contact the team →'}
         </a>
       </div>

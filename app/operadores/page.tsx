@@ -261,7 +261,7 @@ export default function Operadores() {
           {es?'La primera conversación es para entender cómo trabajás, no para venderte nada. Si lo que hacemos no te sirve, te lo decimos.':'The first conversation is to understand how you work, not to sell you anything.'}
         </p>
         <div style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap'}}>
-          <a href="mailto:hola@oliviacirculab.com.ar?subject=Consulta%20operadores" style={{background:'linear-gradient(135deg,#22c55e,#16a34a)',borderRadius:40,padding:'14px 32px',color:'#fff',fontSize:13,fontWeight:700,textDecoration:'none'}}>
+          <a href="/contacto" style={{background:'linear-gradient(135deg,#22c55e,#16a34a)',borderRadius:40,padding:'14px 32px',color:'#fff',fontSize:13,fontWeight:700,textDecoration:'none'}}>
             {es?'Escribinos →':'Write to us →'}
           </a>
           <a href="/observatorio" style={{background:'transparent',border:'1px solid '+border,borderRadius:40,padding:'14px 32px',color:text,fontSize:13,fontWeight:700,textDecoration:'none'}}>

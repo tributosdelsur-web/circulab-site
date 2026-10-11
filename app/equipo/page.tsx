@@ -146,7 +146,7 @@ export default function Equipo() {
                 </div>
                 <div style={{fontSize:14,fontWeight:700,color:a.color,marginBottom:10}}>{a.nombre}</div>
                 <p style={{fontSize:11,color:sub,lineHeight:1.7,marginBottom:16}}>{a.desc}</p>
-                <a href={"mailto:hola@oliviacirculab.com.ar?subject=Postulacion " + a.nombre} style={{fontSize:11,color:a.color,fontWeight:700,textDecoration:'none'}}>
+                <a href="/contacto" style={{fontSize:11,color:a.color,fontWeight:700,textDecoration:'none'}}>
                   Contactar → hola@oliviacirculab.com.ar
                 </a>
               </div>
@@ -208,7 +208,7 @@ export default function Equipo() {
 
       {/* CTA */}
       <section style={{padding:'48px 24px',textAlign:'center',borderTop:'1px solid ' + border}}>
-        <a href="mailto:hola@oliviacirculab.com.ar?subject=Reunión OLIVIA Circulab" style={{display:'inline-block',background:'linear-gradient(135deg,#22c55e,#16a34a)',borderRadius:40,padding:'14px 32px',color:'white',fontSize:13,fontWeight:700,textDecoration:'none',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:16}}>
+        <a href="/contacto" style={{display:'inline-block',background:'linear-gradient(135deg,#22c55e,#16a34a)',borderRadius:40,padding:'14px 32px',color:'white',fontSize:13,fontWeight:700,textDecoration:'none',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:16}}>
           {es?'Agendar una llamada':'Schedule a call'}
         </a>
         <div style={{fontSize:11,color:sub}}>hola@oliviacirculab.com.ar</div>

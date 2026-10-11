@@ -509,7 +509,7 @@ export default function Pitch() {
               ))}
             </div>
             <div style={{display:'flex',flexDirection:'column',gap:10}}>
-              <a href="mailto:hola@oliviacirculab.com.ar?subject=Interesado en invertir en OLIVIA Circulab"
+              <a href="/contacto"
                 style={{background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',padding:'14px',borderRadius:14,fontSize:14,fontWeight:700,textDecoration:'none',display:'block',boxShadow:'0 0 30px rgba(34,197,94,0.3)'}}>
                 📩 hola@oliviacirculab.com.ar
               </a>

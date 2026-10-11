@@ -259,7 +259,7 @@ export default function Simulador() {
           <a href="/registro" style={{background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',padding:'16px',borderRadius:14,fontSize:15,fontWeight:700,textDecoration:'none',display:'block',textAlign:'center'}}>
             Empezar a registrar gratis →
           </a>
-          <a href="mailto:hola@oliviacirculab.com.ar?subject=Quiero sumar mi consorcio a OLIVIA"
+          <a href="/contacto"
             style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.08)',color:'#f1f5f9',padding:'14px',borderRadius:14,fontSize:14,fontWeight:700,textDecoration:'none',display:'block',textAlign:'center'}}>
             🏢 Sumar mi consorcio →
           </a>

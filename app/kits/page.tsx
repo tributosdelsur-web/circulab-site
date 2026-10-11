@@ -288,7 +288,7 @@ export default function Kits() {
             <div style={{fontSize:12,color:sub,marginBottom:8}}>
               {es?'¿No encontrás tu kit? Contanos tu caso y te armamos una propuesta a medida.':'Cannot find your kit? Tell us your case and we will create a custom proposal.'}
             </div>
-            <a href="mailto:hola@oliviacirculab.com.ar?subject=Kit a medida OLIVIA" style={{fontSize:12,color:accent,fontWeight:700,textDecoration:'none'}}>
+            <a href="/contacto" style={{fontSize:12,color:accent,fontWeight:700,textDecoration:'none'}}>
               hola@oliviacirculab.com.ar →
             </a>
           </div>
@@ -306,7 +306,7 @@ export default function Kits() {
               ? 'Contanos si sos vecino, consorcio, comercio o empresa, y te armamos la propuesta a medida.'
               : 'Tell us if you are a neighbor, building, business or company, and we will put together a tailored proposal.'}
           </p>
-          <a href="mailto:hola@oliviacirculab.com.ar?subject=Propuesta de kit OLIVIA" style={{display:'inline-block',background:'linear-gradient(135deg,#22c55e,#16a34a)',borderRadius:40,padding:'16px 40px',color:'white',fontSize:14,fontWeight:700,textDecoration:'none',textTransform:'uppercase',letterSpacing:'0.06em',marginBottom:16}}>
+          <a href="/contacto" style={{display:'inline-block',background:'linear-gradient(135deg,#22c55e,#16a34a)',borderRadius:40,padding:'16px 40px',color:'white',fontSize:14,fontWeight:700,textDecoration:'none',textTransform:'uppercase',letterSpacing:'0.06em',marginBottom:16}}>
             {es?'Pedir propuesta →':'Request proposal →'}
           </a>
           <div style={{fontSize:11,color:sub}}>
