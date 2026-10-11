@@ -789,6 +789,7 @@ export default function Landing() {
         <div style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap',maxWidth:600,margin:'0 auto 16px'}}>
           {[
             {l:'Whitepaper',h:'/whitepaper'},
+            {l:es?'Calculadora':'Calculator',h:'/ahorro'},
             {l:'One Pager',h:'/onepager'},
             {l:es?'Institucional':'About us',h:'/institucional'},
             {l:'Pitch',h:'/pitch'},

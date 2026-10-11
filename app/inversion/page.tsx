@@ -394,6 +394,18 @@ export default function Inversion() {
 
       </div>
 
+      {/* ═══ CALCULADORA ═══ */}
+      <section style={{maxWidth:580,margin:'0 auto',padding:'8px 20px 40px'}}>
+        <a href="/ahorro" style={{display:'flex',alignItems:'center',justifyContent:'space-between',gap:14,padding:'20px',borderRadius:16,border:'1px solid rgba(34,197,94,0.35)',background:'rgba(34,197,94,0.06)',textDecoration:'none',color:'inherit'}}>
+          <div>
+            <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',opacity:.6,marginBottom:7}}>[ Calculadora ]</div>
+            <div style={{fontSize:16,fontWeight:800,marginBottom:4}}>Calculá tu ahorro</div>
+            <div style={{fontSize:12.5,opacity:.7,lineHeight:1.5}}>Poné tus kilos y tu tarifa de fracción húmeda. La cuenta la hacés vos.</div>
+          </div>
+          <span style={{color:'#22c55e',fontSize:20,fontWeight:700,flexShrink:0}}>→</span>
+        </a>
+      </section>
+
       <footer style={{borderTop:'1px solid '+border,padding:'32px 24px',textAlign:'center'}}>
         <a href="/"><img src="/logoOC.png" alt="OLIVIA" style={{width:44,height:44,objectFit:'contain',display:'block',margin:'0 auto 10px'}} /></a>
         <div style={{fontSize:13,fontWeight:800,color:text,marginBottom:6}}>OLIVIA Circulab</div>
