@@ -287,6 +287,35 @@ export default function Inversion() {
           </Card>
         </div>
 
+        <H n={es ? 'Dos líneas' : 'Two lines'} tt={es ? 'Dos líneas, dos proyectos separados.' : 'Two lines, two separate projects.'} />
+        <P>
+          {es
+            ? 'Orgánicos y residuos electrónicos son dos proyectos de certificación independientes y no se pueden agrupar: tienen metodologías distintas, límites de proyecto distintos y auditorías distintas. Conviene decirlo de entrada, porque un desarrollador de carbono lo pregunta en la primera reunión.'
+            : 'Organics and e-waste are two independent certification projects and cannot be grouped: different methodologies, different project boundaries, different audits.'}
+        </P>
+        <div style={{ display: 'grid', gap: 9 }}>
+          {(es ? [
+            ['Orgánicos', 'AMS-III.F', 'El ingreso inmediato está acá: la asimetría entre la fracción húmeda que el generador paga y la orgánica que el Estado retira gratis. Pero en CABA no hay hoy un procesador privado o cooperativo a escala que pueda firmar, y sin destino verificado el registro queda incompleto.', '#22c55e'],
+            ['Electrónicos · RAEE', 'AMS-III.BA + VMR0008', 'No hay ahorro de tarifa que vender, pero sí existe una planta habilitada identificada en la Ciudad. Es la línea donde el circuito puede cerrarse antes, y por eso es probable que el primer confirmado de procesamiento real venga de acá y no del compost.', '#9333ea'],
+          ] : [
+            ['Organics', 'AMS-III.F', 'Immediate revenue sits here: the asymmetry between the wet fraction the generator pays for and the organic fraction the State collects free. But there is no private or cooperative processor at scale in the city able to sign today.', '#22c55e'],
+            ['E-waste', 'AMS-III.BA + VMR0008', 'No tariff saving to sell, but a licensed plant has been identified in the city. This is the line where the circuit can close first.', '#9333ea'],
+          ]).map((x, i) => (
+            <div key={i} style={{ background: card, border: `1px solid ${border}`, borderRadius: 16, padding: '18px 20px' }}>
+              <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap', marginBottom: 8 }}>
+                <span style={{ fontSize: 15.5, fontWeight: 800, color: x[3] }}>{x[0]}</span>
+                <span style={{ fontSize: 11, fontFamily: 'monospace', color: sub, letterSpacing: '0.05em' }}>{x[1]}</span>
+              </div>
+              <div style={{ fontSize: 13.5, color: sub, lineHeight: 1.6 }}>{x[2]}</div>
+            </div>
+          ))}
+        </div>
+        <P>
+          {es
+            ? 'Para un inversor eso significa dos apuestas y no una, con riesgos distintos: en orgánicos el ingreso está claro y falta la planta; en electrónicos la planta está identificada y el ingreso depende del crédito. Si una de las dos cierra, el sistema queda probado.'
+            : 'For an investor that means two bets rather than one, with different risks: in organics the revenue is clear and the plant is missing; in e-waste the plant is identified and the revenue depends on the credit.'}
+        </P>
+
         <H n={es ? 'El pedido' : 'The ask'} tt={es ? 'USD 200.000 en tres tramos contra hitos.' : 'USD 200,000 in three milestone-based tranches.'} />
         <P>
           {es
