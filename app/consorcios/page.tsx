@@ -281,6 +281,25 @@ export default function Consorcios() {
       </section>
 
       {/* FOOTER */}
+      {/* ═══ EL OLOR ═══ */}
+      <section style={{maxWidth:580,margin:'0 auto',padding:'8px 20px 44px'}}>
+        <div style={{background:'rgba(255,255,255,0.03)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:16,padding:'22px 22px 20px'}}>
+          <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',opacity:.55,marginBottom:10}}>[ El cuarto de residuos ]</div>
+          <h3 style={{fontSize:21,fontWeight:900,fontFamily:'Georgia,serif',fontStyle:'italic',lineHeight:1.25,margin:'0 0 14px'}}>
+            El olor de la escalera no es el metano. Es su aviso.
+          </h3>
+          <p style={{fontSize:14,lineHeight:1.7,opacity:.8,margin:'0 0 12px'}}>
+            El metano no tiene olor. Lo que se huele en el cuarto de residuos son ácidos grasos volátiles, amoníaco y compuestos azufrados —sulfuro de hidrógeno, mercaptanos— que aparecen cuando la materia orgánica se descompone sin aire. Las mismas condiciones que producen ese olor producen metano, que sale sin que nadie lo note.
+          </p>
+          <p style={{fontSize:14,lineHeight:1.7,opacity:.8,margin:'0 0 12px'}}>
+            Separar la fracción orgánica y sacarla con frecuencia corta las dos cosas a la vez. Y a diferencia del resto de lo que hacemos, esta es una mejora que los vecinos perciben en una semana, no en dos años.
+          </p>
+          <p style={{fontSize:13,lineHeight:1.7,opacity:.6,margin:0}}>
+            Estamos preparando la medición de compuestos volátiles en el cuarto de residuos, para poder mostrar el antes y el después con una curva y no con una opinión. Todavía no la ofrecemos como servicio: primero hay que validarla en edificios reales. Cuando esté, va a ser el único dato de su tipo publicado en la Ciudad.
+          </p>
+        </div>
+      </section>
+
       <footer style={{borderTop:'1px solid '+border,padding:'40px 24px 32px',textAlign:'center'}}>
         <a href="/" style={{display:'block',marginBottom:10}}>
           <img src="/logoOC.png" alt="OLIVIA Circulab" style={{width:52,height:52,objectFit:'contain',display:'block',margin:'0 auto'}} />
