@@ -442,8 +442,8 @@ export default function Landing() {
         {/* PILOTO EN CURSO */}
         <div style={{fontSize:11,color:sub,lineHeight:1.6,textAlign:'center',maxWidth:460,margin:'0 auto 14px'}}>
           {es
-            ? `Piloto en curso · ${stats.registrados} kg registrados, aún sin kilos verificados: el primer registro con confirmación de procesamiento requiere una planta firmada.`
-            : `Pilot running · ${stats.registrados} kg registered, no verified kilos yet: the first record with processing confirmation requires a signed plant.`}
+            ? `Piloto en curso · ${stats.registrados} kg registrados y ${stats.kg} validados por el equipo. El confirmado automático de procesamiento —el cuarto dato— requiere una planta habilitada firmada y la balanza en operación.`
+            : `Pilot running · ${stats.registrados} kg registered and ${stats.kg} validated by the team. Automatic processing confirmation — the fourth data point — requires a signed licensed plant and the scale in operation.`}
         </div>
         <div style={{fontSize:11,color:'#94a3b8',textAlign:'center',marginTop:10}}>{es?'Piloto en curso · datos en vivo desde la plataforma':'Pilot in progress · live data from the platform'}</div>
 
@@ -598,8 +598,6 @@ export default function Landing() {
       {/* ═══ SECCIÓN 8 — DOS BOTONES GRANDES ═══ */}
       <section style={{padding:'32px 20px',maxWidth:580,margin:'0 auto',borderTop:`1px solid ${border}`}}>
         <h2 style={{fontSize:22,fontWeight:900,textAlign:'center',marginBottom:6,color:text}}>{es?'¿Por dónde entrás?':'Where do you start?'}</h2>
-        <p style={{fontSize:12,color:sub,textAlign:'center',marginBottom:20}}>{es?'Elegí tu camino en OLIVIA':'Choose your path in OLIVIA'}</p>
-        <div style={{display:'flex',flexDirection:'column',gap:12}}>
           <a href="/operadores" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(59,130,246,0.12),rgba(168,85,247,0.06))',border:'2px solid rgba(59,130,246,0.4)',textDecoration:'none'}}>
             <div style={{display:'flex',alignItems:'center',gap:14}}>
               <span style={{fontSize:36}}>🏭</span>
@@ -610,12 +608,22 @@ export default function Landing() {
             </div>
             <span style={{color:'#3b82f6',fontSize:20,fontWeight:700}}>→</span>
           </a>
-          <a href="/ciudadano" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(34,197,94,0.12),rgba(34,197,94,0.06))',border:'2px solid rgba(34,197,94,0.4)',textDecoration:'none'}}>
+          <a href="/grandes-generadores" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(239,68,68,0.12),rgba(239,68,68,0.06))',border:'2px solid rgba(239,68,68,0.4)',textDecoration:'none'}}>
             <div style={{display:'flex',alignItems:'center',gap:14}}>
-              <span style={{fontSize:36}}>🌿</span>
+              <span style={{fontSize:36}}>⚖️</span>
               <div>
-                <div style={{fontSize:16,fontWeight:900,color:'#22c55e'}}>{es?'Soy ciudadano':'I\'m a citizen'}</div>
-                <div style={{fontSize:12,color:sub,marginTop:2}}>{es?'Quiero separar y que quede registrado':'I want to sort and have it recorded'}</div>
+                <div style={{fontSize:16,fontWeight:900,color:'#ef4444'}}>{es?'Estoy obligado por la ley':'I have a legal obligation'}</div>
+                <div style={{fontSize:12,color:sub,marginTop:2}}>{es?'Ley 1854 · Grandes Generadores':'Law 1854 · Large Generators'}</div>
+              </div>
+            </div>
+            <span style={{color:'#ef4444',fontSize:20,fontWeight:700}}>→</span>
+          </a>
+          <a href="/consorcios" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(34,197,94,0.08),rgba(59,130,246,0.06))',border:'2px solid rgba(34,197,94,0.3)',textDecoration:'none'}}>
+            <div style={{display:'flex',alignItems:'center',gap:14}}>
+              <span style={{fontSize:36}}>🏢</span>
+              <div>
+                <div style={{fontSize:16,fontWeight:900,color:'#22c55e'}}>{es?'Administro un consorcio':'I manage a building'}</div>
+                <div style={{fontSize:12,color:sub,marginTop:2}}>{es?'Certificar residuos · Ley Basura Cero · Sin inversión':'Certify waste · Zero Waste Law · No investment'}</div>
               </div>
             </div>
             <span style={{color:'#22c55e',fontSize:20,fontWeight:700}}>→</span>
@@ -630,12 +638,12 @@ export default function Landing() {
             </div>
             <span style={{color:'#f59e0b',fontSize:20,fontWeight:700}}>→</span>
           </a>
-          <a href="/consorcios" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(34,197,94,0.08),rgba(59,130,246,0.06))',border:'2px solid rgba(34,197,94,0.3)',textDecoration:'none'}}>
+          <a href="/ciudadano" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(34,197,94,0.12),rgba(34,197,94,0.06))',border:'2px solid rgba(34,197,94,0.4)',textDecoration:'none'}}>
             <div style={{display:'flex',alignItems:'center',gap:14}}>
-              <span style={{fontSize:36}}>🏢</span>
+              <span style={{fontSize:36}}>🌿</span>
               <div>
-                <div style={{fontSize:16,fontWeight:900,color:'#22c55e'}}>{es?'Administro un consorcio':'I manage a building'}</div>
-                <div style={{fontSize:12,color:sub,marginTop:2}}>{es?'Certificar residuos · Ley Basura Cero · Sin inversión':'Certify waste · Zero Waste Law · No investment'}</div>
+                <div style={{fontSize:16,fontWeight:900,color:'#22c55e'}}>{es?'Soy ciudadano':'I\'m a citizen'}</div>
+                <div style={{fontSize:12,color:sub,marginTop:2}}>{es?'Quiero separar y que quede registrado':'I want to sort and have it recorded'}</div>
               </div>
             </div>
             <span style={{color:'#22c55e',fontSize:20,fontWeight:700}}>→</span>
@@ -650,16 +658,18 @@ export default function Landing() {
             </div>
             <span style={{color:'#9333ea',fontSize:20,fontWeight:700}}>→</span>
           </a>
-          <a href="/grandes-generadores" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(239,68,68,0.12),rgba(239,68,68,0.06))',border:'2px solid rgba(239,68,68,0.4)',textDecoration:'none'}}>
+          <a href="/institucional" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(148,163,184,0.12),rgba(148,163,184,0.06))',border:'2px solid rgba(148,163,184,0.35)',textDecoration:'none'}}>
             <div style={{display:'flex',alignItems:'center',gap:14}}>
-              <span style={{fontSize:36}}>⚖️</span>
+              <span style={{fontSize:36}}>🌎</span>
               <div>
-                <div style={{fontSize:16,fontWeight:900,color:'#ef4444'}}>{es?'Estoy obligado por la ley':'I have a legal obligation'}</div>
-                <div style={{fontSize:12,color:sub,marginTop:2}}>{es?'Ley 1854 · Grandes Generadores':'Law 1854 · Large Generators'}</div>
+                <div style={{fontSize:16,fontWeight:900,color:'#94a3b8'}}>{es?'Quiero conocer el proyecto':'I want to know the project'}</div>
+                <div style={{fontSize:12,color:sub,marginTop:2}}>{es?'Quiénes somos · la tesis · el equipo':'Who we are · the thesis · the team'}</div>
               </div>
             </div>
-            <span style={{color:'#ef4444',fontSize:20,fontWeight:700}}>→</span>
+            <span style={{color:'#94a3b8',fontSize:20,fontWeight:700}}>→</span>
           </a>
+        <p style={{fontSize:12,color:sub,textAlign:'center',marginBottom:20}}>{es?'Elegí tu camino en OLIVIA':'Choose your path in OLIVIA'}</p>
+        <div style={{display:'flex',flexDirection:'column',gap:12}}>
         </div>
       </section>
 
