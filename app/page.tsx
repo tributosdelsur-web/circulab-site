@@ -617,7 +617,7 @@ export default function Landing() {
             </div>
             <span style={{color:'#22c55e',fontSize:20,fontWeight:700}}>→</span>
           </a>
-          <a href="/institucional" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(245,158,11,0.12),rgba(245,158,11,0.06))',border:'2px solid rgba(245,158,11,0.4)',textDecoration:'none'}}>
+          <a href="/inversion" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(245,158,11,0.12),rgba(245,158,11,0.06))',border:'2px solid rgba(245,158,11,0.4)',textDecoration:'none'}}>
             <div style={{display:'flex',alignItems:'center',gap:14}}>
               <span style={{fontSize:36}}>🏛️</span>
               <div>
@@ -768,7 +768,7 @@ export default function Landing() {
             {l:es?'Mapa':'Map',h:'/mapa',c:'#0284c7'},
             {l:es?'Orgánicos':'Organics',h:'/organicos',c:'#92400e'},
             {l:'Kits',h:'/kits',c:'#f59e0b'},
-            {l:es?'Inversores':'Investors',h:'/institucional',c:'#f59e0b'},
+            {l:es?'Inversores':'Investors',h:'/inversion',c:'#f59e0b'},
           ].map(n=>(
             <a key={n.h} href={n.h} style={{fontSize:11,color:n.c,textDecoration:'none',fontWeight:700}}>{n.l}</a>
           ))}
