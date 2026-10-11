@@ -471,25 +471,83 @@ export default function Inversion() {
           </div>
         </Card>
 
-        <H n={es ? 'El pedido' : 'The ask'} tt={es ? 'USD 200.000 en tres tramos contra hitos.' : 'USD 200,000 in three milestone-based tranches.'} />
+        <H n={es ? 'El pedido' : 'The ask'} tt={es ? 'USD 50.000 por SAFE. El resto es plan, no pedido.' : 'USD 50,000 via SAFE. The rest is plan, not ask.'} />
         <P>
           {es
-            ? 'Cada tramo se libera contra un hito verificable y no contra una fecha. El producto ya está en producción y la empresa llegó hasta acá sin inversión externa.'
-            : 'Each tranche is released against a verifiable milestone, not a date. The product is already live and the company got here with no external investment.'}
+            ? 'Esta es una etapa pre-semilla y el pedido está dimensionado para eso. No pedimos una ronda completa sobre evidencia que todavía no existe: pedimos lo que hace falta para producirla. El instrumento es un SAFE con tope de valuación, porque hoy ninguna valuación fija sería defendible para ninguna de las dos partes.'
+            : 'This is a pre-seed stage and the ask is sized for it. We are not asking for a full round on evidence that does not exist yet: we are asking for what it takes to produce it. The instrument is a SAFE with a valuation cap.'}
         </P>
-        <div style={{ display: 'grid', gap: 9 }}>
-          {tramos.map((x, i) => (
-            <div key={i} style={{ background: card, border: `1px solid ${border}`, borderRadius: 16, padding: '18px 20px' }}>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#f59e0b', marginBottom: 8 }}>{x.t}</div>
-              <div style={{ fontSize: 13.5, lineHeight: 1.6, marginBottom: 6 }}><strong>{es ? 'Hito' : 'Milestone'}:</strong> {x.h}</div>
-              <div style={{ fontSize: 13, color: sub, lineHeight: 1.6 }}>{x.u}</div>
+        <Card>
+          <Rubro t={t}>{es ? 'Qué compra' : 'What it buys'}</Rubro>
+          <div style={{ fontSize: 14, lineHeight: 1.7, marginBottom: 16 }}>
+            {es ? 'Diez balanzas fabricadas y en operación, con este destino:' : 'Ten scales built and in operation:'}
+          </div>
+          <div style={{ display: 'grid', gap: 11 }}>
+            {(es ? [
+              ['1', 'Banco de pruebas fijo', 'Calibración, pruebas de firma y de antiduplicado. No sale nunca: es donde se reproduce cualquier falla que reporte un sitio.'],
+              ['1', 'Unidad móvil de diagnóstico', 'Rota entre generadores, dos semanas por sitio. Permite unos veinticuatro diagnósticos al año y convierte cada visita en una propuesta con el ahorro medido, no estimado. Es el motor comercial.'],
+              ['2', 'En operadores', 'Una en la planta de orgánicos y una en la de electrónicos. Es donde se produce el cuarto dato: sin balanza en destino no hay confirmación de procesamiento.'],
+              ['4', 'En generadores obligados', 'Los sitios que pagan. Cuatro casos distintos alcanzan para medir conversión, retención y margen real.'],
+              ['2', 'De repuesto', 'La garantía de servicio dice que si el equipo no transmite más de setenta y dos horas, ese mes no se cobra. Sin repuestos esa promesa no se puede sostener.'],
+            ] : [
+              ['1', 'Fixed test bench', 'Calibration, signature and anti-duplication testing.'],
+              ['1', 'Mobile diagnostic unit', 'Rotates between generators, two weeks per site. Turns every visit into a proposal with a measured saving.'],
+              ['2', 'At operators', 'One at the organics plant, one at the e-waste plant. Where the fourth data point is produced.'],
+              ['4', 'At obligated generators', 'The paying sites.'],
+              ['2', 'Spares', 'The service guarantee cannot be sustained without them.'],
+            ]).map((x, i) => (
+              <div key={i} style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
+                <span style={{ fontSize: 22, fontWeight: 900, color: accent, minWidth: 26, lineHeight: 1.1 }}>{x[0]}</span>
+                <div>
+                  <div style={{ fontSize: 14.5, fontWeight: 700, marginBottom: 3 }}>{x[1]}</div>
+                  <div style={{ fontSize: 13.5, color: sub, lineHeight: 1.6 }}>{x[2]}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={{ fontSize: 13.5, color: sub, lineHeight: 1.7, marginTop: 16, paddingTop: 14, borderTop: `1px solid ${border}` }}>
+            {es
+              ? 'Además: constitución de la sociedad, el acuerdo con el operador y seis meses de pista para el equipo fundador.'
+              : 'Plus: company incorporation, the operator agreement and six months of runway for the founding team.'}
+          </div>
+        </Card>
+
+        <div style={{ marginTop: 14 }}>
+          <Card>
+            <Rubro t={t}>{es ? 'El hito que cierra esta etapa' : 'The milestone that closes this stage'}</Rubro>
+            <div style={{ fontSize: 14.5, lineHeight: 1.7, marginBottom: 12 }}>
+              {es
+                ? 'Un operador con planta habilitada firmado, cuatro sitios transmitiendo en continuo durante sesenta a noventa días, y al menos un piloto pago o una carta de intención comercial.'
+                : 'One signed licensed operator, four sites transmitting continuously for sixty to ninety days, and at least one paid pilot or commercial letter of intent.'}
             </div>
-          ))}
+            <div style={{ fontSize: 13.5, color: sub, lineHeight: 1.7 }}>
+              {es
+                ? 'Con eso cumplido, la empresa deja de ser una tesis y pasa a tener evidencia de mercado. Ese es exactamente el punto en el que una ronda semilla se vuelve discutible, y no antes.'
+                : 'Once that is met, the company stops being a thesis and has market evidence. That is precisely when a seed round becomes discussable.'}
+            </div>
+          </Card>
         </div>
+
+        <div style={{ marginTop: 14 }}>
+          <Card>
+            <Rubro t={t}>{es ? 'Lo que viene después, sin comprometer a nadie' : 'What comes next, binding no one'}</Rubro>
+            <div style={{ fontSize: 13.5, color: sub, lineHeight: 1.7, marginBottom: 12 }}>
+              {es
+                ? 'El plan completo son USD 200.000 en tres tramos: este primero, uno de USD 70.000 para desarrollador de carbono, línea de base y documento de diseño del proyecto, y uno de USD 80.000 para auditoría de tercera parte, registro y operación. Lo decimos como plan y no como pedido: no es una obligación de ninguna de las partes y no lleva precio acordado de antemano.'
+                : 'The full plan is USD 200,000 in three tranches. We state it as a plan, not an ask: it binds neither party and carries no pre-agreed price.'}
+            </div>
+            <div style={{ fontSize: 13.5, color: sub, lineHeight: 1.7 }}>
+              {es
+                ? 'A quien entre ahora le ofrecemos derecho de participación proporcional en las rondas siguientes, al precio de esas rondas. Es la posibilidad de acompañar todo el recorrido sin fijar hoy un número que ninguna de las dos partes puede sostener todavía.'
+                : 'Whoever comes in now is offered pro-rata rights in subsequent rounds, at the price of those rounds.'}
+            </div>
+          </Card>
+        </div>
+
         <P>
           {es
-            ? 'La participación societaria y el instrumento se definen en conversación, no en una página web. Estamos abiertos a un socio activo con rol operativo, no solo a capital.'
-            : 'Equity and instrument are defined in conversation, not on a web page. We are open to an active partner with an operating role, not only capital.'}
+            ? 'La participación societaria y los términos finales se definen en conversación. Estamos abiertos a un socio activo con rol operativo, no solo a capital.'
+            : 'Equity and final terms are defined in conversation. We are open to an active partner with an operating role.'}
         </P>
 
         <H n={es ? 'Lo que no afirmamos' : 'What we do not claim'} tt={es ? 'Los límites, escritos por nosotros.' : 'The limits, written by us.'} />
