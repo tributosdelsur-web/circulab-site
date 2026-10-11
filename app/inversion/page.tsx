@@ -345,8 +345,8 @@ export default function Inversion() {
           </div>
           <div style={{ fontSize: 13, color: sub, lineHeight: 1.65, marginTop: 16, paddingTop: 14, borderTop: `1px solid ${border}` }}>
             {es
-              ? 'La balanza está diseñada y sin fabricar: es el tramo 1 del pedido. Hasta que exista, los registros se validan a mano y por eso el contador de verificados está en cero. Preferimos un cero explicado a un número que no resista una auditoría.'
-              : 'The scale is designed and not yet built: that is tranche 1 of the ask. Until it exists, records are validated manually, which is why the verified counter reads zero.'}
+              ? 'Hoy la balanza está diseñada y sin fabricar: es el tramo 1 del pedido. Mientras tanto los registros se validan a mano, uno por uno, y por eso el volumen es chico y la tasa de rechazo es alta: descartamos todo lo que no cumple. Esa validación manual sirve para probar el circuito, no para sostener una certificación. El salto de escala no es más gente registrando: es el peso firmado en origen y el confirmado de la planta.'
+              : 'The scale is designed and not yet built: that is tranche 1 of the ask. Meanwhile records are validated by hand, one by one, which is why volume is small and the rejection rate is high: we discard everything that does not comply. Manual validation proves the circuit; it cannot sustain a certification.'}
           </div>
         </Card>
 
