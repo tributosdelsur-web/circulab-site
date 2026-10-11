@@ -43,3 +43,9 @@ Claude outputs/
 Claude outputs/
 Claude outputs/
 Claude outputs/
+
+*.js
+!next.config.js
+!postcss.config.js
+!tailwind.config.js
+!eslint.config.js
