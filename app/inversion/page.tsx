@@ -88,7 +88,7 @@ export default function Inversion() {
         </section>
 
         <h1 style={{ fontSize: 'clamp(28px,5.6vw,44px)', lineHeight: 1.12, fontWeight: 900, margin: '34px 0 16px', letterSpacing: '-0.02em' }}>
-          No vendemos un crédito futuro.<br />Vendemos la resta de este mes.
+          Hoy no hay bonos de carbono.<br />Hay una factura que puede ser más baja.
         </h1>
         <p style={{ fontSize: 17, lineHeight: 1.6, color: sub, margin: 0 }}>
           En la Ciudad de Buenos Aires hay empresas que están obligadas por ley a pagar la recolección de su basura húmeda,
