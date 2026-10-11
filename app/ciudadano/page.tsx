@@ -549,7 +549,7 @@ export default function Ciudadano() {
               </div>
             </button>
             <button onClick={()=>{
-              const txt = es?'Estoy reciclando con OLIVIA Circulab y ganando OLV reales 🌿 Uníte: https://oliviacirculab.com.ar/ciudadano':'I am recycling with OLIVIA Circulab and earning real OLV 🌿 Join: https://oliviacirculab.com.ar/ciudadano'
+              const txt = es?'Estoy separando con OLIVIA Circulab y cada kilo queda registrado 🌿 Uníte: https://oliviacirculab.com.ar/ciudadano':'I am recycling with OLIVIA Circulab and earning real OLV 🌿 Join: https://oliviacirculab.com.ar/ciudadano'
               if(navigator.share){navigator.share({title:'OLIVIA Circulab',text:txt,url:'https://oliviacirculab.com.ar/ciudadano'})}
               else{navigator.clipboard.writeText(txt);alert(es?'Copiado ✓':'Copied ✓')}
             }} style={{display:'flex',alignItems:'center',gap:12,padding:'14px',borderRadius:12,background:card,border:`1px solid ${border}`,cursor:'pointer',textAlign:'left'}}>
