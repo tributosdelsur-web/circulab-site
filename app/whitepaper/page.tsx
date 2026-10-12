@@ -129,62 +129,114 @@ export default function Whitepaper() {
           registro, y hacerlo después es una de las formas más comunes de perder un proyecto ya validado.
         </P>
 
+        <Card>
+          <Rubro t={t}>El transporte está dentro del límite</Rubro>
+          <div style={{ fontSize: 14, lineHeight: 1.75, color: sub, marginBottom: 12 }}>
+            El párrafo 21 define el límite del proyecto como el sitio físico y geográfico donde el residuo habría sido
+            dispuesto, donde ocurre el compostaje, donde se maneja o aplica el compost, <strong style={{ color: text }}>y
+            los itinerarios entre ellos donde ocurre el transporte</strong>.
+          </div>
+          <div style={{ fontSize: 14, lineHeight: 1.75, color: sub, marginBottom: 12 }}>
+            Eso tiene dos consecuencias simétricas. La trazabilidad del traslado no es un agregado del sistema de
+            medición: es parte del proyecto, y por eso el tercero de nuestros cuatro datos existe. Y a la vez, las
+            emisiones de ese transporte son emisiones del proyecto, y se computan con la herramienta de CO₂ por
+            combustión de combustibles fósiles que la metodología referencia.
+          </div>
+          <div style={{ fontSize: 14, lineHeight: 1.75, color: sub }}>
+            De ahí que una logística de baja emisión dentro del límite —vehículos eléctricos o a pedal para los tramos
+            cortos— no sea una decisión estética: reduce las emisiones del proyecto y por lo tanto aumenta la reducción
+            neta de la ecuación. No forma parte de la primera etapa, donde el transporte lo realiza quien ya lo realiza
+            y nosotros solo lo medimos; es una palanca de optimización que tiene sentido cuando exista volumen.
+          </div>
+        </Card>
+
         <H n="2" tt="Las dos metodologías son dos proyectos" />
         <P>
-          Residuos orgánicos y residuos electrónicos no pueden agruparse en un mismo proyecto. Tienen metodologías
-          distintas, límites distintos, líneas de base distintas y auditorías distintas.
+          Residuos orgánicos y residuos electrónicos no pueden agruparse en un mismo proyecto: metodologías,
+          límites, líneas de base y auditorías distintas. Lo que sigue está citado de los documentos originales,
+          con número de párrafo.
         </P>
         <Card>
-          <div style={{ fontSize: 13, fontWeight: 800, color: accent, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 10 }}>Orgánicos · AMS-III.F</div>
-          <Fila k="Título" v="Avoidance of methane emissions through composting" />
-          <Fila k="Versión vigente" v="12.0, válida desde el 4 de noviembre de 2016" />
-          <Fila k="Alcance sectorial" v="13 · Manejo y disposición de residuos" />
-          <Fila k="Escala" v="Pequeña escala" />
-          <Fila k="Herramientas referenciadas" v="AM-Tool-03 (combustión de fósiles), AM-Tool-04 (emisiones de sitios de disposición), AM-Tool-05 (electricidad), AM-Tool-13 (emisiones de proyecto y fugas por compostaje)" />
-          <Fila k="Aclaración vigente" v="SSC_844, del 28 de febrero de 2024, sobre aplicabilidad al uso de larvas de insectos en procesos de compostaje" />
+          <div style={{ fontSize: 13, fontWeight: 800, color: accent, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>Orgánicos · AMS-III.F v12.0</div>
+          <Fila k="Identificación" v="Small-scale methodology: Avoidance of methane emissions through composting. Alcance sectorial 13. Vigente desde el 4 de noviembre de 2016 (EB 92, Anexo 11)." />
+          <Fila k="Alcance (¶2)" v="Medidas para evitar emisiones de metano de biomasa u otra materia orgánica que de otro modo habría quedado a descomponerse anaeróbicamente en un sitio de disposición de residuos sólidos. El proyecto introduce tratamiento aeróbico controlado por compostaje." />
+          <Fila k="Exclusiones (¶3)" v="El proyecto no recupera ni quema gas de relleno —eso es AMS-III.G— ni realiza combustión controlada —AMS-III.E—. La digestión anaeróbica va por AMS-III.AO." />
+          <Fila k="Límite de escala (¶4)" v="Reducciones menores o iguales a 60 kt CO₂eq anuales." />
+          <Fila k="Aplicabilidad (¶5)" v="Compostaje de la fracción orgánica de residuos sólidos urbanos y de biomasa de actividades agrícolas o agroindustriales." />
+          <Fila k="Capacidad ociosa (¶6)" v="La metodología contempla expresamente las actividades que aumentan la utilización de capacidad de una instalación existente. Exige demostrar que se hicieron esfuerzos especiales, que la instalación cumple toda la normativa aplicable y que no está incluida en otro proyecto MDL." />
+          <Fila k="Verificación ex ante (¶11)" v="Para residuos desviados de un sitio de disposición hay que establecer, al inicio de cada período de acreditación, que el relleno identificado podría haber recibido ese material, o bien que disponer en relleno es práctica común en la región." />
+          <Fila k="Alcance territorial (¶12)" v="Hay que definir y documentar el límite geográfico de la región. Si el residuo se transporta hasta 50 km, la región puede cubrir un radio de 50 km; en ningún caso más de 200 km. Una vez definido no se cambia durante el período de acreditación." />
+          <Fila k="Destino del compost (¶13, ¶15)" v="Si el compost se maneja aeróbicamente y se aplica al suelo, hay que asegurar las condiciones que eviten emisiones de metano. Si se almacena en condiciones anaeróbicas o va a relleno, las emisiones del contenido orgánico residual se computan con la herramienta de emisiones de sitios de disposición." />
         </Card>
         <div style={{ height: 10 }} />
         <Card>
-          <div style={{ fontSize: 13, fontWeight: 800, color: '#9333ea', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 10 }}>Electrónicos · AMS-III.BA + VMR0008</div>
-          <Fila k="Título" v="Recovery and recycling of materials from E-waste" />
-          <Fila k="Regla central" v="AMS-III.BA no se acepta como metodología independiente en el programa VCS: debe aplicarse junto con VMR0008" />
-          <Fila k="VMR0008 v1.0" v="Activa desde el 4 de septiembre de 2023; obligatoria para proyectos nuevos desde esa fecha" />
-          <Fila k="Qué agrega" v="Un factor de descuento que cubre la incertidumbre sobre el desplazamiento real de producción de material virgen atribuible al proyecto" />
-          <Fila k="Alcance sectorial" v="13 · Manejo y disposición de residuos. Tipo de elegibilidad: reducciones" />
+          <div style={{ fontSize: 13, fontWeight: 800, color: "#9333ea", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>Electrónicos · AMS-III.BA + VMR0008</div>
+          <Fila k="Regla central" v="AMS-III.BA no se acepta como metodología independiente en el programa VCS: debe aplicarse junto con VMR0008." />
+          <Fila k="VMR0008 v1.0" v="Activa desde el 4 de septiembre de 2023, obligatoria para proyectos nuevos desde esa fecha." />
+          <Fila k="Qué agrega" v="Un factor de descuento por la incertidumbre sobre el desplazamiento real de producción de material virgen atribuible al proyecto." />
+          <Fila k="Alcance sectorial" v="13 · Manejo y disposición de residuos. Tipo de elegibilidad: reducciones." />
         </Card>
         <Pend>
-          Las condiciones de aplicabilidad completas de ambas metodologías están en los PDF originales y no en las fichas
-          públicas. Antes de usar este documento ante un auditor hay que incorporarlas textualmente, con número de
-          cláusula. No las parafraseamos de memoria.
+          Las condiciones de aplicabilidad de AMS-III.BA y el texto de VMR0008 todavía no fueron incorporados desde
+          sus documentos originales. La sección de orgánicos sí está citada del documento; la de electrónicos está
+          tomada del registro público de Verra.
         </Pend>
 
-        <H n="3" tt="Línea de base y factor de emisión" />
+        <H n="3" tt="Línea de base, emisiones del proyecto y el descuento por capacidad previa" />
         <P>
-          El metano evitado por desviar un kilo de orgánico del relleno se calcula a partir del potencial de generación
-          de metano del residuo:
+          El escenario de línea de base (¶22) es la situación en que, sin el proyecto, la materia orgánica queda a
+          descomponerse dentro del límite del proyecto y el metano se emite a la atmósfera. Las emisiones de línea de
+          base se calculan con el modelo de decaimiento de primer orden de la herramienta de emisiones de sitios de
+          disposición (¶23), y excluyen el metano que por normativa debería ser capturado o quemado (¶24).
         </P>
         <Card>
-          <div style={{ fontFamily: 'ui-monospace, monospace', fontSize: 14.5, lineHeight: 1.9, marginBottom: 12 }}>
-            L₀ = MCF × DOC × DOC<sub>f</sub> × F × 16/12
+          <div style={{ fontFamily: "ui-monospace, monospace", fontSize: 13.5, lineHeight: 2, marginBottom: 14 }}>
+            BE<sub>y</sub> = BE<sub>CH4,SWDS,y</sub> + BE<sub>ww,y</sub> + BE<sub>CH4,manure,y</sub> − MD<sub>y,reg</sub> × GWP<sub>CH4</sub><br />
+            ER<sub>y</sub> = BE<sub>y</sub> − (PE<sub>y</sub> + LE<sub>y</sub>)<br />
+            ER<sub>y</sub> = (BE<sub>y</sub> − PE<sub>y</sub> − LE<sub>y</sub>) × (1 − r)   ← instalación existente<br />
+            r = WCOM<sub>BAU</sub> / TWCOM<sub>y</sub>
           </div>
           <div style={{ fontSize: 13.5, color: sub, lineHeight: 1.7 }}>
-            Con valores por defecto del IPCC para residuo alimentario en relleno manejado (MCF 1,0 · DOC 0,15 · DOCf 0,5 ·
-            F 0,5) el resultado es 0,05 kg de CH₄ por kilo de residuo. Multiplicado por el potencial de calentamiento a
-            cien años del metano (28, quinto informe del IPCC) da un bruto teórico de aproximadamente 1,4 kg CO₂eq por
-            kilo desviado.
+            Las ecuaciones 2 y 3 de la metodología distinguen dos casos. Para una instalación nueva o ampliada, la
+            reducción es la línea de base menos emisiones del proyecto y fugas. Para una instalación existente cuya
+            utilización de capacidad aumenta, ese resultado se multiplica por (1 − r), donde r es el cociente entre el
+            volumen que la planta ya compostaba como práctica habitual —el mayor de los últimos cinco años— y el total
+            compostado en el año.
           </div>
         </Card>
         <P>
-          Ese bruto no es el valor del proyecto. Hay que descontar la oxidación en la cobertura del relleno, la fracción
-          de gas que el relleno ya captura —todo lo capturado es metano que no se evita por desviar, porque ya no se
-          emitía— y las emisiones del propio tratamiento, que no son cero. Con esos tres descuentos el neto defendible
-          queda por debajo de 1,0.
+          Ese descuento tiene una consecuencia operativa que conviene decir en voz alta: <strong style={{ color: text }}>cuanto
+          más composta hoy una planta, menos crédito genera el material que le llevemos</strong>. Una instalación
+          habilitada con poca actividad actual produce más reducción atribuible que una que ya opera a buen ritmo. Y la
+          validación exige los registros históricos de los últimos cinco años con verificación cruzada, por ejemplo
+          facturas de venta de compost (¶32).
         </P>
         <P>
-          Publicamos 0,8 kg CO₂eq por kilo como factor declarado y conservador, con el criterio explícito de preferir
-          subestimar. No es un crédito emitido ni pretende serlo. El valor definitivo no lo elegimos nosotros: surge del
-          estudio de línea de base con la tasa de captura real del relleno de destino y las herramientas que la
-          metodología exige, validado por un auditor acreditado.
+          El factor de 0,05 kg CH₄ por kilo que usamos como referencia proviene de los valores por defecto del IPCC
+          para residuo alimentario, y el bruto teórico resultante ronda 1,4 kg CO₂eq por kilo. La metodología admite
+          aplicar la herramienta con un factor f = 0,1 para considerar la oxidación del metano en la capa superior del
+          relleno. Publicamos 0,8 kg CO₂eq por kilo como valor declarado y conservador; el valor que corresponda saldrá
+          del estudio de línea de base con la tasa de captura real del relleno de destino.
+        </P>
+        <P>
+          El MCF de 0,8 que la metodología permite bajo demanda suprimida (¶25) <strong style={{ color: text }}>no
+          nos aplica</strong>: exige demostrar vertido incontrolado por falta de un sistema organizado de recolección y
+          disposición. La Ciudad de Buenos Aires tiene recolección organizada, de modo que corresponden los valores
+          estándar de la herramienta.
+        </P>
+        <Card>
+          <div style={{ fontSize: 13, fontWeight: 800, color: accent, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>Qué exige monitorear</div>
+          <Fila k="Cantidad compostada (tabla 1)" v="Total anual compostado en la instalación, en toneladas, medido con báscula puente u otro dispositivo de pesaje calibrado y aplicable, por ejemplo balanzas de cinta. Frecuencia mensual. Calibración periódica según estipulación del proveedor." />
+          <Fila k="Condiciones del proceso (¶33)" v="La operación debe documentarse en un programa de control de calidad que monitoree las condiciones y procedimientos que aseguran el estado aeróbico del residuo: temperatura y humedad en las distintas etapas." />
+          <Fila k="Aplicación al suelo (¶34)" v="Hay que documentar la venta o entrega del compost y verificar en terreno su aplicación correcta, sobre una muestra representativa de sitios de usuarios. La cadena no termina en la planta." />
+          <Fila k="Emisiones del proceso y fugas (¶26, ¶28)" v="Las emisiones del compostaje se determinan con la herramienta de emisiones de proyecto y fugas por compostaje. Si el compost queda en almacenamiento anaeróbico o va a relleno, se computa como fuga." />
+          <Fila k="Electricidad y combustibles" v="Según las herramientas correspondientes, o alternativamente asumiendo que todo el equipamiento eléctrico opera a plena capacidad más un 10 % por pérdidas de distribución, 8.760 horas al año." />
+        </Card>
+        <P>
+          Leído en conjunto, el monitoreo que exige la metodología es casi exactamente el sistema que estamos
+          construyendo: pesaje calibrado con frecuencia mensual, registro documentado de condiciones del proceso, y
+          trazabilidad del material hasta su destino final. La diferencia es que la metodología lo pide en papel y
+          nosotros lo producimos como dato continuo y firmado en origen.
         </P>
 
         <H n="4" tt="Arquitectura del dato" />
