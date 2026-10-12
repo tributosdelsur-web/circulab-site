@@ -205,12 +205,24 @@ export default function Whitepaper() {
           </div>
         </Card>
         <P>
-          Ese descuento tiene una consecuencia operativa que conviene decir en voz alta: <strong style={{ color: text }}>cuanto
-          más composta hoy una planta, menos crédito genera el material que le llevemos</strong>. Una instalación
-          habilitada con poca actividad actual produce más reducción atribuible que una que ya opera a buen ritmo. Y la
-          validación exige los registros históricos de los últimos cinco años con verificación cruzada, por ejemplo
-          facturas de venta de compost (¶32).
+          El factor (1 − r) no penaliza usar capacidad ociosa: aísla el incremento. Si la instalación compostaba cien
+          toneladas al año y con el proyecto pasa a trescientas, r vale 0,33 y el 67 % de trescientas son las doscientas
+          que aportó el proyecto. Lo que determina el crédito son las toneladas agregadas, no la proporción.
         </P>
+        <P>
+          Donde sí hay un riesgo concreto es en la definición de WCOM<sub>BAU</sub>: es <strong style={{ color: text }}>el
+          mayor volumen anual de los últimos cinco años</strong>, no el actual ni el promedio. Eso separa dos
+          situaciones que a simple vista parecen la misma. Una instalación con capacidad nueva o que nunca operó a
+          volumen tiene un piso bajo, y casi todo el material que reciba cuenta como incremento. Una instalación que
+          operaba mucho más hace tres años y hoy está semiparada arrastra ese pico como piso: habría que superarlo
+          entero antes de generar la primera reducción acreditable.
+        </P>
+        <P>
+          De ahí que la primera pregunta a cualquier instalación candidata sea cuántas toneladas compostó en cada uno de
+          los últimos cinco años, y con qué respaldo documental, porque el párrafo 32 exige esos registros con
+          verificación cruzada —por ejemplo facturas de venta de compost— para la validación. Esos cinco números
+          determinan desde qué piso empieza a contar el material, y conviene conocerlos antes de firmar y no durante la
+          validación.</P>
         <P>
           El factor de 0,05 kg CH₄ por kilo que usamos como referencia proviene de los valores por defecto del IPCC
           para residuo alimentario, y el bruto teórico resultante ronda 1,4 kg CO₂eq por kilo. La metodología admite
