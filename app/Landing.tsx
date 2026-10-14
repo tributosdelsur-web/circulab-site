@@ -138,48 +138,6 @@ export default function Landing({ ini }: { ini: Ini }) {
     },'image/png')
   }
 
-  const RESIDUOS = [
-    {icon:'🌿',tipo:es?'Orgánico':'Organic',olv:'180 OLV/kg',usd_arbol:'USD 0.028/kg',usd_bosque:'USD 0.082/kg',bolsa:'Verra AMS-III.AJ + VMR0007',color:'#22c55e'},
-    {icon:'♻️',tipo:es?'Plástico':'Plastic',olv:'150 OLV/kg',usd_arbol:'USD 0.024/kg',usd_bosque:'USD 0.068/kg',bolsa:'GS Solid Waste v1.0',color:'#3b82f6'},
-    {icon:'🔩',tipo:es?'Metal':'Metal',olv:'800 OLV/kg',usd_arbol:'USD 0.102/kg',usd_bosque:'USD 0.296/kg',bolsa:'Verra AMS-III.AJ',color:'#ef4444'},
-    {icon:'👕',tipo:es?'Textil':'Textile',olv:'550 OLV/kg',usd_arbol:'USD 0.071/kg',usd_bosque:'USD 0.205/kg',bolsa:'Sin metodología madura',color:'#ec4899'},
-    {icon:'🛢️',tipo:es?'Aceite':'Oil',olv:'250 OLV/kg',usd_arbol:'USD 0.035/kg',usd_bosque:'USD 0.100/kg',bolsa:'Verra AMS-III.AK',color:'#f97316'},
-    {icon:'📄',tipo:es?'Papel':'Paper',olv:'90 OLV/kg',usd_arbol:'USD 0.013/kg',usd_bosque:'USD 0.036/kg',bolsa:'Gold Standard',color:'#f59e0b'},
-    {icon:'🍾',tipo:es?'Vidrio':'Glass',olv:'30 OLV/kg',usd_arbol:'USD 0.005/kg',usd_bosque:'USD 0.014/kg',bolsa:'Verra',color:'#a855f7'},
-  ]
-
-  const OLV_TRAMOS = [
-    {tramo:'🌱 Semilla',año:'2026',olv:es?'Sin valor · acumulás':'No value · you accumulate',c:'#22c55e'},
-    {tramo:'🌿 Brote',año:'2026',olv:es?'Solo canje interno':'Internal exchange only',c:'#3b82f6'},
-    {tramo:'🌳 Árbol',año:es?'Certificación':'Certification',olv:es?'Valor a definir por auditoría':'Value set by audit',c:'#f59e0b'},
-    {tramo:'🌲 Bosque',año:'2028',olv:'2.198 OLV = USD 1',c:'#a855f7'},
-    {tramo:'🏔️ Selva',año:'2029',olv:'1.429 OLV = USD 1',c:'#ec4899'},
-    {tramo:'🌊 Sumidero',año:'2030+',olv:'952 OLV = USD 1',c:'#06b6d4'},
-  ]
-
-  const GANANCIAS = [
-    {icon:'🌱',titulo:es?'Solo reciclás en casa':'You recycle at home',arbol:'USD 47/año',bosque:'USD 136/año',semana:'USD 0.90/sem',color:'#22c55e',
-     detalle:es?'Residuos + agua ahorrada + transporte verde':'Waste + saved water + green transport'},
-    {icon:'🏘️',titulo:es?'Organizás tu edificio':'You organize your building',arbol:'USD 117/año',bosque:'USD 339/año',semana:'USD 2.25/sem',color:'#3b82f6',
-     detalle:es?'Vos + coordinás 20 familias':'You + coordinate 20 families'},
-    {icon:'🍃',titulo:es?'Limpiás tu barrio':'You clean your neighborhood',arbol:'USD 115-289/año',bosque:'USD 333-836/año',semana:'USD 2.21-5.55/sem',color:'#22c55e',
-     detalle:es?'Hojas · ramas · residuos verdes del espacio público':'Leaves · branches · green urban waste'},
-    {icon:'🌍',titulo:es?'Coordinás tu zona':'You coordinate your zone',arbol:'USD 257/año',bosque:'USD 745/año',semana:'USD 4.94/sem',color:'#a855f7',
-     detalle:es?'5-8 edificios · 150-200 familias · 5% bonus zonal':'5-8 buildings · 150-200 families · 5% zone bonus'},
-  ]
-
-  const CLIENTES = [
-    {num:'01',tipo:es?'Ciudadano libre':'Individual citizen',fee:'OLV',canal:'📱 App',color:'#22c55e'},
-    {num:'02',tipo:es?'Verdulería / Feria':'Market / Store',fee:'OLV',canal:'📱 App + WhatsApp',color:'#22c55e'},
-    {num:'03',tipo:es?'Colegio / Institución':'School',fee:'OLV',canal:'📱 App',color:'#3b82f6'},
-    {num:'04',tipo:es?'Consorcio (100 deptos)':'Building (100 units)',fee:'SaaS mensual',canal:'🏢 Admin web',color:'#3b82f6'},
-    {num:'05',tipo:es?'Restaurante / Hotel':'Restaurant / Hotel',fee:'SaaS mensual',canal:'🏢 Admin web',color:'#f59e0b'},
-    {num:'06',tipo:es?'Casino / Comedor':'Casino / Canteen',fee:'SaaS mensual',canal:'🏢 Admin web',color:'#f59e0b'},
-    {num:'07',tipo:es?'Empresa RSE':'CSR Company',fee:es?'Por proyecto':'Per project',canal:'🤝 B2B',color:'#a855f7'},
-    {num:'08',tipo:es?'Municipio':'Municipality',fee:es?'Por contrato':'Per contract',canal:'🏛️ B2G',color:'#a855f7'},
-    {num:'09',tipo:es?'Ciudadano Comunitario':'Community Citizen',fee:'OLV',canal:'📱 App + GPS',color:'#22c55e'},
-  ]
-
   return (
     <div style={{minHeight:'100vh',background:bg,color:text,fontFamily:'system-ui',transition:'all 0.2s'}}>
 

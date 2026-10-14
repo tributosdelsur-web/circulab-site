@@ -89,9 +89,6 @@ function DashboardContent() {
 
   const META_FASE2 = 200
   const progreso_fase2 = Math.min((olv_total/META_FASE2)*100, 100)
-  const progreso_fase3 = Math.min((co2_total/100)*100, 100)
-  const valor_vcs = (co2_total/1000 * 22 * 0.25).toFixed(2)
-  const valor_art64 = (co2_total/1000 * 90 * 0.25).toFixed(2)
 
   const bg = dark?'#0a0e1a':'#f8fafc'
   const text = dark?'#f1f5f9':'#0a0e1a'
@@ -107,8 +104,6 @@ function DashboardContent() {
   const tabs = [
     {id:'panel',l:'Panel',le:'Panel',icon:'⊞'},
     {id:'olivia',l:'OLIVIA',le:'OLIVIA',icon:'🌿'},
-    {id:'quincena',l:'Quincena',le:'Quincena',icon:'👥'},
-    {id:'aom',l:'AOM',le:'AOM',icon:'🎵'},
     {id:'ruta',l:'Ruta OLV',le:'OLV Path',icon:'🪙'},
   ]
 
@@ -192,7 +187,7 @@ function DashboardContent() {
             {/* PROGRESO */}
             <div style={{background:card,border:`1px solid ${border}`,borderRadius:14,padding:'16px'}}>
               <div style={{display:'flex',justifyContent:'space-between',marginBottom:8}}>
-                <div style={{fontSize:13,fontWeight:700}}>{lang==='es'?'Progreso hacia Fase 2':'Progress toward Phase 2'}</div>
+                <div style={{fontSize:13,fontWeight:700}}>{lang==='es'?'Tu primera meta de historial':'Your first record goal'}</div>
                 <div style={{fontSize:11,color:'#22c55e',fontWeight:700}}>{olv_total}/{META_FASE2} OLV</div>
               </div>
               <div style={{height:8,background:'rgba(255,255,255,0.06)',borderRadius:99,marginBottom:8}}>
@@ -200,7 +195,7 @@ function DashboardContent() {
               </div>
               <div style={{fontSize:11,color:'#64748b'}}>
                 {progreso_fase2>=100
-                  ?'✅ Listo para Fase 2'
+                  ?(lang==='es'?'✅ Meta cumplida':'✅ Goal reached')
                   :`${lang==='es'?'Te faltan':'You need'} ${META_FASE2-olv_total} OLV`}
               </div>
             </div>
@@ -348,13 +343,13 @@ function DashboardContent() {
             <div style={{fontSize:16,fontWeight:900}}>🌿 OLIVIA Circulab</div>
 
             <div style={{background:card,border:'1px solid rgba(34,197,94,0.2)',borderRadius:14,padding:'16px'}}>
-              <div style={{fontSize:13,fontWeight:700,marginBottom:4,color:'#22c55e'}}>Tus Olivia Coins (OLV)</div>
-              <div style={{fontSize:10,color:'#64748b',marginBottom:12}}>Token ambiental · Se acreditan cuando verificamos la entrega</div>
+              <div style={{fontSize:13,fontWeight:700,marginBottom:4,color:'#22c55e'}}>{lang==='es'?'Tus OLV':'Your OLV'}</div>
+              <div style={{fontSize:10,color:'#64748b',marginBottom:12}}>{lang==='es'?'Registro ambiental sin valor monetario · se acreditan cuando verificamos la entrega':'Environmental record with no monetary value · credited once delivery is verified'}</div>
               <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:8,marginBottom:12}}>
                 {[
                   {v:olv_verificados,l:'Verificados',c:'#22c55e'},
                   {v:olv_pendientes,l:'Pendientes',c:'#f59e0b'},
-                  {v:0,l:'Canjeados',c:'#64748b'},
+                  {v:olv_total,l:'Total',c:'#64748b'},
                 ].map(k=>(
                   <div key={k.l} style={{background:'rgba(255,255,255,0.03)',borderRadius:10,padding:'10px',textAlign:'center'}}>
                     <div style={{fontSize:20,fontWeight:800,color:k.c}}>{k.v}</div>
@@ -389,14 +384,13 @@ function DashboardContent() {
             )}
 
             <div style={{background:card,border:'1px solid rgba(59,130,246,0.2)',borderRadius:14,padding:'16px'}}>
-              <div style={{fontSize:13,fontWeight:700,marginBottom:4,color:'#3b82f6'}}>Tu Score PULSO</div>
-              <div style={{fontSize:10,color:'#64748b',marginBottom:12}}>Reputación crediticia — distinto de los OLV</div>
+              <div style={{fontSize:13,fontWeight:700,marginBottom:4,color:'#3b82f6'}}>{lang==='es'?'Tus puntos de actividad':'Your activity points'}</div>
+              <div style={{fontSize:10,color:'#64748b',marginBottom:12}}>{lang==='es'?'Distintos de los OLV · sin valor monetario':'Separate from OLV · no monetary value'}</div>
               <div style={{display:'flex',alignItems:'center',gap:16}}>
                 <div style={{fontSize:40,fontWeight:900,color:'#3b82f6'}}>{usuario?.score_pulso||0}</div>
                 <div>
                   <div style={{fontSize:12,fontWeight:700}}>Nivel {usuario?.nivel||1}</div>
-                  <div style={{fontSize:10,color:'#64748b',marginTop:2}}>OLV verificados suman a tu PULSO</div>
-                  <div style={{fontSize:10,color:'#64748b'}}>PULSO alto = mejor tasa en AOM</div>
+                  <div style={{fontSize:10,color:'#64748b',marginTop:2}}>{lang==='es'?'Suman por registrar y participar en la comunidad':'Earned by registering and taking part in the community'}</div>
                 </div>
               </div>
             </div>
@@ -407,146 +401,37 @@ function DashboardContent() {
           </div>
         )}
 
-        {/* ═══ TAB QUINCENA ═══ */}
-        {tab==='quincena'&&(
-          <div style={{display:'flex',flexDirection:'column',gap:16}}>
-            <div style={{fontSize:16,fontWeight:900}}>👥 Quincena · Protocolo PULSO</div>
-
-            <div style={{background:card,border:'1px solid rgba(59,130,246,0.2)',borderRadius:14,padding:'20px',textAlign:'center'}}>
-              <div style={{fontSize:40,fontWeight:900,color:'#3b82f6',marginBottom:4}}>{usuario?.score_pulso||0}</div>
-              <div style={{fontSize:14,fontWeight:700,marginBottom:4}}>Tu Score PULSO</div>
-              <div style={{fontSize:11,color:'#64748b',marginBottom:12}}>Reputación financiera verificada · Distinto de los OLV</div>
-              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:8}}>
-                {[
-                  {l:'Nivel',v:usuario?.nivel||1,c:'#3b82f6'},
-                  {l:'Perfil',v:usuario?.perfil==='coordinador_edificio'?'Coord. Edificio':usuario?.perfil==='comunitario'?'Comunitario':usuario?.perfil==='coordinador_zonal'?'Coord. Zonal':'Reciclador',c:'#22c55e'},
-                  {l:'OLV suman',v:`+${olv_verificados}`,c:'#22c55e'},
-                  {l:'Roscas',v:0,c:'#a855f7'},
-                ].map(k=>(
-                  <div key={k.l} style={{background:'rgba(255,255,255,0.03)',borderRadius:10,padding:'10px',textAlign:'center'}}>
-                    <div style={{fontSize:18,fontWeight:800,color:k.c}}>{k.v}</div>
-                    <div style={{fontSize:9,color:'#64748b',marginTop:2}}>{k.l}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div style={{background:card,border:`1px solid ${border}`,borderRadius:14,padding:'16px'}}>
-              <div style={{fontSize:13,fontWeight:700,marginBottom:12,color:'#3b82f6'}}>¿Qué es el Protocolo PULSO?</div>
-              {[
-                {icon:'♻️',t:'Reciclás con OLIVIA',d:'Cada OLV verificado suma puntos PULSO'},
-                {icon:'💰',t:'Pagás en tus roscas',d:'Cada pago a tiempo suma puntos PULSO'},
-                {icon:'👥',t:'Invitás miembros',d:'Los miembros confiables multiplican tu score'},
-                {icon:'📈',t:'Tu score crece',d:'Accedés a mejores roscas y a AOM'},
-              ].map(i=>(
-                <div key={i.t} style={{display:'flex',gap:10,padding:'8px 0',borderBottom:`1px solid ${border}`}}>
-                  <span style={{fontSize:20,flexShrink:0}}>{i.icon}</span>
-                  <div>
-                    <div style={{fontSize:12,fontWeight:600}}>{i.t}</div>
-                    <div style={{fontSize:10,color:'#64748b'}}>{i.d}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div style={{background:card,border:`1px solid ${border}`,borderRadius:14,padding:'16px'}}>
-              <div style={{fontSize:13,fontWeight:700,marginBottom:12}}>Roadmap Quincena</div>
-              {[
-                {fase:'Fase 1 · Ahora',t:'Rosca digital básica',d:'Registro de pagos y score PULSO',activo:true},
-                {fase:'Fase 2 · Q4 2026',t:'PULSO en blockchain',d:'Score verificado e inmutable',activo:false},
-                {fase:'Fase 3 · certificación',t:'Crédito formal',d:'Bancos y fintechs reconocen tu PULSO',activo:false},
-                {fase:'Fase 4 · 2028',t:'Corredor LATAM',d:'AR → MX → CO → BR → CH → DO',activo:false},
-              ].map(f=>(
-                <div key={f.fase} style={{borderLeft:`3px solid ${f.activo?'#3b82f6':'rgba(255,255,255,0.1)'}`,paddingLeft:12,marginBottom:12}}>
-                  <div style={{fontSize:9,color:f.activo?'#3b82f6':'#64748b',fontWeight:700,textTransform:'uppercase'}}>{f.fase}{f.activo?' · ACTIVA':''}</div>
-                  <div style={{fontSize:12,fontWeight:700}}>{f.t}</div>
-                  <div style={{fontSize:10,color:'#64748b'}}>{f.d}</div>
-                </div>
-              ))}
-            </div>
-
-            <a href="/quincena" style={{background:'linear-gradient(135deg,#3b82f6,#2563eb)',color:'white',padding:'14px',borderRadius:12,fontSize:14,fontWeight:700,textDecoration:'none',display:'block',textAlign:'center'}}>
-              Ver Quincena completo →
-            </a>
-          </div>
-        )}
-
-        {/* ═══ TAB AOM ═══ */}
-        {tab==='aom'&&(
-          <div style={{display:'flex',flexDirection:'column',gap:16}}>
-            <div style={{fontSize:16,fontWeight:900}}>🎵 Art of Money</div>
-
-            <div style={{background:card,border:'1px solid rgba(168,85,247,0.2)',borderRadius:14,padding:'20px'}}>
-              <div style={{fontSize:13,fontWeight:700,marginBottom:4,color:'#a855f7'}}>Tu perfil AOM</div>
-              <div style={{fontSize:10,color:'#64748b',marginBottom:16}}>Tu comportamiento ambiental y financiero como garantía</div>
-              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
-                {[
-                  {l:'Score PULSO',v:usuario?.score_pulso||0,c:'#3b82f6'},
-                  {l:'OLV verificados',v:olv_verificados,c:'#22c55e'},
-                ].map(k=>(
-                  <div key={k.l} style={{background:'rgba(255,255,255,0.03)',borderRadius:10,padding:'12px',textAlign:'center'}}>
-                    <div style={{fontSize:22,fontWeight:800,color:k.c}}>{k.v}</div>
-                    <div style={{fontSize:9,color:'#64748b',marginTop:2}}>{k.l}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div style={{background:card,border:`1px solid ${border}`,borderRadius:14,padding:'16px'}}>
-              <div style={{fontSize:13,fontWeight:700,marginBottom:12}}>¿Quién puede usar AOM?</div>
-              {[
-                {icon:'🎵',t:'Músicos y artistas',d:'Regalías Spotify, YouTube, SADAIC'},
-                {icon:'⚽',t:'Deportistas',d:'Contratos de imagen y bonos rendimiento'},
-                {icon:'📱',t:'Creadores digitales',d:'YouTubers, TikTokers, newsletters'},
-                {icon:'🎬',t:'Actores y directores',d:'Residuales de cine, TV y streaming'},
-                {icon:'📚',t:'Escritores y académicos',d:'Regalías editoriales y conferencias'},
-              ].map(i=>(
-                <div key={i.t} style={{display:'flex',gap:10,padding:'8px 0',borderBottom:`1px solid ${border}`}}>
-                  <span style={{fontSize:20,flexShrink:0}}>{i.icon}</span>
-                  <div>
-                    <div style={{fontSize:12,fontWeight:600}}>{i.t}</div>
-                    <div style={{fontSize:10,color:'#64748b'}}>{i.d}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div style={{background:'rgba(168,85,247,0.06)',border:'1px solid rgba(168,85,247,0.2)',borderRadius:12,padding:'14px'}}>
-              <div style={{fontSize:12,fontWeight:700,color:'#a855f7',marginBottom:6}}>Tu reciclaje mejora tu tasa AOM</div>
-              <div style={{fontSize:11,color:'#64748b',lineHeight:1.6}}>
-                Más OLV verificados → mejor score PULSO → mejor tasa de adelanto en AOM.
-              </div>
-            </div>
-
-            <a href="/aom" style={{background:'linear-gradient(135deg,#a855f7,#7c3aed)',color:'white',padding:'14px',borderRadius:12,fontSize:14,fontWeight:700,textDecoration:'none',display:'block',textAlign:'center'}}>
-              Ver AOM completo →
-            </a>
-          </div>
-        )}
-
         {/* ═══ TAB RUTA OLV ═══ */}
         {tab==='ruta'&&(
           <div style={{display:'flex',flexDirection:'column',gap:16}}>
             <div style={{fontSize:16,fontWeight:900}}>🪙 {lang==='es'?'Tu Ruta OLV':'Your OLV Path'}</div>
 
+            <div style={{background:card,border:'1px solid rgba(245,158,11,0.3)',borderRadius:14,padding:'16px'}}>
+              <div style={{fontSize:13,fontWeight:700,marginBottom:6,color:'#f59e0b'}}>{lang==='es'?'Qué son tus OLV':'What your OLV are'}</div>
+              <div style={{fontSize:11,color:'#94a3b8',lineHeight:1.6}}>
+                {lang==='es'
+                  ?'Cada residuo validado suma OLV Verdes. Hoy no tienen valor monetario: no se canjean ni se cobran. Son tu historial verificado: cuántos kilos separaste y a dónde fueron.'
+                  :'Each validated waste adds Green OLV. Today they have no monetary value: they cannot be redeemed or paid out. They are your verified record: how many kilos you sorted and where they went.'}
+              </div>
+            </div>
+
             <div style={{background:card,border:`1px solid ${border}`,borderRadius:14,padding:'16px'}}>
-              <div style={{fontSize:13,fontWeight:700,marginBottom:16}}>{lang==='es'?'Tu camino hacia el primer pago':'Your path to first payment'}</div>
+              <div style={{fontSize:13,fontWeight:700,marginBottom:16}}>{lang==='es'?'Las etapas de OLIVIA':'OLIVIA stages'}</div>
               {[
-                {num:1,fase:'Fase 1',año:'2026 · Ahora',titulo:lang==='es'?'Acumulás OLV':'Accumulate OLV',desc:lang==='es'?'Cada residuo verificado genera OLV. Sin valor monetario todavía — tu historial se construye hoy.':'Each verified waste generates OLV. No monetary value yet — your history builds today.',color:'#22c55e',activo:true,progreso:Math.min((olv_total/200)*100,100),meta:`${olv_total}/200 OLV`},
-                {num:2,fase:'Fase 2',año:'Q4 2026',titulo:lang==='es'?'OLV canjeables':'OLV redeemable',desc:lang==='es'?'Canjeás tus OLV por servicios reales de empresas partner.':'Redeem your OLV for real services from partner companies.',color:'#3b82f6',activo:false,progreso:0,meta:lang==='es'?'20.000 OLV en el ecosistema':'20,000 OLV in the ecosystem'},
-                {num:3,fase:'Fase 3',año:lang==='es'?'Certificación':'Certification',titulo:lang==='es'?'CERTIFICACIÓN':'CERTIFICATION',desc:lang==='es'?'OLIVIA inicia la validación con Verra. Todos los OLV acumulados desde el día 1 cobran.':'OLIVIA certifies with Verra. All OLV accumulated from day 1 get paid.',color:'#f59e0b',activo:false,progreso:progreso_fase3,meta:lang==='es'?'100 tCO2eq en el ecosistema':'100 tCO2eq in the ecosystem'},
-                {num:4,fase:'Fase 4',año:'2028',titulo:lang==='es'?'Artículo 6.4 París × 4':'Article 6.4 Paris × 4',desc:lang==='es'?'Mercado regulado. USD 90/t. Los OLV valen 4 veces más que en Fase 3.':'Regulated market. USD 90/t. OLV worth 4 times more than Phase 3.',color:'#a855f7',activo:false,progreso:0,meta:lang==='es'?'1.000 tCO2eq + UNFCCC':'1,000 tCO2eq + UNFCCC'},
+                {num:1,fase:lang==='es'?'Semilla · hoy':'Seed · today',titulo:lang==='es'?'Registrás y validamos':'You register, we validate',desc:lang==='es'?'Cada registro se revisa a mano, uno por uno. Construís historial verificado.':'Each record is reviewed by hand, one by one. You build a verified record.',color:'#22c55e',activo:true,progreso:Math.min((olv_total/200)*100,100),meta:`${olv_total}/200 OLV`},
+                {num:2,fase:lang==='es'?'Brote · próxima':'Sprout · next',titulo:lang==='es'?'Planta aliada y balanza':'Partner plant and scale',desc:lang==='es'?'El peso sale de una balanza con modelo aprobado y la planta confirma que procesó el material.':'Weight comes from an approved-model scale and the plant confirms it processed the material.',color:'#3b82f6',activo:false,progreso:0,meta:''},
+                {num:3,fase:lang==='es'?'Árbol · si llega':'Tree · if it comes',titulo:lang==='es'?'Certificación':'Certification',desc:lang==='es'?'Con 12 a 24 meses de registros completos, OLIVIA puede presentar un proyecto ante Verra. Si se certifica, cómo se reconoce a quienes aportaron el origen se definirá y comunicará en ese momento. Hoy no prometemos pagos.':'With 12 to 24 months of complete records, OLIVIA can submit a project to Verra. If certified, how those who contributed the origin are recognized will be defined and announced then. We promise no payments today.',color:'#f59e0b',activo:false,progreso:0,meta:''},
               ].map((f,i)=>(
-                <div key={f.num} style={{display:'flex',gap:12,marginBottom:i<3?16:0}}>
+                <div key={f.num} style={{display:'flex',gap:12,marginBottom:i<2?16:0}}>
                   <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
                     <div style={{width:32,height:32,borderRadius:'50%',background:f.activo?f.color:'rgba(255,255,255,0.06)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:12,fontWeight:800,color:f.activo?'white':'#64748b',flexShrink:0}}>
                       {f.activo?f.num:'○'}
                     </div>
-                    {i<3&&<div style={{width:2,flex:1,minHeight:20,background:'rgba(255,255,255,0.06)',marginTop:4}} />}
+                    {i<2&&<div style={{width:2,flex:1,minHeight:20,background:'rgba(255,255,255,0.06)',marginTop:4}} />}
                   </div>
                   <div style={{flex:1,paddingBottom:8}}>
                     <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:2}}>
-                      <div style={{fontSize:10,color:f.color,fontWeight:700,textTransform:'uppercase'}}>{f.fase} · {f.año}</div>
+                      <div style={{fontSize:10,color:f.color,fontWeight:700,textTransform:'uppercase'}}>{f.fase}</div>
                       {f.activo&&<span style={{fontSize:9,color:'#22c55e',background:'rgba(34,197,94,0.1)',padding:'2px 6px',borderRadius:20,fontWeight:700}}>{lang==='es'?'ACTIVA':'ACTIVE'}</span>}
                     </div>
                     <div style={{fontSize:13,fontWeight:700,marginBottom:2}}>{f.titulo}</div>
@@ -559,67 +444,17 @@ function DashboardContent() {
                         <div style={{fontSize:9,color:'#64748b'}}>{f.meta}</div>
                       </div>
                     )}
-                    {!f.activo&&f.progreso===0&&<div style={{fontSize:9,color:'#64748b'}}>{lang==='es'?'Condición:':'Condition:'} {f.meta}</div>}
                   </div>
                 </div>
               ))}
             </div>
 
-            <div style={{background:card,border:'1px solid rgba(34,197,94,0.2)',borderRadius:14,padding:'16px'}}>
-              <div style={{fontSize:13,fontWeight:700,marginBottom:4,color:'#22c55e'}}>{lang==='es'?'Tu estimación de cobro':'Your payment estimate'}</div>
-              <div style={{fontSize:10,color:'#64748b',marginBottom:12}}>{lang==='es'?'Basado en tu CO2eq acumulado actual':'Based on your current accumulated CO2eq'}</div>
-              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
-                <div style={{background:'rgba(34,197,94,0.08)',borderRadius:10,padding:'12px',textAlign:'center'}}>
-                  <div style={{fontSize:9,color:'#64748b',marginBottom:4}}>Fase 3 · VCS Verra</div>
-                  <div style={{fontSize:20,fontWeight:900,color:'#22c55e'}}>USD {valor_vcs}</div>
-                  <div style={{fontSize:8,color:'#64748b',marginTop:2}}>USD 22/t · tu 25%</div>
-                </div>
-                <div style={{background:'rgba(168,85,247,0.08)',borderRadius:10,padding:'12px',textAlign:'center'}}>
-                  <div style={{fontSize:9,color:'#64748b',marginBottom:4}}>Fase 4 · Art. 6.4</div>
-                  <div style={{fontSize:20,fontWeight:900,color:'#a855f7'}}>USD {valor_art64}</div>
-                  <div style={{fontSize:8,color:'#64748b',marginTop:2}}>USD 90/t · tu 25%</div>
-                </div>
-              </div>
-              <div style={{marginTop:10,fontSize:10,color:'#64748b',lineHeight:1.5,padding:'8px',background:'rgba(255,255,255,0.02)',borderRadius:8}}>
-                💡 {lang==='es'?'Los que empiezan hoy construyen más historial verificado. Sin historial acumulado no hay nada que auditar.':'Those who start today accumulate more OLV. When OLIVIA certifies in 2027 — early starters earn more.'}
-              </div>
-            </div>
-
             <div style={{background:card,border:`1px solid ${border}`,borderRadius:14,padding:'16px'}}>
-              <div style={{fontSize:13,fontWeight:700,marginBottom:12}}>{lang==='es'?'Próximos canjes OLV':'Upcoming OLV redemptions'}</div>
-              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}}>
-                {[
-                  {icon:'🏥',cat:lang==='es'?'Salud':'Health',fase:'Fase 2'},
-                  {icon:'🚗',cat:lang==='es'?'Transporte':'Transport',fase:'Fase 2'},
-                  {icon:'🍕',cat:lang==='es'?'Gastronomía':'Food',fase:'Fase 2'},
-                  {icon:'📱',cat:'Apps digitales',fase:'Fase 2-3'},
-                  {icon:'🤖',cat:'IA',fase:'Fase 3'},
-                  {icon:'✈️',cat:'Carbono ESG',fase:'Fase 3'},
-                ].map(c=>(
-                  <div key={c.cat} style={{background:'rgba(255,255,255,0.02)',border:`1px solid ${border}`,borderRadius:10,padding:'10px',opacity:0.7}}>
-                    <div style={{display:'flex',justifyContent:'space-between',marginBottom:4}}>
-                      <span style={{fontSize:18}}>{c.icon}</span>
-                      <span style={{fontSize:8,color:'#64748b'}}>🔒 {c.fase}</span>
-                    </div>
-                    <div style={{fontSize:11,fontWeight:700}}>{c.cat}</div>
-                  </div>
-                ))}
-              </div>
-              <div style={{marginTop:10,fontSize:10,color:'#64748b',textAlign:'center'}}>
-                {lang==='es'?'¿Empresa que quiere ser partner?':'Company that wants to be a partner?'}
-                <a href="/alianzas" style={{color:'#22c55e',display:'block',fontWeight:700}}>
-                  {lang==='es'?'Ser partner de OLIVIA →':'Become an OLIVIA partner →'}
-                </a>
-              </div>
-            </div>
-
-            <div style={{background:card,border:`1px solid ${border}`,borderRadius:14,padding:'16px'}}>
-              <div style={{fontSize:13,fontWeight:700,marginBottom:12}}>{lang==='es'?'¿Cómo llegás más rápido?':'How do you get there faster?'}</div>
+              <div style={{fontSize:13,fontWeight:700,marginBottom:12}}>{lang==='es'?'¿Cómo ayudás más?':'How can you help more?'}</div>
               {[
-                {icon:'🔩',t:lang==='es'?'Registrá metal':'Register metal',d:lang==='es'?'800 OLV/kg — el factor más alto':'800 OLV/kg — the highest factor'},
-                {icon:'👥',t:lang==='es'?'Invitá vecinos':'Invite neighbors',d:lang==='es'?'+200 OLV por cada vecino registrado':'+200 OLV for each registered neighbor'},
-                {icon:'🏢',t:lang==='es'?'Hablá con tu consorcio':'Talk to your building',d:lang==='es'?'Tu edificio genera 10× más que vos solo':'Your building generates 10× more than you alone'},
-                {icon:'📸',t:lang==='es'?'Mejorá tus fotos':'Improve your photos',d:lang==='es'?'Con moneda de $10 = verificación más rápida':'With a $10 coin = faster verification'},
+                {icon:'📸',t:lang==='es'?'Mejorá tus fotos':'Improve your photos',d:lang==='es'?'Con una moneda de $10 en el encuadre la validación es más rápida':'A $10 coin in the frame makes validation faster'},
+                {icon:'🏢',t:lang==='es'?'Hablá con tu consorcio':'Talk to your building',d:lang==='es'?'Un edificio separa mucho más que una persona sola':'A building sorts far more than one person alone'},
+                {icon:'👥',t:lang==='es'?'Invitá vecinos':'Invite neighbors',d:lang==='es'?'Más vecinos, más origen verificado':'More neighbors, more verified origin'},
               ].map(a=>(
                 <div key={a.t} style={{display:'flex',gap:10,padding:'8px 0',borderBottom:`1px solid ${border}`}}>
                   <span style={{fontSize:20,flexShrink:0}}>{a.icon}</span>

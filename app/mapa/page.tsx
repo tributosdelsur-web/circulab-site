@@ -249,8 +249,8 @@ export default function Mapa() {
                 <div style={{fontSize:10,fontWeight:800,textTransform:'uppercase',letterSpacing:'.09em',marginBottom:10,color:'#16a34a'}}>{es?'El hueco que OLIVIA llena':'The gap OLIVIA fills'}</div>
                 <p style={{fontSize:11,lineHeight:1.7,color:sub}}>
                   {es
-                    ? <>Cuando un vecino deja orgánicos en la compostera, <b style={{color:text}}>ese depósito no queda registrado en ningún sistema</b>. Sin peso, sin origen, sin fecha.<br/><br/>El compost resultante no tiene trazabilidad y por lo tanto no puede convertirse en un activo de carbono. Un compost con origen verificado vale USD 0,70–1,00/kg frente a USD 0,50/kg sin trazabilidad.</>
-                    : <>When a resident drops organics into a composting unit, <b style={{color:text}}>that deposit is not recorded in any system</b>. No weight, no origin, no date.<br/><br/>The resulting compost has no traceability and cannot become a carbon asset. Compost with verified origin is worth USD 0.70–1.00/kg versus USD 0.50/kg without traceability.</>}
+                    ? <>Cuando un vecino deja orgánicos en la compostera, <b style={{color:text}}>ese depósito no queda registrado en ningún sistema</b>. Sin peso, sin origen, sin fecha.<br/><br/>El compost resultante no tiene trazabilidad y por lo tanto no puede convertirse en un activo de carbono.</>
+                    : <>When a resident drops organics into a composting unit, <b style={{color:text}}>that deposit is not recorded in any system</b>. No weight, no origin, no date.<br/><br/>The resulting compost has no traceability and cannot become a carbon asset.</>}
                 </p>
               </div>
               <div style={box('#bae6fd',dark?'rgba(2,132,199,.08)':'#f0f9ff')}>

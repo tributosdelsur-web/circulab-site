@@ -104,7 +104,7 @@ export default function PerfilUsuario() {
           {usuario.nombre?.[0]}{usuario.apellido?.[0]}
         </div>
         <div style={{fontSize:20,fontWeight:900,marginBottom:4}}>{usuario.nombre} {usuario.apellido}</div>
-        <div style={{fontSize:12,color:'#22c55e',marginBottom:4}}>Nivel {usuario.nivel||1} · {usuario.score_pulso||0} pts PULSO</div>
+        <div style={{fontSize:12,color:'#22c55e',marginBottom:4}}>Nivel {usuario.nivel||1} · {usuario.score_pulso||0} pts</div>
         
         {usuario.barrio&&<div style={{fontSize:11,color:'#64748b'}}>📍 {usuario.barrio}</div>}
       </div>

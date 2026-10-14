@@ -393,7 +393,7 @@ function ComunidadContent() {
               </div>
               <div style={{flex:1}}>
                 <div style={{fontSize:14,fontWeight:700,color:'#f1f5f9'}}>{u.nombre} {u.apellido}</div>
-                <div style={{fontSize:11,color:'#22c55e',marginTop:2}}>Nivel {u.nivel} · {u.score_pulso} pts PULSO</div>
+                <div style={{fontSize:11,color:'#22c55e',marginTop:2}}>Nivel {u.nivel} · {u.score_pulso} pts</div>
               </div>
               <span style={{color:'#64748b',fontSize:14}}>→</span>
             </a>
@@ -420,7 +420,7 @@ function ComunidadContent() {
               </div>
               <div style={{textAlign:'right'}}>
                 <div style={{fontSize:14,fontWeight:700,color:'#3b82f6'}}>{u.score_pulso}</div>
-                <div style={{fontSize:9,color:'#64748b'}}>pts PULSO</div>
+                <div style={{fontSize:9,color:'#64748b'}}>pts</div>
               </div>
             </a>
           ))}
@@ -432,19 +432,9 @@ function ComunidadContent() {
         <div style={{padding:16}}>
           <button onClick={()=>cambiarVista('feed')} style={{background:'transparent',border:'none',color:'#64748b',fontSize:13,cursor:'pointer',marginBottom:16}}>← Volver al feed</button>
           <div style={{background:'linear-gradient(135deg,#0f1f10,#0a1628)',border:'1px solid rgba(34,197,94,0.3)',borderRadius:16,padding:24,marginBottom:16,textAlign:'center'}}>
-            <div style={{fontSize:12,color:'#64748b',marginBottom:4}}>Tu billetera OLIVIA</div>
+            <div style={{fontSize:12,color:'#64748b',marginBottom:4}}>Tus OLV</div>
             <div style={{fontSize:52,fontWeight:900,color:'#22c55e'}}>{wallet}</div>
-            <div style={{fontSize:14,color:'#64748b',marginBottom:12}}>Olivia Coins (OLV)</div>
-            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
-              <div style={{background:'rgba(34,197,94,0.08)',borderRadius:10,padding:'10px'}}>
-                <div style={{fontSize:10,color:'#64748b'}}>Fase 3 (VCS)</div>
-                <div style={{fontSize:14,fontWeight:700,color:'#22c55e'}}>USD {(wallet*0.022*0.25).toFixed(2)}</div>
-              </div>
-              <div style={{background:'rgba(168,85,247,0.08)',borderRadius:10,padding:'10px'}}>
-                <div style={{fontSize:10,color:'#64748b'}}>Fase 4 (Art. 6.4)</div>
-                <div style={{fontSize:14,fontWeight:700,color:'#a855f7'}}>USD {(wallet*0.09*0.25).toFixed(2)}</div>
-              </div>
-            </div>
+            <div style={{fontSize:12,color:'#94a3b8',lineHeight:1.6,maxWidth:320,margin:'0 auto'}}>Registro ambiental sin valor monetario: hoy no se canjean ni se cobran. Muestran cuánto separaste y participaste.</div>
           </div>
           <div style={{background:'#111827',border:'1px solid rgba(255,255,255,0.06)',borderRadius:16,padding:16,marginBottom:16}}>
             <div style={{fontSize:13,fontWeight:700,marginBottom:12,color:'#22c55e'}}>Cómo ganar OLV</div>
