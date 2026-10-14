@@ -104,7 +104,7 @@ export default function Institucional() {
             <span style={{fontSize:10,color:sub}}>·</span>
             <span style={{fontSize:11,color:sub}}>{es?'Producto en producción · sin inversión externa':'Product live · no external investment'}</span>
             <span style={{fontSize:10,color:sub}}>·</span>
-            <span style={{fontSize:11,color:sub}}>{es?'USD 50.000 por SAFE':'USD 50,000 via SAFE'}</span>
+            <span style={{fontSize:11,color:sub}}>{es?'USD 65.000 por SAFE':'USD 65,000 via SAFE'}</span>
           </div>
           <div style={{display:'flex',gap:12,flexWrap:'wrap',marginBottom:40}}>
             <a href="/contacto" style={{background:accent,color:dark?'#050505':'white',padding:'13px 28px',borderRadius:40,fontSize:11,fontWeight:700,textDecoration:'none',textTransform:'uppercase',letterSpacing:'0.08em'}}>

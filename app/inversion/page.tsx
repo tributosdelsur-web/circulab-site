@@ -39,14 +39,15 @@ export default function Inversion() {
 
   const estado = [
     { p: 'Plataforma de registro y trazabilidad', e: 'Funcionando', c: '#22c55e' },
-    { p: 'Balanza con firma en hardware', e: 'Diseño cerrado, sin fabricar', c: '#f59e0b' },
+    { p: 'Módulo de firma del peso', e: 'Diseño cerrado, sin fabricar', c: '#f59e0b' },
+    { p: 'Balanzas con modelo aprobado (Ley 19.511)', e: 'A comprar con el tramo 1; confirmación del INTI pendiente', c: '#f59e0b' },
     { p: 'Operador con planta habilitada que firme', e: 'En conversaciones, sin acuerdo', c: '#ef4444' },
     { p: 'Inscripción en Economía del Conocimiento', e: 'Pendiente, ventana abierta', c: '#f59e0b' },
     { p: 'Metodología de certificación de carbono', e: 'Identificada, no iniciada', c: '#94a3b8' },
   ]
 
   const tramos = [
-    { t: 'Tramo 1 · USD 50.000', h: 'Sociedad constituida, planta habilitada firmada, balanza transmitiendo datos continuos', u: 'Sociedad, acuerdo con operador, diez balanzas, seis meses de equipo' },
+    { t: 'Tramo 1 · USD 65.000', h: 'Sociedad constituida, planta habilitada firmada, balanza transmitiendo datos continuos', u: 'Sociedad, acuerdo con operador, diez balanzas con modelo aprobado, seis meses de equipo' },
     { t: 'Tramo 2 · USD 70.000', h: 'Documento de diseño del proyecto presentado', u: 'Desarrollador de carbono, línea de base, documento de diseño, más nodos' },
     { t: 'Tramo 3 · USD 80.000', h: 'Proyecto registrado', u: 'Auditoría de tercera parte, registro, operación' },
   ]
@@ -372,13 +373,13 @@ export default function Inversion() {
           <div style={{ display: 'grid', gap: 12 }}>
             {(es ? [
               ['La foto clasifica, no pesa', 'La imagen con GPS sirve para identificar el tipo de material y el origen. No es el peso de registro y no la presentamos como tal. El peso surge de la balanza.'],
-              ['El peso se firma en el origen', 'Celdas de carga con conversor dedicado y firma criptográfica generada en el propio equipo, antes de salir al teléfono. Un dato alterado después de la pesada no valida.'],
+              ['El peso se firma en el origen', 'Una balanza comercial con modelo aprobado por la Ley de Metrología pesa; nuestro módulo lee el indicador y firma cada lectura dentro del equipo, antes de salir al teléfono. Un dato alterado después de la pesada no valida.'],
               ['Tara por recipiente', 'Cada tacho lleva un QR con su tara registrada. El peso neto se calcula contra esa tara y no contra un valor declarado por el usuario.'],
               ['Antiduplicado', 'Un lote no puede registrarse dos veces: el identificador del recipiente y la marca de tiempo de la pesada cierran el registro.'],
               ['El operador cierra el circuito', 'El registro queda pendiente hasta que la instalación habilitada confirma la recepción y el procesamiento. Sin esa confirmación no computa, aunque todo lo anterior esté bien.'],
             ] : [
               ['The photo classifies, it does not weigh', 'The GPS image identifies material type and origin. It is not the weight of record and we do not present it as one.'],
-              ['Weight is signed at source', 'Load cells with a dedicated converter and a cryptographic signature generated in the device itself, before reaching the phone.'],
+              ['Weight is signed at source', 'A commercial scale with an approved model under the Metrology Law weighs; our module reads the indicator and signs each reading inside the device, before reaching the phone.'],
               ['Tare per container', 'Each bin carries a QR with its registered tare. Net weight is computed against that tare, not a user-declared value.'],
               ['Anti-duplication', 'A batch cannot be registered twice: the container identifier and the weighing timestamp close the record.'],
               ['The operator closes the circuit', 'The record stays pending until the licensed facility confirms reception and processing.'],
@@ -391,8 +392,8 @@ export default function Inversion() {
           </div>
           <div style={{ fontSize: 13, color: sub, lineHeight: 1.65, marginTop: 16, paddingTop: 14, borderTop: `1px solid ${border}` }}>
             {es
-              ? 'Hoy la balanza está diseñada y sin fabricar: es el tramo 1 del pedido. Mientras tanto los registros se validan a mano, uno por uno, y por eso el volumen es chico y la tasa de rechazo es alta: descartamos todo lo que no cumple. Esa validación manual sirve para probar el circuito, no para sostener una certificación. El salto de escala no es más gente registrando: es el peso firmado en origen y el confirmado de la planta.'
-              : 'The scale is designed and not yet built: that is tranche 1 of the ask. Meanwhile records are validated by hand, one by one, which is why volume is small and the rejection rate is high: we discard everything that does not comply. Manual validation proves the circuit; it cannot sustain a certification.'}
+              ? 'Hoy el módulo de firma está diseñado y sin fabricar, y las balanzas se compran con el tramo 1 del pedido. Como cobramos según los kilos, la balanza tiene que tener modelo aprobado y verificación según la Ley 19.511; falta confirmar con el INTI que conectarle nuestro módulo no afecta esa aprobación. Mientras tanto los registros se validan a mano, uno por uno, y por eso el volumen es chico y la tasa de rechazo es alta: descartamos todo lo que no cumple. Esa validación manual sirve para probar el circuito, no para sostener una certificación. El salto de escala no es más gente registrando: es el peso firmado en origen y el confirmado de la planta.'
+              : 'The signing module is designed and not yet built, and the scales are bought with tranche 1. Because we charge by the kilo, the scale must have an approved model and verification under Law 19.511; we still need INTI to confirm that connecting our module does not affect that approval. Meanwhile records are validated by hand, one by one, which is why volume is small and the rejection rate is high: we discard everything that does not comply. Manual validation proves the circuit; it cannot sustain a certification.'}
           </div>
         </Card>
 
@@ -443,13 +444,13 @@ export default function Inversion() {
         <Card>
           <div style={{ display: 'grid', gap: 13 }}>
             {(es ? [
-              ['Equipo por nodo', 'Estimación propia', 'Celdas de carga, conversor HX711, microcontrolador con conectividad, gabinete, fuente y calibración. Son componentes estándar y de bajo costo; la cifra exacta sale de la primera serie fabricada, que es parte del tramo 1.'],
+              ['Equipo por nodo', 'Estimación propia', 'Balanza de plataforma con modelo aprobado, más nuestro módulo de firma y conectividad. La cifra exacta sale de las cotizaciones del tramo 1.'],
               ['Instalación', 'A medir', 'Visita, montaje, identificación de tachos y capacitación. Se cobra al cliente contra entrega, así que no consume caja: es neutro.'],
               ['Operación mensual por sitio', 'Estimación propia', 'Conectividad del equipo, infraestructura de datos y tiempo de validación. Hoy la validación es manual y es el costo que más baja cuando la balanza entra en operación.'],
               ['Ingreso mensual por sitio', 'Fórmula', 'Un 30 a 40 % del ahorro verificado del cliente. Depende de dos variables que el cliente conoce: sus kilos y su tarifa. Por eso publicamos una calculadora en vez de una lista de precios.'],
               ['Punto de equilibrio', 'Fórmula', 'Cantidad de sitios = costo fijo mensual dividido por el margen promedio por sitio. Las dos variables se determinan con el primer cliente real y la primera serie de equipos.'],
             ] : [
-              ['Device per node', 'Own estimate', 'Load cells, HX711 converter, microcontroller, enclosure, power and calibration. Standard low-cost components; the exact figure comes from the first production run.'],
+              ['Device per node', 'Own estimate', 'Platform scale with an approved model, plus our signing and connectivity module. The exact figure comes from tranche 1 quotes.'],
               ['Installation', 'To be measured', 'Charged to the client on delivery, so it does not consume cash.'],
               ['Monthly cost per site', 'Own estimate', 'Connectivity, data infrastructure and validation time.'],
               ['Monthly revenue per site', 'Formula', '30 to 40 % of the client\u2019s verified saving.'],
@@ -466,12 +467,12 @@ export default function Inversion() {
           </div>
           <div style={{ fontSize: 13, color: sub, lineHeight: 1.65, marginTop: 16, paddingTop: 14, borderTop: `1px solid ${border}` }}>
             {es
-              ? 'No publicamos cifras de costo todavía porque no tenemos ni una unidad fabricada ni un cliente instalado, y un número inventado en esta tabla invalidaría todo lo demás que decimos sobre medir antes de afirmar. Las dos cuentas que faltan se cierran con el tramo 1: la primera serie de equipos y el primer sitio en operación.'
+              ? 'No publicamos cifras de costo todavía porque no tenemos ni un equipo instalado ni un cliente en operación, y un número inventado en esta tabla invalidaría todo lo demás que decimos sobre medir antes de afirmar. Las dos cuentas que faltan se cierran con el tramo 1: la primera serie de equipos y el primer sitio en operación.'
               : 'We do not publish cost figures yet because we have neither a manufactured unit nor an installed client, and an invented number here would invalidate everything else we say about measuring before claiming.'}
           </div>
         </Card>
 
-        <H n={es ? 'El pedido' : 'The ask'} tt={es ? 'USD 50.000 por SAFE. El resto es plan, no pedido.' : 'USD 50,000 via SAFE. The rest is plan, not ask.'} />
+        <H n={es ? 'El pedido' : 'The ask'} tt={es ? 'USD 65.000 por SAFE. El resto es plan, no pedido.' : 'USD 65,000 via SAFE. The rest is plan, not ask.'} />
         <P>
           {es
             ? 'Esta es una etapa pre-semilla y el pedido está dimensionado para eso. No pedimos una ronda completa sobre evidencia que todavía no existe: pedimos lo que hace falta para producirla. El instrumento es un SAFE con tope de valuación, porque hoy ninguna valuación fija sería defendible para ninguna de las dos partes.'
@@ -480,7 +481,7 @@ export default function Inversion() {
         <Card>
           <Rubro t={t}>{es ? 'Qué compra' : 'What it buys'}</Rubro>
           <div style={{ fontSize: 14, lineHeight: 1.7, marginBottom: 16 }}>
-            {es ? 'Diez balanzas fabricadas y en operación, con este destino:' : 'Ten scales built and in operation:'}
+            {es ? 'Diez balanzas con modelo aprobado y nuestro módulo de firma, en operación, con este destino:' : 'Ten scales with an approved model and our signing module, in operation:'}
           </div>
           <div style={{ display: 'grid', gap: 11 }}>
             {(es ? [
@@ -507,8 +508,8 @@ export default function Inversion() {
           </div>
           <div style={{ fontSize: 13.5, color: sub, lineHeight: 1.7, marginTop: 16, paddingTop: 14, borderTop: `1px solid ${border}` }}>
             {es
-              ? 'Además: constitución de la sociedad, el acuerdo con el operador y seis meses de pista para el equipo fundador.'
-              : 'Plus: company incorporation, the operator agreement and six months of runway for the founding team.'}
+              ? 'Además: constitución de la sociedad, el acuerdo con el operador y seis meses de pista para el equipo: los dos fundadores y un CTO a tiempo parcial.'
+              : 'Plus: company incorporation, the operator agreement and six months of runway for the team: both founders and a part-time CTO.'}
           </div>
         </Card>
 
@@ -533,8 +534,8 @@ export default function Inversion() {
             <Rubro t={t}>{es ? 'Lo que viene después, sin comprometer a nadie' : 'What comes next, binding no one'}</Rubro>
             <div style={{ fontSize: 13.5, color: sub, lineHeight: 1.7, marginBottom: 12 }}>
               {es
-                ? 'El plan completo son USD 200.000 en tres tramos: este primero, uno de USD 70.000 para desarrollador de carbono, línea de base y documento de diseño del proyecto, y uno de USD 80.000 para auditoría de tercera parte, registro y operación. Lo decimos como plan y no como pedido: no es una obligación de ninguna de las partes y no lleva precio acordado de antemano.'
-                : 'The full plan is USD 200,000 in three tranches. We state it as a plan, not an ask: it binds neither party and carries no pre-agreed price.'}
+                ? 'El plan completo son USD 215.000 en tres tramos: este primero, uno de USD 70.000 para desarrollador de carbono, línea de base y documento de diseño del proyecto, y uno de USD 80.000 para auditoría de tercera parte, registro y operación. Lo decimos como plan y no como pedido: no es una obligación de ninguna de las partes y no lleva precio acordado de antemano.'
+                : 'The full plan is USD 215,000 in three tranches. We state it as a plan, not an ask: it binds neither party and carries no pre-agreed price.'}
             </div>
             <div style={{ fontSize: 13.5, color: sub, lineHeight: 1.7 }}>
               {es

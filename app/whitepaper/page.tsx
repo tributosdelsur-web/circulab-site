@@ -269,7 +269,7 @@ export default function Whitepaper() {
 
         <H n="5" tt="Diseño del instrumento de medición" />
         <Card>
-          <Fila k="Sensado" v="Celdas de carga con conversor analógico-digital dedicado de alta resolución." />
+          <Fila k="Sensado" v="Balanza comercial de plataforma con modelo aprobado y verificación según la Ley 19.511 de Metrología. Nuestro módulo lee el peso desde el indicador." />
           <Fila k="Cómputo y enlace" v="Microcontrolador con conectividad, que firma la lectura antes de transmitirla." />
           <Fila k="Firma en origen" v="La firma criptográfica se genera dentro del equipo. Un valor alterado después de la pesada no valida contra la clave del dispositivo." />
           <Fila k="Tara por recipiente" v="Cada recipiente lleva identificación con su tara registrada. El peso neto se calcula contra esa tara y nunca contra un valor declarado por el usuario." />
@@ -277,7 +277,8 @@ export default function Whitepaper() {
           <Fila k="Calibración" v="Contra pesos patrón, con registro de cada calibración asociado al número de serie del equipo." />
         </Card>
         <Pend>
-          El instrumento está diseñado y no fabricado. Los valores de precisión, deriva y consumo se completan con los
+          El módulo de firma está diseñado y no fabricado; las balanzas se compran con el tramo 1. Falta confirmar con el INTI
+          que conectar el módulo no afecta la aprobación del modelo. Los valores de precisión, deriva y consumo se completan con los
           ensayos de la primera serie. Hasta entonces este documento describe el diseño, no mide su desempeño.
         </Pend>
 
@@ -297,7 +298,8 @@ export default function Whitepaper() {
         <Card>
           <Fila k="Condiciones de aplicabilidad" v="Pendientes de incorporar textualmente desde los PDF de ambas metodologías." />
           <Fila k="Tasa de captura del relleno" v="Determina cuánto del bruto teórico es efectivamente evitable. Sin ese dato, cualquier factor es una elección declarada." />
-          <Fila k="Desempeño del instrumento" v="Precisión y deriva reales, pendientes de la primera serie fabricada." />
+          <Fila k="Desempeño del instrumento" v="Precisión y deriva reales, pendientes de la primera serie instalada." />
+          <Fila k="Aprobación metrológica" v="Pendiente confirmar con el INTI que el módulo de firma conectado al indicador no afecta la aprobación de modelo de la balanza." />
           <Fila k="Correlación entre estimación visual y peso" v="Pendiente de medir contra balanza durante varias semanas antes de afirmar nada sobre ella." />
           <Fila k="Instalación habilitada" v="En conversaciones, sin acuerdo firmado. Es la dependencia que condiciona todo lo anterior." />
           <Fila k="Titularidad de los créditos" v="Posición definida, instrumentación contractual pendiente." />
