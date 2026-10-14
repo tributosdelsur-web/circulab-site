@@ -447,6 +447,8 @@ export default function Ciudadano() {
           <div style={{display:'flex',flexDirection:'column',gap:12}}>
             {[
               {img:'/ciudadano/metamorfosis.jpg',nombre:'Metamorfosis · OLIVIA',desc:es?'Residuos → compost → dato verificado → certificación':'Waste → compost → verified data → certification',color:'#22c55e',href:'/metamorfosis',activa:true},
+              {img:'/ciudadano/pulso.jpg',nombre:'Quincena · PULSO',desc:es?'Roscas digitales → historial de ahorro → acceso al crédito formal':'Digital savings circles → savings record → access to formal credit',color:'#3b82f6',href:'',activa:false},
+              {img:'/ciudadano/aom.jpg',nombre:'Art of Money',desc:es?'Regalías musicales y deportivas → capital para creadores':'Music and sports royalties → capital for creators',color:'#a855f7',href:'',activa:false},
             ].map(v=>(
               <div key={v.nombre} style={{background:card,border:`1px solid ${v.activa?v.color+'55':border}`,borderRadius:14,overflow:'hidden',display:'flex',gap:0,opacity:v.activa?1:0.75}}>
                 <img src={v.img} alt={v.nombre} style={{width:90,objectFit:'cover',filter:v.activa?'none':'grayscale(100%)',flexShrink:0}} />
@@ -458,7 +460,9 @@ export default function Ciudadano() {
                     </span>
                   </div>
                   <div style={{fontSize:11,color:sub,lineHeight:1.5,marginBottom:8}}>{v.desc}</div>
-                  <a href={v.href} style={{fontSize:11,color:v.color,fontWeight:700,textDecoration:'none'}}>{v.activa?(es?'Explorar →':'Explore →'):(es?'Conocer la idea →':'See the idea →')}</a>
+                  {v.activa
+                    ?<a href={v.href} style={{fontSize:11,color:v.color,fontWeight:700,textDecoration:'none'}}>{es?'Explorar →':'Explore →'}</a>
+                    :<span style={{fontSize:11,color:sub,fontWeight:600}}>{es?'Se activa cuando Metamorfosis crezca':'Activates once Metamorfosis grows'}</span>}
                 </div>
               </div>
             ))}
