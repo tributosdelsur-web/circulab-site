@@ -142,10 +142,10 @@ const SLIDES = [
   {
     id: 12,
     titulo: 'El pedido: USD 50.000 pre-semilla, por SAFE',
-    subtitulo: '3 tramos contra hitos · para un socio activo · instrumento y valuación a conversar',
+    subtitulo: 'Pre-semilla · SAFE con tope de valuación · para un socio activo',
     tipo: 'ronda',
     contenido: [
-      {opcion:'Tramo 1',monto:'USD 50.000',hito:'Sociedad constituida, acopiador firmado, balanza transmitiendo datos continuos',uso:'Sociedad, acuerdo con acopiador, primeras balanzas, 4 meses de equipo: CTO a tiempo parcial (honorarios + participación con vesting) y fundadores',color:'#22c55e'},
+      {opcion:'Tramo 1',monto:'USD 50.000',hito:'Sociedad constituida, acopiador firmado, balanza transmitiendo datos continuos',uso:'Sociedad, acuerdo con acopiador, 10 balanzas, 6 meses de equipo: CTO a tiempo parcial (honorarios + participación con vesting) y fundadores',color:'#22c55e'},
       {opcion:'Tramo 2',monto:'USD 70.000',hito:'Documento de diseño presentado ante Verra',uso:'Desarrollador de carbono, línea de base, documento de diseño del proyecto, más nodos',color:'#3b82f6'},
       {opcion:'Tramo 3',monto:'USD 80.000',hito:'Proyecto registrado',uso:'Auditoría de tercera parte, registro, operación',color:'#a855f7'},
     ],
@@ -193,7 +193,7 @@ export default function Pitch() {
         <div style={{textAlign:'center',marginBottom:32}}>
           <img src="/logoOC.png" alt="OLIVIA" style={{width:64,height:64,borderRadius:20,margin:'0 auto 16px',objectFit:'contain',flexShrink:0,display:'block'}} />
           <div style={{fontSize:24,fontWeight:900,color:'#f1f5f9',marginBottom:8}}>OLIVIA Circulab</div>
-          <div style={{fontSize:13,color:'#64748b',lineHeight:1.6}}>Pitch deck confidencial · Ronda Seed 2026</div>
+          <div style={{fontSize:13,color:'#64748b',lineHeight:1.6}}>Pitch deck confidencial · Ronda pre-semilla 2026</div>
         </div>
         <div style={{background:'#111827',border:'1px solid rgba(255,255,255,0.08)',borderRadius:20,padding:'28px'}}>
           <div style={{fontSize:15,fontWeight:700,color:'#f1f5f9',marginBottom:4}}>Solicitá acceso al pitch</div>
@@ -502,7 +502,7 @@ export default function Pitch() {
             </div>
 
             <div style={{padding:'8px',background:'rgba(255,255,255,0.03)',borderRadius:10,fontSize:10,color:'#64748b',textAlign:'center'}}>
-              Instrumento y valuación a conversar · Montos por tramo a confirmar con cotizaciones
+              SAFE con tope de valuación · Tramos 2 y 3: plan no vinculante, montos a confirmar con cotizaciones
             </div>
           </div>
         )}

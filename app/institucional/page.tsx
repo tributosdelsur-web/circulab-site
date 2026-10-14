@@ -100,11 +100,11 @@ export default function Institucional() {
           </p>
 
           <div style={{display:'inline-flex',alignItems:'center',gap:8,background:'rgba(34,197,94,0.08)',border:'1px solid rgba(34,197,94,0.25)',borderRadius:30,padding:'8px 16px',marginBottom:20,flexWrap:'wrap'}}>
-            <span style={{fontSize:11,fontWeight:700,color:'#22c55e'}}>{es?'Ronda Seed abierta':'Seed Round open'}</span>
+            <span style={{fontSize:11,fontWeight:700,color:'#22c55e'}}>{es?'Ronda pre-semilla abierta':'Pre-seed round open'}</span>
             <span style={{fontSize:10,color:sub}}>·</span>
             <span style={{fontSize:11,color:sub}}>{es?'Producto en producción · sin inversión externa':'Product live · no external investment'}</span>
             <span style={{fontSize:10,color:sub}}>·</span>
-            <span style={{fontSize:11,color:sub}}>{es?'Instrumento y valuación a conversar':'Instrument and valuation to be discussed'}</span>
+            <span style={{fontSize:11,color:sub}}>{es?'USD 50.000 por SAFE':'USD 50,000 via SAFE'}</span>
           </div>
           <div style={{display:'flex',gap:12,flexWrap:'wrap',marginBottom:40}}>
             <a href="/contacto" style={{background:accent,color:dark?'#050505':'white',padding:'13px 28px',borderRadius:40,fontSize:11,fontWeight:700,textDecoration:'none',textTransform:'uppercase',letterSpacing:'0.08em'}}>
@@ -331,7 +331,7 @@ export default function Institucional() {
         {/* EL PEDIDO VIVE EN /inversion */}
         <section style={{padding:'32px 0',borderTop:`1px solid ${border}`}}>
           <div style={{background:card,border:`1px solid ${border}`,borderRadius:16,padding:'24px',textAlign:'center'}}>
-            <p style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:sub,marginBottom:10}}>[ {es?'Ronda Seed 2026':'Seed Round 2026'} ]</p>
+            <p style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:sub,marginBottom:10}}>[ {es?'Ronda pre-semilla 2026':'Pre-seed round 2026'} ]</p>
             <h2 style={{fontSize:24,fontWeight:900,fontFamily:'Georgia,serif',fontStyle:'italic',marginBottom:12}}>{es?'El caso de negocio, aparte':'The business case, separately'}</h2>
             <p style={{fontSize:13,color:sub,lineHeight:1.65,maxWidth:480,margin:'0 auto 18px'}}>
               {es?'Esta página es sobre quiénes somos. El pedido, los tramos, los hitos, el mercado direccionable y el estado real de cada pieza —incluido lo que todavía no tenemos— están escritos en un solo lugar, para que no haya dos versiones del mismo número.':'This page is about who we are. The ask, the tranches, the milestones, the addressable market and the real status of every piece — including what we do not have yet — are written in one place only.'}

@@ -98,7 +98,7 @@ return (
         <img src="/logoOC.png" alt="OLIVIA" style={{width:32,height:32,borderRadius:8,objectFit:'contain',flexShrink:0}} />
         <div>
           <div style={{fontSize:13,fontWeight:800,color:text}}>OLIVIA Circulab</div>
-          <div style={{fontSize:9,color:'#22c55e'}}>One Pager · {lang==='es'?'Septiembre':'September'} 2026</div>
+          <div style={{fontSize:9,color:'#22c55e'}}>One Pager · {lang==='es'?'Octubre':'October'} 2026</div>
         </div>
       </a>
       <div style={{display:'flex',gap:6,alignItems:'center'}}>
@@ -279,7 +279,7 @@ return (
         <div style={{display:'flex',justifyContent:'space-between',alignItems:'baseline',flexWrap:'wrap',gap:8,marginBottom:10}}>
           <div style={{fontSize:22,fontWeight:900,color:'#22c55e'}}>USD 50K</div>
           <div style={{fontSize:9,color:sub,marginTop:3,lineHeight:1.5}}>{es?'Pre-semilla, por SAFE con tope de valuación. El plan completo son USD 200K en tres tramos: lo de abajo es plan, no pedido, y no compromete a ninguna de las partes.':'Pre-seed, via SAFE with a valuation cap. The full plan is USD 200K in three tranches: a plan, not an ask, binding neither party.'}</div>
-          <div style={{fontSize:10,color:sub}}>{es?'3 tramos contra hitos · para un socio activo · instrumento y valuación a conversar':'3 milestone-based tranches · for an active partner · instrument and valuation to be discussed'}</div>
+          <div style={{fontSize:10,color:sub}}>{es?'SAFE con tope de valuación · para un socio activo · participación y términos a conversar':'SAFE with a valuation cap · for an active partner · equity and terms to be discussed'}</div>
         </div>
         <div style={{display:'flex',flexDirection:'column',gap:6,marginBottom:8}}>
           {(es?[
@@ -305,8 +305,8 @@ return (
         </div>
         <div style={{fontSize:9,color:sub,lineHeight:1.6,textAlign:'center'}}>
           {es
-            ?'Instrumento y valuación a conversar · Montos por tramo a confirmar con cotizaciones de balanzas y del desarrollador de carbono · Reporting mensual · La sociedad se inscribirá en el régimen de Economía del Conocimiento'
-            :'Instrument and valuation to be discussed · Tranche amounts to be confirmed with scale and carbon developer quotes · Monthly reporting · The company will register under the Knowledge Economy regime'}
+            ?'SAFE con tope de valuación; participación y términos a conversar · Montos de los tramos 2 y 3 a confirmar con cotizaciones de balanzas y del desarrollador de carbono · Reporting mensual · La sociedad se inscribirá en el régimen de Economía del Conocimiento'
+            :'SAFE with a valuation cap; equity and terms to be discussed · Tranche 2 and 3 amounts to be confirmed with scale and carbon developer quotes · Monthly reporting · The company will register under the Knowledge Economy regime'}
         </div>
       </div>
 

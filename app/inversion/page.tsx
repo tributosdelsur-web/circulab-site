@@ -46,7 +46,7 @@ export default function Inversion() {
   ]
 
   const tramos = [
-    { t: 'Tramo 1 · USD 50.000', h: 'Sociedad constituida, planta habilitada firmada, balanza transmitiendo datos continuos', u: 'Sociedad, acuerdo con operador, primeras balanzas, cuatro meses de equipo' },
+    { t: 'Tramo 1 · USD 50.000', h: 'Sociedad constituida, planta habilitada firmada, balanza transmitiendo datos continuos', u: 'Sociedad, acuerdo con operador, diez balanzas, seis meses de equipo' },
     { t: 'Tramo 2 · USD 70.000', h: 'Documento de diseño del proyecto presentado', u: 'Desarrollador de carbono, línea de base, documento de diseño, más nodos' },
     { t: 'Tramo 3 · USD 80.000', h: 'Proyecto registrado', u: 'Auditoría de tercera parte, registro, operación' },
   ]
@@ -95,7 +95,7 @@ export default function Inversion() {
         <div style={{ maxWidth: 800, margin: '0 auto' }}>
           <Pildoras t={t} items={[
             'Buenos Aires · Ley 1854',
-            'Ronda Seed 2026',
+            es ? 'Ronda pre-semilla 2026' : 'Pre-seed round 2026',
             es ? 'Producto en producción' : 'Product live',
             es ? 'Sin inversión externa' : 'No external investment',
             es ? 'Economía del Conocimiento · inscripción pendiente' : 'Knowledge Economy · registration pending',
