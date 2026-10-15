@@ -501,13 +501,13 @@ export default function Inversion() {
               ['Entendemos la regla', 'El fundador es abogado (Chile) con práctica en derecho ambiental y tributario, y dirige una consultora binacional Chile–Argentina. En este negocio, el producto es leer bien la Ley 1.854, el SERFO, CEAMSE y la metrología; un equipo solo técnico tarda meses en llegar ahí.'],
               ['Ya lo construimos', 'Plataforma en producción, piloto en curso y validación uno por uno, sin inversión externa.'],
               ['Trabajamos con quienes hacen el trabajo', 'La cofundadora viene del trabajo comunitario y territorial, y una cooperativa con planta en la Ciudad ya está abierta a probar el sistema.'],
-              ['Mostramos también lo que falta', 'Publicamos qué falta resolver, los riesgos y cuántos registros rechazamos. Para un auditor o un fondo, un dato que se puede revisar vale más que una promesa.'],
+              ['Mostramos también lo que falta', 'No escondemos lo que todavía no está resuelto: publicamos qué falta, los riesgos y cuántos registros rechazamos. Así, quien invierte o audita sabe que lo que mostramos es real.'],
               ['El segundo mercado está a mano', 'Chile tiene metas obligatorias con su Ley REP, y la firma del fundador ya opera en los dos países.'],
             ] : [
               ['We understand the rule', 'The founder is a lawyer (Chile) practicing environmental and tax law, running a Chile–Argentina consultancy. Here the product is reading Law 1,854, SERFO, CEAMSE and metrology correctly.'],
               ['We already built it', 'Platform in production, pilot under way, one-by-one validation, no external investment.'],
               ['We work with those who do the work', 'The co-founder comes from community and field work, and a cooperative with a plant in the City is open to testing the system.'],
-              ['We also show what is missing', 'We publish what is still unresolved, the risks and how many records we reject.'],
+              ['We also show what is missing', 'We do not hide what is still unresolved: we publish what is missing, the risks and how many records we reject. That way, whoever invests or audits knows that what we show is real.'],
               ['The second market is at hand', 'Chile has mandatory targets under its EPR law, and the founder\u2019s firm already operates in both countries.'],
             ]).map((x, i) => (
               <div key={i}>

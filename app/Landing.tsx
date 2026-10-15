@@ -539,12 +539,12 @@ export default function Landing({ ini }: { ini: Ini }) {
             ['Entendemos la regla','El fundador es abogado (Chile) con práctica en derecho ambiental y tributario, y dirige una consultora binacional. En este negocio, el producto es saber leer la Ley 1.854, el SERFO y la metrología.'],
             ['Ya lo construimos','Plataforma en producción y piloto en curso, sin inversión externa.'],
             ['Trabajamos con quienes hacen el trabajo','Cooperativas y plantas de la Ciudad, con una planta ya abierta a probar el sistema.'],
-            ['Mostramos también lo que falta','Publicamos qué falta resolver, los riesgos y cuántos registros rechazamos. Para un auditor o un inversor, un dato que se puede revisar vale más que una promesa.'],
+            ['Mostramos también lo que falta','No escondemos lo que todavía no está resuelto: publicamos qué falta, los riesgos y cuántos registros rechazamos. Así, quien invierte o audita sabe que lo que mostramos es real.'],
           ]:[
             ['We understand the rule','The founder is a lawyer (Chile) practicing environmental and tax law, running a binational consultancy. Here, the product is reading Law 1,854, SERFO and metrology correctly.'],
             ['We already built it','Platform in production and pilot under way, with no external investment.'],
             ['We work with those who do the work','Cooperatives and plants in the City, with one plant already open to testing the system.'],
-            ['We also show what is missing','We publish what is still unresolved, the risks and how many records we reject. For an auditor or an investor, data that can be checked is worth more than a promise.'],
+            ['We also show what is missing','We do not hide what is still unresolved: we publish what is missing, the risks and how many records we reject. That way, whoever invests or audits knows that what we show is real.'],
           ]},
         ].map(b=>(
           <div key={b.k} style={{marginBottom:24}}>
