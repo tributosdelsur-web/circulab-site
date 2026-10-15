@@ -499,7 +499,7 @@ export default function Landing({ ini }: { ini: Ini }) {
         <h2 style={{fontSize:22,fontWeight:900,textAlign:'center',marginBottom:20,color:text}}>{es?'Del residuo al dato verificado en 4 pasos':'From waste to verified data in 4 steps'}</h2>
         <div style={{display:'flex',flexDirection:'column',gap:10}}>
           {[
-            {num:'01',icon:'📸',t:es?'Fotografiás el residuo':'You photograph the waste',d:es?'La IA analiza el tipo y el peso con Cloudflare AI Vision. Con una moneda de $10 al lado, la estimación es precisa.':'AI analyzes type and weight with Cloudflare AI Vision.',c:'#22c55e'},
+            {num:'01',icon:'📸',t:es?'Fotografiás el residuo':'You photograph the waste',d:es?'La foto identifica qué residuo es y de dónde viene. El peso que vale no sale de la foto: sale de la balanza, cuando el material llega a la planta.':'The photo identifies what the waste is and where it comes from. The weight of record does not come from the photo: it comes from the scale, when the material reaches the plant.',c:'#22c55e'},
             {num:'02',icon:'📍',t:es?'Confirmás la disposición':'You confirm disposal',d:es?'La segunda foto con GPS activa tus OLV Verdes, respaldados por kilos verificados.':'The second photo with GPS activates your Green OLV, backed by verified kilos.',c:'#3b82f6'},
             {num:'03',icon:'🪙',t:es?'Acumulás OLV Verdes':'You accumulate Green OLV',d:es?'🌿 OLV Verdes: de residuos verificados · son los que se presentarán a certificación. ⭐ OLV Bonus: por registrarte y compartir · sin valor ambiental.':'🌿 Green OLV: from verified waste · these will be submitted for certification. ⭐ Bonus OLV: for registering and sharing · no environmental value.',c:'#f59e0b'},
             {num:'04',icon:'🌳',t:es?'Certificación':'Certification',d:es?'Con doce a veinticuatro meses de registros verificados se inicia la validación por auditor acreditado bajo estándar Verra. Es un proceso de dos a tres años y su resultado no depende de OLIVIA.':'With twelve to twenty-four months of verified records, validation by an accredited auditor begins under the Verra standard. A two to three year process whose outcome does not depend on OLIVIA.',c:'#a855f7'},
@@ -539,12 +539,12 @@ export default function Landing({ ini }: { ini: Ini }) {
             ['Entendemos la regla','El fundador es abogado (Chile) con práctica en derecho ambiental y tributario, y dirige una consultora binacional. En este negocio, el producto es saber leer la Ley 1.854, el SERFO y la metrología.'],
             ['Ya lo construimos','Plataforma en producción y piloto en curso, sin inversión externa.'],
             ['Trabajamos con quienes hacen el trabajo','Cooperativas y plantas de la Ciudad, con una planta ya abierta a probar el sistema.'],
-            ['Decimos lo que no sabemos','Publicamos los límites y la tasa de rechazo. Un dato que se puede auditar vale más que una promesa.'],
+            ['Mostramos también lo que falta','Publicamos qué falta resolver, los riesgos y cuántos registros rechazamos. Para un auditor o un inversor, un dato que se puede revisar vale más que una promesa.'],
           ]:[
             ['We understand the rule','The founder is a lawyer (Chile) practicing environmental and tax law, running a binational consultancy. Here, the product is reading Law 1,854, SERFO and metrology correctly.'],
             ['We already built it','Platform in production and pilot under way, with no external investment.'],
             ['We work with those who do the work','Cooperatives and plants in the City, with one plant already open to testing the system.'],
-            ['We say what we do not know','We publish our limits and rejection rate. Auditable data is worth more than a promise.'],
+            ['We also show what is missing','We publish what is still unresolved, the risks and how many records we reject. For an auditor or an investor, data that can be checked is worth more than a promise.'],
           ]},
         ].map(b=>(
           <div key={b.k} style={{marginBottom:24}}>
