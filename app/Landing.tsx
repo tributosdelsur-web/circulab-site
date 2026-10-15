@@ -61,6 +61,7 @@ export default function Landing({ ini }: { ini: Ini }) {
   const [videoModal, setVideoModal] = useState(true)
   const [modalMuted, setModalMuted] = useState(true)
   const modalVideoRef = useRef<HTMLVideoElement>(null)
+  const [sistemaPlay, setSistemaPlay] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
 
   const es = lang==='es'
@@ -201,7 +202,7 @@ export default function Landing({ ini }: { ini: Ini }) {
               </video>
               {modalMuted&&(
                 <button onClick={()=>{setModalMuted(false);const v=modalVideoRef.current;if(v){v.muted=false;v.currentTime=0;v.play().catch(()=>{})}}}
-                  style={{position:'absolute',top:12,left:12,display:'flex',alignItems:'center',gap:6,padding:'8px 14px',borderRadius:20,background:'rgba(4,14,9,0.85)',border:'1px solid rgba(34,197,94,0.5)',cursor:'pointer',color:'#86efac',fontSize:12,fontWeight:700}}>
+                  style={{position:'absolute',top:12,right:12,display:'flex',alignItems:'center',gap:6,padding:'8px 14px',borderRadius:20,background:'rgba(4,14,9,0.85)',border:'1px solid rgba(34,197,94,0.5)',cursor:'pointer',color:'#86efac',fontSize:12,fontWeight:700}}>
                   🔊 {es?'Ver con sonido':'Watch with sound'}
                 </button>
               )}
@@ -373,10 +374,20 @@ export default function Landing({ ini }: { ini: Ini }) {
           {/* Video 0 — OLIVIA · El sistema (troncal) */}
           <div>
             <div style={{fontSize:11,color:'#22c55e',fontWeight:700,marginBottom:8,textAlign:'center'}}>{es?'🎬 OLIVIA · El sistema':'🎬 OLIVIA · The system'}</div>
-            <div style={{borderRadius:16,overflow:'hidden',border:'1px solid rgba(34,197,94,0.35)',background:'#000',aspectRatio:'16/9',boxShadow:'0 10px 40px rgba(34,197,94,0.12)'}}>
-              <video controls playsInline poster="/videos/olivia-el-sistema-poster.jpg" style={{width:'100%',height:'100%',display:'block',objectFit:'cover'}} preload="none">
-                <source src="/videos/olivia-el-sistema.mp4" type="video/mp4" />
-              </video>
+            <div style={{position:'relative',borderRadius:16,overflow:'hidden',border:'1px solid rgba(34,197,94,0.35)',background:'#000',aspectRatio:'16/9',boxShadow:'0 10px 40px rgba(34,197,94,0.12)'}}>
+              {sistemaPlay ? (
+                <video controls autoPlay playsInline style={{width:'100%',height:'100%',display:'block',objectFit:'contain',background:'#000'}}>
+                  <source src="/videos/olivia-el-sistema.mp4" type="video/mp4" />
+                </video>
+              ) : (
+                <button onClick={()=>setSistemaPlay(true)} aria-label={es?'Reproducir OLIVIA · El sistema':'Play OLIVIA · The system'}
+                  style={{position:'absolute',inset:0,width:'100%',height:'100%',padding:0,border:'none',cursor:'pointer',background:'#000'}}>
+                  <img src="/videos/olivia-el-sistema-poster.jpg" alt="OLIVIA · El sistema" style={{width:'100%',height:'100%',objectFit:'cover',display:'block'}} />
+                  <span style={{position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',width:72,height:72,borderRadius:'50%',background:'rgba(34,197,94,0.92)',boxShadow:'0 0 0 8px rgba(34,197,94,0.25), 0 8px 30px rgba(0,0,0,0.5)',display:'flex',alignItems:'center',justifyContent:'center'}}>
+                    <span style={{width:0,height:0,borderTop:'14px solid transparent',borderBottom:'14px solid transparent',borderLeft:'22px solid #04110a',marginLeft:6}} />
+                  </span>
+                </button>
+              )}
             </div>
             <div style={{fontSize:11,color:sub,textAlign:'center',marginTop:8,fontStyle:'italic'}}>
               {es?'Constatar, reconocer, medir, invitar y regenerar: cómo funciona OLIVIA en 1:35.':'Map, recognise, measure, invite and regenerate: how OLIVIA works in 1:35.'}
