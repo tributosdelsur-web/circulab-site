@@ -523,6 +523,45 @@ export default function Landing({ ini }: { ini: Ini }) {
         </div>
       </section>
 
+      {/* ═══ POR QUÉ AHORA · POR QUÉ NOSOTROS ═══ */}
+      <section style={{padding:'32px 20px',maxWidth:580,margin:'0 auto',borderTop:`1px solid ${border}`}}>
+        {[
+          {k:es?'Por qué ahora':'Why now',t:es?'Separar bien ya tiene premio.':'Sorting well now pays off.',c:'#22c55e',items:es?[
+            ['Las reglas son nuevas','Desde la Resolución 1177/2023, los grandes generadores pagan por su basura húmeda y la orgánica separada tiene su propio circuito. Demostrar lo que se separa se volvió dinero.'],
+            ['Medir dejó de ser caro','Una balanza con modelo aprobado, conexión 4G y la firma digital del peso alcanzan para tener un registro que resiste una auditoría.'],
+            ['El carbono pide datos, no estimaciones','Quien llegue con 12 a 24 meses de registros completos va a estar primero cuando el proyecto se presente a certificación.'],
+          ]:[
+            ['The rules are new','Since Resolution 1177/2023, large generators pay for their wet waste and separated organics have their own circuit. Proving what is separated now means money.'],
+            ['Measuring got cheap','An approved-model scale, 4G and a digitally signed weight are enough for a record that survives an audit.'],
+            ['Carbon wants data, not estimates','Whoever arrives with 12 to 24 months of complete records will be first in line when the project goes to certification.'],
+          ]},
+          {k:es?'Por qué nosotros':'Why us',t:es?'La regla, el producto y la calle.':'The rule, the product and the street.',c:'#3b82f6',items:es?[
+            ['Entendemos la regla','El fundador es abogado (Chile) con práctica en derecho ambiental y tributario, y dirige una consultora binacional. En este negocio, el producto es saber leer la Ley 1.854, el SERFO y la metrología.'],
+            ['Ya lo construimos','Plataforma en producción y piloto en curso, sin inversión externa.'],
+            ['Trabajamos con quienes hacen el trabajo','Cooperativas y plantas de la Ciudad, con una planta ya abierta a probar el sistema.'],
+            ['Decimos lo que no sabemos','Publicamos los límites y la tasa de rechazo. Un dato que se puede auditar vale más que una promesa.'],
+          ]:[
+            ['We understand the rule','The founder is a lawyer (Chile) practicing environmental and tax law, running a binational consultancy. Here, the product is reading Law 1,854, SERFO and metrology correctly.'],
+            ['We already built it','Platform in production and pilot under way, with no external investment.'],
+            ['We work with those who do the work','Cooperatives and plants in the City, with one plant already open to testing the system.'],
+            ['We say what we do not know','We publish our limits and rejection rate. Auditable data is worth more than a promise.'],
+          ]},
+        ].map(b=>(
+          <div key={b.k} style={{marginBottom:24}}>
+            <div style={{fontSize:11,color:b.c,textTransform:'uppercase',letterSpacing:'0.1em',textAlign:'center',marginBottom:6}}>{b.k}</div>
+            <h2 style={{fontSize:22,fontWeight:900,textAlign:'center',marginBottom:14,color:text}}>{b.t}</h2>
+            <div style={{display:'flex',flexDirection:'column',gap:8}}>
+              {b.items.map(([h,d])=>(
+                <div key={h} style={{padding:'12px 14px',background:card,borderRadius:12,border:`1px solid ${b.c}22`}}>
+                  <div style={{fontSize:13,fontWeight:700,color:b.c,marginBottom:3}}>{h}</div>
+                  <div style={{fontSize:12,color:sub,lineHeight:1.6}}>{d}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </section>
+
       {/* ═══ SECCIÓN 5 — UN ECOSISTEMA DE TRES ═══ */}
       <section style={{padding:'32px 20px',maxWidth:580,margin:'0 auto',borderTop:`1px solid ${border}`}}>
         <div style={{fontSize:11,color:'#22c55e',textTransform:'uppercase',letterSpacing:'0.1em',textAlign:'center',marginBottom:6}}>{es?'Ecosistema':'Ecosystem'}</div>

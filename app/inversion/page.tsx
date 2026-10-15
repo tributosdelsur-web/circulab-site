@@ -472,6 +472,57 @@ export default function Inversion() {
           </div>
         </Card>
 
+        <H n={es ? 'Por qué ahora' : 'Why now'} tt={es ? 'Separar bien ya tiene premio, y medir dejó de ser caro.' : 'Sorting well now pays off, and measuring got cheap.'} />
+        <Card>
+          <div style={{ display: 'grid', gap: 12 }}>
+            {(es ? [
+              ['Las reglas son nuevas', 'La Resolución 1177/2023 armó el régimen actual: generadores especiales que pagan su fracción húmeda, el SERFO para la orgánica separada y la figura del acopiador. Las reglas que premian separar bien existen recién desde hace dos años.'],
+              ['Medir dejó de ser caro', 'Una balanza con modelo aprobado, conexión 4G y la firma digital del peso alcanzan para un registro que resiste una auditoría. Hace unos años eso era un proyecto industrial.'],
+              ['El carbono pide datos, no estimaciones', 'Quien llegue con 12 a 24 meses de registros completos va a estar primero cuando el proyecto se presente a certificación.'],
+              ['Una ventana fiscal con plazo', 'El Régimen de Economía del Conocimiento tiene hoy una vía más simple para empresas de menos de tres años (ver Marco fiscal).'],
+            ] : [
+              ['The rules are new', 'Resolution 1177/2023 built the current regime: special generators paying for their wet fraction, SERFO for separated organics and the collector figure.'],
+              ['Measuring got cheap', 'An approved-model scale, 4G and a digitally signed weight are enough for an auditable record.'],
+              ['Carbon wants data, not estimates', 'Whoever arrives with 12 to 24 months of complete records will be first in line for certification.'],
+              ['A time-limited tax window', 'The Knowledge Economy regime currently has a simpler path for companies under three years old.'],
+            ]).map((x, i) => (
+              <div key={i}>
+                <div style={{ fontSize: 14.5, fontWeight: 700, marginBottom: 4 }}>{x[0]}</div>
+                <div style={{ fontSize: 13.5, color: sub, lineHeight: 1.6 }}>{x[1]}</div>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <H n={es ? 'Por qué nosotros' : 'Why us'} tt={es ? 'La regla, el producto y la calle.' : 'The rule, the product and the street.'} />
+        <Card>
+          <div style={{ display: 'grid', gap: 12 }}>
+            {(es ? [
+              ['Entendemos la regla', 'El fundador es abogado (Chile) con práctica en derecho ambiental y tributario, y dirige una consultora binacional Chile–Argentina. En este negocio, el producto es leer bien la Ley 1.854, el SERFO, CEAMSE y la metrología; un equipo solo técnico tarda meses en llegar ahí.'],
+              ['Ya lo construimos', 'Plataforma en producción, piloto en curso y validación uno por uno, sin inversión externa.'],
+              ['Trabajamos con quienes hacen el trabajo', 'La cofundadora viene del trabajo comunitario y territorial, y una cooperativa con planta en la Ciudad ya está abierta a probar el sistema.'],
+              ['Decimos lo que no sabemos', 'Publicamos los límites, los riesgos y la tasa de rechazo. Para un auditor o un fondo, un dato verificable vale más que una promesa.'],
+              ['El segundo mercado está a mano', 'Chile tiene metas obligatorias con su Ley REP, y la firma del fundador ya opera en los dos países.'],
+            ] : [
+              ['We understand the rule', 'The founder is a lawyer (Chile) practicing environmental and tax law, running a Chile–Argentina consultancy. Here the product is reading Law 1,854, SERFO, CEAMSE and metrology correctly.'],
+              ['We already built it', 'Platform in production, pilot under way, one-by-one validation, no external investment.'],
+              ['We work with those who do the work', 'The co-founder comes from community and field work, and a cooperative with a plant in the City is open to testing the system.'],
+              ['We say what we do not know', 'We publish our limits, risks and rejection rate.'],
+              ['The second market is at hand', 'Chile has mandatory targets under its EPR law, and the founder\u2019s firm already operates in both countries.'],
+            ]).map((x, i) => (
+              <div key={i}>
+                <div style={{ fontSize: 14.5, fontWeight: 700, marginBottom: 4 }}>{x[0]}</div>
+                <div style={{ fontSize: 13.5, color: sub, lineHeight: 1.6 }}>{x[1]}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ fontSize: 13, color: sub, lineHeight: 1.65, marginTop: 16, paddingTop: 14, borderTop: `1px solid ${border}` }}>
+            {es
+              ? 'Lo que todavía falta, y lo decimos: no hay planta firmada ni CTO incorporado. Las dos cosas son el primer uso de este pedido.'
+              : 'What is still missing, and we say so: no signed plant and no CTO yet. Both are the first use of this ask.'}
+          </div>
+        </Card>
+
         <H n={es ? 'El pedido' : 'The ask'} tt={es ? 'USD 65.000 por SAFE. El resto es plan, no pedido.' : 'USD 65,000 via SAFE. The rest is plan, not ask.'} />
         <P>
           {es
