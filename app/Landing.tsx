@@ -59,6 +59,8 @@ export default function Landing({ ini }: { ini: Ini }) {
   const [enviado, setEnviado] = useState(false)
   const [stats, setStats] = useState(ini)
   const [videoModal, setVideoModal] = useState(true)
+  const [modalMuted, setModalMuted] = useState(true)
+  const modalVideoRef = useRef<HTMLVideoElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
 
   const es = lang==='es'
@@ -183,29 +185,31 @@ export default function Landing({ ini }: { ini: Ini }) {
         </div>
       </a>
 
-      {/* MODAL VIDEO FAMILIAR — Final1.mp4 — vertical — se comparte directo */}
+      {/* MODAL VIDEO — OLIVIA · El sistema — horizontal 16:9 */}
       {videoModal&&(
-        <div style={{position:'fixed',inset:0,background:'rgba(0,0,0,0.96)',zIndex:9999,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',padding:16}}>
-          <div style={{width:'100%',maxWidth:420,position:'relative'}}>
-            <button onClick={()=>setVideoModal(false)} style={{position:'absolute',top:-44,right:0,background:'transparent',border:'none',color:'white',fontSize:32,cursor:'pointer',lineHeight:1,zIndex:10}}>×</button>
+        <div style={{position:'fixed',inset:0,background:'rgba(0,0,0,0.94)',zIndex:9999,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',padding:16}}>
+          <div style={{width:'100%',maxWidth:880,position:'relative'}}>
+            <button onClick={()=>setVideoModal(false)} aria-label={es?'Cerrar':'Close'} style={{position:'absolute',top:-44,right:0,background:'transparent',border:'none',color:'white',fontSize:32,cursor:'pointer',lineHeight:1,zIndex:10}}>×</button>
             <div style={{textAlign:'center',marginBottom:12}}>
               <span style={{fontSize:11,color:'#22c55e',fontWeight:700,background:'rgba(34,197,94,0.1)',border:'1px solid rgba(34,197,94,0.3)',borderRadius:20,padding:'4px 12px'}}>
-                🌿 OLIVIA Circulab
+                🌿 OLIVIA · {es?'El sistema':'The system'}
               </span>
             </div>
-            <div style={{borderRadius:14,overflow:'hidden',background:'#000',border:'2px solid rgba(34,197,94,0.3)'}}>
-              <video autoPlay muted controls playsInline style={{width:'100%',display:'block',maxHeight:'65vh',objectFit:'cover'}}>
-                <source src="/Final1.mp4" type="video/mp4" />
+            <div style={{position:'relative',borderRadius:14,overflow:'hidden',background:'#000',border:'2px solid rgba(34,197,94,0.3)',aspectRatio:'16/9'}}>
+              <video ref={modalVideoRef} autoPlay muted={modalMuted} controls playsInline poster="/videos/olivia-el-sistema-poster.jpg" style={{width:'100%',height:'100%',display:'block',objectFit:'contain',background:'#000'}}>
+                <source src="/videos/olivia-el-sistema.mp4" type="video/mp4" />
               </video>
+              {modalMuted&&(
+                <button onClick={()=>{setModalMuted(false);const v=modalVideoRef.current;if(v){v.muted=false;v.currentTime=0;v.play().catch(()=>{})}}}
+                  style={{position:'absolute',top:12,left:12,display:'flex',alignItems:'center',gap:6,padding:'8px 14px',borderRadius:20,background:'rgba(4,14,9,0.85)',border:'1px solid rgba(34,197,94,0.5)',cursor:'pointer',color:'#86efac',fontSize:12,fontWeight:700}}>
+                  🔊 {es?'Ver con sonido':'Watch with sound'}
+                </button>
+              )}
             </div>
             <div style={{display:'flex',gap:8,marginTop:12,justifyContent:'center',flexWrap:'wrap'}}>
               <button onClick={()=>compartirVideo('whatsapp',true)}
                 style={{display:'flex',alignItems:'center',gap:6,padding:'10px 16px',borderRadius:10,background:'rgba(37,211,102,0.15)',border:'1px solid rgba(37,211,102,0.4)',cursor:'pointer',color:'#25d366',fontSize:12,fontWeight:700}}>
                 💬 WhatsApp
-              </button>
-              <button onClick={()=>compartirVideo('story',true)}
-                style={{display:'flex',alignItems:'center',gap:6,padding:'10px 16px',borderRadius:10,background:'rgba(131,58,180,0.15)',border:'1px solid rgba(131,58,180,0.4)',cursor:'pointer',color:'#a855f7',fontSize:12,fontWeight:700}}>
-                📸 {es?'Story (video vertical)':'Story (vertical video)'}
               </button>
               <button onClick={()=>setVideoModal(false)}
                 style={{display:'flex',alignItems:'center',gap:6,padding:'10px 16px',borderRadius:10,background:'rgba(255,255,255,0.06)',border:'1px solid rgba(255,255,255,0.1)',cursor:'pointer',color:'#94a3b8',fontSize:12}}>
@@ -366,6 +370,18 @@ export default function Landing({ ini }: { ini: Ini }) {
       {/* ═══ SECCIÓN 2 — DOS VIDEOS ═══ */}
       <section style={{padding:'0 20px 32px',maxWidth:580,margin:'0 auto'}}>
         <div style={{display:'flex',flexDirection:'column',gap:16}}>
+          {/* Video 0 — OLIVIA · El sistema (troncal) */}
+          <div>
+            <div style={{fontSize:11,color:'#22c55e',fontWeight:700,marginBottom:8,textAlign:'center'}}>{es?'🎬 OLIVIA · El sistema':'🎬 OLIVIA · The system'}</div>
+            <div style={{borderRadius:16,overflow:'hidden',border:'1px solid rgba(34,197,94,0.35)',background:'#000',aspectRatio:'16/9',boxShadow:'0 10px 40px rgba(34,197,94,0.12)'}}>
+              <video controls playsInline poster="/videos/olivia-el-sistema-poster.jpg" style={{width:'100%',height:'100%',display:'block',objectFit:'cover'}} preload="none">
+                <source src="/videos/olivia-el-sistema.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div style={{fontSize:11,color:sub,textAlign:'center',marginTop:8,fontStyle:'italic'}}>
+              {es?'Constatar, reconocer, medir, invitar y regenerar: cómo funciona OLIVIA en 1:35.':'Map, recognise, measure, invite and regenerate: how OLIVIA works in 1:35.'}
+            </div>
+          </div>
           {/* Video 1 — familiar */}
           <div>
             <div style={{fontSize:11,color:'#22c55e',fontWeight:700,marginBottom:8,textAlign:'center'}}>{es?'🌿 Nuestra historia':'🌿 Our story'}</div>
