@@ -1,5 +1,5 @@
 'use client'
-import VideoBloque, { videoPorId } from '../../lib/VideoBloque'
+import VideoBloque, { videoPorId, BotonesCompartir } from '../../lib/VideoBloque'
 
 // SEO metadata
 
@@ -140,14 +140,7 @@ export default function Ciudadano() {
               </video>
             </div>
             <div style={{display:'flex',gap:8,marginTop:12,justifyContent:'center',flexWrap:'wrap'}}>
-              <button onClick={compartirWA}
-                style={{display:'flex',alignItems:'center',gap:6,padding:'10px 16px',borderRadius:10,background:'rgba(37,211,102,0.15)',border:'1px solid rgba(37,211,102,0.4)',cursor:'pointer',color:'#25d366',fontSize:12,fontWeight:700}}>
-                💬 WhatsApp
-              </button>
-              <button onClick={generarStoryEnterramiento}
-                style={{display:'flex',alignItems:'center',gap:6,padding:'10px 16px',borderRadius:10,background:'rgba(131,58,180,0.15)',border:'1px solid rgba(131,58,180,0.4)',cursor:'pointer',color:'#a855f7',fontSize:12,fontWeight:700}}>
-                📸 {es?'Story (imagen vertical)':'Story (vertical image)'}
-              </button>
+              <BotonesCompartir src='/videos/olivia-enterramiento-compartir.mp4' titulo={es?'El negocio del enterramiento':'The landfill business'} texto={es?'En las ciudades que funcionan, separar tiene recompensa.':'In cities that work, sorting waste is rewarded.'} link='https://oliviacirculab.com.ar/ciudadano' centrado />
               <button onClick={cerrarModal}
                 style={{display:'flex',alignItems:'center',gap:6,padding:'10px 16px',borderRadius:10,background:'rgba(255,255,255,0.06)',border:'1px solid rgba(255,255,255,0.1)',cursor:'pointer',color:'#94a3b8',fontSize:12}}>
                 {es?'Seguir leyendo →':'Continue →'}

@@ -27,38 +27,42 @@ const SITIO = 'https://oliviacirculab.com.ar'
 
 function linkDe(v: VideoOlivia) { return `${SITIO}/videos#${v.id}` }
 
-export default function VideoBloque({ video, sub = '#6b7280', accent = '#22c55e', mostrarPagina = false, compacto = false }:
-  { video: VideoOlivia; sub?: string; accent?: string; mostrarPagina?: boolean; compacto?: boolean }) {
-  const [play, setPlay] = useState(false)
+export function BotonesCompartir({ src, titulo, texto, link, accent = '#22c55e', centrado = false }:
+  { src: string; titulo: string; texto: string; link: string; accent?: string; centrado?: boolean }) {
   const [aviso, setAviso] = useState('')
-  const link = linkDe(video)
-  const textoWa = `${video.titulo} · OLIVIA Circulab — ${video.bajada} ${link}`
-
-  const avisar = (s: string) => { setAviso(s); setTimeout(() => setAviso(''), 2600) }
-
+  const avisar = (s: string) => { setAviso(s); setTimeout(() => setAviso(''), 2800) }
   async function compartir() {
     const nav: any = typeof navigator !== 'undefined' ? navigator : null
     try {
       if (nav?.share && nav?.canShare) {
-        const r = await fetch(video.src)
-        const blob = await r.blob()
-        const file = new File([blob], `${video.id}-olivia.mp4`, { type: 'video/mp4' })
-        if (nav.canShare({ files: [file] })) {
-          await nav.share({ files: [file], title: video.titulo, text: `${video.titulo} · OLIVIA Circulab ${link}` })
-          return
-        }
+        const blob = await fetch(src).then(r => r.blob())
+        const file = new File([blob], 'olivia-circulab.mp4', { type: 'video/mp4' })
+        if (nav.canShare({ files: [file] })) { await nav.share({ files: [file], title: titulo, text: `${titulo} · OLIVIA Circulab ${link}` }); return }
       }
-      if (nav?.share) { await nav.share({ title: video.titulo, text: video.bajada, url: link }); return }
+      if (nav?.share) { await nav.share({ title: titulo, text: texto, url: link }); return }
       await nav?.clipboard?.writeText(link)
       avisar('Link copiado. Para subirlo a Instagram, abrí esta página desde el celular.')
     } catch (e: any) {
-      if (e?.name !== 'AbortError') {
-        try { await nav?.clipboard?.writeText(link); avisar('Link copiado') } catch { /* nada */ }
-      }
+      if (e?.name !== 'AbortError') { try { await nav?.clipboard?.writeText(link); avisar('Link copiado') } catch { /* nada */ } }
     }
   }
+  const base: React.CSSProperties = { display: 'inline-flex', alignItems: 'center', gap: 6, borderRadius: 20, padding: '8px 14px', fontSize: 12, fontWeight: 700, cursor: 'pointer', textDecoration: 'none', whiteSpace: 'nowrap' }
+  return (
+    <div style={{ textAlign: centrado ? 'center' : 'left' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: centrado ? 'center' : 'flex-start' }}>
+        <a href={`https://wa.me/?text=${encodeURIComponent(`${titulo} · OLIVIA Circulab — ${texto} ${link}`)}`} target="_blank" rel="noopener noreferrer"
+          style={{ ...base, background: 'rgba(37,211,102,0.12)', border: '1px solid rgba(37,211,102,0.4)', color: '#25d366' }}>💬 WhatsApp</a>
+        <button onClick={compartir} style={{ ...base, background: 'rgba(168,85,247,0.1)', border: '1px solid rgba(168,85,247,0.4)', color: '#a855f7' }}>📸 Instagram (historia o post)</button>
+      </div>
+      {aviso && <div style={{ fontSize: 11.5, color: accent, marginTop: 8 }}>{aviso}</div>}
+    </div>
+  )
+}
 
-  const boton: React.CSSProperties = { display: 'inline-flex', alignItems: 'center', gap: 6, border: '1px solid rgba(34,197,94,.45)', borderRadius: 20, padding: '7px 13px', fontSize: 12, fontWeight: 700, cursor: 'pointer', background: 'transparent', color: accent, textDecoration: 'none', whiteSpace: 'nowrap' }
+export default function VideoBloque({ video, sub = '#6b7280', accent = '#22c55e', mostrarPagina = false, compacto = false }:
+  { video: VideoOlivia; sub?: string; accent?: string; mostrarPagina?: boolean; compacto?: boolean }) {
+  const [play, setPlay] = useState(false)
+  const link = linkDe(video)
 
   return (
     <div id={video.id} style={{ maxWidth: video.vertical ? 380 : (compacto ? 640 : 820), margin: '0 auto', width: '100%', scrollMarginTop: 80 }}>
@@ -77,12 +81,10 @@ export default function VideoBloque({ video, sub = '#6b7280', accent = '#22c55e'
       <div style={{ marginTop: 12 }}>
         <div style={{ fontSize: 15, fontWeight: 800 }}>{video.titulo}</div>
         <div style={{ fontSize: 12.5, color: sub, lineHeight: 1.6, marginTop: 3 }}>{video.bajada}</div>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 10 }}>
-          <a href={`https://wa.me/?text=${encodeURIComponent(textoWa)}`} target="_blank" rel="noopener noreferrer" style={boton}>WhatsApp</a>
-          <button onClick={compartir} style={boton}>Instagram (historia o post)</button>
-          {mostrarPagina && video.pagina && <a href={video.pagina} style={{ ...boton, border: 'none', padding: '7px 4px' }}>{video.paginaLabel} →</a>}
+        <div style={{ marginTop: 10 }}>
+          <BotonesCompartir src={video.src} titulo={video.titulo} texto={video.bajada} link={link} accent={accent} />
+          {mostrarPagina && video.pagina && <a href={video.pagina} style={{ display: 'inline-block', marginTop: 10, fontSize: 12, fontWeight: 700, color: accent, textDecoration: 'none' }}>{video.paginaLabel} →</a>}
         </div>
-        {aviso && <div style={{ fontSize: 11.5, color: accent, marginTop: 8 }}>{aviso}</div>}
       </div>
     </div>
   )

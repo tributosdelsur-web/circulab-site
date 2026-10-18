@@ -1,4 +1,5 @@
 'use client'
+import { BotonesCompartir } from '../lib/VideoBloque'
 import { useState, useEffect, useRef } from 'react'
 import { supabase } from '../lib/supabase'
 import { conAutores, metricasPublicas } from '../lib/publico'
@@ -85,25 +86,6 @@ export default function Landing({ ini }: { ini: Ini }) {
     setEnviado(true)
     setEnviando(false)
     setTimeout(()=>window.location.href='/pitch',1200)
-  }
-
-  function compartirVideo(tipo: 'whatsapp'|'story', esLanding=true) {
-    const url = 'https://oliviacirculab.com.ar'
-    const txt = es
-      ?`Mirá esto — OLIVIA Circulab mide lo que tu barrio devuelve al ciclo 🌿 ${url}`
-      :`Watch this — OLIVIA Circulab measures what your neighbourhood returns to the cycle 🌿 ${url}`
-    if(tipo==='whatsapp'){
-      window.open(`https://wa.me/?text=${encodeURIComponent(txt)}`)
-    } else {
-      if(esLanding){
-        // Video vertical — descargar directo
-        const a = document.createElement('a')
-        a.href = '/Final1.mp4'
-        a.download = 'olivia-circulab.mp4'
-        a.click()
-        setTimeout(()=>alert(es?'Video descargado 📱\nAbrí Instagram → Nueva Story → Galería':'Video downloaded 📱\nOpen Instagram → New Story → Gallery'),500)
-      }
-    }
   }
 
   async function generarStoryInvitar() {
@@ -208,10 +190,7 @@ export default function Landing({ ini }: { ini: Ini }) {
               )}
             </div>
             <div style={{display:'flex',gap:8,marginTop:12,justifyContent:'center',flexWrap:'wrap'}}>
-              <button onClick={()=>compartirVideo('whatsapp',true)}
-                style={{display:'flex',alignItems:'center',gap:6,padding:'10px 16px',borderRadius:10,background:'rgba(37,211,102,0.15)',border:'1px solid rgba(37,211,102,0.4)',cursor:'pointer',color:'#25d366',fontSize:12,fontWeight:700}}>
-                💬 WhatsApp
-              </button>
+              <BotonesCompartir src='/videos/olivia-el-sistema.mp4' titulo='OLIVIA · El sistema' texto={es?'Cómo funciona OLIVIA en 1:35.':'How OLIVIA works in 1:35.'} link='https://oliviacirculab.com.ar/videos#el-sistema' centrado />
               <button onClick={()=>setVideoModal(false)}
                 style={{display:'flex',alignItems:'center',gap:6,padding:'10px 16px',borderRadius:10,background:'rgba(255,255,255,0.06)',border:'1px solid rgba(255,255,255,0.1)',cursor:'pointer',color:'#94a3b8',fontSize:12}}>
                 {es?'Seguir leyendo →':'Continue →'}
@@ -392,6 +371,7 @@ export default function Landing({ ini }: { ini: Ini }) {
             <div style={{fontSize:11,color:sub,textAlign:'center',marginTop:8,fontStyle:'italic'}}>
               {es?'Constatar, reconocer, medir, invitar y regenerar: cómo funciona OLIVIA en 1:35.':'Map, recognise, measure, invite and regenerate: how OLIVIA works in 1:35.'}
             </div>
+            <div style={{marginTop:10}}><BotonesCompartir src='/videos/olivia-el-sistema.mp4' titulo='OLIVIA · El sistema' texto={es?'Cómo funciona OLIVIA en 1:35.':'How OLIVIA works in 1:35.'} link='https://oliviacirculab.com.ar/videos#el-sistema' centrado /></div>
           </div>
           {/* Video 1 — familiar */}
           <div>
@@ -401,14 +381,7 @@ export default function Landing({ ini }: { ini: Ini }) {
                 <source src="/Final1.mp4" type="video/mp4" />
               </video>
             </div>
-            <div style={{display:'flex',gap:10,marginTop:10,justifyContent:'center'}}>
-              <button onClick={()=>compartirVideo('whatsapp',true)} style={{display:'flex',alignItems:'center',gap:6,padding:'8px 14px',borderRadius:10,background:'rgba(37,211,102,0.1)',border:'1px solid rgba(37,211,102,0.3)',cursor:'pointer',color:'#25d366',fontSize:11,fontWeight:700}}>
-                💬 WhatsApp
-              </button>
-              <button onClick={()=>compartirVideo('story',true)} style={{display:'flex',alignItems:'center',gap:6,padding:'8px 14px',borderRadius:10,background:'rgba(131,58,180,0.1)',border:'1px solid rgba(131,58,180,0.3)',cursor:'pointer',color:'#a855f7',fontSize:11,fontWeight:700}}>
-                📸 Story
-              </button>
-            </div>
+            <div style={{marginTop:10}}><BotonesCompartir src='/videos/olivia-historia-compartir.mp4' titulo={es?'Nuestra historia':'Our story'} texto={es?'OLIVIA Circulab mide lo que tu barrio devuelve al ciclo 🌿':'OLIVIA Circulab measures what your neighbourhood returns to the cycle 🌿'} link='https://oliviacirculab.com.ar' centrado /></div>
           </div>
                   </div>
       </section>
@@ -465,6 +438,7 @@ export default function Landing({ ini }: { ini: Ini }) {
             <div style={{fontSize:11,color:sub,textAlign:'center',marginTop:8,fontStyle:'italic'}}>
               {es?'En las ciudades que funcionan, separar tiene recompensa. OLIVIA construye el dato para que acá también la tenga.':'In cities that work, sorting waste is rewarded. OLIVIA builds the data so it can be rewarded here too.'}
             </div>
+            <div style={{marginTop:10}}><BotonesCompartir src='/videos/olivia-enterramiento-compartir.mp4' titulo={es?'El negocio del enterramiento':'The landfill business'} texto={es?'En las ciudades que funcionan, separar tiene recompensa.':'In cities that work, sorting waste is rewarded.'} link='https://oliviacirculab.com.ar' centrado /></div>
           </div>
         <div style={{textAlign:'center',marginTop:22}}>
           <a href="/videos" style={{display:'inline-block',color:'#22c55e',fontWeight:800,fontSize:13,textDecoration:'none',border:'1px solid rgba(34,197,94,.45)',borderRadius:22,padding:'9px 18px'}}>{es?'Ver todos los videos →':'See all videos →'}</a>
