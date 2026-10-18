@@ -12,7 +12,7 @@ export default function Videos() {
       <section style={{ padding: '44px 20px 12px', textAlign: 'center', maxWidth: 720, margin: '0 auto' }}>
         <div style={{ fontSize: 10, fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '.3em', color: accent, marginBottom: 12 }}>[ Videos ]</div>
         <h1 style={{ fontSize: 'clamp(28px,5vw,40px)', fontWeight: 900, lineHeight: 1.1, marginBottom: 12 }}>Un video para cada parte del circuito</h1>
-        <p style={{ fontSize: 14, color: sub, lineHeight: 1.7 }}>Miralos, compartilos por WhatsApp o subilos a Instagram. Cada uno lleva a la página pensada para ese público.</p>
+        <p style={{ fontSize: 14, color: sub, lineHeight: 1.7 }}>Miralos y compartilos por WhatsApp, Instagram o LinkedIn. Cada uno te lleva a la página pensada para ese público.</p>
       </section>
       <section style={{ padding: '24px 20px 56px', maxWidth: 1180, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,460px),1fr))', gap: 40, alignItems: 'start' }}>
         {VIDEOS.map(v => <VideoBloque key={v.id} video={v} sub={sub} accent={accent} mostrarPagina compacto />)}
