@@ -190,7 +190,7 @@ export default function Landing({ ini }: { ini: Ini }) {
               )}
             </div>
             <div style={{display:'flex',gap:8,marginTop:12,justifyContent:'center',flexWrap:'wrap'}}>
-              <BotonesCompartir src='/videos/olivia-el-sistema.mp4' titulo='OLIVIA · El sistema' texto={es?'Cómo funciona OLIVIA en 1:35.':'How OLIVIA works in 1:35.'} link='https://oliviacirculab.com.ar/videos#el-sistema' centrado />
+              <BotonesCompartir src='/videos/olivia-el-sistema.mp4' titulo='OLIVIA · El sistema' texto={es?'Cómo funciona OLIVIA en 1:35.':'How OLIVIA works in 1:35.'} link='https://oliviacirculab.com.ar/videos/el-sistema' centrado />
               <button onClick={()=>setVideoModal(false)}
                 style={{display:'flex',alignItems:'center',gap:6,padding:'10px 16px',borderRadius:10,background:'rgba(255,255,255,0.06)',border:'1px solid rgba(255,255,255,0.1)',cursor:'pointer',color:'#94a3b8',fontSize:12}}>
                 {es?'Seguir leyendo →':'Continue →'}
@@ -371,7 +371,7 @@ export default function Landing({ ini }: { ini: Ini }) {
             <div style={{fontSize:11,color:sub,textAlign:'center',marginTop:8,fontStyle:'italic'}}>
               {es?'Constatar, reconocer, medir, invitar y regenerar: cómo funciona OLIVIA en 1:35.':'Map, recognise, measure, invite and regenerate: how OLIVIA works in 1:35.'}
             </div>
-            <div style={{marginTop:10}}><BotonesCompartir src='/videos/olivia-el-sistema.mp4' titulo='OLIVIA · El sistema' texto={es?'Cómo funciona OLIVIA en 1:35.':'How OLIVIA works in 1:35.'} link='https://oliviacirculab.com.ar/videos#el-sistema' centrado /></div>
+            <div style={{marginTop:10}}><BotonesCompartir src='/videos/olivia-el-sistema.mp4' titulo='OLIVIA · El sistema' texto={es?'Cómo funciona OLIVIA en 1:35.':'How OLIVIA works in 1:35.'} link='https://oliviacirculab.com.ar/videos/el-sistema' centrado /></div>
           </div>
           {/* Video 1 — familiar */}
           <div>
