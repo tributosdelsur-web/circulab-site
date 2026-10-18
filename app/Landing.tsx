@@ -466,6 +466,9 @@ export default function Landing({ ini }: { ini: Ini }) {
               {es?'En las ciudades que funcionan, separar tiene recompensa. OLIVIA construye el dato para que acá también la tenga.':'In cities that work, sorting waste is rewarded. OLIVIA builds the data so it can be rewarded here too.'}
             </div>
           </div>
+        <div style={{textAlign:'center',marginTop:22}}>
+          <a href="/videos" style={{display:'inline-block',color:'#22c55e',fontWeight:800,fontSize:13,textDecoration:'none',border:'1px solid rgba(34,197,94,.45)',borderRadius:22,padding:'9px 18px'}}>{es?'Ver todos los videos →':'See all videos →'}</a>
+        </div>
       </section>
 
       {/* ═══ SECCIÓN 3 — EL PROBLEMA ═══ */}

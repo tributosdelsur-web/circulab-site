@@ -1,4 +1,5 @@
 'use client'
+import VideoBloque, { videoPorId } from '../../lib/VideoBloque'
 import { useState } from 'react'
 
 export default function Consorcios() {
@@ -53,6 +54,11 @@ export default function Consorcios() {
             </a>
           </div>
         </div>
+      </section>
+
+      {/* VIDEO */}
+      <section style={{padding:'32px 20px 8px',maxWidth:900,margin:'0 auto'}}>
+        <VideoBloque video={videoPorId('grandes-generadores')} sub={sub} accent={accent} />
       </section>
 
       {/* LOS 3 ARGUMENTOS PRINCIPALES */}

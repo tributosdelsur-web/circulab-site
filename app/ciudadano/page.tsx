@@ -1,4 +1,5 @@
 'use client'
+import VideoBloque, { videoPorId } from '../../lib/VideoBloque'
 
 // SEO metadata
 
@@ -229,6 +230,11 @@ export default function Ciudadano() {
             </a>
           </div>
         </section>
+
+      {/* VIDEO */}
+      <section style={{padding:'32px 20px 8px',maxWidth:900,margin:'0 auto'}}>
+        <VideoBloque video={videoPorId('vecinos')} sub={sub} accent={accent} />
+      </section>
 
         {/* OLV VERDE VS BONUS */}
         <section style={{padding:'24px 0',borderTop:`1px solid ${border}`}}>

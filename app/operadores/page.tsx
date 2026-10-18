@@ -1,4 +1,5 @@
 'use client'
+import VideoBloque, { videoPorId } from '../../lib/VideoBloque'
 import { useState } from 'react'
 
 export default function Operadores() {
@@ -47,6 +48,12 @@ export default function Operadores() {
               : 'Every day you process material that does not end up in landfill. But if nobody records where it came from, how much it weighed and what it became, that work cannot be proven or certified.'}
           </p>
         </div>
+      </section>
+
+      {/* VIDEOS */}
+      <section style={{padding:'32px 20px 8px',maxWidth:1100,margin:'0 auto',display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(min(100%,420px),1fr))',gap:32}}>
+        <VideoBloque video={videoPorId('plantas')} sub={sub} accent={accent} compacto />
+        <VideoBloque video={videoPorId('cooperativas')} sub={sub} accent={accent} compacto />
       </section>
 
       {/* EL PROBLEMA */}

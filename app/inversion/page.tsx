@@ -1,4 +1,5 @@
 'use client'
+import VideoBloque, { videoPorId } from '../../lib/VideoBloque'
 import { useTema, gridFondo, Rubro, Titulo, Pildoras, FUENTE } from '../../lib/ui'
 
 const FACTOR_PENDIENTE = true
@@ -125,6 +126,11 @@ export default function Inversion() {
             </a>
           </div>
         </div>
+      </section>
+
+      {/* VIDEO */}
+      <section style={{padding:'32px 20px 8px',maxWidth:900,margin:'0 auto'}}>
+        <VideoBloque video={videoPorId('inversores')} sub={sub} accent={accent} />
       </section>
 
       <div style={{ maxWidth: 800, margin: '0 auto', padding: '0 24px 80px' }}>
