@@ -445,6 +445,17 @@ export default function Landing({ ini }: { ini: Ini }) {
         </div>
       </section>
 
+      {/* ═══ CARNAVAL AMBIENTAL — música de OLIVIA ═══ */}
+      <section style={{padding:'0 20px 32px',maxWidth:580,margin:'0 auto'}}>
+        <div style={{border:'1px solid rgba(250,204,21,.4)',borderRadius:16,padding:'20px 18px',textAlign:'center',background:'rgba(250,204,21,.05)'}}>
+          <div style={{fontSize:10,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'.25em',color:'#eab308',marginBottom:8}}>{es?'[ Carnaval Ambiental ]':'[ Environmental Carnival ]'}</div>
+          <div style={{fontSize:20,fontWeight:900,marginBottom:6}}>{es?'Lo que la ciudad descarta, vuelve a bailar':'What the city throws away dances again'}</div>
+          <div style={{fontSize:13,color:sub,lineHeight:1.6,marginBottom:14}}>{es?'Le pusimos samba al circuito del orgánico. Escuchá "La Tierra Canta", el himno de OLIVIA.':'We set the organic waste cycle to samba. Listen to "La Tierra Canta", the OLIVIA anthem.'}</div>
+          <audio controls preload="none" controlsList="nodownload" src="/audio/olivia-la-tierra-canta.mp3" style={{width:'100%',marginBottom:14}} />
+          <a href="/carnaval" style={{display:'inline-block',color:'#eab308',fontWeight:800,fontSize:13,textDecoration:'none',border:'1px solid rgba(234,179,8,.5)',borderRadius:22,padding:'9px 18px'}}>{es?'Escuchá las 3 sambas y sumate al Bloco OLIVIA →':'Hear all 3 sambas and join the OLIVIA Bloco →'}</a>
+        </div>
+      </section>
+
       {/* ═══ SECCIÓN 3 — EL PROBLEMA ═══ */}
       <section style={{padding:'32px 20px',maxWidth:580,margin:'0 auto',borderTop:`1px solid ${border}`}}>
         <div style={{background:'rgba(239,68,68,0.06)',border:'1px solid rgba(239,68,68,0.2)',borderRadius:14,padding:'20px'}}>

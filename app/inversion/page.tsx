@@ -48,7 +48,7 @@ export default function Inversion() {
   ]
 
   const tramos = [
-    { t: 'Tramo 1 · USD 65.000', h: 'Sociedad constituida, planta habilitada firmada, balanza transmitiendo datos continuos', u: 'Sociedad, acuerdo con operador, diez balanzas con modelo aprobado, seis meses de equipo' },
+    { t: 'Tramo 1 · USD 75.000', h: 'Sociedad constituida, planta habilitada firmada, balanza transmitiendo datos continuos', u: 'Sociedad, acuerdo con operador, diez balanzas con modelo aprobado, seis meses de equipo' },
     { t: 'Tramo 2 · USD 70.000', h: 'Documento de diseño del proyecto presentado', u: 'Desarrollador de carbono, línea de base, documento de diseño, más nodos' },
     { t: 'Tramo 3 · USD 80.000', h: 'Proyecto registrado', u: 'Auditoría de tercera parte, registro, operación' },
   ]
@@ -529,7 +529,7 @@ export default function Inversion() {
           </div>
         </Card>
 
-        <H n={es ? 'El pedido' : 'The ask'} tt={es ? 'USD 65.000 por SAFE. El resto es plan, no pedido.' : 'USD 65,000 via SAFE. The rest is plan, not ask.'} />
+        <H n={es ? 'El pedido' : 'The ask'} tt={es ? 'USD 75.000 por SAFE. El resto es plan, no pedido.' : 'USD 75,000 via SAFE. The rest is plan, not ask.'} />
         <P>
           {es
             ? 'Esta es una etapa pre-semilla y el pedido está dimensionado para eso. No pedimos una ronda completa sobre evidencia que todavía no existe: pedimos lo que hace falta para producirla. El instrumento es un SAFE con tope de valuación, porque hoy ninguna valuación fija sería defendible para ninguna de las dos partes.'
@@ -591,8 +591,8 @@ export default function Inversion() {
             <Rubro t={t}>{es ? 'Lo que viene después, sin comprometer a nadie' : 'What comes next, binding no one'}</Rubro>
             <div style={{ fontSize: 13.5, color: sub, lineHeight: 1.7, marginBottom: 12 }}>
               {es
-                ? 'El plan completo son USD 215.000 en tres tramos: este primero, uno de USD 70.000 para desarrollador de carbono, línea de base y documento de diseño del proyecto, y uno de USD 80.000 para auditoría de tercera parte, registro y operación. Lo decimos como plan y no como pedido: no es una obligación de ninguna de las partes y no lleva precio acordado de antemano.'
-                : 'The full plan is USD 215,000 in three tranches. We state it as a plan, not an ask: it binds neither party and carries no pre-agreed price.'}
+                ? 'El plan completo son USD 225.000 en tres tramos: este primero, uno de USD 70.000 para desarrollador de carbono, línea de base y documento de diseño del proyecto, y uno de USD 80.000 para auditoría de tercera parte, registro y operación. Lo decimos como plan y no como pedido: no es una obligación de ninguna de las partes y no lleva precio acordado de antemano.'
+                : 'The full plan is USD 225,000 in three tranches. We state it as a plan, not an ask: it binds neither party and carries no pre-agreed price.'}
             </div>
             <div style={{ fontSize: 13.5, color: sub, lineHeight: 1.7 }}>
               {es
