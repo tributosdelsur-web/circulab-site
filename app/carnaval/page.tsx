@@ -8,9 +8,9 @@ const TEMAS = [
 ]
 
 const PASOS = [
-  { n: '01', titulo: 'Latas que cuentan', texto: 'Las cooperativas de recuperadores separan latas y tapitas. Cada lote se pesa y queda registrado en OLIVIA.' },
-  { n: '02', titulo: 'Trajes y tambores', texto: 'Talleres de murga, utilería y luthiers de percusión convierten ese material en pecheras de escamas y redoblantes.' },
-  { n: '03', titulo: 'A la calle', texto: 'El Bloco OLIVIA sale con la samba, los recuperadores al frente y el dato de cuántos kilos volvieron al circuito.' },
+  { n: '01', titulo: 'Material que cuenta', texto: 'Las cooperativas de recuperadores urbanos separan el material reciclado para el vestuario. Cada lote se pesa y queda registrado en OLIVIA.' },
+  { n: '02', titulo: 'Vestuario reciclado', texto: 'Junto a las cooperativas, talleres de murga y de utilería transforman ese material en el vestuario de la comparsa.' },
+  { n: '03', titulo: 'A la calle', texto: 'La comparsa del Carnaval Ambiental de OLIVIA sale con la samba, los recuperadores al frente y el dato de cuántos kilos volvieron al circuito.' },
 ]
 
 export default function Carnaval() {
@@ -41,9 +41,9 @@ export default function Carnaval() {
       </section>
 
       <section style={{ padding: '32px 20px 40px', maxWidth: 1080, margin: '0 auto', borderTop: '1px solid ' + border }}>
-        <div style={{ fontSize: 10, fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '.3em', color: gold, marginBottom: 10, textAlign: 'center' }}>[ Bloco OLIVIA ]</div>
-        <h2 style={{ fontSize: 'clamp(24px,4vw,32px)', fontWeight: 900, textAlign: 'center', marginBottom: 10 }}>Un bloco hecho con latas recuperadas</h2>
-        <p style={{ fontSize: 14, color: sub, lineHeight: 1.7, textAlign: 'center', maxWidth: 680, margin: '0 auto 28px' }}>Estamos armando un bloco de carnaval con trajes y percusión hechos con latas que separan las cooperativas de recuperadores urbanos. Cada kilo se pesa y queda registrado.</p>
+        <div style={{ fontSize: 10, fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '.3em', color: gold, marginBottom: 10, textAlign: 'center' }}>[ Carnaval Ambiental de OLIVIA ]</div>
+        <h2 style={{ fontSize: 'clamp(24px,4vw,32px)', fontWeight: 900, textAlign: 'center', marginBottom: 10 }}>Una comparsa vestida con material reciclado</h2>
+        <p style={{ fontSize: 14, color: sub, lineHeight: 1.7, textAlign: 'center', maxWidth: 680, margin: '0 auto 28px' }}>Estamos armando una comparsa de carnaval con vestuario hecho de materiales reciclados, junto a las cooperativas de recuperadores urbanos. Cada kilo se pesa y queda registrado.</p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,280px),1fr))', gap: 16 }}>
           {PASOS.map(p => (
             <div key={p.n} style={{ background: card, border: '1px solid ' + border, borderRadius: 14, padding: 18 }}>
@@ -58,7 +58,7 @@ export default function Carnaval() {
       <section style={{ padding: '24px 20px 56px', textAlign: 'center', maxWidth: 680, margin: '0 auto' }}>
         <h2 style={{ fontSize: 22, fontWeight: 900, marginBottom: 8 }}>Sumate al carnaval</h2>
         <p style={{ fontSize: 14, color: sub, lineHeight: 1.7, marginBottom: 18 }}>¿Sos de una murga, una cooperativa, un taller o simplemente te gusta el tambor? Escribinos.</p>
-        <a href="mailto:hola@oliviacirculab.com.ar?subject=Quiero%20sumarme%20al%20Bloco%20OLIVIA" style={{ display: 'inline-block', background: accent, color: '#04110a', fontWeight: 800, padding: '12px 22px', borderRadius: 999, textDecoration: 'none' }}>Quiero sumarme</a>
+        <a href="mailto:hola@oliviacirculab.com.ar?subject=Quiero%20sumarme%20a%20la%20comparsa%20de%20OLIVIA" style={{ display: 'inline-block', background: accent, color: '#04110a', fontWeight: 800, padding: '12px 22px', borderRadius: 999, textDecoration: 'none' }}>Quiero sumarme</a>
         <div style={{ marginTop: 16 }}><Link href="/videos" style={{ color: accent, fontSize: 13, fontWeight: 700, textDecoration: 'none' }}>Ver los videos de OLIVIA →</Link></div>
       </section>
 

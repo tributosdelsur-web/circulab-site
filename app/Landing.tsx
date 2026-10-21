@@ -452,7 +452,7 @@ export default function Landing({ ini }: { ini: Ini }) {
           <div style={{fontSize:20,fontWeight:900,marginBottom:6}}>{es?'Lo que la ciudad descarta, vuelve a bailar':'What the city throws away dances again'}</div>
           <div style={{fontSize:13,color:sub,lineHeight:1.6,marginBottom:14}}>{es?'Le pusimos samba al circuito del orgánico. Escuchá "La Tierra Canta", el himno de OLIVIA.':'We set the organic waste cycle to samba. Listen to "La Tierra Canta", the OLIVIA anthem.'}</div>
           <audio controls preload="none" controlsList="nodownload" src="/audio/olivia-la-tierra-canta.mp3" style={{width:'100%',marginBottom:14}} />
-          <a href="/carnaval" style={{display:'inline-block',color:'#eab308',fontWeight:800,fontSize:13,textDecoration:'none',border:'1px solid rgba(234,179,8,.5)',borderRadius:22,padding:'9px 18px'}}>{es?'Escuchá las 3 sambas y sumate al Bloco OLIVIA →':'Hear all 3 sambas and join the OLIVIA Bloco →'}</a>
+          <a href="/carnaval" style={{display:'inline-block',color:'#eab308',fontWeight:800,fontSize:13,textDecoration:'none',border:'1px solid rgba(234,179,8,.5)',borderRadius:22,padding:'9px 18px'}}>{es?'Escuchá las 3 sambas y sumate a la comparsa →':'Hear all 3 sambas and join the carnival troupe →'}</a>
         </div>
       </section>
 
