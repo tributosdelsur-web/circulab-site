@@ -201,26 +201,11 @@ export default function Landing({ ini }: { ini: Ini }) {
       )}
 
 
-      {/* ═══ SECCIÓN LOGO OLIVIA ═══ */}
-      <section style={{padding:'40px 20px 0',maxWidth:580,margin:'0 auto',textAlign:'center'}}>
-        <img 
-          src="/logoOC.png" 
-          alt="OLIVIA Circulab" 
-          style={{
-            width:'100%',
-            maxWidth:320,
-            height:'auto',
-            display:'block',
-            margin:'0 auto 16px'
-          }} 
-        />
-        <div style={{fontSize:11,color:sub,lineHeight:1.6,maxWidth:400,margin:'0 auto'}}>
-          {es?'Oficina Latinoamericana de Información para la Valorización e Inteligencia Ambiental':'Latin American Office for Environmental Valuation and Intelligence Information'}
-        </div>
-      </section>
-
       {/* ═══ SECCIÓN 1 — HERO ═══ */}
       <section style={{padding:'40px 20px 24px',maxWidth:580,margin:'0 auto',textAlign:'center'}}>
+        <div style={{fontSize:10,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.12em',color:sub,lineHeight:1.6,maxWidth:420,margin:'0 auto 16px'}}>
+          {es?'Oficina Latinoamericana de Información para la Valorización e Inteligencia Ambiental':'Latin American Office for Environmental Valuation and Intelligence Information'}
+        </div>
         {/* BADGES */}
         <div style={{display:'flex',flexWrap:'wrap',gap:8,justifyContent:'center',marginBottom:20}}>
           <div style={{display:'inline-flex',alignItems:'center',gap:6,background:'rgba(34,197,94,0.1)',border:'1px solid rgba(34,197,94,0.3)',borderRadius:20,padding:'5px 14px',fontSize:11,color:'#22c55e',fontWeight:700}}>
@@ -257,31 +242,212 @@ export default function Landing({ ini }: { ini: Ini }) {
       
       </section>
 
-      {/* ═══ COMO FUNCIONA SIMPLE ═══ */}
-      <section style={{padding:'8px 20px 32px',maxWidth:580,margin:'0 auto'}}>
-        <div style={{textAlign:'center',marginBottom:20}}>
-          <div style={{fontSize:11,color:'#22c55e',textTransform:'uppercase',letterSpacing:'0.1em',marginBottom:8}}>
-            {es?'¿Cómo funciona?':'How does it work?'}
+      {/* ═══ SECCIÓN 2 — DOS VIDEOS ═══ */}
+      <section style={{padding:'0 20px 32px',maxWidth:580,margin:'0 auto'}}>
+        <div style={{display:'flex',flexDirection:'column',gap:16}}>
+          {/* Video 0 — OLIVIA · El sistema (troncal) */}
+          <div>
+            <div style={{fontSize:11,color:'#22c55e',fontWeight:700,marginBottom:8,textAlign:'center'}}>{es?'🎬 OLIVIA · El sistema':'🎬 OLIVIA · The system'}</div>
+            <div style={{position:'relative',borderRadius:16,overflow:'hidden',border:'1px solid rgba(34,197,94,0.35)',background:'#000',aspectRatio:'16/9',boxShadow:'0 10px 40px rgba(34,197,94,0.12)'}}>
+              {sistemaPlay ? (
+                <video controls autoPlay playsInline style={{width:'100%',height:'100%',display:'block',objectFit:'contain',background:'#000'}}>
+                  <source src="/videos/olivia-el-sistema.mp4" type="video/mp4" />
+                </video>
+              ) : (
+                <button onClick={()=>setSistemaPlay(true)} aria-label={es?'Reproducir OLIVIA · El sistema':'Play OLIVIA · The system'}
+                  style={{position:'absolute',inset:0,width:'100%',height:'100%',padding:0,border:'none',cursor:'pointer',background:'#000'}}>
+                  <img src="/videos/olivia-el-sistema-poster.jpg" alt="OLIVIA · El sistema" style={{width:'100%',height:'100%',objectFit:'cover',display:'block'}} />
+                  <span style={{position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',width:72,height:72,borderRadius:'50%',background:'rgba(34,197,94,0.92)',boxShadow:'0 0 0 8px rgba(34,197,94,0.25), 0 8px 30px rgba(0,0,0,0.5)',display:'flex',alignItems:'center',justifyContent:'center'}}>
+                    <span style={{width:0,height:0,borderTop:'14px solid transparent',borderBottom:'14px solid transparent',borderLeft:'22px solid #04110a',marginLeft:6}} />
+                  </span>
+                </button>
+              )}
+            </div>
+            <div style={{fontSize:11,color:sub,textAlign:'center',marginTop:8,fontStyle:'italic'}}>
+              {es?'Constatar, reconocer, medir, invitar y regenerar: cómo funciona OLIVIA en 1:35.':'Map, recognise, measure, invite and regenerate: how OLIVIA works in 1:35.'}
+            </div>
+            <div style={{marginTop:10}}><BotonesCompartir src='/videos/olivia-el-sistema.mp4' titulo='OLIVIA · El sistema' texto={es?'Cómo funciona OLIVIA en 1:35.':'How OLIVIA works in 1:35.'} link='https://oliviacirculab.com.ar/videos/el-sistema' centrado /></div>
           </div>
-          <h2 style={{fontSize:21,fontWeight:900,color:text,lineHeight:1.35}}>
-            {es?'OLIVIA mide lo que hoy se tira, para que pueda volver al ciclo.':'OLIVIA measures what is thrown away today, so it can return to the cycle.'}
+          {/* Video 1 — familiar */}
+          <div>
+            <div style={{fontSize:11,color:'#22c55e',fontWeight:700,marginBottom:8,textAlign:'center'}}>{es?'🌿 Nuestra historia':'🌿 Our story'}</div>
+            <div style={{borderRadius:16,overflow:'hidden',border:`1px solid ${border}`,background:'#000'}}>
+              <video controls playsInline poster="/poster1.jpg" style={{width:'100%',display:'block',maxHeight:500,objectFit:'cover'}} preload="metadata">
+                <source src="/Final1.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div style={{marginTop:10}}><BotonesCompartir src='/videos/olivia-historia-compartir.mp4' titulo={es?'Nuestra historia':'Our story'} texto={es?'OLIVIA Circulab mide lo que tu barrio devuelve al ciclo 🌿':'OLIVIA Circulab measures what your neighbourhood returns to the cycle 🌿'} link='https://oliviacirculab.com.ar' centrado /></div>
+          </div>
+                  </div>
+      </section>
+
+      {/* ═══ SECCIÓN 3 — EL PROBLEMA ═══ */}
+      <section style={{padding:'32px 20px',maxWidth:580,margin:'0 auto',borderTop:`1px solid ${border}`}}>
+        <div style={{background:'rgba(239,68,68,0.06)',border:'1px solid rgba(239,68,68,0.2)',borderRadius:14,padding:'20px'}}>
+          <div style={{fontSize:11,color:'#ef4444',fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:10}}>{es?'El problema ciudadano':'The citizen problem'}</div>
+          <h2 style={{fontSize:22,fontWeight:900,marginBottom:12,lineHeight:1.2,color:text}}>
+            {es?'El negocio del enterramiento factura millones. Vos no ves un peso.':'The landfill business earns millions. You don\'t see a cent.'}
           </h2>
+          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10,marginBottom:14}}>
+            {[
+              {stat:'🗑️',desc:es?'los orgánicos terminan en el relleno':'organics end up in landfill',c:'#ef4444'},
+              {stat:'🏭',desc:es?'plantas con capacidad ociosa':'plants with idle capacity',c:'#ef4444'},
+              {stat:'📍',desc:es?'sin trazabilidad de origen a destino':'no traceability from source to destination',c:'#f59e0b'},
+            ].map((k,i)=>(
+              <div key={i} style={{background:dark?'rgba(255,255,255,0.03)':card,borderRadius:10,padding:'12px',textAlign:'center',border:`1px solid ${k.c}22`}}>
+                <div style={{fontSize:22,fontWeight:900,color:k.c}}>{k.stat}</div>
+                <div style={{fontSize:10,color:sub,marginTop:3,lineHeight:1.4}}>{k.desc}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{fontSize:12,color:'#22c55e',fontWeight:700,textAlign:'center'}}>
+            {es?'OLIVIA no paga — facilita la infraestructura para que el mercado pague.':'OLIVIA doesn\'t pay — it facilitates the infrastructure for the market to pay.'}
+          </div>
         </div>
+      </section>
+
+      {/* ═══ VIDEO ENTERRAMIENTO ═══ */}
+      <section style={{padding:'0 20px 32px',maxWidth:580,margin:'0 auto'}}>
+        {/* Video 2 — enterramiento */}
+          <div>
+            <div style={{fontSize:11,color:'#ef4444',fontWeight:700,marginBottom:8,textAlign:'center'}}>{es?'⚠️ El negocio del enterramiento':'⚠️ The landfill business'}</div>
+            <div style={{borderRadius:16,overflow:'hidden',border:'1px solid rgba(239,68,68,0.3)',background:'#000'}}>
+              <video controls playsInline style={{width:'100%',display:'block',maxHeight:320,objectFit:'cover'}} preload="metadata">
+                <source src="/ciudadano/CIRCULAB1.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div style={{fontSize:11,color:sub,textAlign:'center',marginTop:8,fontStyle:'italic'}}>
+              {es?'En las ciudades que funcionan, separar tiene recompensa. OLIVIA construye el dato para que acá también la tenga.':'In cities that work, sorting waste is rewarded. OLIVIA builds the data so it can be rewarded here too.'}
+            </div>
+            <div style={{marginTop:10}}><BotonesCompartir src='/videos/olivia-enterramiento-compartir.mp4' titulo={es?'El negocio del enterramiento':'The landfill business'} texto={es?'En las ciudades que funcionan, separar tiene recompensa.':'In cities that work, sorting waste is rewarded.'} link='https://oliviacirculab.com.ar' centrado /></div>
+          </div>
+        <div style={{textAlign:'center',marginTop:22}}>
+          <a href="/videos" style={{display:'inline-block',color:'#22c55e',fontWeight:800,fontSize:13,textDecoration:'none',border:'1px solid rgba(34,197,94,.45)',borderRadius:22,padding:'9px 18px'}}>{es?'Ver todos los videos →':'See all videos →'}</a>
+        </div>
+      </section>
+
+      {/* ═══ SECCIÓN 4 — CÓMO FUNCIONA ═══ */}
+      <section style={{padding:'32px 20px',maxWidth:580,margin:'0 auto',borderTop:`1px solid ${border}`}}>
+        <div style={{fontSize:11,color:'#22c55e',textTransform:'uppercase',letterSpacing:'0.1em',textAlign:'center',marginBottom:6}}>{es?'Cómo funciona':'How it works'}</div>
+        <h2 style={{fontSize:22,fontWeight:900,textAlign:'center',marginBottom:20,color:text}}>{es?'Del residuo al dato verificado en 4 pasos':'From waste to verified data in 4 steps'}</h2>
         <div style={{display:'flex',flexDirection:'column',gap:10}}>
           {[
-            {i:'📸',t:es?'Sacás una foto':'Take a photo',d:es?'De tus restos de comida, con una moneda al lado. La IA la usa para calcular cuánto hay.':'Of your food scraps, with a coin next to them. The AI uses it to calculate the amount.',c:'#22c55e'},
-            {i:'🚶',t:es?'Lo llevás al punto verde':'Drop it at a green point',d:es?'Mostrás tu QR en el celular. Segunda foto. Listo, quedó registrado.':'Show your QR on your phone. Second photo. Done, it is registered.',c:'#3b82f6'},
-            {i:'🌱',t:es?'Se convierte en abono':'It becomes compost',d:es?'La planta confirma el compostaje. Ahí nace tu OLV. Sin esa confirmación, no hay token.':'The plant confirms composting. That is when your OLV is created. No confirmation, no token.',c:'#f59e0b'},
-            {i:'💰',t:es?'Queda el dato verificado':'The verified data remains',d:es?'Ese compost evitó metano y quedó medido. Si el proyecto se certifica, ese dato podrá venderse en el mercado de carbono.':'That compost avoided methane and it was measured. If the project is certified, that data can be sold in the carbon market.',c:'#a855f7'},
-          ].map((p,i)=>(
-            <div key={i} style={{display:'flex',gap:14,alignItems:'flex-start',background:card,border:'1px solid '+p.c+'22',borderRadius:12,padding:'14px 16px'}}>
-              <span style={{fontSize:26,lineHeight:1,flexShrink:0}}>{p.i}</span>
+            {num:'01',icon:'📸',t:es?'Fotografiás el residuo':'You photograph the waste',d:es?'La foto identifica qué residuo es y de dónde viene. El peso que vale no sale de la foto: sale de la balanza, cuando el material llega a la planta.':'The photo identifies what the waste is and where it comes from. The weight of record does not come from the photo: it comes from the scale, when the material reaches the plant.',c:'#22c55e'},
+            {num:'02',icon:'📍',t:es?'Confirmás la disposición':'You confirm disposal',d:es?'La segunda foto con GPS activa tus OLV Verdes, respaldados por kilos verificados.':'The second photo with GPS activates your Green OLV, backed by verified kilos.',c:'#3b82f6'},
+            {num:'03',icon:'🪙',t:es?'Acumulás OLV Verdes':'You accumulate Green OLV',d:es?'🌿 OLV Verdes: de residuos verificados · son los que se presentarán a certificación. ⭐ OLV Bonus: por registrarte y compartir · sin valor ambiental.':'🌿 Green OLV: from verified waste · these will be submitted for certification. ⭐ Bonus OLV: for registering and sharing · no environmental value.',c:'#f59e0b'},
+            {num:'04',icon:'🌳',t:es?'Certificación':'Certification',d:es?'Con doce a veinticuatro meses de registros verificados se inicia la validación por auditor acreditado bajo estándar Verra. Es un proceso de dos a tres años y su resultado no depende de OLIVIA.':'With twelve to twenty-four months of verified records, validation by an accredited auditor begins under the Verra standard. A two to three year process whose outcome does not depend on OLIVIA.',c:'#a855f7'},
+          ].map(p=>(
+            <div key={p.num} style={{display:'flex',gap:12,padding:'14px',background:card,borderRadius:14,border:`1px solid ${p.c}22`,alignItems:'flex-start'}}>
+              <div style={{width:36,height:36,background:`linear-gradient(135deg,${p.c},${p.c}99)`,borderRadius:10,display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,fontWeight:800,color:'white',flexShrink:0}}>{p.num}</div>
               <div>
-                <div style={{fontSize:14,fontWeight:800,color:p.c,marginBottom:4}}>{p.t}</div>
-                <div style={{fontSize:12,color:sub,lineHeight:1.65}}>{p.d}</div>
+                <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:4}}>
+                  <span style={{fontSize:18}}>{p.icon}</span>
+                  <span style={{fontSize:13,fontWeight:700,color:p.c}}>{p.t}</span>
+                </div>
+                <div style={{fontSize:12,color:sub,lineHeight:1.6}}>{p.d}</div>
               </div>
             </div>
           ))}
+        </div>
+        <div style={{marginTop:16,textAlign:'center'}}>
+          <a href="/registro" style={{background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',padding:'14px 32px',borderRadius:12,fontSize:14,fontWeight:700,textDecoration:'none',display:'inline-block'}}>
+            {es?'Empezar gratis →':'Start for free →'}
+          </a>
+        </div>
+      </section>
+
+      {/* ═══ SECCIÓN 2B — MÉTRICAS Y CONTEXTO ═══ */}
+      <section style={{padding:'8px 20px 32px',maxWidth:580,margin:'0 auto',textAlign:'center'}}>
+        {/* KPIs */}
+        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10,marginBottom:16}}>
+          {[
+            {v:stats.usuarios||'0',l:es?'Vecinos activos':'Active neighbors',c:'#22c55e'},
+            {v:(stats.kg||0).toLocaleString(es?'es-AR':'en-US',{minimumFractionDigits:1,maximumFractionDigits:1})+' kg',l:es?'Kg verificados':'Verified kg',c:'#3b82f6'},
+          ].map(k=>(
+            <div key={k.l} style={{background:card,borderRadius:12,padding:'14px 8px',textAlign:'center',border:`1px solid ${k.c}22`}}>
+              <div style={{fontSize:22,fontWeight:900,color:k.c}}>{k.v}</div>
+              <div style={{fontSize:9,color:sub,marginTop:3}}>{k.l}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* PILOTO EN CURSO */}
+        <div style={{fontSize:11,color:sub,lineHeight:1.6,textAlign:'center',maxWidth:460,margin:'0 auto 14px'}}>
+          {es
+            ? `Piloto en curso · ${stats.registrados} kg registrados y ${stats.kg} validados por el equipo. El confirmado automático de procesamiento —el cuarto dato— requiere una planta habilitada firmada y la balanza en operación.`
+            : `Pilot running · ${stats.registrados} kg registered and ${stats.kg} validated by the team. Automatic processing confirmation — the fourth data point — requires a signed licensed plant and the scale in operation.`}
+        </div>
+        <div style={{fontSize:11,color:'#94a3b8',textAlign:'center',marginTop:10}}>{es?'Piloto en curso · datos en vivo desde la plataforma':'Pilot in progress · live data from the platform'}</div>
+
+        {/* FRASE CENTRAL */}
+        <div style={{background:'linear-gradient(135deg,rgba(34,197,94,0.1),rgba(59,130,246,0.06))',border:'1px solid rgba(34,197,94,0.3)',borderRadius:16,padding:'20px',marginBottom:24}}>
+          <div style={{fontSize:20,fontWeight:900,color:'#22c55e',marginBottom:8,lineHeight:1.3}}>
+            {es?'"En la naturaleza no hay basura."':'"In nature there is no waste."'}
+          </div>
+          <div style={{fontSize:13,color:sub,fontStyle:'italic',marginBottom:8}}>
+            {es?'"Solo hay recursos sin infraestructura."':'"Only resources without infrastructure."'}
+          </div>
+          <div style={{fontSize:12,color:text,fontWeight:700}}>
+            {es?'OLIVIA es esa infraestructura — un sistema que se alimenta a sí mismo haciendo el bien.':'OLIVIA is that infrastructure — a system that feeds itself by doing good.'}
+          </div>
+        </div>
+
+        
+      </section>
+
+      {/* ═══ SECCIÓN 8 — DOS BOTONES GRANDES ═══ */}
+      <section style={{padding:'32px 20px',maxWidth:580,margin:'0 auto',borderTop:`1px solid ${border}`}}>
+        <h2 style={{fontSize:22,fontWeight:900,textAlign:'center',marginBottom:6,color:text}}>{es?'¿Por dónde entrás?':'Where do you start?'}</h2>
+          <a href="/operadores" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(59,130,246,0.12),rgba(168,85,247,0.06))',border:'2px solid rgba(59,130,246,0.4)',textDecoration:'none'}}>
+            <div style={{display:'flex',alignItems:'center',gap:14}}>
+              <span style={{fontSize:36}}>🏭</span>
+              <div>
+                <div style={{fontSize:16,fontWeight:900,color:'#3b82f6'}}>{es?'Soy planta o acopiador':'I run a plant or collection yard'}</div>
+                <div style={{fontSize:12,color:sub,marginTop:2}}>{es?'Balanza · Remito digital · Capacidad ociosa':'Scale · Digital receipt · Idle capacity'}</div>
+              </div>
+            </div>
+            <span style={{color:'#3b82f6',fontSize:20,fontWeight:700}}>→</span>
+          </a>
+          <a href="/grandes-generadores" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(239,68,68,0.12),rgba(239,68,68,0.06))',border:'2px solid rgba(239,68,68,0.4)',textDecoration:'none'}}>
+            <div style={{display:'flex',alignItems:'center',gap:14}}>
+              <span style={{fontSize:36}}>⚖️</span>
+              <div>
+                <div style={{fontSize:16,fontWeight:900,color:'#ef4444'}}>{es?'Estoy obligado por la ley':'I have a legal obligation'}</div>
+                <div style={{fontSize:12,color:sub,marginTop:2}}>{es?'Ley 1854 · Grandes Generadores':'Law 1854 · Large Generators'}</div>
+              </div>
+            </div>
+            <span style={{color:'#ef4444',fontSize:20,fontWeight:700}}>→</span>
+          </a>
+          <a href="/consorcios" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(34,197,94,0.08),rgba(59,130,246,0.06))',border:'2px solid rgba(34,197,94,0.3)',textDecoration:'none'}}>
+            <div style={{display:'flex',alignItems:'center',gap:14}}>
+              <span style={{fontSize:36}}>🏢</span>
+              <div>
+                <div style={{fontSize:16,fontWeight:900,color:'#22c55e'}}>{es?'Administro un consorcio':'I manage a building'}</div>
+                <div style={{fontSize:12,color:sub,marginTop:2}}>{es?'Certificar residuos · Ley Basura Cero · Sin inversión':'Certify waste · Zero Waste Law · No investment'}</div>
+              </div>
+            </div>
+            <span style={{color:'#22c55e',fontSize:20,fontWeight:700}}>→</span>
+          </a>
+          {/* PUERTAS SECUNDARIAS */}
+          <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:8,marginTop:4}}>
+            {[
+              {l:es?'Soy inversor':'Investor',s:es?'El caso de negocio':'Business case',h:'/inversion',c:'#f59e0b',i:'🏛️'},
+              {l:es?'Soy vecino':'Neighbour',s:es?'Separar y registrar':'Sort and register',h:'/ciudadano',c:'#22c55e',i:'🌿'},
+              {l:es?'Electrónicos':'E-waste',s:'RAEE',h:'/raee',c:'#9333ea',i:'♻️'},
+              {l:es?'El proyecto':'The project',s:es?'Quiénes somos':'About us',h:'/institucional',c:'#94a3b8',i:'🌎'},
+            ].map((x,i)=>(
+              <a key={i} href={x.h} style={{display:'flex',alignItems:'center',gap:10,padding:'13px 14px',borderRadius:12,background:card,border:`1px solid ${border}`,textDecoration:'none'}}>
+                <span style={{fontSize:20,flexShrink:0}}>{x.i}</span>
+                <div style={{minWidth:0}}>
+                  <div style={{fontSize:12.5,fontWeight:800,color:x.c,lineHeight:1.2}}>{x.l}</div>
+                  <div style={{fontSize:10.5,color:sub,marginTop:2}}>{x.s}</div>
+                </div>
+              </a>
+            ))}
+          </div>
+
+        <p style={{fontSize:12,color:sub,textAlign:'center',marginBottom:20}}>{es?'Elegí tu camino en OLIVIA':'Choose your path in OLIVIA'}</p>
+        <div style={{display:'flex',flexDirection:'column',gap:12}}>
         </div>
       </section>
 
@@ -344,170 +510,6 @@ export default function Landing({ ini }: { ini: Ini }) {
               <div style={{fontSize:9.5,color:sub}}>{a.s}</div>
             </a>
           ))}
-        </div>
-      </section>
-
-      {/* ═══ SECCIÓN 2 — DOS VIDEOS ═══ */}
-      <section style={{padding:'0 20px 32px',maxWidth:580,margin:'0 auto'}}>
-        <div style={{display:'flex',flexDirection:'column',gap:16}}>
-          {/* Video 0 — OLIVIA · El sistema (troncal) */}
-          <div>
-            <div style={{fontSize:11,color:'#22c55e',fontWeight:700,marginBottom:8,textAlign:'center'}}>{es?'🎬 OLIVIA · El sistema':'🎬 OLIVIA · The system'}</div>
-            <div style={{position:'relative',borderRadius:16,overflow:'hidden',border:'1px solid rgba(34,197,94,0.35)',background:'#000',aspectRatio:'16/9',boxShadow:'0 10px 40px rgba(34,197,94,0.12)'}}>
-              {sistemaPlay ? (
-                <video controls autoPlay playsInline style={{width:'100%',height:'100%',display:'block',objectFit:'contain',background:'#000'}}>
-                  <source src="/videos/olivia-el-sistema.mp4" type="video/mp4" />
-                </video>
-              ) : (
-                <button onClick={()=>setSistemaPlay(true)} aria-label={es?'Reproducir OLIVIA · El sistema':'Play OLIVIA · The system'}
-                  style={{position:'absolute',inset:0,width:'100%',height:'100%',padding:0,border:'none',cursor:'pointer',background:'#000'}}>
-                  <img src="/videos/olivia-el-sistema-poster.jpg" alt="OLIVIA · El sistema" style={{width:'100%',height:'100%',objectFit:'cover',display:'block'}} />
-                  <span style={{position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',width:72,height:72,borderRadius:'50%',background:'rgba(34,197,94,0.92)',boxShadow:'0 0 0 8px rgba(34,197,94,0.25), 0 8px 30px rgba(0,0,0,0.5)',display:'flex',alignItems:'center',justifyContent:'center'}}>
-                    <span style={{width:0,height:0,borderTop:'14px solid transparent',borderBottom:'14px solid transparent',borderLeft:'22px solid #04110a',marginLeft:6}} />
-                  </span>
-                </button>
-              )}
-            </div>
-            <div style={{fontSize:11,color:sub,textAlign:'center',marginTop:8,fontStyle:'italic'}}>
-              {es?'Constatar, reconocer, medir, invitar y regenerar: cómo funciona OLIVIA en 1:35.':'Map, recognise, measure, invite and regenerate: how OLIVIA works in 1:35.'}
-            </div>
-            <div style={{marginTop:10}}><BotonesCompartir src='/videos/olivia-el-sistema.mp4' titulo='OLIVIA · El sistema' texto={es?'Cómo funciona OLIVIA en 1:35.':'How OLIVIA works in 1:35.'} link='https://oliviacirculab.com.ar/videos/el-sistema' centrado /></div>
-          </div>
-          {/* Video 1 — familiar */}
-          <div>
-            <div style={{fontSize:11,color:'#22c55e',fontWeight:700,marginBottom:8,textAlign:'center'}}>{es?'🌿 Nuestra historia':'🌿 Our story'}</div>
-            <div style={{borderRadius:16,overflow:'hidden',border:`1px solid ${border}`,background:'#000'}}>
-              <video controls playsInline poster="/poster1.jpg" style={{width:'100%',display:'block',maxHeight:500,objectFit:'cover'}} preload="metadata">
-                <source src="/Final1.mp4" type="video/mp4" />
-              </video>
-            </div>
-            <div style={{marginTop:10}}><BotonesCompartir src='/videos/olivia-historia-compartir.mp4' titulo={es?'Nuestra historia':'Our story'} texto={es?'OLIVIA Circulab mide lo que tu barrio devuelve al ciclo 🌿':'OLIVIA Circulab measures what your neighbourhood returns to the cycle 🌿'} link='https://oliviacirculab.com.ar' centrado /></div>
-          </div>
-                  </div>
-      </section>
-
-      {/* ═══ SECCIÓN 2B — MÉTRICAS Y CONTEXTO ═══ */}
-      <section style={{padding:'8px 20px 32px',maxWidth:580,margin:'0 auto',textAlign:'center'}}>
-        {/* KPIs */}
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10,marginBottom:16}}>
-          {[
-            {v:stats.usuarios||'0',l:es?'Vecinos activos':'Active neighbors',c:'#22c55e'},
-            {v:(stats.kg||0).toLocaleString(es?'es-AR':'en-US',{minimumFractionDigits:1,maximumFractionDigits:1})+' kg',l:es?'Kg verificados':'Verified kg',c:'#3b82f6'},
-          ].map(k=>(
-            <div key={k.l} style={{background:card,borderRadius:12,padding:'14px 8px',textAlign:'center',border:`1px solid ${k.c}22`}}>
-              <div style={{fontSize:22,fontWeight:900,color:k.c}}>{k.v}</div>
-              <div style={{fontSize:9,color:sub,marginTop:3}}>{k.l}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* PILOTO EN CURSO */}
-        <div style={{fontSize:11,color:sub,lineHeight:1.6,textAlign:'center',maxWidth:460,margin:'0 auto 14px'}}>
-          {es
-            ? `Piloto en curso · ${stats.registrados} kg registrados y ${stats.kg} validados por el equipo. El confirmado automático de procesamiento —el cuarto dato— requiere una planta habilitada firmada y la balanza en operación.`
-            : `Pilot running · ${stats.registrados} kg registered and ${stats.kg} validated by the team. Automatic processing confirmation — the fourth data point — requires a signed licensed plant and the scale in operation.`}
-        </div>
-        <div style={{fontSize:11,color:'#94a3b8',textAlign:'center',marginTop:10}}>{es?'Piloto en curso · datos en vivo desde la plataforma':'Pilot in progress · live data from the platform'}</div>
-
-        {/* FRASE CENTRAL */}
-        <div style={{background:'linear-gradient(135deg,rgba(34,197,94,0.1),rgba(59,130,246,0.06))',border:'1px solid rgba(34,197,94,0.3)',borderRadius:16,padding:'20px',marginBottom:24}}>
-          <div style={{fontSize:20,fontWeight:900,color:'#22c55e',marginBottom:8,lineHeight:1.3}}>
-            {es?'"En la naturaleza no hay basura."':'"In nature there is no waste."'}
-          </div>
-          <div style={{fontSize:13,color:sub,fontStyle:'italic',marginBottom:8}}>
-            {es?'"Solo hay recursos sin infraestructura."':'"Only resources without infrastructure."'}
-          </div>
-          <div style={{fontSize:12,color:text,fontWeight:700}}>
-            {es?'OLIVIA es esa infraestructura — un sistema que se alimenta a sí mismo haciendo el bien.':'OLIVIA is that infrastructure — a system that feeds itself by doing good.'}
-          </div>
-        </div>
-
-        
-      </section>
-
-      {/* ═══ VIDEO ENTERRAMIENTO ═══ */}
-      <section style={{padding:'0 20px 32px',maxWidth:580,margin:'0 auto'}}>
-        {/* Video 2 — enterramiento */}
-          <div>
-            <div style={{fontSize:11,color:'#ef4444',fontWeight:700,marginBottom:8,textAlign:'center'}}>{es?'⚠️ El negocio del enterramiento':'⚠️ The landfill business'}</div>
-            <div style={{borderRadius:16,overflow:'hidden',border:'1px solid rgba(239,68,68,0.3)',background:'#000'}}>
-              <video controls playsInline style={{width:'100%',display:'block',maxHeight:320,objectFit:'cover'}} preload="metadata">
-                <source src="/ciudadano/CIRCULAB1.mp4" type="video/mp4" />
-              </video>
-            </div>
-            <div style={{fontSize:11,color:sub,textAlign:'center',marginTop:8,fontStyle:'italic'}}>
-              {es?'En las ciudades que funcionan, separar tiene recompensa. OLIVIA construye el dato para que acá también la tenga.':'In cities that work, sorting waste is rewarded. OLIVIA builds the data so it can be rewarded here too.'}
-            </div>
-            <div style={{marginTop:10}}><BotonesCompartir src='/videos/olivia-enterramiento-compartir.mp4' titulo={es?'El negocio del enterramiento':'The landfill business'} texto={es?'En las ciudades que funcionan, separar tiene recompensa.':'In cities that work, sorting waste is rewarded.'} link='https://oliviacirculab.com.ar' centrado /></div>
-          </div>
-        <div style={{textAlign:'center',marginTop:22}}>
-          <a href="/videos" style={{display:'inline-block',color:'#22c55e',fontWeight:800,fontSize:13,textDecoration:'none',border:'1px solid rgba(34,197,94,.45)',borderRadius:22,padding:'9px 18px'}}>{es?'Ver todos los videos →':'See all videos →'}</a>
-        </div>
-      </section>
-
-      {/* ═══ CARNAVAL AMBIENTAL — música de OLIVIA ═══ */}
-      <section style={{padding:'0 20px 32px',maxWidth:580,margin:'0 auto'}}>
-        <div style={{border:'1px solid rgba(250,204,21,.4)',borderRadius:16,padding:'20px 18px',textAlign:'center',background:'rgba(250,204,21,.05)'}}>
-          <div style={{fontSize:10,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'.25em',color:'#eab308',marginBottom:8}}>{es?'[ Carnaval Ambiental ]':'[ Environmental Carnival ]'}</div>
-          <div style={{fontSize:20,fontWeight:900,marginBottom:6}}>{es?'Lo que la ciudad descarta, vuelve a bailar':'What the city throws away dances again'}</div>
-          <div style={{fontSize:13,color:sub,lineHeight:1.6,marginBottom:14}}>{es?'Le pusimos samba al circuito del orgánico. Escuchá "La Tierra Canta", el himno de OLIVIA.':'We set the organic waste cycle to samba. Listen to "La Tierra Canta", the OLIVIA anthem.'}</div>
-          <audio controls preload="none" controlsList="nodownload" src="/audio/olivia-la-tierra-canta.mp3" style={{width:'100%',marginBottom:14}} />
-          <a href="/carnaval" style={{display:'inline-block',color:'#eab308',fontWeight:800,fontSize:13,textDecoration:'none',border:'1px solid rgba(234,179,8,.5)',borderRadius:22,padding:'9px 18px'}}>{es?'Escuchá las 3 sambas y sumate a la comparsa →':'Hear all 3 sambas and join the carnival troupe →'}</a>
-        </div>
-      </section>
-
-      {/* ═══ SECCIÓN 3 — EL PROBLEMA ═══ */}
-      <section style={{padding:'32px 20px',maxWidth:580,margin:'0 auto',borderTop:`1px solid ${border}`}}>
-        <div style={{background:'rgba(239,68,68,0.06)',border:'1px solid rgba(239,68,68,0.2)',borderRadius:14,padding:'20px'}}>
-          <div style={{fontSize:11,color:'#ef4444',fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:10}}>{es?'El problema ciudadano':'The citizen problem'}</div>
-          <h2 style={{fontSize:22,fontWeight:900,marginBottom:12,lineHeight:1.2,color:text}}>
-            {es?'El negocio del enterramiento factura millones. Vos no ves un peso.':'The landfill business earns millions. You don\'t see a cent.'}
-          </h2>
-          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10,marginBottom:14}}>
-            {[
-              {stat:'🗑️',desc:es?'los orgánicos terminan en el relleno':'organics end up in landfill',c:'#ef4444'},
-              {stat:'🏭',desc:es?'plantas con capacidad ociosa':'plants with idle capacity',c:'#ef4444'},
-              {stat:'📍',desc:es?'sin trazabilidad de origen a destino':'no traceability from source to destination',c:'#f59e0b'},
-            ].map((k,i)=>(
-              <div key={i} style={{background:dark?'rgba(255,255,255,0.03)':card,borderRadius:10,padding:'12px',textAlign:'center',border:`1px solid ${k.c}22`}}>
-                <div style={{fontSize:22,fontWeight:900,color:k.c}}>{k.stat}</div>
-                <div style={{fontSize:10,color:sub,marginTop:3,lineHeight:1.4}}>{k.desc}</div>
-              </div>
-            ))}
-          </div>
-          <div style={{fontSize:12,color:'#22c55e',fontWeight:700,textAlign:'center'}}>
-            {es?'OLIVIA no paga — facilita la infraestructura para que el mercado pague.':'OLIVIA doesn\'t pay — it facilitates the infrastructure for the market to pay.'}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ SECCIÓN 4 — CÓMO FUNCIONA ═══ */}
-      <section style={{padding:'32px 20px',maxWidth:580,margin:'0 auto',borderTop:`1px solid ${border}`}}>
-        <div style={{fontSize:11,color:'#22c55e',textTransform:'uppercase',letterSpacing:'0.1em',textAlign:'center',marginBottom:6}}>{es?'Cómo funciona':'How it works'}</div>
-        <h2 style={{fontSize:22,fontWeight:900,textAlign:'center',marginBottom:20,color:text}}>{es?'Del residuo al dato verificado en 4 pasos':'From waste to verified data in 4 steps'}</h2>
-        <div style={{display:'flex',flexDirection:'column',gap:10}}>
-          {[
-            {num:'01',icon:'📸',t:es?'Fotografiás el residuo':'You photograph the waste',d:es?'La foto identifica qué residuo es y de dónde viene. El peso que vale no sale de la foto: sale de la balanza, cuando el material llega a la planta.':'The photo identifies what the waste is and where it comes from. The weight of record does not come from the photo: it comes from the scale, when the material reaches the plant.',c:'#22c55e'},
-            {num:'02',icon:'📍',t:es?'Confirmás la disposición':'You confirm disposal',d:es?'La segunda foto con GPS activa tus OLV Verdes, respaldados por kilos verificados.':'The second photo with GPS activates your Green OLV, backed by verified kilos.',c:'#3b82f6'},
-            {num:'03',icon:'🪙',t:es?'Acumulás OLV Verdes':'You accumulate Green OLV',d:es?'🌿 OLV Verdes: de residuos verificados · son los que se presentarán a certificación. ⭐ OLV Bonus: por registrarte y compartir · sin valor ambiental.':'🌿 Green OLV: from verified waste · these will be submitted for certification. ⭐ Bonus OLV: for registering and sharing · no environmental value.',c:'#f59e0b'},
-            {num:'04',icon:'🌳',t:es?'Certificación':'Certification',d:es?'Con doce a veinticuatro meses de registros verificados se inicia la validación por auditor acreditado bajo estándar Verra. Es un proceso de dos a tres años y su resultado no depende de OLIVIA.':'With twelve to twenty-four months of verified records, validation by an accredited auditor begins under the Verra standard. A two to three year process whose outcome does not depend on OLIVIA.',c:'#a855f7'},
-          ].map(p=>(
-            <div key={p.num} style={{display:'flex',gap:12,padding:'14px',background:card,borderRadius:14,border:`1px solid ${p.c}22`,alignItems:'flex-start'}}>
-              <div style={{width:36,height:36,background:`linear-gradient(135deg,${p.c},${p.c}99)`,borderRadius:10,display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,fontWeight:800,color:'white',flexShrink:0}}>{p.num}</div>
-              <div>
-                <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:4}}>
-                  <span style={{fontSize:18}}>{p.icon}</span>
-                  <span style={{fontSize:13,fontWeight:700,color:p.c}}>{p.t}</span>
-                </div>
-                <div style={{fontSize:12,color:sub,lineHeight:1.6}}>{p.d}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div style={{marginTop:16,textAlign:'center'}}>
-          <a href="/registro" style={{background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',padding:'14px 32px',borderRadius:12,fontSize:14,fontWeight:700,textDecoration:'none',display:'inline-block'}}>
-            {es?'Empezar gratis →':'Start for free →'}
-          </a>
         </div>
       </section>
 
@@ -611,59 +613,14 @@ export default function Landing({ ini }: { ini: Ini }) {
         </div>
       </section>
 
-      {/* ═══ SECCIÓN 8 — DOS BOTONES GRANDES ═══ */}
-      <section style={{padding:'32px 20px',maxWidth:580,margin:'0 auto',borderTop:`1px solid ${border}`}}>
-        <h2 style={{fontSize:22,fontWeight:900,textAlign:'center',marginBottom:6,color:text}}>{es?'¿Por dónde entrás?':'Where do you start?'}</h2>
-          <a href="/operadores" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(59,130,246,0.12),rgba(168,85,247,0.06))',border:'2px solid rgba(59,130,246,0.4)',textDecoration:'none'}}>
-            <div style={{display:'flex',alignItems:'center',gap:14}}>
-              <span style={{fontSize:36}}>🏭</span>
-              <div>
-                <div style={{fontSize:16,fontWeight:900,color:'#3b82f6'}}>{es?'Soy planta o acopiador':'I run a plant or collection yard'}</div>
-                <div style={{fontSize:12,color:sub,marginTop:2}}>{es?'Balanza · Remito digital · Capacidad ociosa':'Scale · Digital receipt · Idle capacity'}</div>
-              </div>
-            </div>
-            <span style={{color:'#3b82f6',fontSize:20,fontWeight:700}}>→</span>
-          </a>
-          <a href="/grandes-generadores" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(239,68,68,0.12),rgba(239,68,68,0.06))',border:'2px solid rgba(239,68,68,0.4)',textDecoration:'none'}}>
-            <div style={{display:'flex',alignItems:'center',gap:14}}>
-              <span style={{fontSize:36}}>⚖️</span>
-              <div>
-                <div style={{fontSize:16,fontWeight:900,color:'#ef4444'}}>{es?'Estoy obligado por la ley':'I have a legal obligation'}</div>
-                <div style={{fontSize:12,color:sub,marginTop:2}}>{es?'Ley 1854 · Grandes Generadores':'Law 1854 · Large Generators'}</div>
-              </div>
-            </div>
-            <span style={{color:'#ef4444',fontSize:20,fontWeight:700}}>→</span>
-          </a>
-          <a href="/consorcios" style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'20px',borderRadius:16,background:'linear-gradient(135deg,rgba(34,197,94,0.08),rgba(59,130,246,0.06))',border:'2px solid rgba(34,197,94,0.3)',textDecoration:'none'}}>
-            <div style={{display:'flex',alignItems:'center',gap:14}}>
-              <span style={{fontSize:36}}>🏢</span>
-              <div>
-                <div style={{fontSize:16,fontWeight:900,color:'#22c55e'}}>{es?'Administro un consorcio':'I manage a building'}</div>
-                <div style={{fontSize:12,color:sub,marginTop:2}}>{es?'Certificar residuos · Ley Basura Cero · Sin inversión':'Certify waste · Zero Waste Law · No investment'}</div>
-              </div>
-            </div>
-            <span style={{color:'#22c55e',fontSize:20,fontWeight:700}}>→</span>
-          </a>
-          {/* PUERTAS SECUNDARIAS */}
-          <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:8,marginTop:4}}>
-            {[
-              {l:es?'Soy inversor':'Investor',s:es?'El caso de negocio':'Business case',h:'/inversion',c:'#f59e0b',i:'🏛️'},
-              {l:es?'Soy vecino':'Neighbour',s:es?'Separar y registrar':'Sort and register',h:'/ciudadano',c:'#22c55e',i:'🌿'},
-              {l:es?'Electrónicos':'E-waste',s:'RAEE',h:'/raee',c:'#9333ea',i:'♻️'},
-              {l:es?'El proyecto':'The project',s:es?'Quiénes somos':'About us',h:'/institucional',c:'#94a3b8',i:'🌎'},
-            ].map((x,i)=>(
-              <a key={i} href={x.h} style={{display:'flex',alignItems:'center',gap:10,padding:'13px 14px',borderRadius:12,background:card,border:`1px solid ${border}`,textDecoration:'none'}}>
-                <span style={{fontSize:20,flexShrink:0}}>{x.i}</span>
-                <div style={{minWidth:0}}>
-                  <div style={{fontSize:12.5,fontWeight:800,color:x.c,lineHeight:1.2}}>{x.l}</div>
-                  <div style={{fontSize:10.5,color:sub,marginTop:2}}>{x.s}</div>
-                </div>
-              </a>
-            ))}
-          </div>
-
-        <p style={{fontSize:12,color:sub,textAlign:'center',marginBottom:20}}>{es?'Elegí tu camino en OLIVIA':'Choose your path in OLIVIA'}</p>
-        <div style={{display:'flex',flexDirection:'column',gap:12}}>
+      {/* ═══ CARNAVAL AMBIENTAL — música de OLIVIA ═══ */}
+      <section style={{padding:'0 20px 32px',maxWidth:580,margin:'0 auto'}}>
+        <div style={{border:'1px solid rgba(250,204,21,.4)',borderRadius:16,padding:'20px 18px',textAlign:'center',background:'rgba(250,204,21,.05)'}}>
+          <div style={{fontSize:10,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'.25em',color:'#eab308',marginBottom:8}}>{es?'[ Carnaval Ambiental ]':'[ Environmental Carnival ]'}</div>
+          <div style={{fontSize:20,fontWeight:900,marginBottom:6}}>{es?'Lo que la ciudad descarta, vuelve a bailar':'What the city throws away dances again'}</div>
+          <div style={{fontSize:13,color:sub,lineHeight:1.6,marginBottom:14}}>{es?'Le pusimos samba al circuito del orgánico. Escuchá "La Tierra Canta", el himno de OLIVIA.':'We set the organic waste cycle to samba. Listen to "La Tierra Canta", the OLIVIA anthem.'}</div>
+          <audio controls preload="none" controlsList="nodownload" src="/audio/olivia-la-tierra-canta.mp3" style={{width:'100%',marginBottom:14}} />
+          <a href="/carnaval" style={{display:'inline-block',color:'#eab308',fontWeight:800,fontSize:13,textDecoration:'none',border:'1px solid rgba(234,179,8,.5)',borderRadius:22,padding:'9px 18px'}}>{es?'Escuchá las 3 sambas y sumate a la comparsa →':'Hear all 3 sambas and join the carnival troupe →'}</a>
         </div>
       </section>
 

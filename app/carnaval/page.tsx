@@ -1,4 +1,6 @@
 'use client'
+import SitioNav from '../../components/SitioNav'
+import SitioFooter from '../../components/SitioFooter'
 import Link from 'next/link'
 
 const TEMAS = [
@@ -17,10 +19,7 @@ export default function Carnaval() {
   const bg = '#06110b', card = '#0b1d13', text = '#eef5f0', sub = '#9fb3a6', accent = '#22c55e', gold = '#facc15', border = 'rgba(134,239,172,.15)'
   return (
     <main style={{ minHeight: '100vh', background: bg, color: text, fontFamily: 'Inter, system-ui, sans-serif' }}>
-      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 20px', borderBottom: '1px solid ' + border }}>
-        <Link href="/" style={{ color: text, textDecoration: 'none', fontWeight: 900, letterSpacing: '-0.02em' }}>OLIVIA <span style={{ color: accent, fontWeight: 600 }}>Circulab</span></Link>
-        <Link href="/" style={{ color: accent, textDecoration: 'none', fontSize: 12, fontWeight: 700 }}>← Volver al inicio</Link>
-      </nav>
+      <SitioNav text={text} accent={accent} border={border} />
 
       <section style={{ padding: '48px 20px 16px', textAlign: 'center', maxWidth: 760, margin: '0 auto' }}>
         <div style={{ fontSize: 10, fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '.3em', color: gold, marginBottom: 12 }}>[ Carnaval Ambiental ]</div>
@@ -62,9 +61,7 @@ export default function Carnaval() {
         <div style={{ marginTop: 16 }}><Link href="/videos" style={{ color: accent, fontSize: 13, fontWeight: 700, textDecoration: 'none' }}>Ver los videos de OLIVIA →</Link></div>
       </section>
 
-      <footer style={{ textAlign: 'center', padding: '24px 20px 40px', borderTop: '1px solid ' + border, fontSize: 12, color: sub }}>
-        Música de OLIVIA Circulab, creada con Suno · <Link href="/" style={{ color: accent, textDecoration: 'none', fontWeight: 700 }}>oliviacirculab.com.ar</Link>
-      </footer>
+      <SitioFooter text={text} sub={sub} border={border} />
     </main>
   )
 }
