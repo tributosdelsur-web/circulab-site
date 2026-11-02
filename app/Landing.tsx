@@ -203,6 +203,9 @@ export default function Landing({ ini }: { ini: Ini }) {
 
       {/* ═══ SECCIÓN 1 — HERO ═══ */}
       <section style={{padding:'40px 20px 24px',maxWidth:580,margin:'0 auto',textAlign:'center'}}>
+        <div aria-label="OLIVIA" style={{fontSize:'clamp(64px, 18vw, 112px)',fontWeight:900,lineHeight:1,letterSpacing:'0.06em',margin:'0 auto 10px',background:'linear-gradient(135deg,#22c55e,#75AADB)',WebkitBackgroundClip:'text',backgroundClip:'text',color:'transparent'}}>
+          OLIVIA
+        </div>
         <div style={{fontSize:10,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.12em',color:sub,lineHeight:1.6,maxWidth:420,margin:'0 auto 16px'}}>
           {es?'Oficina Latinoamericana de Información para la Valorización e Inteligencia Ambiental':'Latin American Office for Environmental Valuation and Intelligence Information'}
         </div>
