@@ -283,7 +283,7 @@ return (
         </div>
         <div style={{display:'flex',flexDirection:'column',gap:6,marginBottom:8}}>
           {(es?[
-            {n:'1',m:'USD 75K',d:'Sociedad, acuerdo con acopiador, 10 balanzas con modelo aprobado, 6 meses de equipo: CTO a tiempo parcial (honorarios + participación con vesting) y fundadores',h:'Sociedad constituida, acopiador firmado, balanza transmitiendo datos continuos'},
+            {n:'1',m:'USD 75K',d:'Sociedad y toda la propiedad intelectual a su nombre (cesión de los fundadores, marca en Argentina y Chile, registro del software, protección del módulo de firma), acuerdo con acopiador, 10 balanzas con modelo aprobado, 6 meses de equipo: CTO a tiempo parcial (honorarios + participación con vesting) y fundadores',h:'Sociedad constituida, acopiador firmado, balanza transmitiendo datos continuos'},
             {n:'2',m:'USD 70K',d:'Desarrollador de carbono, línea de base, documento de diseño del proyecto, más nodos',h:'Documento de diseño presentado ante Verra'},
             {n:'3',m:'USD 80K',d:'Auditoría de tercera parte, registro, operación',h:'Proyecto registrado'},
           ]:[

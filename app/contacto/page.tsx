@@ -81,6 +81,11 @@ export default function Contacto() {
           </button>
         </div>
 
+        <p style={{ fontSize: 14, color: sub, margin: '-12px 0 28px' }}>
+          {es ? 'O por WhatsApp: ' : 'Or on WhatsApp: '}
+          <a href="https://wa.me/5491138859820" target="_blank" rel="noopener noreferrer" style={{ color: accent, fontWeight: 700 }}>+54 9 11 3885-9820</a>
+        </p>
+
         {listo ? (
           <div style={{ background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.3)', borderRadius: 16, padding: '26px 22px' }}>
             <Titulo size={22}>{es ? 'Recibido.' : 'Received.'}</Titulo>

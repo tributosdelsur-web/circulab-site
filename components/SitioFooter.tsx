@@ -41,7 +41,7 @@ export default function SitioFooter({ es = true, text = '#eef5f0', sub = '#9fb3a
             <Link key={n.h} href={n.h} style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.75}}>{n.l}</Link>
           ))}
         </div>
-        <div style={{fontSize:11,color:sub,marginBottom:10}}>hola@oliviacirculab.com.ar</div>
+        <div style={{fontSize:11,color:sub,marginBottom:10}}>hola@oliviacirculab.com.ar · <a href="https://wa.me/5491138859820" target="_blank" rel="noopener noreferrer" style={{color:sub}}>WhatsApp +54 9 11 3885-9820</a></div>
         <div style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap',marginBottom:10}}>
           <Link href="/terminos" style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.7}}>{es?'Términos':'Terms'}</Link>
           <Link href="/privacidad" style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.7}}>{es?'Privacidad':'Privacy'}</Link>

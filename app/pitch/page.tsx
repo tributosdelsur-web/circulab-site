@@ -145,7 +145,7 @@ const SLIDES = [
     subtitulo: 'Pre-semilla · SAFE con tope de valuación · para un socio activo',
     tipo: 'ronda',
     contenido: [
-      {opcion:'Tramo 1',monto:'USD 75.000',hito:'Sociedad constituida, acopiador firmado, balanza transmitiendo datos continuos',uso:'Sociedad, acuerdo con acopiador, 10 balanzas con modelo aprobado, 6 meses de equipo: CTO a tiempo parcial (honorarios + participación con vesting) y fundadores',color:'#22c55e'},
+      {opcion:'Tramo 1',monto:'USD 75.000',hito:'Sociedad constituida, acopiador firmado, balanza transmitiendo datos continuos',uso:'Sociedad y toda la propiedad intelectual a su nombre (cesión de los fundadores, marca en Argentina y Chile, registro del software, protección del módulo de firma), acuerdo con acopiador, 10 balanzas con modelo aprobado, 6 meses de equipo: CTO a tiempo parcial (honorarios + participación con vesting) y fundadores',color:'#22c55e'},
       {opcion:'Tramo 2',monto:'USD 70.000',hito:'Documento de diseño presentado ante Verra',uso:'Desarrollador de carbono, línea de base, documento de diseño del proyecto, más nodos',color:'#3b82f6'},
       {opcion:'Tramo 3',monto:'USD 80.000',hito:'Proyecto registrado',uso:'Auditoría de tercera parte, registro, operación',color:'#a855f7'},
     ],

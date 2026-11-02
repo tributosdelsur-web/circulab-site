@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import WhatsAppBoton from '../components/WhatsAppBoton'
 
 const descripcion = 'La capa de datos para las plantas que tratan el orgánico: balanza conectada, remito digital y tratamiento verificado. Medición verificable del residuo que hoy se entierra.'
 
@@ -28,6 +29,7 @@ const organizacion = {
   url: 'https://oliviacirculab.com.ar',
   logo: 'https://oliviacirculab.com.ar/logoOC.png',
   email: 'hola@oliviacirculab.com.ar',
+  telephone: '+54 9 11 3885-9820',
   description: descripcion,
   areaServed: 'Buenos Aires, Argentina',
   sameAs: ['https://www.linkedin.com/company/113160128/'],
@@ -43,6 +45,7 @@ export default function RootLayout({
       <body>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizacion) }} />
         {children}
+        <WhatsAppBoton />
       </body>
     </html>
   )
