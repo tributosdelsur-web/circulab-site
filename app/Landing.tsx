@@ -203,6 +203,7 @@ export default function Landing({ ini }: { ini: Ini }) {
 
       {/* ═══ SECCIÓN 1 — HERO ═══ */}
       <section style={{padding:'40px 20px 24px',maxWidth:580,margin:'0 auto',textAlign:'center'}}>
+        <a href="/pesaje" style={{display:'inline-block',marginBottom:18,padding:'8px 16px',borderRadius:999,background:'rgba(34,197,94,0.12)',border:'1px solid rgba(34,197,94,0.45)',color:'#16a34a',fontSize:12,fontWeight:800,textDecoration:'none'}}>{es?'⚖️ Pesaje en vivo · viernes 13/11 · Sumate →':'⚖️ Live weigh-in · Fri Nov 13 · Join →'}</a>
         <div aria-label="OLIVIA" style={{fontSize:'clamp(64px, 18vw, 112px)',fontWeight:900,lineHeight:1,letterSpacing:'0.06em',margin:'0 auto 10px',background:'linear-gradient(135deg,#22c55e,#75AADB)',WebkitBackgroundClip:'text',backgroundClip:'text',color:'transparent'}}>
           OLIVIA
         </div>
@@ -364,8 +365,8 @@ export default function Landing({ ini }: { ini: Ini }) {
         {/* KPIs */}
         <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10,marginBottom:16}}>
           {[
-            {v:stats.usuarios||'0',l:es?'Vecinos activos':'Active neighbors',c:'#22c55e'},
-            {v:(stats.kg||0).toLocaleString(es?'es-AR':'en-US',{minimumFractionDigits:1,maximumFractionDigits:1})+' kg',l:es?'Kg verificados':'Verified kg',c:'#3b82f6'},
+            {v:stats.usuarios||'0',l:es?'Personas registradas':'Registered people',c:'#22c55e'},
+            {v:(stats.kg||0).toLocaleString(es?'es-AR':'en-US',{minimumFractionDigits:1,maximumFractionDigits:1})+' kg',l:es?'Kg validados':'Validated kg',c:'#3b82f6'},
           ].map(k=>(
             <div key={k.l} style={{background:card,borderRadius:12,padding:'14px 8px',textAlign:'center',border:`1px solid ${k.c}22`}}>
               <div style={{fontSize:22,fontWeight:900,color:k.c}}>{k.v}</div>
@@ -634,7 +635,7 @@ export default function Landing({ ini }: { ini: Ini }) {
       <section style={{padding:'32px 20px',maxWidth:580,margin:'0 auto',borderTop:`1px solid ${border}`}}>
         <div style={{fontSize:11,color:'#22c55e',textTransform:'uppercase',letterSpacing:'0.1em',textAlign:'center',marginBottom:6}}>{es?'Comunidad':'Community'}</div>
         <h2 style={{fontSize:22,fontWeight:900,textAlign:'center',marginBottom:6,color:text}}>{es?'Invitá a tus amigos':'Invite your friends'}</h2>
-        <p style={{fontSize:12,color:sub,textAlign:'center',marginBottom:16}}>{es?'⭐ +50 OLV Bonus por cada amigo que se registre':'⭐ +50 OLV Bonus for every friend who registers'}</p>
+        <p style={{fontSize:12,color:sub,textAlign:'center',marginBottom:16}}>{es?'Cuantas más personas midan, mejor conocemos lo que genera la ciudad':'The more people measure, the better we know what the city generates'}</p>
         <div style={{display:'flex',flexDirection:'column',gap:8}}>
           <a href={`https://wa.me/?text=${encodeURIComponent(es?'Estoy reciclando con OLIVIA Circulab y sumando kilos verificados 🌿 Uníte acá: https://oliviacirculab.com.ar':'I\'m recycling with OLIVIA Circulab and adding verified kilos 🌿 Join here: https://oliviacirculab.com.ar')}`}
             target="_blank" style={{display:'flex',alignItems:'center',gap:10,padding:'12px 14px',borderRadius:10,background:'rgba(37,211,102,0.1)',border:'1px solid rgba(37,211,102,0.3)',textDecoration:'none'}}>

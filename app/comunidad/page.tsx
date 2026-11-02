@@ -224,7 +224,7 @@ function ComunidadContent() {
 
     ctx.fillStyle = '#64748b'
     ctx.font = '36px system-ui'
-    ctx.fillText('Reciclé y gané OLV reales', 540, 180)
+    ctx.fillText('Reciclé y lo dejé registrado', 540, 180)
 
     // Foto del residuo si existe
     if(post.foto_url) {
@@ -291,13 +291,13 @@ function ComunidadContent() {
     // URL
     ctx.fillStyle = '#64748b'
     ctx.font = '40px system-ui'
-    ctx.fillText('circulab-site.vercel.app', 540, 1840)
+    ctx.fillText('oliviacirculab.com.ar', 540, 1840)
 
     // Convertir a blob y compartir
     canvas.toBlob(async (blob) => {
       if(!blob) return
       const file = new File([blob], 'olivia-story.png', {type:'image/png'})
-      const texto = `Recién reciclé con OLIVIA Circulab y gané OLV reales 🌿 ¡Registrate vos también! circulab-site.vercel.app`
+      const texto = `Recién registré mi reciclaje en OLIVIA Circulab 🌿 ¡Registrate vos también! oliviacirculab.com.ar`
 
       // Intentar Web Share API con imagen (abre Instagram Stories en móvil)
       if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})) {
@@ -324,7 +324,7 @@ function ComunidadContent() {
   async function compartirPost(post: any) {
     const texto = `${post.contenido||'Acción climática verificada'} 🌿\n\n#OliviaCirculab\noliviacirculab.com.ar`
     if(navigator.share) {
-      try { await navigator.share({title:'OLIVIA Circulab',text:texto,url:'https://circulab-site.vercel.app/comunidad'}) } catch(e) {}
+      try { await navigator.share({title:'OLIVIA Circulab',text:texto,url:'https://oliviacirculab.com.ar/comunidad'}) } catch(e) {}
     } else {
       await navigator.clipboard.writeText(texto)
       alert('Texto copiado — pegalo en Instagram, Facebook o X')
@@ -441,11 +441,10 @@ function ComunidadContent() {
             {[
               {a:'Registrar residuo verificado',v:'+50-800'},
               {a:'Subir foto de entrega',v:'+30'},
-              {a:'Publicar en la comunidad',v:'+20'},
+              {a:'Publicar en la comunidad',v:'+10'},
               {a:'Publicar una story',v:'+10'},
               {a:'Comentar un post',v:'+5'},
               {a:'Dar un like',v:'+2'},
-              {a:'Traer un amigo',v:'+200'},
             ].map(i=>(
               <div key={i.a} style={{display:'flex',justifyContent:'space-between',padding:'7px 0',borderBottom:'1px solid rgba(255,255,255,0.04)'}}>
                 <span style={{fontSize:12,color:'#94a3b8'}}>{i.a}</span>

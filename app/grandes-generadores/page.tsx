@@ -48,7 +48,7 @@ export default function GrandesGeneradores() {
           </h1>
           <p style={{fontSize:14,color:sub,lineHeight:1.7,marginBottom:28}}>
             {es
-              ? 'La Ley de Basura Cero obliga a los grandes generadores a separar sus residuos. OLIVIA te da los datos verificados con IA para cumplir y un registro digital verificable para respaldar tu cumplimiento.'
+              ? 'La Ley de Basura Cero obliga a los grandes generadores a separar sus residuos. OLIVIA te ayuda a medir lo que generás y a documentarlo en un registro digital.'
               : 'The Zero Waste Law requires large generators to separate their waste. OLIVIA gives you AI-verified data to comply and a verifiable digital record to back your compliance.'}
           </p>
           <div style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap'}}>

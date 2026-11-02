@@ -105,7 +105,7 @@ export default function Operadores() {
         </h2>
         <div style={{display:'flex',flexDirection:'column',gap:10,marginBottom:20}}>
           {(es?[
-            {i:'📸',t:'Origen',d:'Quien entrega fotografía el residuo con una moneda de referencia. La inteligencia artificial estima el volumen y valida la imagen. Ubicación y hora quedan capturadas automáticamente.',c:accent},
+            {i:'📸',t:'Origen',d:'Quien entrega fotografía el residuo con una moneda de referencia. El equipo revisa la imagen, con apoyo de inteligencia artificial. También se guardan la hora y, con permiso, la ubicación.',c:accent},
             {i:'🚶',t:'Transferencia',d:'Al llegar al punto de recepción se escanea el código y se registra la entrega. Queda vinculado quién lo trajo y a dónde.',c:azul},
             {i:'⚖️',t:'Peso',d:'Balanza conectada que firma cada lectura desde el propio hardware. El peso real, no el declarado, y sin posibilidad de edición posterior.',c:marron},
             {i:'🌱',t:'Procesamiento',d:'El registro sólo se cierra cuando se confirma que el material se transformó. Sin esa confirmación, los otros tres datos no alcanzan.',c:morado},

@@ -2,6 +2,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase'
+import { fetchIA } from '../../lib/ia'
 
 
 function BarChart({datos, color='#22c55e'}: {datos:{label:string,value:number}[], color?:string}) {
@@ -45,7 +46,7 @@ function NewsletterEngine({usuarios,residuos}:any) {
     setLoading(true); setNewsletter('')
     const prompt = 'Escribe el newsletter quincenal de OLIVIA Circulab. Datos: ' + usuarios.length + ' usuarios, ' + kg.toFixed(1) + ' kg verificados, ' + co2.toFixed(1) + ' kg CO2eq. Tono cercano. Max 300 palabras.'
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:800,messages:[{role:'user',content:prompt}]})})
+      const res = await fetchIA('/api/ia',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:800,messages:[{role:'user',content:prompt}]})})
       const data = await res.json()
       setNewsletter(data.content?.[0]?.text||'Error')
     } catch(e){setNewsletter('Error')}
@@ -75,7 +76,7 @@ function CommunityEngine({usuarios}:any) {
     setLoading((p:any)=>({...p,[u.id]:true}))
     const prompt = 'Escribe un mensaje de bienvenida personalizado para ' + (u.nombre||'el usuario') + ' de OLIVIA Circulab en ' + (u.barrio||'Buenos Aires') + '. Tramo Semilla 2026. OLV acumulandose como registro verificado de kilos desviados y metano evitado. NO prometer pagos ni fechas de certificacion. Maximo 80 palabras.'
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:300,messages:[{role:'user',content:prompt}]})})
+      const res = await fetchIA('/api/ia',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:300,messages:[{role:'user',content:prompt}]})})
       const data = await res.json()
       setMsgs((p:any)=>({...p,[u.id]:data.content?.[0]?.text||'Error'}))
     } catch(e){setMsgs((p:any)=>({...p,[u.id]:'Error'}))}
@@ -118,7 +119,7 @@ function EmailSecuencia({usuarios}:any) {
     const t = TIPOS.find(x=>x.id===tipo)
     if (!t) return
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:400,messages:[{role:'user',content:t.prompt}]})})
+      const res = await fetchIA('/api/ia',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:400,messages:[{role:'user',content:t.prompt}]})})
       const data = await res.json()
       setEmail(data.content?.[0]?.text||'Error')
     } catch(e){setEmail('Error')}
@@ -162,7 +163,7 @@ function CampaniaCiudadana({usuarios}:any) {
   const generar = async () => {
     setLoading(true); setMsg('')
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:300,messages:[{role:'user',content:prompts[seg]}]})})
+      const res = await fetchIA('/api/ia',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:300,messages:[{role:'user',content:prompts[seg]}]})})
       const data = await res.json()
       setMsg(data.content?.[0]?.text||'Error')
     } catch(e){setMsg('Error')}
@@ -201,7 +202,7 @@ function CampaniaConsorcios({usuarios}:any) {
     setLoading(true); setPropuesta('')
     const prompt = 'Escribe una propuesta comercial para el consorcio ' + datos.nombre + ' en ' + datos.barrio + ' con ' + datos.unidades + ' unidades. OLIVIA Circulab: cumplir Ley Basura Cero CABA, trazabilidad verificada de residuos, evidencia de cumplimiento, metano evitado, badge Edificio Verde. NO prometer creditos de carbono ni fechas. Sin precios especificos. CTA reunion 20 minutos. Max 200 palabras.'
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:500,messages:[{role:'user',content:prompt}]})})
+      const res = await fetchIA('/api/ia',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:500,messages:[{role:'user',content:prompt}]})})
       const data = await res.json()
       setPropuesta(data.content?.[0]?.text||'Error')
     } catch(e){setPropuesta('Error')}
@@ -241,7 +242,7 @@ function CampaniaGastro() {
       ? 'Escribe propuesta para hotel ' + nombre + '. OLIVIA Circulab: dashboard de residuos, reporte ESG GRI/SASB con datos verificados, metano evitado, badge Hotel Verde. NO prometer creditos ni fechas de certificacion. Sin precios. CTA demo. Max 180 palabras.'
       : 'Escribe propuesta para restaurante ' + nombre + '. OLIVIA Circulab: badge Verde Tripadvisor, verificacion con IA de residuos, reporte de impacto mensual con kilos desviados y metano evitado. NO prometer creditos ni fechas. Sin precios. CTA visita. Max 150 palabras.'
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:400,messages:[{role:'user',content:prompt}]})})
+      const res = await fetchIA('/api/ia',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:400,messages:[{role:'user',content:prompt}]})})
       const data = await res.json()
       setPropuesta(data.content?.[0]?.text||'Error')
     } catch(e){setPropuesta('Error')}
@@ -283,7 +284,7 @@ function CampaniaRSE() {
     setLoading(true); setPropuesta('')
     const prompt = 'Escribe propuesta RSE/ESG para ' + empresa + ' sector ' + sector + '. Modalidad: ' + modalidad + '. OLIVIA Circulab: trazabilidad de huella verificada con IA, datos GRI/SASB/TCFD, metano evitado con evidencia. NO prometer creditos ni fechas de certificacion. Sin precios. CTA reunion. Max 180 palabras.'
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:500,messages:[{role:'user',content:prompt}]})})
+      const res = await fetchIA('/api/ia',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:500,messages:[{role:'user',content:prompt}]})})
       const data = await res.json()
       setPropuesta(data.content?.[0]?.text||'Error')
     } catch(e){setPropuesta('Error')}
@@ -329,7 +330,7 @@ function CampaniaEmisores() {
     const s = SECTORES.find(x=>x.id===sector)
     const prompt = 'Escribe propuesta B2B para ' + empresa + ' sector ' + sector + '. Regulacion: ' + (s?.reg||'ESG') + '. OLIVIA Circulab: trazabilidad verificada con IA y GPS, dashboard ESG, metano evitado documentado. Aclarar que la certificacion es un proceso en curso de dos a tres anios y que hoy no se emiten creditos. Offsets genericos rechazados por auditores. Sin precios. CTA reunion tecnica. Max 200 palabras.'
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:500,messages:[{role:'user',content:prompt}]})})
+      const res = await fetchIA('/api/ia',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:500,messages:[{role:'user',content:prompt}]})})
       const data = await res.json()
       setPropuesta(data.content?.[0]?.text||'Error')
     } catch(e){setPropuesta('Error')}
@@ -371,7 +372,7 @@ function CampaniaMunicipios() {
     setLoading(true); setPropuesta('')
     const prompt = 'Escribe propuesta institucional para Secretaria de Ambiente de ' + municipio + '. OLIVIA Circulab: datos dMRV para ' + fondos + ', medir impacto separacion ciudadana, activar capacidad ociosa plantas existentes. Sin precios. CTA presentacion. Max 220 palabras.'
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:500,messages:[{role:'user',content:prompt}]})})
+      const res = await fetchIA('/api/ia',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:500,messages:[{role:'user',content:prompt}]})})
       const data = await res.json()
       setPropuesta(data.content?.[0]?.text||'Error')
     } catch(e){setPropuesta('Error')}
@@ -599,7 +600,7 @@ export default function Admin() {
    if(!residuo.foto_url) return
    setAnalizando(residuo.id)
    try {
-     const res = await fetch('/api/analizar-foto',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({foto_url:residuo.foto_url})})
+     const res = await fetchIA('/api/analizar-foto',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({foto_url:residuo.foto_url})})
      const resultado = await res.json()
      setAnalisis((p:any)=>({...p,[residuo.id]:resultado}))
    } catch(e) {
@@ -625,7 +626,7 @@ export default function Admin() {
 
  async function compartirEnRedes(texto: string) {
    if(navigator.share) {
-     try { await navigator.share({title:'OLIVIA Circulab',text:texto,url:'https://circulab-site.vercel.app'}) } catch(e) {}
+     try { await navigator.share({title:'OLIVIA Circulab',text:texto,url:'https://oliviacirculab.com.ar'}) } catch(e) {}
    } else {
      await navigator.clipboard.writeText(texto)
      alert('Texto copiado para compartir en redes')
@@ -1542,7 +1543,7 @@ export default function Admin() {
               const generar = async () => {
                 setLoading(true); setPost('')
                 try {
-                  const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content:item.prompt}]})})
+                  const res = await fetchIA('/api/ia',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content:item.prompt}]})})
                   const data = await res.json()
                   setPost(data.content?.[0]?.text||'Error')
                 } catch(e){setPost('Error')}

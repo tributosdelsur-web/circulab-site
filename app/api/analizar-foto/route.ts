@@ -1,11 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { esAdmin } from '../../../lib/servidor'
 
 export async function POST(req: NextRequest) {
   try {
+    if(!(await esAdmin(req))) {
+      return NextResponse.json({error:'No autorizado'},{status:401})
+    }
+
     const { foto_url } = await req.json()
 
     if(!foto_url) {
       return NextResponse.json({error:'No se recibió URL de foto'},{status:400})
+    }
+
+    // Solo fotos del propio almacenamiento de OLIVIA
+    const base = process.env.NEXT_PUBLIC_SUPABASE_URL + '/storage/v1/object/public/residuos-fotos/'
+    if(typeof foto_url !== 'string' || !foto_url.startsWith(base)) {
+      return NextResponse.json({error:'URL de foto no permitida'},{status:400})
     }
 
     const imgResponse = await fetch(foto_url, {
@@ -32,17 +43,6 @@ export async function POST(req: NextRequest) {
     }
 
     const endpoint = `https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/run/@cf/meta/llama-3.2-11b-vision-instruct`
-
-    // Primero aceptar los términos
-    await fetch(endpoint, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        prompt: 'agree',
-        image: Array.from(uint8Array),
-        max_tokens: 10,
-      })
-    })
 
     // Ahora el análisis real
     const prompt = `You are analyzing an image of household waste for a recycling program. Look at the image carefully.
@@ -71,15 +71,18 @@ Rules:
 - observaciones: describe what you actually see in the image in Spanish
 - confianza: alta, media, or baja`
 
-    const response = await fetch(endpoint, {
+    const consultar = (texto: string, max_tokens: number) => fetch(endpoint, {
       method: 'POST',
       headers,
-      body: JSON.stringify({
-        prompt,
-        image: Array.from(uint8Array),
-        max_tokens: 500,
-      })
+      body: JSON.stringify({ prompt: texto, image: Array.from(uint8Array), max_tokens })
     })
+
+    let response = await consultar(prompt, 500)
+    // El modelo pide aceptar su licencia una sola vez por cuenta
+    if(!response.ok && (await response.clone().text()).toLowerCase().includes('agree')) {
+      await consultar('agree', 10)
+      response = await consultar(prompt, 500)
+    }
 
     if(!response.ok) {
       const errorText = await response.text()
@@ -87,7 +90,6 @@ Rules:
     }
 
     const data = await response.json()
-    console.log('CF_RAW:', JSON.stringify(data).slice(0,500))
 
     // Cloudflare puede devolver la respuesta en distintos formatos
     let texto = ''
@@ -102,8 +104,6 @@ Rules:
     } else {
       texto = JSON.stringify(data.result || {})
     }
-    console.log('CF_RESULT_TYPE:', typeof data.result, 'KEYS:', Object.keys(data.result||{}))
-    console.log('CF_TEXT:', texto)
 
     if(!texto) {
       throw new Error('Cloudflare AI no devolvió respuesta')

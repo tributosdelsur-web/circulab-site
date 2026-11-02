@@ -19,7 +19,8 @@ export default function Login() {
       setEstado('error')
       setMensaje('Email o contraseña incorrectos')
     } else {
-      router.push('/dashboard')
+      const destino = new URLSearchParams(window.location.search).get('next') || ''
+      router.push(destino.startsWith('/') && !destino.startsWith('//') ? destino : '/dashboard')
     }
   }
 

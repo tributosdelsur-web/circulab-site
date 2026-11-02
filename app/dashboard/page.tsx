@@ -67,7 +67,7 @@ function DashboardContent() {
       return a + Math.round(Number(r.kg)*factor*100)
     },0)
   const olv_pendientes = residuos
-    .filter(r=>r.status==='pendiente')
+    .filter(r=>r.status==='pendiente'||r.status==='en_camino')
     .reduce((a,r)=>{
       const factor = TIPOS_RESIDUO.find(t=>t.v===r.tipo)?.factor||1.8
       return a + Math.round(Number(r.kg)*factor*100)
@@ -229,7 +229,7 @@ function DashboardContent() {
               <div style={{background:card,border:`1px solid ${border}`,borderRadius:14,padding:'32px',textAlign:'center'}}>
                 <div style={{fontSize:40,marginBottom:12}}>🌿</div>
                 <div style={{fontSize:14,fontWeight:700,marginBottom:8}}>{lang==='es'?'Tu primer registro te espera':'Your first registration awaits'}</div>
-                <div style={{fontSize:12,color:'#64748b',marginBottom:16}}>{lang==='es'?'Cada kilo que reciclás genera tokens OLV reales':'Every kilo you recycle generates real OLV tokens'}</div>
+                <div style={{fontSize:12,color:'#64748b',marginBottom:16}}>{lang==='es'?'Cada kilo que registrás queda a tu nombre':'Every kilo you record stays under your name'}</div>
                 <a href="/registrar" style={{background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',padding:'12px 24px',borderRadius:10,fontSize:13,fontWeight:700,textDecoration:'none',display:'inline-block'}}>
                   {lang==='es'?'Registrar mi primer residuo →':'Register my first waste →'}
                 </a>
@@ -239,7 +239,7 @@ function DashboardContent() {
             {/* INVITACIONES */}
             <div style={{background:card,border:'1px solid rgba(34,197,94,0.2)',borderRadius:14,padding:'16px'}}>
               <div style={{fontSize:13,fontWeight:700,color:text,marginBottom:4}}>🎁 {lang==='es'?'Invitá a tus amigos':'Invite your friends'}</div>
-              <div style={{fontSize:11,color:'#64748b',marginBottom:12}}>{lang==='es'?'+200 OLV por cada amigo que se registre y verifique su primer residuo':'+200 OLV for each friend who registers and verifies their first waste'}</div>
+              <div style={{fontSize:11,color:'#64748b',marginBottom:12}}>{lang==='es'?'Cuantas más personas midan, mejor conocemos lo que genera la ciudad':'The more people measure, the better we know what the city generates'}</div>
 
               <div style={{padding:'12px',borderRadius:10,background:'rgba(34,197,94,0.08)',border:'1px solid rgba(34,197,94,0.3)',marginBottom:12,textAlign:'center'}}>
                 <div style={{fontSize:10,color:'#64748b',marginBottom:4}}>{lang==='es'?'Tu código único':'Your unique code'}</div>
@@ -250,7 +250,7 @@ function DashboardContent() {
                 </button>
               </div>
 
-              <a href={`https://wa.me/?text=Me%20sum%C3%A9%20a%20OLIVIA%20Circulab%20%F0%9F%8C%BF%20Us%C3%A1%20mi%20c%C3%B3digo%20${usuario?.codigo_referido}%20al%20registrarte%3A%20https%3A%2F%2Fcirculab-site.vercel.app%2Fregistro`}
+              <a href={`https://wa.me/?text=Me%20sum%C3%A9%20a%20OLIVIA%20Circulab%20%F0%9F%8C%BF%20Us%C3%A1%20mi%20c%C3%B3digo%20${usuario?.codigo_referido}%20al%20registrarte%3A%20https%3A%2F%2Foliviacirculab.com.ar%2Fregistro`}
                 target="_blank" style={{display:'flex',alignItems:'center',gap:10,padding:'12px',borderRadius:10,background:'rgba(37,211,102,0.08)',border:'1px solid rgba(37,211,102,0.2)',textDecoration:'none',marginBottom:8}}>
                 <span style={{fontSize:20}}>💬</span>
                 <div>
@@ -260,8 +260,8 @@ function DashboardContent() {
               </a>
 
               <button onClick={()=>{
-                const txt=`Sumate a OLIVIA Circulab 🌿 Usá mi código ${usuario?.codigo_referido} al registrarte: https://circulab-site.vercel.app/registro`
-                if(navigator.share)navigator.share({text:txt,url:'https://circulab-site.vercel.app'})
+                const txt=`Sumate a OLIVIA Circulab 🌿 Usá mi código ${usuario?.codigo_referido} al registrarte: https://oliviacirculab.com.ar/registro`
+                if(navigator.share)navigator.share({text:txt,url:'https://oliviacirculab.com.ar'})
                 else{navigator.clipboard.writeText(txt);alert('Copiado ✓')}
               }} style={{width:'100%',display:'flex',alignItems:'center',gap:10,padding:'12px',borderRadius:10,background:'rgba(255,255,255,0.04)',border:`1px solid ${border}`,cursor:'pointer'}}>
                 <span style={{fontSize:20}}>📤</span>
@@ -304,14 +304,14 @@ function DashboardContent() {
                ctx.fill()
                ctx.fillStyle = '#0a1a0a'
                ctx.font = 'bold 44px system-ui'
-               ctx.fillText('circulab-site.vercel.app', 540, 1530)
+               ctx.fillText('oliviacirculab.com.ar', 540, 1530)
                ctx.fillStyle = '#64748b'
                ctx.font = '36px system-ui'
                ctx.fillText(lang==='es'?'Tu residuo vale dinero real':'Your waste is worth real money', 540, 1720)
                canvas.toBlob(async(blob)=>{
                  if(!blob) return
                  const file = new File([blob],'olivia-invitacion.png',{type:'image/png'})
-                 const txt = `Sumate a OLIVIA Circulab 🌿 Usá mi código ${usuario?.codigo_referido}: https://circulab-site.vercel.app/registro`
+                 const txt = `Sumate a OLIVIA Circulab 🌿 Usá mi código ${usuario?.codigo_referido}: https://oliviacirculab.com.ar/registro`
                  if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
                    try{await navigator.share({files:[file],title:'OLIVIA Circulab',text:txt});return}catch(e){}
                  }

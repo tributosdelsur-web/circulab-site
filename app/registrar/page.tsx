@@ -4,14 +4,18 @@ import { supabase } from '../../lib/supabase'
 
 const STORAGE_KEY = 'olivia_registro_data'
 
+const PUNTOS = ['Punto verde de la Ciudad','Cooperativa o recuperador de mi barrio','Otro lugar']
+const PUNTOS_ORGANICO = ['Punto verde que reciba orgánicos','Compostera comunitaria','Otra planta o lugar']
+const PESAJE_VIVO = 'Pesaje en vivo OLIVIA'
+
 const TIPOS = [
  {
    v:'organico', l:'Orgánico', icon:'🌿',
    factor:1.8, olv:180,
    descripcion:'Restos de comida, cáscaras, yerba, posos de café',
-   cooperativas:['RUO Caballito — Yerbal 1473','El Ceibo Palermo — Paraguay 4742','CRC Villa Soldati — Ana María Janer 2750'],
-   bolsa:'Verra VCS VM0036',
-   consejo:'Usá una cubeta de 30L. Poné una moneda de $10 al lado para la foto.',
+   cooperativas:PUNTOS_ORGANICO,
+   bolsa:'Estimación · aún sin certificar',
+   consejo:'Si tenés balanza, pesalo. Para la foto, sumá una moneda al lado.',
    disposiciones:[
      {v:'punto_verde',l:'Llevar a punto verde / planta'},
      {v:'compost',l:'Compostar en casa (21 días)'},
@@ -22,8 +26,8 @@ const TIPOS = [
    v:'plastico', l:'Plástico', icon:'♻️',
    factor:1.5, olv:150,
    descripcion:'Botellas PET, envases, bolsas limpias',
-   cooperativas:['El Ceibo Palermo — Paraguay 4742','Cooperativa AVE CABA','Cooperativa CURA CABA'],
-   bolsa:'Gold Standard AMS-III.BA',
+   cooperativas:PUNTOS,
+   bolsa:'Estimación · aún sin certificar',
    consejo:'Aplastá las botellas y enjuagalas antes.',
    disposiciones:[{v:'punto_verde',l:'Llevar a punto verde / cooperativa'}]
  },
@@ -31,8 +35,8 @@ const TIPOS = [
    v:'papel', l:'Papel y cartón', icon:'📄',
    factor:0.9, olv:90,
    descripcion:'Diarios, revistas, cajas, cartones',
-   cooperativas:['MTE Recuperadores Urbanos','Cooperativa 2 de Abril CABA','Cartoneros organizados'],
-   bolsa:'Gold Standard AMS-III.AJ',
+   cooperativas:PUNTOS,
+   bolsa:'Estimación · aún sin certificar',
    consejo:'Atá el cartón en paquetes. Los diarios mojados valen menos.',
    disposiciones:[{v:'punto_verde',l:'Llevar a punto verde / cartonero'}]
  },
@@ -40,8 +44,8 @@ const TIPOS = [
    v:'vidrio', l:'Vidrio', icon:'🍾',
    factor:0.3, olv:30,
    descripcion:'Botellas, frascos, envases de vidrio',
-   cooperativas:['Puntos verdes GCBA','Ecovidrio Argentina','Cooperativa Los Piletones'],
-   bolsa:'Verra Registry',
+   cooperativas:PUNTOS,
+   bolsa:'Estimación · aún sin certificar',
    consejo:'El vidrio roto también vale. Envolvelo en papel.',
    disposiciones:[{v:'punto_verde',l:'Llevar a punto verde'}]
  },
@@ -49,8 +53,8 @@ const TIPOS = [
    v:'metal', l:'Metal', icon:'🔩',
    factor:8.0, olv:800,
    descripcion:'Latas de aluminio, chatarra, metales',
-   cooperativas:['Chatarreros independientes','Cooperativa Reciclando Sueños','Plantas fundición zona sur'],
-   bolsa:'Climate Action Reserve',
+   cooperativas:PUNTOS,
+   bolsa:'Estimación · aún sin certificar',
    consejo:'El metal tiene el factor más alto — 800 OLV por kg.',
    disposiciones:[{v:'punto_verde',l:'Llevar a chatarrería / cooperativa'}]
  },
@@ -58,8 +62,8 @@ const TIPOS = [
    v:'aceite', l:'Aceite usado', icon:'🛢️',
    factor:2.5, olv:250,
    descripcion:'Aceite vegetal de cocina usado',
-   cooperativas:['Puntos EcoAceite GCBA','Puntos verdes CABA','Cooperativa Biofuel BA'],
-   bolsa:'Verra + AMS-III.AK',
+   cooperativas:PUNTOS,
+   bolsa:'Estimación · aún sin certificar',
    consejo:'Guardalo en la botella de origen. 1 litro = aprox 0.9kg.',
    disposiciones:[{v:'punto_verde',l:'Llevar a punto EcoAceite'}]
  },
@@ -67,8 +71,8 @@ const TIPOS = [
    v:'textil', l:'Textil', icon:'👕',
    factor:5.5, olv:550,
    descripcion:'Ropa, telas, calzado en buen estado',
-   cooperativas:['Cáritas Buenos Aires','Cruz Roja Argentina','Cooperativa La Juanita'],
-   bolsa:'Gold Standard Textile Exchange',
+   cooperativas:PUNTOS,
+   bolsa:'Estimación · aún sin certificar',
    consejo:'Solo ropa limpia y usable.',
    disposiciones:[{v:'punto_verde',l:'Llevar a ropero comunitario'}]
  },
@@ -80,7 +84,7 @@ export default function Registrar() {
  const [tipo, setTipo] = useState<any>(null)
  const [puntoEntrega, setPuntoEntrega] = useState('')
  const [disposicion, setDisposicion] = useState('')
- const [kg, setKg] = useState(1)
+ const [kg, setKg] = useState(500)
   const [unidad, setUnidad] = useState<'kg'|'g'>('g')
  const [fotoOrigen, setFotoOrigen] = useState<File|null>(null)
  const [fotoOrigenPreview, setFotoOrigenPreview] = useState<string|null>(null)
@@ -91,6 +95,10 @@ export default function Registrar() {
  const [latEntrega, setLatEntrega] = useState<number|null>(null)
  const [lngEntrega, setLngEntrega] = useState<number|null>(null)
  const [enviando, setEnviando] = useState(false)
+ const [errorEnvio, setErrorEnvio] = useState('')
+ const [sesionLista, setSesionLista] = useState(false)
+ const [metodoPeso, setMetodoPeso] = useState<'balanza'|'estimado'>('estimado')
+ const [enVivo, setEnVivo] = useState(false)
  const [resultado, setResultado] = useState<any>(null)
  const [publicandoOlivia, setPublicandoOlivia] = useState(false)
  const [publicadoOlivia, setPublicadoOlivia] = useState(false)
@@ -102,7 +110,12 @@ export default function Registrar() {
  useEffect(()=>{
    supabase.auth.getSession().then(({data})=>{
      if(data.session?.user?.id) setUid(data.session.user.id)
+     setSesionLista(true)
    })
+   if(new URLSearchParams(window.location.search).get('origen')==='pesaje') {
+     setEnVivo(true)
+     setMetodoPeso('balanza')
+   }
    const guardado = localStorage.getItem(STORAGE_KEY)
    if(guardado) {
      try {
@@ -112,6 +125,8 @@ export default function Registrar() {
        if(p.puntoEntrega) setPuntoEntrega(p.puntoEntrega)
        if(p.disposicion) setDisposicion(p.disposicion)
        if(p.kg) setKg(p.kg)
+       if(p.unidad) setUnidad(p.unidad)
+       else if(p.kg) setKg(500)
      } catch(e){}
    }
    navigator.geolocation?.getCurrentPosition(pos=>{
@@ -122,8 +137,8 @@ export default function Registrar() {
 
  useEffect(()=>{
    if(resultado) return
-   localStorage.setItem(STORAGE_KEY, JSON.stringify({paso,tipo,puntoEntrega,disposicion,kg}))
- },[paso,tipo,puntoEntrega,disposicion,kg])
+   localStorage.setItem(STORAGE_KEY, JSON.stringify({paso,tipo,puntoEntrega,disposicion,kg,unidad}))
+ },[paso,tipo,puntoEntrega,disposicion,kg,unidad])
 
  function atras() {
    if(paso>1) {
@@ -156,94 +171,94 @@ export default function Registrar() {
  }
 
  const diasCompost = disposicion==='lombricompost'?45:21
+ const kgFinal = unidad==='g'?kg/1000:kg
+ const pesoValido = kgFinal>0&&kgFinal<=50
+
+ async function subirFoto(file: File, etapa: string) {
+   const extension = (file.name.split('.').pop() || 'jpg').replace(/[^a-z0-9]/gi,'').toLowerCase()
+   const nombre = `${uid}-${etapa}-${Date.now()}.${extension}`
+   const { error } = await supabase.storage.from('residuos-fotos').upload(nombre, file)
+   if(error) throw new Error('foto')
+   return supabase.storage.from('residuos-fotos').getPublicUrl(nombre).data.publicUrl
+ }
 
  async function enviar() {
-   if(!uid){window.location.href='/login';return}
+   if(!uid){window.location.href='/login?next=/registrar';return}
+   if(!pesoValido){setErrorEnvio('Revisá el peso: tiene que ser mayor a 0 y de hasta 50 kg.');return}
    setEnviando(true)
-   let foto_url = null
-   let foto_entrega_url = null
+   setErrorEnvio('')
+   try {
+     const foto_url = fotoOrigen ? await subirFoto(fotoOrigen,'origen') : null
+     const foto_entrega_url = fotoEntrega ? await subirFoto(fotoEntrega,'entrega') : null
 
-   if(fotoOrigen) {
-     const nombre = `${uid}-origen-${Date.now()}`
-     await supabase.storage.from('residuos-fotos').upload(nombre, fotoOrigen)
-     const {data} = supabase.storage.from('residuos-fotos').getPublicUrl(nombre)
-     foto_url = data.publicUrl
+     const olv = Math.round(tipo.factor * kgFinal * 100)
+     const co2 = (tipo.factor * kgFinal).toFixed(2)
+
+     // Determinar status según disposición
+     const esCompost = disposicion==='compost'||disposicion==='lombricompost'
+     const status = fotoEntrega&&!esCompost ? 'en_camino' : 'pendiente'
+     const fecha_compost = esCompost ? new Date(Date.now() + diasCompost*24*60*60*1000).toISOString() : null
+     const notas = (metodoPeso==='balanza'?'Peso: balanza digital, cargado a mano':'Peso: estimado por el usuario')+(enVivo?' · Pesaje en vivo':'')
+
+     const {data: residuo, error} = await supabase.from('residuos').insert({
+       usuario_id: uid,
+       tipo: tipo.v,
+       kg: kgFinal,
+       foto_url,
+       foto_entrega_url,
+       lat_origen: latOrigen,
+       lng_origen: lngOrigen,
+       lat_entrega: latEntrega,
+       lng_entrega: lngEntrega,
+       punto_entrega: puntoEntrega,
+       metodo_disposicion: disposicion,
+       fecha_compost,
+       dias_compost: esCompost ? diasCompost : null,
+       notas,
+       status
+     }).select().single()
+     if(error) throw new Error('registro')
+
+     localStorage.removeItem(STORAGE_KEY)
+     setResultado({olv, co2, residuoId: residuo?.id, foto_url, status, esCompost})
+   } catch(e) {
+     setErrorEnvio('No pudimos guardar tu registro. Revisá tu conexión y volvé a tocar el botón: tus datos siguen acá.')
+   } finally {
+     setEnviando(false)
    }
-   if(fotoEntrega) {
-     const nombre = `${uid}-entrega-${Date.now()}`
-     await supabase.storage.from('residuos-fotos').upload(nombre, fotoEntrega)
-     const {data} = supabase.storage.from('residuos-fotos').getPublicUrl(nombre)
-     foto_entrega_url = data.publicUrl
-   }
-
-   const olv = Math.round(tipo.factor * kg * 100)
-   const co2 = (tipo.factor * kg).toFixed(2)
-
-   // Determinar status según disposición
-   const esCompost = disposicion==='compost'||disposicion==='lombricompost'
-   const status = fotoEntrega&&!esCompost ? 'en_camino' : 'pendiente'
-   const fecha_compost = esCompost ? new Date(Date.now() + diasCompost*24*60*60*1000).toISOString() : null
-
-   const {data: residuo} = await supabase.from('residuos').insert({
-     usuario_id: uid,
-     tipo: tipo.v,
-     kg: (unidad==="g"?kg/1000:kg),
-     foto_url,
-     foto_entrega_url,
-     lat_origen: latOrigen,
-     lng_origen: lngOrigen,
-     lat_entrega: latEntrega,
-     lng_entrega: lngEntrega,
-     punto_entrega: puntoEntrega,
-     metodo_disposicion: disposicion,
-     fecha_compost,
-     dias_compost: esCompost ? diasCompost : null,
-     status
-   }).select().single()
-
-   await supabase.from('wallet_transacciones').insert({
-     usuario_id: uid,
-     tipo: 'registro',
-     monto_olv: olv,
-     descripcion: `Registro ${tipo.l} ${kg}kg — OLV pendientes hasta verificación`
-   })
-
-   localStorage.removeItem(STORAGE_KEY)
-   setEnviando(false)
-   setResultado({olv, co2, residuoId: residuo?.id, foto_url, status, esCompost})
  }
 
  async function publicarEnOlivia() {
    if(!uid) return
    setPublicandoOlivia(true)
-   const kg_final = unidad==="g"?kg/1000:kg
-   const olv_ganados = Math.round(tipo.factor * kg_final * 100)
-   await supabase.from('posts').insert({
+   const {error} = await supabase.from('posts').insert({
      usuario_id: uid,
-     contenido: `Acabo de registrar ${(unidad==="g"?kg/1000:kg)}kg de ${tipo?.l} 🌿 Gané ${resultado?.olv} OLV pendientes · ${resultado?.co2}kg CO2eq evitados`,
+     contenido: `Acabo de registrar ${kgFinal} kg de ${tipo?.l} 🌿 · ${resultado?.co2} kg CO2eq estimados, pendientes de validación`,
      foto_url: resultado?.foto_url||null,
      tipo: 'accion',
-     olv_ganados
+     olv_ganados: 20
    })
-   await supabase.from('wallet_transacciones').insert({
-     usuario_id: uid,
-     tipo: 'post',
-     monto_olv: olv_ganados,
-     tipo_olv: 'verde',
-     descripcion: '🌿 OLV Verde · Residuo verificado con IA · ' + tipo.l
-   })
-   setPublicadoOlivia(true)
+   if(!error) {
+     await supabase.from('wallet_transacciones').insert({
+       usuario_id: uid,
+       tipo: 'bonus_post',
+       monto_olv: 20,
+       tipo_olv: 'bonus',
+       descripcion: '⭐ OLV Bonus · Registro compartido en la comunidad'
+     })
+     setPublicadoOlivia(true)
+   }
    setPublicandoOlivia(false)
  }
 
  async function compartirEnRedes() {
-   const texto = `Acabo de registrar ${(unidad==="g"?kg/1000:kg)}kg de ${tipo?.l} en OLIVIA Circulab 🌿\n\nGané ${resultado?.olv} OLV · ${resultado?.co2}kg CO2eq evitados\n\n¿Vos también reciclás? → oliviacirculab.com.ar\n\n#OliviaCirculab #ReFi #Reciclaje #CABA`
+   const texto = `Acabo de registrar ${kgFinal} kg de ${tipo?.l} en OLIVIA Circulab 🌿\n\n¿Vos también reciclás? → oliviacirculab.com.ar\n\n#OliviaCirculab #ReFi #Reciclaje #CABA`
    if(navigator.share) {
      try {
        await navigator.share({
          title: 'Registré mi residuo en OLIVIA Circulab',
          text: texto,
-         url: 'https://circulab-site.vercel.app'
+         url: 'https://oliviacirculab.com.ar/pesaje'
        })
      } catch(e) {}
    } else {
@@ -259,6 +274,21 @@ export default function Registrar() {
    setMostrarFeedback(false)
  }
 
+ if(sesionLista&&!uid) {
+   const next = encodeURIComponent('/registrar'+window.location.search)
+   return (
+     <div style={{minHeight:'100vh',background:'#0a0e1a',color:'#f1f5f9',fontFamily:'system-ui',padding:24,display:'flex',alignItems:'center',justifyContent:'center',textAlign:'center'}}>
+       <div style={{maxWidth:360,width:'100%'}}>
+         <div style={{fontSize:48,marginBottom:12}}>⚖️</div>
+         <h1 style={{fontSize:22,fontWeight:900,margin:'0 0 8px'}}>Primero creá tu cuenta</h1>
+         <p style={{fontSize:14,color:'#94a3b8',lineHeight:1.6,margin:'0 0 20px'}}>Así tu registro queda a tu nombre. Es menos de un minuto.</p>
+         <a href={'/registro?next='+next} style={{display:'block',background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',padding:14,borderRadius:12,fontSize:15,fontWeight:700,textDecoration:'none',marginBottom:10}}>Crear mi cuenta →</a>
+         <a href={'/login?next='+next} style={{display:'block',color:'#22c55e',padding:10,fontSize:13,fontWeight:600,textDecoration:'none'}}>Ya tengo cuenta</a>
+       </div>
+     </div>
+   )
+ }
+
  const pasos = ['Tipo','Punto','Foto origen','Foto entrega','Confirmar']
  const progreso = ((paso-1)/5)*100
 
@@ -270,7 +300,7 @@ export default function Registrar() {
        <div style={{fontSize:24,fontWeight:900,marginBottom:8}}>¡Registrado!</div>
        <div style={{fontSize:14,color:'#64748b',marginBottom:24,lineHeight:1.6}}>
          {resultado.esCompost
-           ? `Tu residuo fue registrado. Los OLV se acreditarán en ${diasCompost} días cuando el compostaje esté completo.`
+           ? `Tu residuo fue registrado. Revisamos el compostaje a partir de los ${diasCompost} días.`
            : 'Tu residuo fue registrado. Los OLV se acreditarán cuando verifiquemos la disposición final.'}
        </div>
 
@@ -283,7 +313,7 @@ export default function Registrar() {
            </div>
            <div style={{background:'rgba(59,130,246,0.08)',borderRadius:10,padding:'12px',textAlign:'center'}}>
              <div style={{fontSize:28,fontWeight:900,color:'#3b82f6'}}>{resultado.co2}</div>
-             <div style={{fontSize:10,color:'#64748b',marginTop:2}}>kg CO2eq evitados</div>
+             <div style={{fontSize:10,color:'#64748b',marginTop:2}}>kg CO2eq estimados</div>
            </div>
          </div>
 
@@ -294,8 +324,8 @@ export default function Registrar() {
 
          <div style={{fontSize:11,color:'#64748b',lineHeight:1.5,padding:'10px',background:'rgba(245,158,11,0.06)',borderRadius:8,border:'1px solid rgba(245,158,11,0.2)'}}>
            {resultado.esCompost
-             ? `⏳ OLV pendientes · Se acreditan en ${diasCompost} días cuando el compostaje esté completo`
-             : '⏳ OLV pendientes · Se acreditan cuando verificamos que el residuo llegó a la planta'}
+             ? `⏳ OLV pendientes de validación. Hoy no tienen valor monetario.`
+             : '⏳ OLV pendientes de validación. Hoy no tienen valor monetario.'}
          </div>
        </div>
 
@@ -412,7 +442,7 @@ export default function Registrar() {
            {disposicion==='punto_verde'&&(
              <div style={{marginBottom:16}}>
                <div style={{fontSize:12,color:'#94a3b8',marginBottom:8,textTransform:'uppercase',letterSpacing:'0.05em'}}>Punto de entrega</div>
-               {tipo.cooperativas.map((c:string,i:number)=>(
+               {(enVivo?[PESAJE_VIVO,...tipo.cooperativas]:tipo.cooperativas).map((c:string,i:number)=>(
                  <button key={i} onClick={()=>setPuntoEntrega(c)}
                    style={{width:'100%',background:puntoEntrega===c?'rgba(34,197,94,0.1)':'rgba(255,255,255,0.03)',border:`1px solid ${puntoEntrega===c?'rgba(34,197,94,0.4)':'rgba(255,255,255,0.06)'}`,borderRadius:10,padding:'12px',marginBottom:8,cursor:'pointer',textAlign:'left',color:'#f1f5f9',fontSize:12}}>
                    📍 {c}
@@ -431,8 +461,7 @@ export default function Registrar() {
                  {disposicion==='compost'?'🌱 Compostaje — 21 días':'🪱 Lombricompostaje — 45 días'}
                </div>
                <div style={{fontSize:11,color:'#94a3b8',lineHeight:1.6}}>
-                 Tus OLV se acreditarán automáticamente cuando se cumplan los {disposicion==='lombricompost'?45:21} días del proceso.
-                 Necesitarás subir una foto del resultado para confirmar.
+                 El equipo revisa tu registro a partir de los {disposicion==='lombricompost'?45:21} días del proceso.
                </div>
              </div>
            )}
@@ -440,7 +469,15 @@ export default function Registrar() {
            {/* Peso */}
            <div style={{marginBottom:20}}>
              <div style={{fontSize:12,color:'#94a3b8',marginBottom:10,textTransform:'uppercase',letterSpacing:'0.05em'}}>
-               Peso estimado
+               Peso
+             </div>
+             <div style={{display:'flex',gap:8,marginBottom:12}}>
+               {([['balanza','⚖️ Lo pesé en balanza'],['estimado','👀 Lo estimé']] as const).map(([v,l])=>(
+                 <button key={v} onClick={()=>setMetodoPeso(v)}
+                   style={{flex:1,padding:'10px 8px',borderRadius:10,cursor:'pointer',fontSize:12,fontWeight:700,border:`1px solid ${metodoPeso===v?'rgba(34,197,94,0.5)':'rgba(255,255,255,0.08)'}`,background:metodoPeso===v?'rgba(34,197,94,0.1)':'transparent',color:metodoPeso===v?'#22c55e':'#94a3b8'}}>
+                   {l}
+                 </button>
+               ))}
              </div>
              <div style={{display:'flex',gap:8,marginBottom:14}}>
                <button onClick={()=>{if(unidad==='kg'){setKg(Math.min(Math.round(kg*1000),9999));setUnidad('g')}}} 
@@ -470,7 +507,7 @@ export default function Registrar() {
              </div>
              <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:10,padding:'10px 14px',textAlign:'center'}}>
                <span style={{fontSize:13,fontWeight:700,color:'#22c55e'}}>
-                 🌿 {Math.round(tipo.factor*(unidad==='g'?kg/1000:kg)*100)} OLV Verdes estimados
+                 🌿 {Math.round(tipo.factor*kgFinal*100)} OLV estimados, pendientes de validación
                </span>
                <div style={{fontSize:10,color:'#64748b',marginTop:4}}>
                  {unidad==='g'?kg+'g = '+(kg/1000).toFixed(3)+' kg':kg+' kg'}
@@ -483,8 +520,8 @@ export default function Registrar() {
            </div>
 
            <button onClick={siguiente}
-             disabled={!disposicion||(disposicion==='punto_verde'&&!puntoEntrega)}
-             style={{width:'100%',padding:'14px',borderRadius:12,border:'none',background:!disposicion||(disposicion==='punto_verde'&&!puntoEntrega)?'rgba(255,255,255,0.04)':'linear-gradient(135deg,#22c55e,#16a34a)',color:!disposicion||(disposicion==='punto_verde'&&!puntoEntrega)?'#64748b':'white',fontSize:15,fontWeight:700,cursor:'pointer'}}>
+             disabled={!disposicion||(disposicion==='punto_verde'&&!puntoEntrega)||!pesoValido}
+             style={{width:'100%',padding:'14px',borderRadius:12,border:'none',background:!disposicion||(disposicion==='punto_verde'&&!puntoEntrega)||!pesoValido?'rgba(255,255,255,0.04)':'linear-gradient(135deg,#22c55e,#16a34a)',color:!disposicion||(disposicion==='punto_verde'&&!puntoEntrega)?'#64748b':'white',fontSize:15,fontWeight:700,cursor:'pointer'}}>
              Siguiente →
            </button>
          </div>
@@ -494,10 +531,10 @@ export default function Registrar() {
        {paso===3&&(
          <div>
            <div style={{fontSize:18,fontWeight:900,marginBottom:4}}>Foto del residuo en origen 📷</div>
-           <div style={{fontSize:12,color:'#64748b',marginBottom:8}}>Sacá la foto antes de salir de tu casa</div>
+           <div style={{fontSize:12,color:'#64748b',marginBottom:8}}>Con el residuo a la vista, y la balanza si tenés</div>
            <div style={{background:'rgba(34,197,94,0.08)',border:'1px solid rgba(34,197,94,0.3)',borderRadius:10,padding:'10px',marginBottom:16,textAlign:'center'}}>
              <span style={{fontSize:12,fontWeight:700,color:'#22c55e'}}>
-               📍 Esta foto registra tu GPS automáticamente
+               📍 Si das permiso, guardamos la ubicación
              </span>
              <div style={{fontSize:10,color:'#94a3b8',marginTop:3}}>
                El GPS es necesario para generar OLV Verdes certificables
@@ -553,7 +590,7 @@ export default function Registrar() {
            </div>
            <div style={{fontSize:12,color:'#64748b',marginBottom:16}}>
              {disposicion==='punto_verde'
-               ?'📍 Esta foto + GPS confirma la disposición final y ACTIVA tus OLV Verdes'
+               ?'📍 Esta foto ayuda a confirmar la entrega'
                :`Foto de tu ${disposicion==='compost'?'compostaje':'lombricompostaje'} iniciado`}
            </div>
 
@@ -568,7 +605,7 @@ export default function Registrar() {
                  <>
                    ✅ Con el <strong style={{color:'#f1f5f9'}}>cartel de la planta</strong> visible si podés<br/>
                    ✅ O con el <strong style={{color:'#f1f5f9'}}>comprobante</strong> de entrega<br/>
-                   ✅ Esta foto <strong style={{color:'#f1f5f9'}}>activa la verificación</strong> de tus OLV
+                   ✅ Esta foto <strong style={{color:'#f1f5f9'}}>ayuda a validar</strong> tu entrega
                  </>
                ):(
                  <>
@@ -595,12 +632,11 @@ export default function Registrar() {
                  📷 Tocar para sacar foto
                </button>
                <div style={{fontSize:10,color:'#f59e0b',textAlign:'center',padding:'8px',lineHeight:1.6,background:'rgba(245,158,11,0.06)',borderRadius:8,border:'1px solid rgba(245,158,11,0.2)'}}>
-                 ⚠️ Sin esta foto tus OLV quedan como Bonus, no como Verdes.
-                 Los OLV Verdes son los que certifica Verra y paga el mercado.
+                 Esta foto nos ayuda a validar tu entrega. Sin ella, tu registro puede quedar pendiente.
                </div>
                <button onClick={siguiente}
                  style={{width:'100%',marginTop:10,padding:'11px',borderRadius:10,border:'1px solid rgba(255,255,255,0.08)',background:'transparent',color:'#64748b',fontSize:12,cursor:'pointer'}}>
-                 Continuar sin foto — mis OLV quedan como Bonus
+                 Continuar sin foto
                </button>
              </div>
            )}
@@ -634,8 +670,8 @@ export default function Registrar() {
                {[
                  {l:'Tipo',v:`${tipo.icon} ${tipo.l}`},
                  {l:'Peso',v:unidad==='g'?`${kg}g (${(kg/1000).toFixed(3)}kg)`:`${kg}kg`},
-                 {l:'OLV estimados',v:`${Math.round(tipo.factor*kg*100)} OLV`},
-                 {l:'CO2eq',v:`${(tipo.factor*kg).toFixed(2)}kg`},
+                 {l:'OLV estimados',v:`${Math.round(tipo.factor*kgFinal*100)} OLV`},
+                 {l:'CO2eq estimado',v:`${(tipo.factor*kgFinal).toFixed(2)}kg`},
                ].map(i=>(
                  <div key={i.l} style={{background:'rgba(255,255,255,0.03)',borderRadius:8,padding:'8px'}}>
                    <div style={{fontSize:9,color:'#64748b'}}>{i.l}</div>
@@ -664,6 +700,9 @@ export default function Registrar() {
              </div>
            </div>
 
+           {errorEnvio&&(
+             <div role="alert" style={{background:'rgba(239,68,68,0.1)',border:'1px solid rgba(239,68,68,0.3)',borderRadius:10,padding:'10px 14px',fontSize:12,color:'#ef4444',marginBottom:12,lineHeight:1.5}}>{errorEnvio}</div>
+           )}
            <button onClick={enviar} disabled={enviando}
              style={{width:'100%',padding:'16px',borderRadius:14,border:'none',background:enviando?'rgba(255,255,255,0.04)':'linear-gradient(135deg,#22c55e,#16a34a)',color:enviando?'#64748b':'white',fontSize:16,fontWeight:700,cursor:enviando?'not-allowed':'pointer',boxShadow:enviando?'none':'0 0 30px rgba(34,197,94,0.25)',marginBottom:12}}>
              {enviando?'Enviando...':'🌿 Registrar residuo'}

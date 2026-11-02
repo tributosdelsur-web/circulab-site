@@ -50,10 +50,18 @@ export default function Balanza() {
 
       {/* HERO */}
       <header style={{padding:'56px 24px 40px',maxWidth:720,margin:'0 auto',textAlign:'center'}}>
-        <div style={{fontSize:11,color:accent,fontWeight:700,letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:12}}>{es?'Balanza conectada · cómo se usa':'Connected scale · how it is used'}</div>
-        <h1 style={{fontSize:32,fontWeight:900,lineHeight:1.15,margin:'0 0 16px'}}>{es?'Un peso que no se puede editar después.':'A weight that cannot be edited afterwards.'}</h1>
-        <p style={{fontSize:15,color:sub,lineHeight:1.7,margin:0}}>{es?'Cualquiera puede pesar algo y anotarlo en una planilla. Lo que necesita un auditor de carbono es saber que ese número no cambió entre la balanza y el registro. La balanza de OLIVIA firma cada lectura en el propio equipo y la manda sola, por Bluetooth, al celular del operario.':'Anyone can weigh something and write it in a spreadsheet. What a carbon auditor needs is proof that the number did not change between the scale and the record. The OLIVIA scale signs every reading on the device itself and sends it on its own, over Bluetooth, to the operator’s phone.'}</p>
+        <div style={{fontSize:11,color:accent,fontWeight:700,letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:12}}>{es?'Balanza conectada · en desarrollo':'Connected scale · in development'}</div>
+        <h1 style={{fontSize:32,fontWeight:900,lineHeight:1.15,margin:'0 0 16px'}}>{es?'Hacia un peso que no se pueda editar después.':'Towards a weight that cannot be edited afterwards.'}</h1>
+        <p style={{fontSize:15,color:sub,lineHeight:1.7,margin:0}}>{es?'Cualquiera puede pesar algo y anotarlo en una planilla. Lo que necesita un auditor de carbono es saber que ese número no cambió entre la balanza y el registro. La balanza que estamos diseñando va a firmar cada lectura en el propio equipo y mandarla sola, por Bluetooth, al celular del operario.':'Anyone can weigh something and write it in a spreadsheet. What a carbon auditor needs is proof that the number did not change between the scale and the record. The scale we are designing will sign every reading on the device itself and send it on its own, over Bluetooth, to the operator’s phone.'}</p>
       </header>
+
+      <section style={{padding:'0 24px 40px'}}>
+        <div style={{...box,maxWidth:720,margin:'0 auto',border:'1px solid '+accent}}>
+          <div style={bt}>{es?'Lo que funciona hoy':'What works today'}</div>
+          <div style={bd}>{es?'Pesamos con una balanza digital común, cargamos el peso a mano en el celular y el equipo lo revisa. Todo lo que sigue en esta página describe el diseño de la balanza conectada: todavía no está en operación.':'We weigh on an ordinary digital scale, enter the weight by hand on the phone and the team reviews it. Everything below describes the design of the connected scale: it is not in operation yet.'}</div>
+          <a href="/pesaje" style={{display:'inline-block',marginTop:10,fontSize:13,fontWeight:700,color:accent,textDecoration:'none'}}>{es?'Vení a un pesaje en vivo →':'Join a live weigh-in →'}</a>
+        </div>
+      </section>
 
       {/* PRINCIPIO */}
       <section style={sec}>
@@ -75,7 +83,7 @@ export default function Balanza() {
       {/* FLUJO */}
       <section style={sec}>
         <div style={wrap}>
-          <h2 style={h2}>{es?'Cinco segundos por tacho':'Five seconds per bin'}</h2>
+          <h2 style={h2}>{es?'Cómo va a funcionar: cinco segundos por tacho':'How it will work: five seconds per bin'}</h2>
           <div style={grid5}>
             {[
               {n:'01',t:es?'Escanear':'Scan',d:es?'El QR del tacho, con el celular.':'The bin QR, with the phone.'},
@@ -130,7 +138,7 @@ export default function Balanza() {
       {/* AUDITOR */}
       <section style={secAlt}>
         <div style={wrap}>
-          <h2 style={h2}>{es?'Lo que la vuelve defendible ante un auditor':'What makes it defensible to an auditor'}</h2>
+          <h2 style={h2}>{es?'Lo que va a hacerla defendible ante un auditor':'What will make it defensible to an auditor'}</h2>
           <div style={grid2}>
             {[
               {t:es?'Firma en el equipo':'Signed on the device',d:es?'Cada lectura se firma con una clave que no sale del chip.':'Each reading is signed with a key that never leaves the chip.'},
@@ -150,7 +158,7 @@ export default function Balanza() {
       <section style={sec}>
         <div style={wrap}>
           <h2 style={h2}>{es?'Diagnóstico con balanza portátil':'Diagnosis with a portable scale'}</h2>
-          <p style={pp}>{es?'Para grandes generadores: vamos una semana con una balanza portátil y pesamos cada bolsa o contenedor, separado por fracción. Recibís cuántos kilos generás por día, cuánto se podría desviar y adónde va hoy, con una línea base medida con equipo firmado.':'For large generators: we spend a week on site with a portable scale and weigh every bag or container by fraction. You get kilos generated per day, how much could be diverted and where it goes today, with a baseline measured on signed equipment.'}</p>
+          <p style={pp}>{es?'Para grandes generadores: vamos una semana con una balanza portátil y pesamos cada bolsa o contenedor, separado por fracción. Recibís cuántos kilos generás por día, cuánto se podría desviar y adónde va hoy, con una línea base medida.':'For large generators: we spend a week on site with a portable scale and weigh every bag or container by fraction. You get kilos generated per day, how much could be diverted and where it goes today, with a baseline measured on signed equipment.'}</p>
           <div style={{display:'flex',gap:10,flexWrap:'wrap',marginTop:18}}>
             {WHATSAPP&&<a href={waLink} target="_blank" rel="noopener noreferrer" style={btnPrimary}>WhatsApp</a>}
             <a href={mailLink} style={WHATSAPP?btnGhost:btnPrimary}>{es?'Pedir diagnóstico o visita':'Request a diagnosis or visit'}</a>

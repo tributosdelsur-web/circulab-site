@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
       "style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com",
       "img-src 'self' data: blob: https:",
       "font-src 'self' data: https://fonts.gstatic.com",
-      "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.anthropic.com",
+      "connect-src 'self' https://*.supabase.co wss://*.supabase.co",
       "media-src 'self' blob: https:",
       "frame-src https://www.youtube.com https://www.youtube-nocookie.com",
       "frame-ancestors 'self'",

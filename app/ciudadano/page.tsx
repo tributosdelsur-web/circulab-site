@@ -212,7 +212,7 @@ export default function Ciudadano() {
             <span style={{color:text}}>{es?'Tu impacto queda medido.':'Your impact is measured.'}</span>
           </h1>
           <p style={{fontSize:13,color:sub,lineHeight:1.7,marginBottom:16}}>
-            {es?'Cada kilo de residuo verificado con IA genera OLV Verdes: un registro de cuánto desviaste del relleno y cuánto metano se evitó con eso. Ese registro es la base de un futuro proceso de certificación.':'Each AI-verified kilo generates Green OLV: a record of how much you diverted from landfill and how much methane was avoided. That record is the basis for a future certification process.'}
+            {es?'Cada kilo validado por el equipo genera OLV Verdes: un registro de cuánto desviaste del relleno y cuánto metano se evitó con eso. Ese registro es la base de un futuro proceso de certificación.':'Each team-validated kilo generates Green OLV: a record of how much you diverted from landfill and how much methane was avoided. That record is the basis for a future certification process.'}
           </p>
           <div style={{display:'flex',gap:10,flexWrap:'wrap'}}>
             <a href="/registro" style={{flex:1,background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',padding:'13px',borderRadius:10,fontSize:13,fontWeight:700,textDecoration:'none',textAlign:'center'}}>
@@ -236,7 +236,7 @@ export default function Ciudadano() {
             <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.3)',borderRadius:14,padding:'16px'}}>
               <div style={{fontSize:20,marginBottom:8}}>🌿</div>
               <div style={{fontSize:13,fontWeight:700,color:'#22c55e',marginBottom:6}}>{es?'OLV Verdes':'Green OLV'}</div>
-              <div style={{fontSize:11,color:sub,lineHeight:1.6}}>{es?'Solo de residuos verificados con IA. Respaldados por kilos reales y metano evitado. Son los únicos que pueden entrar a un proceso de certificación.':'Only from AI-verified waste. Backed by real kilos and avoided methane. The only ones that can enter a certification process.'}</div>
+              <div style={{fontSize:11,color:sub,lineHeight:1.6}}>{es?'Solo de residuos validados por el equipo. Respaldados por kilos reales y metano evitado. Son los únicos que pueden entrar a un proceso de certificación.':'Only from team-validated waste. Backed by real kilos and avoided methane. The only ones that can enter a certification process.'}</div>
             </div>
             <div style={{background:'rgba(245,158,11,0.06)',border:'1px solid rgba(245,158,11,0.2)',borderRadius:14,padding:'16px'}}>
               <div style={{fontSize:20,marginBottom:8}}>⭐</div>
@@ -292,7 +292,7 @@ export default function Ciudadano() {
           <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,padding:'14px',marginBottom:12}}>
             <div style={{fontSize:12,fontWeight:700,color:'#22c55e',marginBottom:6}}>💡 {es?'El argumento del primer movedor':'The first mover argument'}</div>
             <div style={{fontSize:11,color:sub,lineHeight:1.7}}>
-              {es?'Los que registran desde hoy construyen el historial de datos que hace posible cualquier certificación futura. Sin ese historial acumulado no hay nada que auditar. Cada OLV tiene un residuo real verificado con IA detrás.':'Those who register from today build the data record that makes any future certification possible. Without that accumulated record there is nothing to audit. Every OLV has a real AI-verified waste behind it.'}
+              {es?'Los que registran desde hoy construyen el historial de datos que hace posible cualquier certificación futura. Sin ese historial acumulado no hay nada que auditar. Cada OLV Verde tiene un residuo validado detrás.':'Those who register from today build the data record that makes any future certification possible. Without that accumulated record there is nothing to audit. Every OLV has a real AI-verified waste behind it.'}
             </div>
           </div>
 
@@ -347,7 +347,7 @@ export default function Ciudadano() {
             <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:8,marginBottom:14}}>
               {[
                 {icon:'🏠',l:es?'Vos separás':'You sort',s:es?'Foto + GPS':'Photo + GPS'},
-                {icon:'🤖',l:es?'IA verifica':'AI verifies',s:es?'OLV acreditados':'OLV credited'},
+                {icon:'👀',l:es?'El equipo revisa':'The team reviews',s:es?'OLV acreditados':'OLV credited'},
                 {icon:'🌳',l:es?'Se reforesta':'Reforested',s:es?'Compost + árbol':'Compost + tree'},
                 {icon:'📊',l:es?'Tu registro':'Your record',s:es?'Verificado':'Verified'},
               ].map((p,i)=>(

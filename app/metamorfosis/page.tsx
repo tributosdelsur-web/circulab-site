@@ -41,7 +41,7 @@ export default function Metamorfosis() {
     { icon: '🏠', titulo: es ? 'Vecino / Ciudadano' : 'Neighbor / Citizen', desc: es ? 'Separa desde casa. Foto + GPS activa sus OLV Verdes. Sin inversión, sin experiencia previa.' : 'Separates from home. Photo + GPS activates Green OLV. No investment, no prior experience.', color: '#22c55e' },
     { icon: '🏢', titulo: es ? 'Consorcio / Edificio' : 'Building / HOA', desc: es ? 'Registro verificable que respalda el cumplimiento de la Ley Basura Cero CABA. Badge Edificio Verde.' : 'Verifiable record backing compliance with the Buenos Aires Zero Waste Law. Green Building badge.', color: '#3b82f6' },
     { icon: '🍽️', titulo: es ? 'Restorán / Hotel' : 'Restaurant / Hotel', desc: es ? 'Badge Verde para Tripadvisor. Reporte ESG mensual con kilos verificados.' : 'Green badge for Tripadvisor. Monthly ESG report with verified kilos.', color: '#f59e0b' },
-    { icon: '🏛️', titulo: es ? 'Empresa RSE / ESG' : 'RSE / ESG Company', desc: es ? 'Compensación de huella verificada con IA. Datos GRI-compatibles. Sin offsets genéricos.' : 'AI-verified footprint compensation. GRI-compatible data. No generic offsets.', color: '#a855f7' },
+    { icon: '🏛️', titulo: es ? 'Empresa RSE / ESG' : 'RSE / ESG Company', desc: es ? 'Medición de tus residuos orgánicos con datos propios. Sin offsets genéricos.' : 'AI-verified footprint compensation. GRI-compatible data. No generic offsets.', color: '#a855f7' },
     { icon: '🏭', titulo: es ? 'Planta / Acopiador' : 'Plant / Collector', desc: es ? 'Balanza conectada, remito digital de cada entrada y más volumen para llenar la capacidad ociosa.' : 'Connected scale, digital receipt for every delivery and more volume to fill idle capacity.', color: '#06b6d4' },
     { icon: '🏙️', titulo: es ? 'Municipio' : 'Municipality', desc: es ? 'Datos dMRV para fondos BID y GCF. Mapa de calor por barrio. Reportes automáticos.' : 'dMRV data for BID and GCF funds. Heat map by neighborhood. Automatic reports.', color: '#ec4899' },
   ]
@@ -87,7 +87,7 @@ export default function Metamorfosis() {
         </h1>
         <p style={{ fontSize: 18, color: sub, lineHeight: 1.7, maxWidth: 600, margin: '0 auto 32px' }}>
           {es
-            ? 'Convertimos residuos urbanos en créditos de carbono verificados con IA. La primera infraestructura dMRV ciudadana de América Latina.'
+            ? 'Medimos cuánto residuo orgánico deja de ir al relleno y construimos el dato para una futura certificación de carbono.'
             : 'We convert urban waste into AI-verified carbon credits. The first citizen dMRV infrastructure in Latin America.'}
         </p>
 
@@ -143,7 +143,7 @@ export default function Metamorfosis() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 16 }}>
             {[
               { num: '01', icon: '📸', titulo: es ? 'Registrás con foto + GPS' : 'Register with photo + GPS', desc: es ? 'Desde la app OLIVIA. Foto del residuo en origen. GPS del domicilio activo. La IA analiza el tipo y estima el peso.' : 'From the OLIVIA app. Photo of waste at origin. Active GPS of home. AI analyzes type and estimates weight.', color: accent },
-              { num: '02', icon: '🤖', titulo: es ? 'IA verifica en tiempo real' : 'AI verifies in real time', desc: es ? 'LLaVA via Cloudflare Workers AI analiza la imagen. Detecta el tipo de residuo, confirma que no es repetida, y estima el CO2eq evitado.' : 'LLaVA via Cloudflare Workers AI analyzes the image. Detects waste type, confirms it is not repeated, estimates CO2eq avoided.', color: '#3b82f6' },
+              { num: '02', icon: '🤖', titulo: es ? 'El equipo revisa' : 'The team reviews', desc: es ? 'El equipo revisa foto y peso, con apoyo de IA para reconocer el tipo de residuo, y estima el CO2eq.' : 'The team reviews photo and weight, with AI support to identify the waste type, and estimates CO2eq.', color: '#3b82f6' },
               { num: '03', icon: '📍', titulo: es ? 'Segunda foto en el punto verde' : 'Second photo at green point', desc: es ? 'Al llevar el residuo al punto de entrega verificado. GPS confirma la ubicación. Solo entonces se acreditan los OLV Verdes.' : 'When taking waste to verified drop-off point. GPS confirms location. Only then are Green OLV credited.', color: '#f59e0b' },
               { num: '04', icon: '🌿', titulo: es ? 'OLV Verdes acreditados' : 'Green OLV credited', desc: es ? 'Los OLV quedan en tu wallet como registro verificado, sin valor monetario hoy. Si el proyecto se certifica, podrán tener valor en el mercado.' : 'OLV remain in your wallet as a verified record, with no monetary value today. If the project is certified, they may have market value.', color: accent },
             ].map((paso, i) => (

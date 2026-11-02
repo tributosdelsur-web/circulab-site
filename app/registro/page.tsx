@@ -13,72 +13,81 @@ export default function Registro() {
  const [barrio, setBarrio] = useState('')
  const [estado, setEstado] = useState<'idle'|'cargando'|'ok'|'error'>('idle')
  const [mensaje, setMensaje] = useState('')
+ const [bono, setBono] = useState(false)
  const router = useRouter()
+
+ function destino() {
+   const next = new URLSearchParams(window.location.search).get('next') || ''
+   return next.startsWith('/') && !next.startsWith('//') ? next : '/dashboard'
+ }
+
+ function fallar(texto: string) {
+   setEstado('error')
+   setMensaje(texto)
+ }
 
  async function handleRegistro() {
    if (!nombre || !email || !password) return
+   if (password.length < 6) return fallar('La contraseña debe tener al menos 6 caracteres.')
+   if (!aceptoTerminos) return fallar('Para continuar, aceptá los Términos y la Política de Privacidad.')
    setEstado('cargando')
 
-   if (!aceptoTerminos) {
-      setMensaje('Debés aceptar los Términos y Condiciones y la Política de Privacidad para continuar')
-      return
-    }
-    const { data, error } = await supabase.auth.signUp({ email, password })
+   const { data, error } = await supabase.auth.signUp({ email, password })
 
    if (error) {
-     setEstado('error')
-     setMensaje(error.message)
-     return
+     const yaExiste = /already|registered/i.test(error.message)
+     return fallar(yaExiste ? 'Ese email ya tiene cuenta. Ingresá con tu contraseña.' : 'No pudimos crear tu cuenta. Probá de nuevo en un momento.')
    }
+   if (!data.user) return fallar('No pudimos crear tu cuenta. Probá de nuevo en un momento.')
+   // Supabase no avisa si el email ya existía: devuelve un usuario sin identidades
+   if (data.user.identities?.length === 0) return fallar('Ese email ya tiene cuenta. Ingresá con tu contraseña.')
+   if (!data.session) return fallar('Te enviamos un email para confirmar tu cuenta. Después podés ingresar.')
 
-   if (data.user) {
-     await supabase.from('usuarios').insert({
-       id: data.user.id,
-       nombre,
-       apellido,
-       email,
-       consorcio: consorcio || 'Consorcio Piloto CABA',
-       barrio: barrio || 'CABA, Argentina',
-       nivel: 'Semilla',
-       score_pulso: 0,
-     })
-   }
+   const { error: errorPerfil } = await supabase.from('usuarios').insert({
+     id: data.user.id,
+     nombre,
+     apellido,
+     email,
+     consorcio: consorcio || 'Consorcio Piloto CABA',
+     barrio: barrio || 'CABA, Argentina',
+     nivel: 'Semilla',
+     score_pulso: 0,
+   })
+   if (errorPerfil) return fallar('Tu cuenta se creó, pero no pudimos guardar tu perfil. Escribinos a hola@oliviacirculab.com.ar.')
 
-   // Enviar email de bienvenida automático
-    try {
-      await fetch('/api/bienvenida', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nombre,
-          email,
-          barrio: barrio || 'Buenos Aires',
-          nivel: 'Semilla',
-        }),
-      })
-    } catch(e) {
-      console.error('Email bienvenida error:', e)
-      // No bloquear el registro si falla el email
-    }
+   const { error: errorBono } = await supabase.from('wallet_transacciones').insert({
+     usuario_id: data.user.id,
+     tipo: 'bonus_bienvenida',
+     monto_olv: 100,
+     tipo_olv: 'bonus',
+     descripcion: '⭐ OLV Bonus · Bienvenida a OLIVIA',
+   })
+   setBono(!errorBono)
 
-    setEstado('ok')
-   setTimeout(() => router.push('/dashboard'), 2000)
+   // El email de bienvenida no bloquea el registro si falla
+   fetch('/api/bienvenida', {
+     method: 'POST',
+     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${data.session.access_token}` },
+     body: JSON.stringify({ nombre }),
+   }).catch(() => {})
+
+   setEstado('ok')
+   setTimeout(() => router.push(destino()), 2000)
  }
 
  if (estado==='ok') return (
    <div style={{minHeight:'100vh',background:'#0a0e1a',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:16,padding:24,fontFamily:'system-ui'}}>
      <div style={{fontSize:48}}>🌿</div>
      <div style={{fontSize:22,fontWeight:800,color:'#f1f5f9',textAlign:'center'}}>¡Bienvenido, {nombre}! 🌿</div>
-     <div style={{fontSize:14,color:'#22c55e',fontWeight:700,textAlign:'center'}}>+100 OLV Bonus de bienvenida acreditados</div>
+     {bono&&<div style={{fontSize:14,color:'#22c55e',fontWeight:700,textAlign:'center'}}>+100 OLV Bonus de bienvenida</div>}
      <div style={{fontSize:12,color:'#64748b',textAlign:'center',maxWidth:300,lineHeight:1.7}}>
-       Tu cuenta está activa. Te enviamos un email con todo lo que necesitás saber.<br/>
-       Redirigiendo a tu panel...
+       Tu cuenta está activa. Te llevamos a tu registro...
      </div>
      <div style={{display:'flex',flexDirection:'column',gap:8,width:'100%',maxWidth:300}}>
        {[
-         {paso:'01',texto:'Registrá tu primer residuo',color:'#22c55e'},
-         {paso:'02',texto:'Llevalo al punto verde · segunda foto GPS',color:'#3b82f6'},
-         {paso:'03',texto:'Invitá a un vecino · +50 OLV Bonus',color:'#f59e0b'},
+         {paso:'01',texto:'Pesá y registrá tu primer residuo',color:'#22c55e'},
+         {paso:'02',texto:'Llevalo a un punto de entrega · segunda foto',color:'#3b82f6'},
+         {paso:'03',texto:'Invitá a un vecino',color:'#f59e0b'},
        ].map((p,i)=>(
          <div key={i} style={{display:'flex',gap:10,alignItems:'center',padding:'10px 14px',background:'rgba(255,255,255,0.03)',borderRadius:10,border:'1px solid rgba(255,255,255,0.06)'}}>
            <div style={{fontSize:9,fontWeight:900,color:p.color,fontFamily:'monospace',opacity:0.6}}>{p.paso}</div>
@@ -96,7 +105,7 @@ export default function Registro() {
        <div style={{textAlign:'center',marginBottom:32}}>
          <img src="/logoOC.png" alt="OLIVIA" style={{width:48,height:48,borderRadius:14,margin:'0 auto 16px',objectFit:'contain',flexShrink:0,display:'block'}} />
          <h1 style={{fontSize:22,fontWeight:900,color:'#f1f5f9',margin:0}}>Crear tu cuenta</h1>
-         <p style={{fontSize:13,color:'#64748b',marginTop:8}}>Empezá a acumular tokens OLV hoy</p>
+         <p style={{fontSize:13,color:'#64748b',marginTop:8}}>Tu primer kilo medido empieza acá</p>
        </div>
 
        <div style={{background:'#111827',border:'1px solid rgba(255,255,255,0.06)',borderRadius:16,padding:'28px'}}>
@@ -144,6 +153,11 @@ export default function Registro() {
              style={{width:'100%',padding:'12px 16px',borderRadius:10,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.08)',color:'#f1f5f9',fontSize:14,outline:'none',fontFamily:'inherit',boxSizing:'border-box'}} />
          </div>
 
+         <label style={{display:'flex',gap:10,alignItems:'flex-start',marginBottom:20,fontSize:12,color:'#94a3b8',lineHeight:1.6,cursor:'pointer'}}>
+           <input type="checkbox" checked={aceptoTerminos} onChange={e=>setAceptoTerminos(e.target.checked)} style={{width:20,height:20,marginTop:1,accentColor:'#22c55e',flexShrink:0}} />
+           <span>Acepto los <a href="/terminos" target="_blank" style={{color:'#22c55e'}}>Términos</a> y la <a href="/privacidad" target="_blank" style={{color:'#22c55e'}}>Política de Privacidad</a>, y que OLIVIA use mis datos para gestionar mi cuenta y mis registros.</span>
+         </label>
+
          {estado==='error' && (
            <div style={{background:'rgba(239,68,68,0.1)',border:'1px solid rgba(239,68,68,0.3)',borderRadius:8,padding:'10px 14px',fontSize:12,color:'#ef4444',marginBottom:16}}>
              {mensaje}
@@ -157,11 +171,11 @@ export default function Registro() {
 
          <div style={{textAlign:'center',marginTop:20}}>
            <span style={{fontSize:13,color:'#64748b'}}>¿Ya tenés cuenta? </span>
-           <a href="/login" style={{fontSize:13,color:'#22c55e',textDecoration:'none',fontWeight:600}}>Ingresá →</a>
+           <a href={'/login'+(typeof window!=='undefined'?window.location.search:'')} style={{fontSize:13,color:'#22c55e',textDecoration:'none',fontWeight:600}}>Ingresá →</a>
          </div>
        </div>
 
-       <a href="/" style={{display:'block',textAlign:'center',marginTop:20,fontSize:12,color:'#64748b',textDecoration:'none'}}>← Volver a Circulab.tech</a>
+       <a href="/" style={{display:'block',textAlign:'center',marginTop:20,fontSize:12,color:'#64748b',textDecoration:'none'}}>← Volver a OLIVIA</a>
      </div>
    </div>
  )

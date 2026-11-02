@@ -150,13 +150,13 @@ export default function Mapa() {
 
   const cOrg: [string,string][] = es ? [
     ['Vecino separa','y lleva orgánicos al punto verde. El QR de OLIVIA registra el depósito.'],
-    ['OLIVIA verifica:','foto con IA + GPS + peso. Registro dMRV certificable.'],
+    ['OLIVIA registra:','foto, ubicación y peso, y el equipo lo revisa.'],
     ['Se composita.','El compost con trazabilidad vale USD 0,70–1/kg frente a USD 0,50 sin trazabilidad.'],
     ['Compost al vivero de flora nativa.','Las plantas restauran zonas degradadas del AMBA.'],
     ['Certificación futura:','con doce a veinticuatro meses de registros se puede iniciar la validación bajo metodologías de compostaje y de restauración ecológica. Proceso de dos a tres años.'],
   ] : [
     ['Resident separates','and brings organics to the green point. The OLIVIA QR records the deposit.'],
-    ['OLIVIA verifies:','AI photo + GPS + weight. Certifiable dMRV record.'],
+    ['OLIVIA records:','photo, location and weight, reviewed by the team.'],
     ['It is composted.','Compost with traceability is worth USD 0.70–1/kg versus USD 0.50 without.'],
     ['Compost to the native plant nursery.','The plants restore degraded areas of the metropolitan region.'],
     ['Future certification:','with twelve to twenty-four months of records, validation can begin under composting and ecological restoration methodologies. A two to three year process.'],
@@ -164,7 +164,7 @@ export default function Mapa() {
 
   const cRaee: [string,string][] = es ? [
     ['Vecino o empresa','entrega RAEE en el punto verde. El QR registra tipo y peso estimado.'],
-    ['OLIVIA verifica:','foto + clasificación con IA + peso + GPS. Certificable bajo AMS-III.BA.'],
+    ['OLIVIA registra:','foto, tipo, peso y ubicación, y el equipo lo revisa.'],
     ['Operador habilitado por APRA','recupera cobre, aluminio, oro y litio de los dispositivos.'],
     ['Certificación futura:','la metodología AMS-III.BA certifica materiales recuperados frente a extracción minera nueva. Requiere validación por auditor acreditado.'],
   ] : [
@@ -319,7 +319,7 @@ export default function Mapa() {
       <section style={{padding:'40px 20px',textAlign:'center',borderTop:'1px solid '+border,background:'linear-gradient(135deg,rgba(34,197,94,.05),rgba(2,132,199,.02))'}}>
         <h2 style={{fontSize:22,fontWeight:900,marginBottom:10}}>{es?'¿Y si tu edificio no dependiera del punto verde?':'What if your building did not depend on the green point?'}</h2>
         <p style={{fontSize:12,color:sub,lineHeight:1.7,marginBottom:22,maxWidth:500,margin:'0 auto 22px'}}>
-          {es?'Con OLIVIA, el retiro va a tu edificio y cada kilo queda verificado con IA y GPS. Sin que nadie tenga que caminar hasta la plaza.':'With OLIVIA, collection comes to your building and every kilo is verified with AI and GPS. Nobody has to walk to the square.'}
+          {es?'Estamos armando el retiro por edificio para que nadie tenga que caminar hasta la plaza. Mientras tanto, cada kilo que registrás ya cuenta.':'We are building collection by building so nobody has to walk to the square. Meanwhile, every kilo you record already counts.'}
         </p>
         <div style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap'}}>
           <a href="/consorcios" style={{display:'inline-block',background:'linear-gradient(135deg,#22c55e,#16a34a)',borderRadius:40,padding:'14px 32px',color:'#fff',fontSize:13,fontWeight:700,textDecoration:'none'}}>

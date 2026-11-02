@@ -83,7 +83,7 @@ export default function Consorcios() {
               </h3>
               <p style={{fontSize:12,color:sub,lineHeight:1.8,marginBottom:14}}>
                 {es
-                  ? 'La Ley 1854 de CABA (Basura Cero) y su reglamentación establecen obligaciones de separación para los grandes generadores de residuos. OLIVIA te da el sistema verificado con IA y un registro verificable que respalda tu cumplimiento.'
+                  ? 'La Ley 1854 de CABA (Basura Cero) y su reglamentación establecen obligaciones de separación para los grandes generadores de residuos. OLIVIA te da un registro ordenado de pesos y fotos para documentar lo que hacés.'
                   : 'CABA Law 1854 (Zero Waste) and its regulations set separation obligations for large waste generators. OLIVIA gives you the AI-verified system and a verifiable record that backs your compliance.'}
               </p>
               <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
@@ -153,10 +153,10 @@ export default function Consorcios() {
           </h2>
           {(es?[
             {n:'1',t:'Instalamos el kit en tu edificio',d:'Tachos brandeados OLIVIA para áreas comunes, cartel con QR en el hall y stickers para ascensores. Sin obra. Sin instalación compleja. El encargado recibe una capacitación de 20 minutos.',c:accent},
-            {n:'2',t:'El encargado registra desde el celular',d:'Con la app OLIVIA, el encargado fotografía los residuos orgánicos del día. GPS automático. La IA verifica en segundos. Sin papeles ni planillas.',c:blue},
+            {n:'2',t:'El encargado registra desde el celular',d:'Con la app OLIVIA, el encargado fotografía los residuos orgánicos del día. Pesa, registra y el equipo lo revisa. Sin papeles ni planillas.',c:blue},
             {n:'3',t:'Los vecinos se suman con el QR del hall',d:'Cada vecino puede registrar sus propios residuos desde su departamento. Acumulan OLV Verdes que podrán tener valor si el proyecto se certifica. El edificio acumula más volumen verificado.',c:'#a855f7'},
             {n:'4',t:'El administrador recibe el reporte mensual',d:'Dashboard en tiempo real con los kg verificados, el CO2 evitado y el progreso hacia la certificación Verra. Listo para presentar en la próxima asamblea.',c:'#f59e0b'},
-            {n:'5',t:'Registro verificable de gestión',d:'El registro OLIVIA muestra datos reales verificados con IA y respalda tu cumplimiento de la Ley de Basura Cero. No es autodeclaración — es verificación digital.',c:'#ef4444'},
+            {n:'5',t:'Registro verificable de gestión',d:'El registro OLIVIA reúne pesos, fotos y fechas revisados por el equipo, y ayuda a documentar lo que hace el edificio.',c:'#ef4444'},
           ]:[
             {n:'1',t:'We install the kit in your building',d:'OLIVIA-branded bins for common areas, QR poster in the hall and elevator stickers. No construction. No complex installation. The superintendent receives a 20-minute training.',c:accent},
             {n:'2',t:'The superintendent registers from the phone',d:'With the OLIVIA app, the superintendent photographs the daily organic waste. Automatic GPS. AI verifies in seconds. No paperwork or spreadsheets.',c:blue},
@@ -225,7 +225,7 @@ export default function Consorcios() {
             </h3>
             <p style={{fontSize:12,color:sub,lineHeight:1.8,marginBottom:20}}>
               {es
-                ? 'El encargado abre la app OLIVIA, fotografía el tacho de orgánicos, confirma el GPS y listo. La IA hace el análisis automáticamente. No hay planillas, no hay papeles, no hay capacitación compleja. Y cada registro que hace el encargado contribuye al registro verificable del edificio y a un futuro proceso de certificación.'
+                ? 'El encargado abre la app OLIVIA, fotografía el tacho de orgánicos, carga el peso y listo. El equipo lo revisa. No hay planillas, no hay papeles, no hay capacitación compleja. Y cada registro que hace el encargado contribuye al registro verificable del edificio y a un futuro proceso de certificación.'
                 : 'The superintendent opens the OLIVIA app, photographs the organic bin, confirms GPS and done. AI does the analysis automatically. No spreadsheets, no paperwork, no complex training. And every record the superintendent makes contributes to the building verifiable record and a future certification process.'}
             </p>
             <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10}}>
