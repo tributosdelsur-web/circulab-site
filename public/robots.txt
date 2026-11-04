@@ -3,5 +3,6 @@ Allow: /
 Disallow: /admin
 Disallow: /dashboard
 Disallow: /api/
+Disallow: /deck/
 
 Sitemap: https://oliviacirculab.com.ar/sitemap.xml
