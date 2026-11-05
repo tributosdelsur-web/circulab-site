@@ -1,0 +1,53 @@
+('es') const [dark, setDark] = useState(true) const [tipoSel, setTipoSel] = useState(0) const [simTipo, setSimTipo] = useState('Música') const [simMonto, setSimMonto] = useState(1000) const [simMeses, setSimMeses] = useState(12) const [nombre, setNombre] = useState('') const [email, setEmail] = useState('') const [tipoRegalias, setTipoRegalias] = useState('') const [enviando, setEnviando] = useState(false) const [enviado, setEnviado] = useState(false) const t = T[lang] const bg = dark?'#0a0e1a':'#f0f4f8' const text = dark?'#f1f5f9':'#0a0e1a' const card = dark?'#111827':'#ffffff' const border = dark?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.08)' const sub = dark?'#94a3b8':'#475569' const FACTORES: Record
+
+Art of Money
+
+Circulab Tech
+
+USD 100
+
+USD 20.000
+
+Tu arte genera dinero hoy.
+
+Tu nombre
+
+Your art generates money today.
+
+Your name
+
+Verificás tu historial
+
+Subís tus estados de cuenta de regalías de los últimos 6-24 meses. OLIVIA verifica con las fuentes: SADAIC, Spotify for Artists, tu editorial, tu club.
+
+Verify your history
+
+Upload your royalty account statements from the last 6-24 months. OLIVIA verifies with sources: SADAIC, Spotify for Artists, your publisher, your club.
+
+IA evalúa tu perfil
+
+Nuestro modelo evalúa la estabilidad, tendencia y proyección de tus ingresos. Genera una tasa personalizada y un monto máximo de adelanto.
+
+AI evaluates your profile
+
+Our model evaluates the stability, trend and projection of your income. Generates a personalized rate and maximum advance amount.
+
+Recibís el adelanto
+
+Recibís el capital en tu cuenta en 48-72 horas. Sin ceder tu obra. Sin perder tus derechos. Sin socios no deseados. Solo un acuerdo financiero.
+
+You receive the advance
+
+You receive the capital in your account within 48-72 hours. Without giving up your work. Without losing your rights. Without unwanted partners. Just a financial agreement.
+
+Devolvés con tus regalías
+
+El repago se descuenta automáticamente de tus regalías futuras. Si un mes ingresa menos — pagás menos. Nunca de tu bolsillo directo.
+
+You repay with your royalties
+
+Repayment is automatically deducted from your future royalties. If a month brings less — you pay less. Never directly from your pocket.
+
+OLIVIA Circulab
+
+Protocolo PULSO

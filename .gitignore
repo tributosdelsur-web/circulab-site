@@ -49,3 +49,6 @@ Claude outputs/
 !postcss.config.js
 !tailwind.config.js
 !eslint.config.js
+
+_media_original/
+_revision_media/
