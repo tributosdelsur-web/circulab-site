@@ -1,355 +1,89 @@
 'use client'
+import SitioNav from '../../components/SitioNav'
+import SitioFooter from '../../components/SitioFooter'
 import VideoBloque, { videoPorId } from '../../lib/VideoBloque'
-import { useState } from 'react'
+
+const WA_ADMIN = 'https://wa.me/5491138859820?text=' + encodeURIComponent('Hola OLIVIA, administro un edificio y me interesa el diagnóstico sin costo.')
+
+const PASOS = [
+  { n: '1', t: 'Charlamos 15 minutos', d: 'Con el administrador o el encargado. Vemos cómo se separa hoy en el edificio y dónde se juntan los residuos.' },
+  { n: '2', t: 'Dos semanas de medición', d: 'Pesamos el orgánico que separa el edificio (yerba, cáscaras, restos de cocina) y registramos cada pesada en la app, con fecha y foto.' },
+  { n: '3', t: 'Va a compostaje, no al relleno', d: 'Coordinamos el destino del orgánico con una planta de compostaje y queda la constancia de recepción.' },
+  { n: '4', t: 'Informe para la asamblea', d: 'Al cierre, el consorcio recibe un informe con los kilos medidos, el destino y las constancias. Listo para presentar.' },
+]
+
+const PARA = [
+  { t: 'Para el administrador', d: 'Una gestión ambiental concreta para mostrar, sin trabajo extra: el registro lo hacemos nosotros.' },
+  { t: 'Para el encargado', d: 'Nada de planillas. Si quiere, carga él mismo el peso desde el celular en menos de un minuto.' },
+  { t: 'Para los vecinos', d: 'Un dato propio del edificio: cuánto orgánico se separó y a dónde fue. Sin promesas, con kilos.' },
+]
 
 export default function Consorcios() {
-  const [lang, setLang] = useState<'es'|'en'>('es')
-  const [dark, setDark] = useState(false)
-  const es = lang === 'es'
-
-  const bg = dark ? '#0a0e1a' : '#f7f5f1'
-  const text = dark ? '#f1f5f9' : '#0d0d0d'
-  const sub = dark ? '#64748b' : '#6b7280'
-  const card = dark ? '#111827' : '#ffffff'
-  const border = dark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.07)'
-  const accent = '#22c55e'
-  const blue = '#3b82f6'
+  const bg = '#06110b', card = '#0b1d13', text = '#eef5f0', sub = '#a9bcb0', accent = '#22c55e', gold = '#facc15', border = 'rgba(134,239,172,.15)'
+  const boton = { display: 'block', textAlign: 'center' as const, fontWeight: 800, fontSize: 16, padding: '16px 20px', borderRadius: 14, textDecoration: 'none' }
 
   return (
-    <div style={{minHeight:'100vh',background:bg,color:text,fontFamily:'Inter,system-ui',transition:'all 0.3s'}}>
+    <main style={{ minHeight: '100vh', background: bg, color: text, fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <SitioNav text={text} accent={accent} border={border} />
 
-      {/* NAV */}
-      <nav style={{position:'sticky',top:0,zIndex:50,backdropFilter:'blur(16px)',background:dark?'rgba(10,14,26,0.95)':'rgba(247,245,241,0.95)',borderBottom:'1px solid '+border,padding:'12px 20px',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-        <a href="/" style={{display:'flex',alignItems:'center',gap:8,textDecoration:'none'}}>
-          <img src="/logoOC.png" alt="OLIVIA" style={{width:32,height:32,objectFit:'contain',borderRadius:6}} />
-          <span style={{fontSize:12,fontWeight:700,color:text,textTransform:'uppercase',letterSpacing:'0.05em'}}>OLIVIA Circulab</span>
-        </a>
-        <div style={{display:'flex',gap:6}}>
-          <button onClick={()=>setLang(es?'en':'es')} style={{border:'1px solid '+border,borderRadius:20,padding:'5px 12px',fontSize:10,fontWeight:700,cursor:'pointer',background:'transparent',color:text}}>{es?'EN':'ES'}</button>
-          <button onClick={()=>setDark(!dark)} style={{border:'1px solid '+border,borderRadius:20,padding:'5px 9px',fontSize:12,cursor:'pointer',background:'transparent',color:text}}>{dark?'☀️':'🌙'}</button>
-        </div>
-      </nav>
-
-      {/* HERO */}
-      <section style={{padding:'56px 24px',textAlign:'center',background:dark?'rgba(34,197,94,0.04)':'rgba(34,197,94,0.02)',borderBottom:'1px solid rgba(34,197,94,0.15)'}}>
-        <div style={{maxWidth:680,margin:'0 auto'}}>
-          <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:accent,marginBottom:12}}>
-            [ {es?'Para administradores y encargados':'For building managers and administrators'} ]
-          </div>
-          <h1 style={{fontSize:34,fontWeight:900,lineHeight:1.15,marginBottom:16}}>
-            {es?'Tu edificio puede ser uno de los primeros con su gestión de residuos medida y verificada.':'Your building can be one of the first with its waste management measured and verified.'}
-            <br/><span style={{color:accent}}>{es?'Sin inversión. Sin complicaciones.':'No investment. No complications.'}</span>
-          </h1>
-          <p style={{fontSize:14,color:sub,lineHeight:1.7,marginBottom:28,maxWidth:520,margin:'0 auto 28px'}}>
-            {es
-              ? 'OLIVIA registra y verifica la gestión de residuos de tu edificio, un respaldo concreto para la Ley de Basura Cero de CABA, todo desde el celular del encargado.'
-              : 'OLIVIA records and verifies your building waste management, concrete backing for the CABA Zero Waste Law, all from the superintendent phone.'}
-          </p>
-          <div style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap'}}>
-            <a href="/nda" style={{background:'linear-gradient(135deg,#22c55e,#16a34a)',borderRadius:40,padding:'14px 32px',color:'white',fontSize:13,fontWeight:700,textDecoration:'none'}}>
-              {es?'Quiero sumar mi edificio →':'I want to add my building →'}
-            </a>
-            <a href="/simulador" style={{background:'transparent',border:'1px solid '+border,borderRadius:40,padding:'14px 32px',color:text,fontSize:13,fontWeight:700,textDecoration:'none'}}>
-              {es?'Calcular el impacto de mi edificio':'Calculate my building impact'}
-            </a>
-          </div>
-        </div>
+      <section style={{ padding: '44px 20px 28px', maxWidth: 640, margin: '0 auto', textAlign: 'center' }}>
+        <div style={{ fontSize: 11, fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '.22em', color: gold, marginBottom: 14 }}>Para administradores de consorcios</div>
+        <h1 style={{ fontSize: 'clamp(32px,8vw,52px)', fontWeight: 900, lineHeight: 1.05, margin: '0 0 16px' }}>El orgánico de tu edificio, <span style={{ color: accent }}>medido y con destino.</span></h1>
+        <p style={{ fontSize: 17, color: sub, lineHeight: 1.6, margin: '0 0 26px' }}>Buscamos los primeros edificios para un <strong style={{ color: text }}>diagnóstico sin costo de dos semanas</strong>. Medimos lo que separan, lo llevamos a compostaje y les dejamos el informe para la asamblea.</p>
+        <a href={WA_ADMIN} target="_blank" rel="noopener noreferrer" style={{ ...boton, background: accent, color: '#04110a' }}>Quiero el diagnóstico para mi edificio →</a>
+        <a href="mailto:hola@oliviacirculab.com.ar?subject=Diagn%C3%B3stico%20para%20mi%20edificio" style={{ display: 'block', color: accent, fontSize: 14, fontWeight: 700, textDecoration: 'none', padding: 14 }}>O escribinos a hola@oliviacirculab.com.ar</a>
       </section>
 
-      {/* VIDEO */}
-      <section style={{padding:'32px 20px 8px',maxWidth:900,margin:'0 auto'}}>
+      <section style={{ padding: '0 20px 32px', maxWidth: 820, margin: '0 auto' }}>
         <VideoBloque video={videoPorId('grandes-generadores')} sub={sub} accent={accent} />
       </section>
 
-      {/* LOS 3 ARGUMENTOS PRINCIPALES */}
-      <section style={{padding:'64px 24px'}}>
-        <div style={{maxWidth:800,margin:'0 auto'}}>
-          <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:accent,marginBottom:12,textAlign:'center'}}>
-            [ {es?'Por qué OLIVIA para tu edificio':'Why OLIVIA for your building'} ]
-          </div>
-          <h2 style={{fontSize:26,fontWeight:900,textAlign:'center',marginBottom:40}}>
-            {es?'Tres razones. Todas concretas.':'Three reasons. All concrete.'}
-          </h2>
-
-          {/* RAZÓN 1 · LEY BASURA CERO */}
-          <div style={{background:card,border:'2px solid rgba(239,68,68,0.3)',borderRadius:20,padding:'32px',marginBottom:20,display:'flex',gap:24,alignItems:'flex-start'}}>
-            <div style={{width:56,height:56,borderRadius:16,background:'rgba(239,68,68,0.1)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:28,flexShrink:0}}>⚖️</div>
-            <div style={{flex:1}}>
-              <div style={{fontSize:9,fontWeight:700,color:'#ef4444',textTransform:'uppercase',letterSpacing:'0.1em',marginBottom:6}}>
-                {es?'01 · Cumplimiento legal':'01 · Legal compliance'}
-              </div>
-              <h3 style={{fontSize:18,fontWeight:900,color:text,marginBottom:10}}>
-                {es?'La Ley de Basura Cero ya obliga a tu edificio.':'The Zero Waste Law already requires your building to comply.'}
-              </h3>
-              <p style={{fontSize:12,color:sub,lineHeight:1.8,marginBottom:14}}>
-                {es
-                  ? 'La Ley 1854 de CABA (Basura Cero) y su reglamentación establecen obligaciones de separación para los grandes generadores de residuos. OLIVIA te da un registro ordenado de pesos y fotos para documentar lo que hacés.'
-                  : 'CABA Law 1854 (Zero Waste) and its regulations set separation obligations for large waste generators. OLIVIA gives you the AI-verified system and a verifiable record that backs your compliance.'}
-              </p>
-              <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
-                {(es?['Ley 1854 CABA','Separación verificada','Registro verificable']:['Law 1854 CABA','Verified separation','Verifiable record']).map((t,i)=>(
-                  <span key={i} style={{fontSize:9,color:'#ef4444',background:'rgba(239,68,68,0.08)',border:'1px solid rgba(239,68,68,0.2)',borderRadius:20,padding:'3px 10px',fontWeight:700}}>{t}</span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* RAZÓN 2 · BADGE EDIFICIO VERDE */}
-          <div style={{background:card,border:'2px solid rgba(34,197,94,0.3)',borderRadius:20,padding:'32px',marginBottom:20,display:'flex',gap:24,alignItems:'flex-start'}}>
-            <div style={{width:56,height:56,borderRadius:16,background:'rgba(34,197,94,0.1)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:28,flexShrink:0}}>🏅</div>
-            <div style={{flex:1}}>
-              <div style={{fontSize:9,fontWeight:700,color:accent,textTransform:'uppercase',letterSpacing:'0.1em',marginBottom:6}}>
-                {es?'02 · Diferenciación en el mercado':'02 · Market differentiation'}
-              </div>
-              <h3 style={{fontSize:18,fontWeight:900,color:text,marginBottom:10}}>
-                {es?'El badge Edificio Verde OLIVIA para la próxima asamblea.':'The OLIVIA Green Building badge for the next assembly.'}
-              </h3>
-              <p style={{fontSize:12,color:sub,lineHeight:1.8,marginBottom:14}}>
-                {es
-                  ? 'El registro OLIVIA con los datos verificados de tu edificio es el argumento más concreto que podés presentar en la asamblea de copropietarios. No es una intención de reciclar: son kilos reales, verificados.'
-                  : 'The OLIVIA record with your building verified data is the most concrete argument you can present at the owners assembly. Not an intention to recycle: real, verified kilograms.'}
-              </p>
-              <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
-                {(es?['Badge Edificio Verde','Datos para la asamblea','Mayor valor inmobiliario','Vecinos activos']:['Green Building badge','Assembly data','Higher property value','Active residents']).map((t,i)=>(
-                  <span key={i} style={{fontSize:9,color:accent,background:'rgba(34,197,94,0.08)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:20,padding:'3px 10px',fontWeight:700}}>{t}</span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* RAZÓN 3 · CRÉDITOS DE CARBONO */}
-          <div style={{background:card,border:'2px solid rgba(245,158,11,0.3)',borderRadius:20,padding:'32px',marginBottom:20,display:'flex',gap:24,alignItems:'flex-start'}}>
-            <div style={{width:56,height:56,borderRadius:16,background:'rgba(245,158,11,0.1)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:28,flexShrink:0}}>💰</div>
-            <div style={{flex:1}}>
-              <div style={{fontSize:9,fontWeight:700,color:'#f59e0b',textTransform:'uppercase',letterSpacing:'0.1em',marginBottom:6}}>
-                {es?'03 · Registros certificables':'03 · Certifiable records'}
-              </div>
-              <h3 style={{fontSize:18,fontWeight:900,color:text,marginBottom:10}}>
-                {es?'Los residuos que separan hoy podrán tener valor si el proyecto se certifica.':'The waste you separate today may have value if the project is certified.'}
-              </h3>
-              <p style={{fontSize:12,color:sub,lineHeight:1.8,marginBottom:14}}>
-                {es
-                  ? 'En febrero 2026 Verra aprobó su primer piloto de verificación digital dMRV de alta frecuencia: el estándar se está moviendo hacia la medición digital. Cada kilo de residuo orgánico verificado en tu edificio queda registrado con origen, peso y destino, y sirve como evidencia de cumplimiento de la Ley 1854. Esos registros son además la base de un futuro proceso de certificación bajo estándar Verra, que lleva entre dos y tres años.'
-                  : 'In February 2026 Verra approved its first high-frequency digital dMRV verification pilot: the standard is moving toward digital measurement. Every kilo of verified organic waste in your building is recorded with origin, weight and destination as evidence of compliance. Those records are also the basis for a future Verra certification process, which takes two to three years.'}
-              </p>
-              <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
-                {(es?['Trazabilidad verificada','Evidencia de cumplimiento','Metano evitado','Primer movedor']:['Verified traceability','Compliance evidence','Avoided methane','First mover']).map((t,i)=>(
-                  <span key={i} style={{fontSize:9,color:'#f59e0b',background:'rgba(245,158,11,0.08)',border:'1px solid rgba(245,158,11,0.2)',borderRadius:20,padding:'3px 10px',fontWeight:700}}>{t}</span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CÓMO FUNCIONA */}
-      <section style={{padding:'0 24px 64px',background:dark?'rgba(34,197,94,0.02)':'rgba(34,197,94,0.01)',borderTop:'1px solid rgba(34,197,94,0.1)'}}>
-        <div style={{maxWidth:700,margin:'0 auto',paddingTop:64}}>
-          <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:accent,marginBottom:12,textAlign:'center'}}>
-            [ {es?'Cómo funciona':'How it works'} ]
-          </div>
-          <h2 style={{fontSize:26,fontWeight:900,textAlign:'center',marginBottom:40}}>
-            {es?'Activo en 48 horas. El encargado lo maneja solo.':'Active in 48 hours. The superintendent handles it alone.'}
-          </h2>
-          {(es?[
-            {n:'1',t:'Instalamos el kit en tu edificio',d:'Tachos brandeados OLIVIA para áreas comunes, cartel con QR en el hall y stickers para ascensores. Sin obra. Sin instalación compleja. El encargado recibe una capacitación de 20 minutos.',c:accent},
-            {n:'2',t:'El encargado registra desde el celular',d:'Con la app OLIVIA, el encargado fotografía los residuos orgánicos del día. Pesa, registra y el equipo lo revisa. Sin papeles ni planillas.',c:blue},
-            {n:'3',t:'Los vecinos se suman con el QR del hall',d:'Cada vecino puede registrar sus propios residuos desde su departamento. Acumulan OLV Verdes que podrán tener valor si el proyecto se certifica. El edificio acumula más volumen verificado.',c:'#a855f7'},
-            {n:'4',t:'El administrador recibe el reporte mensual',d:'Dashboard en tiempo real con los kg verificados, el CO2 evitado y el progreso hacia la certificación Verra. Listo para presentar en la próxima asamblea.',c:'#f59e0b'},
-            {n:'5',t:'Registro verificable de gestión',d:'El registro OLIVIA reúne pesos, fotos y fechas revisados por el equipo, y ayuda a documentar lo que hace el edificio.',c:'#ef4444'},
-          ]:[
-            {n:'1',t:'We install the kit in your building',d:'OLIVIA-branded bins for common areas, QR poster in the hall and elevator stickers. No construction. No complex installation. The superintendent receives a 20-minute training.',c:accent},
-            {n:'2',t:'The superintendent registers from the phone',d:'With the OLIVIA app, the superintendent photographs the daily organic waste. Automatic GPS. AI verifies in seconds. No paperwork or spreadsheets.',c:blue},
-            {n:'3',t:'Residents join with the hall QR',d:'Each resident can register their own waste from their apartment. They accumulate Green OLV that may have value if the project is certified. The building accumulates more verified volume.',c:'#a855f7'},
-            {n:'4',t:'The administrator receives the monthly report',d:'Real-time dashboard with verified kg, avoided CO2 and progress toward Verra certification. Ready to present at the next assembly.',c:'#f59e0b'},
-            {n:'5',t:'Verifiable management record',d:'The OLIVIA record shows real AI-verified data and backs your compliance with the Zero Waste Law. Not self-declaration — digital verification.',c:'#ef4444'},
-          ]).map((p,i,arr)=>(
-            <div key={i} style={{display:'flex',gap:20,paddingBottom:i<arr.length-1?28:0}}>
-              <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
-                <div style={{width:40,height:40,borderRadius:'50%',background:'linear-gradient(135deg,'+p.c+','+p.c+'aa)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:16,fontWeight:900,color:'white',flexShrink:0}}>{p.n}</div>
-                {i<arr.length-1&&<div style={{width:2,flex:1,background:'rgba(34,197,94,0.15)',marginTop:8}}></div>}
-              </div>
-              <div style={{paddingTop:8,paddingBottom:24}}>
-                <div style={{fontSize:15,fontWeight:700,color:p.c,marginBottom:6}}>{p.t}</div>
-                <div style={{fontSize:12,color:sub,lineHeight:1.8}}>{p.d}</div>
+      <section style={{ padding: '0 20px 32px', maxWidth: 640, margin: '0 auto' }}>
+        <h2 style={{ fontSize: 24, fontWeight: 900, margin: '0 0 14px', textAlign: 'center' }}>Cómo es el diagnóstico</h2>
+        <div style={{ display: 'grid', gap: 10 }}>
+          {PASOS.map(p => (
+            <div key={p.n} style={{ display: 'flex', gap: 14, background: card, border: '1px solid ' + border, borderRadius: 14, padding: 16 }}>
+              <div style={{ width: 36, height: 36, borderRadius: '50%', background: accent, color: '#04110a', fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{p.n}</div>
+              <div>
+                <div style={{ fontWeight: 800, marginBottom: 3 }}>{p.t}</div>
+                <div style={{ fontSize: 14, color: sub, lineHeight: 1.5 }}>{p.d}</div>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* KIT DEL EDIFICIO */}
-      <section style={{padding:'64px 24px'}}>
-        <div style={{maxWidth:800,margin:'0 auto'}}>
-          <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',color:accent,marginBottom:12,textAlign:'center'}}>
-            [ {es?'El kit de tu edificio':'Your building kit'} ]
+      <section style={{ padding: '0 20px 32px', maxWidth: 640, margin: '0 auto', display: 'grid', gap: 10 }}>
+        {PARA.map(p => (
+          <div key={p.t} style={{ background: card, border: '1px solid ' + border, borderRadius: 14, padding: 16 }}>
+            <div style={{ fontWeight: 800, color: accent, marginBottom: 4 }}>{p.t}</div>
+            <div style={{ fontSize: 14, color: sub, lineHeight: 1.5 }}>{p.d}</div>
           </div>
-          <h2 style={{fontSize:26,fontWeight:900,textAlign:'center',marginBottom:32}}>
-            {es?'Todo lo que necesita el edificio para empezar.':'Everything the building needs to get started.'}
-          </h2>
-          <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:14}}>
-            {[
-              {img:'/kits/ref/compost-edificio.jpg',nombre:es?'Kit Compost Edificio':'Building Compost Kit',desc:es?'Para consorcios con patio o terraza. Composteras comunitarias, tachos de 20 L con QR por piso, cartelería y capacitación. El edificio composta en el lugar: no necesita retiro ni planta.':'For buildings with a yard or rooftop. Community composters, 20 L bins with QR per floor, signage and training. The building composts on site: no pickup or plant needed.',c:blue,destacado:true,asunto:'Kit Compost Edificio'},
-              {img:'/kits/ref/retiro-edificio.jpg',nombre:es?'Kit Retiro Edificio':'Building Pickup Kit',desc:es?'Para consorcios sin espacio. Tachos de 120 L con QR y cartelería; retiramos con frecuencia fija, pesamos en cada retiro y mandamos el reporte mensual de kilos.':'For buildings without space. 120 L bins with QR and signage; we pick up on a fixed schedule, weigh every pickup and send a monthly kilo report.',c:accent,asunto:'Kit Retiro Edificio'},
-            ].map((k,i)=>(
-              <div key={i} style={{background:card,border:'2px solid '+(k.destacado?blue:border),borderRadius:16,overflow:'hidden',position:'relative'}}>
-                {k.destacado&&<div style={{position:'absolute',top:10,right:10,background:blue,color:'white',fontSize:9,fontWeight:700,padding:'3px 10px',borderRadius:20,zIndex:2}}>⭐ {es?'Recomendado':'Recommended'}</div>}
-                <img src={k.img} alt={k.nombre} style={{width:'100%',height:180,objectFit:'cover'}} />
-                <div style={{padding:'16px'}}>
-                  <div style={{fontSize:13,fontWeight:700,color:k.c,marginBottom:6}}>{k.nombre}</div>
-                  <div style={{fontSize:11,color:sub,lineHeight:1.6,marginBottom:14}}>{k.desc}</div>
-                  <a href="/contacto" style={{display:'block',background:'linear-gradient(135deg,'+k.c+','+k.c+'bb)',borderRadius:10,padding:'10px',color:'white',fontSize:11,fontWeight:700,textDecoration:'none',textAlign:'center'}}>
-                    {es?'Solicitar propuesta →':'Request proposal →'}
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div style={{textAlign:'center',marginTop:16}}>
-            <a href="/kits" style={{fontSize:12,color:accent,fontWeight:700,textDecoration:'none'}}>
-              {es?'Ver todos los kits disponibles →':'See all available kits →'}
-            </a>
-          </div>
+        ))}
+      </section>
+
+      <section style={{ padding: '0 20px 32px', maxWidth: 640, margin: '0 auto' }}>
+        <div style={{ background: card, border: '1px solid ' + border, borderRadius: 16, padding: 22 }}>
+          <div style={{ fontSize: 11, fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '.2em', color: gold, marginBottom: 10 }}>El cuarto de residuos</div>
+          <h3 style={{ fontSize: 21, fontWeight: 900, fontFamily: 'Georgia,serif', fontStyle: 'italic', lineHeight: 1.25, margin: '0 0 12px' }}>El olor de la escalera no es el metano. Es su aviso.</h3>
+          <p style={{ fontSize: 14, lineHeight: 1.7, color: sub, margin: '0 0 10px' }}>El metano no tiene olor. Lo que se huele son compuestos que aparecen cuando la materia orgánica se descompone sin aire, las mismas condiciones en las que se produce metano.</p>
+          <p style={{ fontSize: 14, lineHeight: 1.7, color: sub, margin: 0 }}>Separar la fracción orgánica y sacarla seguido corta las dos cosas a la vez. Es una mejora que los vecinos notan rápido.</p>
         </div>
       </section>
 
-      {/* PARA EL ENCARGADO */}
-      <section style={{padding:'0 24px 64px'}}>
-        <div style={{maxWidth:800,margin:'0 auto'}}>
-          <div style={{background:dark?'rgba(59,130,246,0.06)':'rgba(59,130,246,0.04)',border:'1px solid rgba(59,130,246,0.2)',borderRadius:20,padding:'32px'}}>
-            <div style={{fontSize:9,fontWeight:700,color:blue,textTransform:'uppercase',letterSpacing:'0.1em',marginBottom:12}}>
-              [ {es?'Para el encargado del edificio':'For the building superintendent'} ]
-            </div>
-            <h3 style={{fontSize:20,fontWeight:900,color:text,marginBottom:12}}>
-              {es?'Registrar residuos tarda 2 minutos por día.':'Registering waste takes 2 minutes per day.'}
-            </h3>
-            <p style={{fontSize:12,color:sub,lineHeight:1.8,marginBottom:20}}>
-              {es
-                ? 'El encargado abre la app OLIVIA, fotografía el tacho de orgánicos, carga el peso y listo. El equipo lo revisa. No hay planillas, no hay papeles, no hay capacitación compleja. Y cada registro que hace el encargado contribuye al registro verificable del edificio y a un futuro proceso de certificación.'
-                : 'The superintendent opens the OLIVIA app, photographs the organic bin, confirms GPS and done. AI does the analysis automatically. No spreadsheets, no paperwork, no complex training. And every record the superintendent makes contributes to the building verifiable record and a future certification process.'}
-            </p>
-            <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10}}>
-              {[
-                {n:'2 min',l:es?'por registro diario':'per daily record',c:blue},
-                {n:'48hs',l:es?'para activar el edificio':'to activate the building',c:accent},
-                {n:'0',l:es?'inversión inicial':'initial investment',c:'#f59e0b'},
-              ].map((s,i)=>(
-                <div key={i} style={{textAlign:'center',padding:'12px',background:'rgba(255,255,255,0.03)',borderRadius:10,border:'1px solid '+s.c+'22'}}>
-                  <div style={{fontSize:22,fontWeight:900,color:s.c,marginBottom:4}}>{s.n}</div>
-                  <div style={{fontSize:10,color:sub}}>{s.l}</div>
-                </div>
-              ))}
-            </div>
-          </div>
+      <section style={{ padding: '0 20px 32px', maxWidth: 640, margin: '0 auto' }}>
+        <div style={{ background: accent, color: '#04110a', borderRadius: 16, padding: 22 }}>
+          <h2 style={{ fontSize: 22, fontWeight: 900, margin: '0 0 8px' }}>¿Administrás un edificio?</h2>
+          <p style={{ fontSize: 15, lineHeight: 1.55, margin: '0 0 16px' }}>Estamos empezando con pocos edificios para hacerlo bien. Si te interesa ser uno de los primeros, escribinos.</p>
+          <a href={WA_ADMIN} target="_blank" rel="noopener noreferrer" style={{ ...boton, background: '#04110a', color: '#eef5f0', fontSize: 15 }}>Hablemos por WhatsApp</a>
         </div>
       </section>
 
-
-      {/* LINK MAPA */}
-      <section style={{padding:'0 24px 40px',maxWidth:800,margin:'0 auto'}}>
-        <a href="/mapa" style={{display:'block',textDecoration:'none',background:dark?'rgba(2,132,199,0.06)':'rgba(2,132,199,0.035)',border:'1px solid rgba(2,132,199,0.2)',borderRadius:14,padding:'20px'}}>
-          <div style={{fontSize:13,fontWeight:800,color:'#0284c7',marginBottom:6}}>
-            {es?'Mirá cuántos puntos verdes hay cerca de tus edificios':'See how many green points are near your buildings'}
-          </div>
-          <p style={{fontSize:11,color:sub,lineHeight:1.7,marginBottom:8}}>
-            {es
-              ? 'Solo 15 de los 21 puntos verdes de CABA reciben orgánicos, y ninguno registra quién los dejó. Con OLIVIA el retiro va al edificio y cada kilo queda verificado.'
-              : 'Only 15 of the 21 green points accept organics, and none records who left them. With OLIVIA collection comes to the building and every kilo is verified.'}
-          </p>
-          <span style={{fontSize:11,color:'#0284c7',fontWeight:700}}>{es?'Ver el mapa de CABA →':'View the city map →'}</span>
-        </a>
-      </section>
-      {/* CTA FINAL */}
-      <section style={{padding:'56px 24px',textAlign:'center',background:'linear-gradient(135deg,rgba(34,197,94,0.06),rgba(59,130,246,0.04))',borderTop:'1px solid rgba(34,197,94,0.15)'}}>
-        <div style={{maxWidth:520,margin:'0 auto'}}>
-          <div style={{fontSize:28,marginBottom:16}}>🏢</div>
-          <h2 style={{fontSize:26,fontWeight:900,marginBottom:8}}>
-            {es?'El 18 de octubre es el Día Mundial de la Protección de la Naturaleza.':'October 18 is World Nature Protection Day.'}
-          </h2>
-          <p style={{fontSize:13,color:sub,lineHeight:1.7,marginBottom:8}}>
-            {es
-              ? 'En 1972 una carta escrita en Buenos Aires llegó a la ONU y creó esa fecha. Este año queremos que tu edificio sea uno de los primeros certificados de la ciudad ese día.'
-              : 'In 1972 a letter written in Buenos Aires reached the UN and created that date. This year we want your building to be one of the first certified in the city on that day.'}
-          </p>
-          <p style={{fontSize:12,color:sub,lineHeight:1.7,marginBottom:28}}>
-            {es
-              ? 'Firmá el NDA y te contactamos en menos de 24 horas con la propuesta personalizada para tu edificio.'
-              : 'Sign the NDA and we will contact you in less than 24 hours with the personalized proposal for your building.'}
-          </p>
-          <a href="/nda" style={{display:'inline-block',background:'linear-gradient(135deg,#22c55e,#16a34a)',borderRadius:40,padding:'16px 40px',color:'white',fontSize:14,fontWeight:700,textDecoration:'none',textTransform:'uppercase',letterSpacing:'0.06em',marginBottom:16}}>
-            {es?'Certificar mi edificio →':'Certify my building →'}
-          </a>
-          <div style={{fontSize:11,color:sub}}>
-            {es?'O escribinos directo:':'Or write to us directly:'}{' '}
-            <a href="/contacto" style={{color:accent}}>hola@oliviacirculab.com.ar</a>
-          </div>
-        </div>
+      <section style={{ padding: '0 20px 44px', maxWidth: 640, margin: '0 auto', textAlign: 'center' }}>
+        <p style={{ fontSize: 12, color: sub, lineHeight: 1.6, margin: 0 }}>Lo que hacemos hoy: pesamos con balanza, cargamos el dato en la app y el equipo lo revisa. El diagnóstico no tiene costo para el consorcio. El informe es un registro de gestión: no es una certificación ni tiene valor monetario.</p>
       </section>
 
-      {/* FOOTER */}
-      {/* ═══ EL OLOR ═══ */}
-      <section style={{maxWidth:580,margin:'0 auto',padding:'8px 20px 44px'}}>
-        <div style={{background:'rgba(255,255,255,0.03)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:16,padding:'22px 22px 20px'}}>
-          <div style={{fontSize:9,fontFamily:'monospace',textTransform:'uppercase',letterSpacing:'0.3em',opacity:.55,marginBottom:10}}>[ El cuarto de residuos ]</div>
-          <h3 style={{fontSize:21,fontWeight:900,fontFamily:'Georgia,serif',fontStyle:'italic',lineHeight:1.25,margin:'0 0 14px'}}>
-            El olor de la escalera no es el metano. Es su aviso.
-          </h3>
-          <p style={{fontSize:14,lineHeight:1.7,opacity:.8,margin:'0 0 12px'}}>
-            El metano no tiene olor. Lo que se huele en el cuarto de residuos son ácidos grasos volátiles, amoníaco y compuestos azufrados —sulfuro de hidrógeno, mercaptanos— que aparecen cuando la materia orgánica se descompone sin aire. Las mismas condiciones que producen ese olor producen metano, que sale sin que nadie lo note.
-          </p>
-          <p style={{fontSize:14,lineHeight:1.7,opacity:.8,margin:'0 0 12px'}}>
-            Separar la fracción orgánica y sacarla con frecuencia corta las dos cosas a la vez. Y a diferencia del resto de lo que hacemos, esta es una mejora que los vecinos perciben en una semana, no en dos años.
-          </p>
-          <p style={{fontSize:13,lineHeight:1.7,opacity:.6,margin:0}}>
-            Estamos preparando la medición de compuestos volátiles en el cuarto de residuos, para poder mostrar el antes y el después con una curva y no con una opinión. Todavía no la ofrecemos como servicio: primero hay que validarla en edificios reales. Cuando esté, va a ser el único dato de su tipo publicado en la Ciudad.
-          </p>
-        </div>
-      </section>
-
-      <footer style={{borderTop:'1px solid '+border,padding:'40px 24px 32px',textAlign:'center'}}>
-        <a href="/" style={{display:'block',marginBottom:10}}>
-          <img src="/logoOC.png" alt="OLIVIA Circulab" style={{width:52,height:52,objectFit:'contain',display:'block',margin:'0 auto'}} />
-        </a>
-        <div style={{fontSize:13,fontWeight:800,color:text,marginBottom:6}}>OLIVIA Circulab</div>
-        <div style={{fontSize:10,color:sub,lineHeight:1.6,maxWidth:400,margin:'0 auto 18px'}}>
-          {es?'Oficina Latinoamericana de Información para la Valorización e Inteligencia Ambiental':'Latin American Office for Environmental Valuation and Intelligence Information'}
-        </div>
-        <div style={{display:'flex',gap:14,justifyContent:'center',flexWrap:'wrap',maxWidth:600,margin:'0 auto 14px'}}>
-          {[
-            {l:es?'Ciudadano':'Citizen',h:'/ciudadano'},
-            {l:'Metamorfosis',h:'/metamorfosis'},
-            {l:'Consorcios',h:'/consorcios'},
-            {l:es?'Grandes Generadores':'Large Generators',h:'/grandes-generadores'},
-            {l:es?'Plantas y acopiadores':'Plants & collectors',h:'/operadores'},
-            {l:'RAEE',h:'/raee'},
-            {l:es?'Mapa':'Map',h:'/mapa'},
-            {l:'Kits',h:'/kits'},
-            {l:es?'Inversores':'Investors',h:'/institucional'},
-          ].map(n=>(
-            <a key={n.h} href={n.h} style={{fontSize:11,color:sub,textDecoration:'none',fontWeight:600}}>{n.l}</a>
-          ))}
-        </div>
-        <div style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap',maxWidth:600,margin:'0 auto 16px'}}>
-          {[
-            {l:'Whitepaper',h:'/whitepaper'},
-            {l:'One Pager',h:'/onepager'},
-            {l:'Pitch',h:'/pitch'},
-            {l:es?'Equipo':'Team',h:'/equipo'},
-            {l:es?'Alianzas':'Partners',h:'/alianzas'},
-            {l:'NDA',h:'/nda'},
-          ].map(n=>(
-            <a key={n.h} href={n.h} style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.75}}>{n.l}</a>
-          ))}
-        </div>
-        <div style={{fontSize:11,color:sub,marginBottom:10}}>hola@oliviacirculab.com.ar · <a href="https://wa.me/5491138859820" target="_blank" rel="noopener noreferrer" style={{color:sub}}>WhatsApp +54 9 11 3885-9820</a></div>
-        <div style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap',marginBottom:10}}>
-          <a href="/terminos" style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.7}}>{es?'Términos':'Terms'}</a>
-          <a href="/privacidad" style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.7}}>{es?'Privacidad':'Privacy'}</a>
-          <a href="https://www.linkedin.com/company/113160128/" style={{fontSize:10,color:sub,textDecoration:'none',opacity:0.7}}>LinkedIn</a>
-        </div>
-        <div style={{fontSize:9,color:sub,fontFamily:'monospace',letterSpacing:'0.05em',opacity:0.7}}>© 2026 Circulab Tech · Buenos Aires, Argentina</div>
-      </footer>
-
-    </div>
+      <SitioFooter text={text} sub={sub} border={border} />
+    </main>
   )
 }
