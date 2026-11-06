@@ -53,7 +53,8 @@ export default function PilotoPlanta({ residuos, recargar }: { residuos: any[]; 
     try {
       const res = await fetchIA('/api/avisar', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ tipo, ids, planta, foto_url }) })
       const j = await res.json()
-      return res.ok ? ` Se avisó por mail a ${j.enviados} de ${j.personas} personas.` : ' No se pudieron mandar los mails (revisá RESEND_API_KEY en Vercel).'
+      if (!res.ok && !j.personas) return ` No se pudieron mandar los mails: ${j.error ? JSON.stringify(j.error).slice(0, 200) : res.status}.`
+      return ` Se avisó por mail a ${j.enviados} de ${j.personas} personas.${j.error ? ' Error de Resend: ' + j.error : ''}`
     } catch {
       return ' No se pudieron mandar los mails.'
     }
@@ -81,6 +82,23 @@ export default function PilotoPlanta({ residuos, recargar }: { residuos: any[]; 
     } catch (e: any) {
       setMensaje('❌ ' + (e?.message || 'Error al registrar la entrega'))
     }
+    setTrabajando('')
+  }
+
+  async function reenviarEntrega() {
+    if (!idsCompost.length) return
+    setTrabajando('reenvio'); setMensaje('')
+    const foto = enPlanta.find(r => idsCompost.includes(r.id) && r.foto_entrega_url)?.foto_entrega_url || ''
+    const prev = avisar
+    const aviso = await (async () => {
+      try {
+        const res = await fetchIA('/api/avisar', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ tipo: 'entrega', ids: idsCompost, planta, foto_url: foto }) })
+        const j = await res.json()
+        return `Se avisó por mail a ${j.enviados ?? 0} de ${j.personas ?? 0} personas.${j.error ? ' Error de Resend: ' + (typeof j.error === 'string' ? j.error : JSON.stringify(j.error)) : ''}`
+      } catch { return 'No se pudo llamar al envío de mails.' }
+    })()
+    void prev
+    setMensaje((/Error|No se pudo/.test(aviso) ? '❌ ' : '✅ ') + aviso)
     setTrabajando('')
   }
 
@@ -161,6 +179,12 @@ export default function PilotoPlanta({ residuos, recargar }: { residuos: any[]; 
         <div style={{ fontSize: 15, fontWeight: 800, color: '#22c55e' }}>🌱 2 · Certificado de compost</div>
         <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>{enPlanta.length} registros entregados en planta, esperando certificado · seleccionados {idsCompost.length} ({kgTxt(suma(enPlanta, idsCompost))})</div>
         {enPlanta.length > 0 && <Lista items={enPlanta} sel={selCompost} setSel={setSelCompost} />}
+        {enPlanta.length > 0 && (
+          <button onClick={reenviarEntrega} disabled={!idsCompost.length || !!trabajando}
+            style={{ width: '100%', padding: 10, borderRadius: 10, border: '1px solid rgba(59,130,246,0.4)', background: 'rgba(59,130,246,0.08)', color: '#3b82f6', fontSize: 12, fontWeight: 700, cursor: 'pointer', marginBottom: 8 }}>
+            {trabajando === 'reenvio' ? 'Enviando…' : `📧 Reenviar el aviso de entrega a los ${idsCompost.length} seleccionados`}
+          </button>
+        )}
         <label style={{ display: 'block', fontSize: 12, color: '#94a3b8', margin: '8px 0' }}>Certificado de la planta (foto o PDF)
           <input type="file" accept="image/*,application/pdf" onChange={e => setCertificado(e.target.files?.[0] || null)} style={{ display: 'block', marginTop: 6, color: '#94a3b8' }} />
         </label>

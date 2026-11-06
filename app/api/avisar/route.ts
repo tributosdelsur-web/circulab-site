@@ -92,18 +92,23 @@ export async function POST(request: NextRequest) {
       })
     }
 
+    // Uno por uno: así un rechazo no frena al resto y podemos mostrar el motivo exacto en el admin.
     let enviados = 0
-    for (let i = 0; i < mails.length; i += 100) {
-      const lote = mails.slice(i, i + 100)
-      const res = await fetch('https://api.resend.com/emails/batch', {
+    let errorResend = ''
+    for (const m of mails) {
+      const res = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify(lote),
+        body: JSON.stringify(m),
       })
-      if (res.ok) enviados += lote.length
-      else console.error('Resend batch error', await res.text())
+      if (res.ok) enviados++
+      else {
+        const t = await res.text()
+        console.error('Resend error', res.status, t)
+        if (!errorResend) errorResend = `${res.status} ${t}`.slice(0, 300)
+      }
     }
-    return NextResponse.json({ ok: true, enviados, personas: mails.length })
+    return NextResponse.json({ ok: enviados === mails.length, enviados, personas: mails.length, error: errorResend || undefined })
   } catch (error) {
     console.error('Error en avisar:', error)
     return NextResponse.json({ error: 'Error interno' }, { status: 500 })
