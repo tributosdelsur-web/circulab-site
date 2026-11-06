@@ -19,5 +19,7 @@ export async function asegurarPerfil(): Promise<boolean> {
     nivel: 'Semilla',
     score_pulso: 0,
   })
+  // Puntos de bienvenida: la base los da una sola vez por persona.
+  if (!error) await supabase.rpc('sumar_puntos', { p_tipo: 'bienvenida' })
   return !error
 }

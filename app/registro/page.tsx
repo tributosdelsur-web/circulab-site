@@ -64,14 +64,8 @@ export default function Registro() {
    })
    if (errorPerfil) return fallar('Tu cuenta se creó, pero no pudimos guardar tu perfil. Escribinos a hola@oliviacirculab.com.ar.')
 
-   const { error: errorBono } = await supabase.from('wallet_transacciones').insert({
-     usuario_id: data.user.id,
-     tipo: 'bonus_bienvenida',
-     monto_olv: 100,
-     tipo_olv: 'bonus',
-     descripcion: '⭐ OLV Bonus · Bienvenida a OLIVIA',
-   })
-   setBono(!errorBono)
+   const { data: puntos } = await supabase.rpc('sumar_puntos', { p_tipo: 'bienvenida' })
+   setBono(Number(puntos) > 0)
 
    // El email de bienvenida no bloquea el registro si falla
    fetch('/api/bienvenida', {
@@ -88,7 +82,7 @@ export default function Registro() {
    <div style={{minHeight:'100vh',background:'#0a0e1a',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:16,padding:24,fontFamily:'system-ui'}}>
      <div style={{fontSize:48}}>🌿</div>
      <div style={{fontSize:22,fontWeight:800,color:'#f1f5f9',textAlign:'center'}}>¡Bienvenido, {nombre}! 🌿</div>
-     {bono&&<div style={{fontSize:14,color:'#22c55e',fontWeight:700,textAlign:'center'}}>+100 OLV Bonus de bienvenida</div>}
+     {bono&&<div style={{fontSize:14,color:'#22c55e',fontWeight:700,textAlign:'center'}}>+100 puntos de actividad de bienvenida</div>}
      <div style={{fontSize:12,color:'#64748b',textAlign:'center',maxWidth:300,lineHeight:1.7}}>
        Tu cuenta está activa. Te llevamos a tu registro...
      </div>

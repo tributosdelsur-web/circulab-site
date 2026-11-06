@@ -32,7 +32,7 @@ function ComunidadFeed({dark, card, border, sub, text}: any) {
               </div>
               <div style={{flex:1}}>
                 <div style={{fontSize:12,fontWeight:700,color:text}}>{post.usuarios?.nombre} {post.usuarios?.apellido}</div>
-                <div style={{fontSize:10,color:sub}}>{tiempoRelativo(post.created_at)} · +{post.olv_ganados} OLV</div>
+                <div style={{fontSize:10,color:sub}}>{tiempoRelativo(post.created_at)} · +{post.olv_ganados} pts</div>
               </div>
               <span style={{fontSize:16}}>🌿</span>
             </div>
@@ -337,8 +337,8 @@ export default function Landing({ ini }: { ini: Ini }) {
         <div style={{display:'flex',flexDirection:'column',gap:10}}>
           {[
             {num:'01',icon:'📸',t:es?'Fotografiás el residuo':'You photograph the waste',d:es?'La foto identifica qué residuo es y de dónde viene. El peso que vale no sale de la foto: sale de la balanza, cuando el material llega a la planta.':'The photo identifies what the waste is and where it comes from. The weight of record does not come from the photo: it comes from the scale, when the material reaches the plant.',c:'#22c55e'},
-            {num:'02',icon:'📍',t:es?'Confirmás la disposición':'You confirm disposal',d:es?'La segunda foto con GPS activa tus OLV Verdes, respaldados por kilos verificados.':'The second photo with GPS activates your Green OLV, backed by verified kilos.',c:'#3b82f6'},
-            {num:'03',icon:'🪙',t:es?'Acumulás OLV Verdes':'You accumulate Green OLV',d:es?'🌿 OLV Verdes: de residuos verificados · son los que se presentarán a certificación. ⭐ OLV Bonus: por registrarte y compartir · sin valor ambiental.':'🌿 Green OLV: from verified waste · these will be submitted for certification. ⭐ Bonus OLV: for registering and sharing · no environmental value.',c:'#f59e0b'},
+            {num:'02',icon:'📍',t:es?'Confirmás la disposición':'You confirm disposal',d:es?'La entrega en planta y el certificado de compost validan tus kilos y activan tus OLV.':'Delivery to the plant and the compost certificate validate your kilos and activate your OLV.',c:'#3b82f6'},
+            {num:'03',icon:'🪙',t:es?'Acumulás OLV Verdes':'You accumulate Green OLV',d:es?'🟢 OLV Verdes: de orgánico validado · los únicos que se presentarán a certificación y podrían tener valor si se certifica. 🟡 OLV Amarillos (otros materiales) y puntos de actividad: registro, sin valor monetario.':'🟢 Green OLV: from validated organic waste · the only ones submitted for certification, could gain value if certified. 🟡 Yellow OLV (other materials) and activity points: a record, no monetary value.',c:'#f59e0b'},
             {num:'04',icon:'🌳',t:es?'Certificación':'Certification',d:es?'Con doce a veinticuatro meses de registros verificados se inicia la validación por auditor acreditado bajo estándar Verra. Es un proceso de dos a tres años y su resultado no depende de OLIVIA.':'With twelve to twenty-four months of verified records, validation by an accredited auditor begins under the Verra standard. A two to three year process whose outcome does not depend on OLIVIA.',c:'#a855f7'},
           ].map(p=>(
             <div key={p.num} style={{display:'flex',gap:12,padding:'14px',background:card,borderRadius:14,border:`1px solid ${p.c}22`,alignItems:'flex-start'}}>

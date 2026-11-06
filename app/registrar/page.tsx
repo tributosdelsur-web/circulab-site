@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react'
 import { supabase } from '../../lib/supabase'
 import { comprimirImagen, crearImagenHistoria } from '../../lib/fotos'
 import { asegurarPerfil } from '../../lib/perfil'
+import { OLV_POR_KG, co2De, colorDe } from '../../lib/impacto'
 
 const STORAGE_KEY = 'olivia_registro_data'
 
@@ -13,7 +14,7 @@ const PESAJE_VIVO = 'Pesaje en vivo OLIVIA'
 const TIPOS = [
  {
    v:'organico', l:'Orgánico', icon:'🌿',
-   factor:1.8, olv:180,
+   olv:180,
    descripcion:'Restos de comida, cáscaras, yerba, posos de café',
    cooperativas:PUNTOS_ORGANICO,
    bolsa:'Estimación · aún sin certificar',
@@ -26,7 +27,7 @@ const TIPOS = [
  },
  {
    v:'plastico', l:'Plástico', icon:'♻️',
-   factor:1.5, olv:150,
+   olv:150,
    descripcion:'Botellas PET, envases, bolsas limpias',
    cooperativas:PUNTOS,
    bolsa:'Estimación · aún sin certificar',
@@ -35,7 +36,7 @@ const TIPOS = [
  },
  {
    v:'papel', l:'Papel y cartón', icon:'📄',
-   factor:0.9, olv:90,
+   olv:90,
    descripcion:'Diarios, revistas, cajas, cartones',
    cooperativas:PUNTOS,
    bolsa:'Estimación · aún sin certificar',
@@ -44,7 +45,7 @@ const TIPOS = [
  },
  {
    v:'vidrio', l:'Vidrio', icon:'🍾',
-   factor:0.3, olv:30,
+   olv:30,
    descripcion:'Botellas, frascos, envases de vidrio',
    cooperativas:PUNTOS,
    bolsa:'Estimación · aún sin certificar',
@@ -53,16 +54,16 @@ const TIPOS = [
  },
  {
    v:'metal', l:'Metal', icon:'🔩',
-   factor:8.0, olv:800,
+   olv:800,
    descripcion:'Latas de aluminio, chatarra, metales',
    cooperativas:PUNTOS,
    bolsa:'Estimación · aún sin certificar',
-   consejo:'El metal tiene el factor más alto — 800 OLV por kg.',
+   consejo:'Las latas suman 800 OLV amarillos por kg verificado: registro ambiental, sin valor monetario.',
    disposiciones:[{v:'punto_verde',l:'Llevar a chatarrería / cooperativa'}]
  },
  {
    v:'aceite', l:'Aceite usado', icon:'🛢️',
-   factor:2.5, olv:250,
+   olv:250,
    descripcion:'Aceite vegetal de cocina usado',
    cooperativas:PUNTOS,
    bolsa:'Estimación · aún sin certificar',
@@ -71,7 +72,7 @@ const TIPOS = [
  },
  {
    v:'textil', l:'Textil', icon:'👕',
-   factor:5.5, olv:550,
+   olv:550,
    descripcion:'Ropa, telas, calzado en buen estado',
    cooperativas:PUNTOS,
    bolsa:'Estimación · aún sin certificar',
@@ -206,12 +207,13 @@ export default function Registrar() {
      const foto_url = fotoOrigen ? await subirFoto(fotoOrigen,'origen') : null
      const foto_entrega_url = fotoEntrega ? await subirFoto(fotoEntrega,'entrega') : null
 
-     const olv = Math.round(tipo.factor * kgFinal * 100)
-     const co2 = (tipo.factor * kgFinal).toFixed(2)
+     const olv = Math.round((OLV_POR_KG[tipo.v]||0) * kgFinal)
+     const co2 = co2De({kg:kgFinal,tipo:tipo.v}).toFixed(2)
 
      // Determinar status según disposición
      const esCompost = disposicion==='compost'||disposicion==='lombricompost'
-     const status = fotoEntrega&&!esCompost ? 'en_camino' : 'pendiente'
+     // Siempre entra pendiente: la entrega y la validación las registra el equipo OLIVIA (la base también lo fuerza).
+     const status = 'pendiente'
      const fecha_compost = esCompost ? new Date(Date.now() + diasCompost*24*60*60*1000).toISOString() : null
      const notas = (metodoPeso==='balanza'?'Peso: balanza digital, cargado a mano':'Peso: estimado por el usuario')+(enVivo?' · Pesaje en vivo':'')+(autorizaRedes?' · [autoriza_redes]':'')
 
@@ -233,6 +235,7 @@ export default function Registrar() {
        status
      }).select().single()
      if(error) throw new Error('registro')
+     supabase.rpc('sumar_puntos',{p_tipo:'registro'}).then(()=>{},()=>{})
 
      localStorage.removeItem(STORAGE_KEY)
      setResultado({olv, co2, residuoId: residuo?.id, foto_url, status, esCompost})
@@ -255,19 +258,13 @@ export default function Registrar() {
    setPublicandoOlivia(true)
    const {error} = await supabase.from('posts').insert({
      usuario_id: uid,
-     contenido: `Acabo de registrar ${kgFinal} kg de ${tipo?.l} 🌿 · ${resultado?.co2} kg CO2eq estimados, pendientes de validación`,
+     contenido: `Acabo de registrar ${kgFinal} kg de ${tipo?.l} 🌿 con OLIVIA, pendientes de validación`,
      foto_url: resultado?.foto_url||null,
      tipo: 'accion',
      olv_ganados: 20
    })
    if(!error) {
-     await supabase.from('wallet_transacciones').insert({
-       usuario_id: uid,
-       tipo: 'bonus_post',
-       monto_olv: 20,
-       tipo_olv: 'bonus',
-       descripcion: '⭐ OLV Bonus · Registro compartido en la comunidad'
-     })
+     await supabase.rpc('sumar_puntos',{p_tipo:'post_registro'})
      setPublicadoOlivia(true)
    }
    setPublicandoOlivia(false)
@@ -342,12 +339,12 @@ export default function Registrar() {
        <div style={{background:'#111827',border:'1px solid rgba(34,197,94,0.3)',borderRadius:16,padding:20,marginBottom:20}}>
          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,marginBottom:12}}>
            <div style={{background:'rgba(34,197,94,0.08)',borderRadius:10,padding:'12px',textAlign:'center'}}>
-             <div style={{fontSize:28,fontWeight:900,color:'#22c55e'}}>{resultado.olv}</div>
-             <div style={{fontSize:10,color:'#64748b',marginTop:2}}>OLV pendientes</div>
+             <div style={{fontSize:28,fontWeight:900,color:colorDe({tipo:tipo?.v||''})}}>{resultado.olv}</div>
+             <div style={{fontSize:10,color:'#64748b',marginTop:2}}>{tipo?.v==='organico'?'🟢 OLV Verdes en validación':'🟡 OLV Amarillos en validación'}</div>
            </div>
            <div style={{background:'rgba(59,130,246,0.08)',borderRadius:10,padding:'12px',textAlign:'center'}}>
-             <div style={{fontSize:28,fontWeight:900,color:'#3b82f6'}}>{resultado.co2}</div>
-             <div style={{fontSize:10,color:'#64748b',marginTop:2}}>kg CO2eq estimados</div>
+             <div style={{fontSize:28,fontWeight:900,color:'#3b82f6'}}>{tipo?.v==='organico'?resultado.co2:(kgFinal<1?`${Math.round(kgFinal*1000)} g`:`${kgFinal} kg`)}</div>
+             <div style={{fontSize:10,color:'#64748b',marginTop:2}}>{tipo?.v==='organico'?'kg CO2eq estimados':'registrados a tu nombre'}</div>
            </div>
          </div>
 
@@ -358,8 +355,10 @@ export default function Registrar() {
 
          <div style={{fontSize:11,color:'#64748b',lineHeight:1.5,padding:'10px',background:'rgba(245,158,11,0.06)',borderRadius:8,border:'1px solid rgba(245,158,11,0.2)'}}>
            {resultado.esCompost
-             ? `⏳ OLV pendientes de validación. Hoy no tienen valor monetario.`
-             : '⏳ OLV pendientes de validación. Hoy no tienen valor monetario.'}
+             ? `⏳ OLV en validación. Hoy no tienen valor monetario.`
+             : tipo?.v==='organico'
+               ? '⏳ OLV Verdes en validación. Son los únicos que podrían tener valor si el proyecto se certifica bajo Verra; hoy no tienen valor monetario.'
+               : '⏳ OLV Amarillos en validación. Registro ambiental: no entran en el proyecto de carbono y no tienen valor monetario.'}
          </div>
        </div>
 
@@ -368,7 +367,7 @@ export default function Registrar() {
          {!publicadoOlivia?(
            <button onClick={publicarEnOlivia} disabled={publicandoOlivia}
              style={{background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',padding:'14px',borderRadius:12,fontSize:14,fontWeight:700,border:'none',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',gap:8}}>
-             {publicandoOlivia?'Publicando...':'🌿 Publicar en OLIVIA +20 OLV'}
+             {publicandoOlivia?'Publicando...':'🌿 Publicar en OLIVIA · +20 puntos de actividad'}
            </button>
          ):(
            <div style={{background:'rgba(34,197,94,0.1)',border:'1px solid rgba(34,197,94,0.3)',borderRadius:12,padding:'14px',fontSize:13,color:'#22c55e',fontWeight:700}}>
@@ -450,8 +449,8 @@ export default function Registrar() {
                      <div style={{fontSize:11,color:'#64748b'}}>{t.descripcion}</div>
                    </div>
                    <div style={{marginLeft:'auto',textAlign:'right',flexShrink:0}}>
-                     <div style={{fontSize:13,fontWeight:800,color:'#22c55e'}}>{t.olv} OLV/kg</div>
-                     <div style={{fontSize:9,color:'#64748b'}}>factor {t.factor}</div>
+                     <div style={{fontSize:13,fontWeight:800,color:colorDe({tipo:t.v})}}>{t.olv} OLV/kg</div>
+                     <div style={{fontSize:9,fontWeight:700,color:colorDe({tipo:t.v})}}>{t.v==='organico'?'🟢 Verdes · podrían valer si se certifica (Verra)':'🟡 Amarillos · sin valor monetario'}</div>
                    </div>
                  </div>
                  <div style={{fontSize:10,color:'#3b82f6'}}>📋 {t.bolsa}</div>
@@ -472,7 +471,7 @@ export default function Registrar() {
 
            <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,padding:'12px',marginBottom:16}}>
              <div style={{fontSize:11,fontWeight:700,color:'#22c55e',marginBottom:4}}>💡 {tipo.consejo}</div>
-             <div style={{fontSize:10,color:'#64748b'}}>{tipo.olv} OLV por kg verificado · {tipo.bolsa}</div>
+             <div style={{fontSize:10,color:'#64748b'}}>{tipo.olv} OLV {tipo.v==='organico'?'verdes':'amarillos'} por kg verificado · {tipo.bolsa}</div>
            </div>
 
            {enVivo&&(
@@ -563,7 +562,7 @@ export default function Registrar() {
              </div>
              <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:10,padding:'10px 14px',textAlign:'center'}}>
                <span style={{fontSize:13,fontWeight:700,color:'#22c55e'}}>
-                 🌿 {Math.round(tipo.factor*kgFinal*100)} OLV estimados, pendientes de validación
+                 🌿 {Math.round((OLV_POR_KG[tipo.v]||0)*kgFinal)} OLV estimados, pendientes de validación
                </span>
                <div style={{fontSize:10,color:'#64748b',marginTop:4}}>
                  {unidad==='g'?kg+'g = '+(kg/1000).toFixed(3)+' kg':kg+' kg'}
@@ -726,8 +725,8 @@ export default function Registrar() {
                {[
                  {l:'Tipo',v:`${tipo.icon} ${tipo.l}`},
                  {l:'Peso',v:unidad==='g'?`${kg}g (${(kg/1000).toFixed(3)}kg)`:`${kg}kg`},
-                 {l:'OLV estimados',v:`${Math.round(tipo.factor*kgFinal*100)} OLV`},
-                 {l:'CO2eq estimado',v:`${(tipo.factor*kgFinal).toFixed(2)}kg`},
+                 {l:'OLV estimados',v:`${Math.round((OLV_POR_KG[tipo.v]||0)*kgFinal)} OLV`},
+                 ...(tipo.v==='organico'?[{l:'CO2eq estimado',v:`${co2De({kg:kgFinal,tipo:tipo.v}).toFixed(2)}kg`}]:[]),
                ].map(i=>(
                  <div key={i.l} style={{background:'rgba(255,255,255,0.03)',borderRadius:8,padding:'8px'}}>
                    <div style={{fontSize:9,color:'#64748b'}}>{i.l}</div>

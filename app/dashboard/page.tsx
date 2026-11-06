@@ -3,15 +3,16 @@ import { useEffect, useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { supabase } from '../../lib/supabase'
 import { asegurarPerfil } from '../../lib/perfil'
+import { olvDe, co2De, validados, enProceso, certificadoDe, esPesajeEnVivo, NOTA_CO2, esVerde, colorDe, VERDE, AMARILLO, TEXTO_VERDES, TEXTO_AMARILLOS } from '../../lib/impacto'
 
 const TIPOS_RESIDUO = [
-  {v:'organico',l:'Orgánico',icon:'🌿',factor:1.8,color:'#22c55e'},
-  {v:'plastico',l:'Plástico',icon:'♻️',factor:1.5,color:'#3b82f6'},
-  {v:'papel',l:'Papel',icon:'📄',factor:0.9,color:'#f59e0b'},
-  {v:'vidrio',l:'Vidrio',icon:'🍾',factor:0.3,color:'#a855f7'},
-  {v:'metal',l:'Metal',icon:'🔩',factor:8.0,color:'#ef4444'},
-  {v:'aceite',l:'Aceite',icon:'🛢️',factor:2.5,color:'#f97316'},
-  {v:'textil',l:'Textil',icon:'👕',factor:5.5,color:'#ec4899'},
+  {v:'organico',l:'Orgánico',icon:'🌿',color:'#22c55e'},
+  {v:'plastico',l:'Plástico',icon:'♻️',color:'#3b82f6'},
+  {v:'papel',l:'Papel',icon:'📄',color:'#f59e0b'},
+  {v:'vidrio',l:'Vidrio',icon:'🍾',color:'#a855f7'},
+  {v:'metal',l:'Metal',icon:'🔩',color:'#ef4444'},
+  {v:'aceite',l:'Aceite',icon:'🛢️',color:'#f97316'},
+  {v:'textil',l:'Textil',icon:'👕',color:'#ec4899'},
 ]
 
 function DashboardContent() {
@@ -61,36 +62,29 @@ function DashboardContent() {
     setMostrarFeedback(false)
   }
 
-  // OLV calculados desde residuos — reflejan validación del admin en tiempo real
-  const olv_verificados = residuos
-    .filter(r=>r.status==='validado')
-    .reduce((a,r)=>{
-      const factor = TIPOS_RESIDUO.find(t=>t.v===r.tipo)?.factor||1.8
-      return a + Math.round(Number(r.kg)*factor*100)
-    },0)
-  const olv_pendientes = residuos
-    .filter(r=>r.status==='pendiente'||r.status==='en_camino')
-    .reduce((a,r)=>{
-      const factor = TIPOS_RESIDUO.find(t=>t.v===r.tipo)?.factor||1.8
-      return a + Math.round(Number(r.kg)*factor*100)
-    },0)
+  // OLV: solo kilos validados por el admin (pesados, entregados en planta y con certificado). Ver lib/impacto.ts
+  const olv_verificados = validados(residuos).reduce((a,r)=>a+olvDe(r),0)
+  const olv_pendientes = enProceso(residuos).reduce((a,r)=>a+olvDe(r),0)
   const olv_total = olv_verificados + olv_pendientes
-  const kg_total = residuos.reduce((a,r)=>a+Number(r.kg),0)
-  const co2_total = residuos.reduce((a,r)=>{
-    const factor = TIPOS_RESIDUO.find(t=>t.v===r.tipo)?.factor||1.8
-    return a + (Number(r.kg)*factor)
-  },0)
-  const residuos_validados = residuos.filter(r=>r.status==='validado').length
+  const olv_verdes = validados(residuos).filter(esVerde).reduce((a,r)=>a+olvDe(r),0)
+  const olv_amarillos = olv_verificados - olv_verdes
+  const verdes_pend = enProceso(residuos).filter(esVerde).reduce((a,r)=>a+olvDe(r),0)
+  const amarillos_pend = olv_pendientes - verdes_pend
+  const visibles = residuos.filter(r=>r.status!=='rechazado')
+  const kg_total = residuos.filter(r=>r.status!=='rechazado').reduce((a,r)=>a+Number(r.kg),0)
+  const co2_total = validados(residuos).reduce((a,r)=>a+co2De(r),0)
+  const residuos_validados = validados(residuos).length
+  const evidencia = validados(residuos).filter(r=>r.foto_url||r.foto_entrega_url||certificadoDe(r))
 
   const olv_por_tipo = TIPOS_RESIDUO.map(t=>{
-    const mis_residuos = residuos.filter(r=>r.tipo===t.v)
+    const mis_residuos = validados(residuos).filter(r=>r.tipo===t.v)
     const kg = mis_residuos.reduce((a,r)=>a+Number(r.kg),0)
-    const olv = Math.round(kg*t.factor*100)
+    const olv = mis_residuos.reduce((a,r)=>a+olvDe(r),0)
     return {...t, kg, olv}
   }).filter(t=>t.kg>0)
 
   const META_FASE2 = 200
-  const progreso_fase2 = Math.min((olv_total/META_FASE2)*100, 100)
+  const progreso_fase2 = Math.min((olv_verificados/META_FASE2)*100, 100)
 
   const bg = dark?'#0a0e1a':'#f8fafc'
   const text = dark?'#f1f5f9':'#0a0e1a'
@@ -146,9 +140,10 @@ function DashboardContent() {
           <div style={{fontSize:11,color:'#64748b',marginTop:1}}>{usuario?.consorcio||usuario?.barrio||'OLIVIA Circulab'}</div>
         </div>
         <div style={{textAlign:'right'}}>
-          <div style={{fontSize:18,fontWeight:900,color:'#22c55e'}}>{olv_verificados}</div>
-          <div style={{fontSize:9,color:'#64748b'}}>OLV verificados</div>
-          {olv_pendientes>0&&<div style={{fontSize:9,color:'#f59e0b'}}>{olv_pendientes} pendientes</div>}
+          <div style={{fontSize:18,fontWeight:900,color:VERDE}}>{olv_verdes}</div>
+          <div style={{fontSize:9,color:'#64748b'}}>OLV Verdes</div>
+          {olv_amarillos>0&&<div style={{fontSize:9,color:AMARILLO,fontWeight:700}}>+{olv_amarillos} amarillos</div>}
+          {olv_pendientes>0&&<div style={{fontSize:9,color:'#64748b'}}>{olv_pendientes} en validación</div>}
         </div>
       </div>
 
@@ -173,9 +168,9 @@ function DashboardContent() {
             {/* KPIs */}
             <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
               {[
-                {v:olv_verificados,l:lang==='es'?'OLV verificados':'Verified OLV',c:'#22c55e',sub:olv_pendientes>0?`+${olv_pendientes} pendientes`:null},
-                {v:`${kg_total.toFixed(1)}kg`,l:lang==='es'?'Total reciclado':'Total recycled',c:'#3b82f6'},
-                {v:`${co2_total.toFixed(2)}`,l:lang==='es'?'kg CO2eq evitados':'kg CO2eq avoided',c:'#a855f7'},
+                {v:olv_verdes,l:lang==='es'?'OLV Verdes':'Green OLV',c:VERDE,sub:[olv_amarillos>0?`+${olv_amarillos} amarillos`:'',olv_pendientes>0?`${olv_pendientes} en validación`:''].filter(Boolean).join(' · ')||null},
+                {v:`${kg_total.toFixed(1)}kg`,l:lang==='es'?'Total registrado':'Total registered',c:'#3b82f6'},
+                {v:`${co2_total.toFixed(2)}`,l:lang==='es'?'kg CO2eq estimados':'kg CO2eq estimated',sub:lang==='es'?'solo orgánico validado':'validated organic only',c:'#a855f7'},
                 {v:residuos.length,l:lang==='es'?'Registros':'Registrations',c:'#f59e0b',sub:`${residuos_validados} validados`},
               ].map((k:any)=>(
                 <div key={k.l} style={{background:card,border:`1px solid ${border}`,borderRadius:14,padding:'14px',borderTop:`3px solid ${k.c}`}}>
@@ -190,7 +185,7 @@ function DashboardContent() {
             <div style={{background:card,border:`1px solid ${border}`,borderRadius:14,padding:'16px'}}>
               <div style={{display:'flex',justifyContent:'space-between',marginBottom:8}}>
                 <div style={{fontSize:13,fontWeight:700}}>{lang==='es'?'Tu primera meta de historial':'Your first record goal'}</div>
-                <div style={{fontSize:11,color:'#22c55e',fontWeight:700}}>{olv_total}/{META_FASE2} OLV</div>
+                <div style={{fontSize:11,color:'#22c55e',fontWeight:700}}>{olv_verificados}/{META_FASE2} OLV</div>
               </div>
               <div style={{height:8,background:'rgba(255,255,255,0.06)',borderRadius:99,marginBottom:8}}>
                 <div style={{height:'100%',width:`${progreso_fase2}%`,background:'linear-gradient(90deg,#22c55e,#16a34a)',borderRadius:99,transition:'width 0.5s'}} />
@@ -198,7 +193,7 @@ function DashboardContent() {
               <div style={{fontSize:11,color:'#64748b'}}>
                 {progreso_fase2>=100
                   ?(lang==='es'?'✅ Meta cumplida':'✅ Goal reached')
-                  :`${lang==='es'?'Te faltan':'You need'} ${META_FASE2-olv_total} OLV`}
+                  :`${lang==='es'?'Te faltan':'You need'} ${META_FASE2-olv_verificados} OLV`}
               </div>
             </div>
 
@@ -213,8 +208,19 @@ function DashboardContent() {
                       <div style={{display:'flex',alignItems:'center',gap:8}}>
                         <span style={{fontSize:18}}>{tipo?.icon||'♻️'}</span>
                         <div>
-                          <div style={{fontSize:12,fontWeight:600,textTransform:'capitalize'}}>{r.tipo} · {r.kg}kg</div>
-                          <div style={{fontSize:10,color:'#64748b'}}>{new Date(r.created_at).toLocaleDateString()}</div>
+                          <div style={{fontSize:12,fontWeight:600}}><span style={{textTransform:'capitalize'}}>{r.tipo}</span> · {r.kg}kg {r.status!=='rechazado'&&<span style={{color:colorDe(r),fontWeight:800}}>· {olvDe(r)} OLV {esVerde(r)?(lang==='es'?'verdes':'green'):(lang==='es'?'amarillos':'yellow')}</span>}</div>
+                          <div style={{fontSize:10,color:'#64748b'}}>{new Date(r.created_at).toLocaleDateString()}{esPesajeEnVivo(r)&&<span style={{color:'#eab308',fontWeight:700}}> · ⚖️ {lang==='es'?'Pesaje en vivo':'Live weighing'}</span>}</div>
+                          {(()=>{
+                            const cert = certificadoDe(r)
+                            if(!r.foto_url&&!r.foto_entrega_url&&!cert) return null
+                            return (
+                              <div style={{display:'flex',flexWrap:'wrap',gap:10,marginTop:3,fontSize:10,fontWeight:700}}>
+                                {r.foto_url&&<a href={r.foto_url} target="_blank" rel="noopener noreferrer" style={{color:'#eab308',textDecoration:'none'}}>📸 {lang==='es'?'Tu foto':'Your photo'}</a>}
+                                {r.foto_entrega_url&&<a href={r.foto_entrega_url} target="_blank" rel="noopener noreferrer" style={{color:'#3b82f6',textDecoration:'none'}}>📷 {lang==='es'?'Foto de la entrega':'Delivery photo'}</a>}
+                                {cert&&<a href={cert} target="_blank" rel="noopener noreferrer" style={{color:'#22c55e',textDecoration:'none'}}>📄 {lang==='es'?'Certificado de compost':'Compost certificate'}</a>}
+                              </div>
+                            )
+                          })()}
                         </div>
                       </div>
                       <span style={{fontSize:11,color:r.status==='validado'?'#22c55e':r.status==='rechazado'?'#ef4444':'#f59e0b',background:r.status==='validado'?'rgba(34,197,94,0.1)':r.status==='rechazado'?'rgba(239,68,68,0.1)':'rgba(245,158,11,0.1)',padding:'3px 8px',borderRadius:20}}>
@@ -332,7 +338,6 @@ function DashboardContent() {
 
              <div style={{marginTop:10,padding:'8px 12px',background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.15)',borderRadius:8,textAlign:'center'}}>
                 <span style={{fontSize:11,color:'#22c55e',fontWeight:700}}>{lang==='es'?'Amigos invitados:':'Friends invited:'} {usuario?.referidos_count||0}</span>
-                <span style={{fontSize:10,color:'#64748b'}}> · {(usuario?.referidos_count||0)*200} OLV {lang==='es'?'ganados':'earned'}</span>
               </div>
             </div>
 
@@ -344,29 +349,53 @@ function DashboardContent() {
           <div style={{display:'flex',flexDirection:'column',gap:16}}>
             <div style={{fontSize:16,fontWeight:900}}>🌿 OLIVIA Circulab</div>
 
-            <div style={{background:card,border:'1px solid rgba(34,197,94,0.2)',borderRadius:14,padding:'16px'}}>
-              <div style={{fontSize:13,fontWeight:700,marginBottom:4,color:'#22c55e'}}>{lang==='es'?'Tus OLV':'Your OLV'}</div>
-              <div style={{fontSize:10,color:'#64748b',marginBottom:12}}>{lang==='es'?'Registro ambiental sin valor monetario · se acreditan cuando verificamos la entrega':'Environmental record with no monetary value · credited once delivery is verified'}</div>
-              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:8,marginBottom:12}}>
-                {[
-                  {v:olv_verificados,l:'Verificados',c:'#22c55e'},
-                  {v:olv_pendientes,l:'Pendientes',c:'#f59e0b'},
-                  {v:olv_total,l:'Total',c:'#64748b'},
-                ].map(k=>(
-                  <div key={k.l} style={{background:'rgba(255,255,255,0.03)',borderRadius:10,padding:'10px',textAlign:'center'}}>
-                    <div style={{fontSize:20,fontWeight:800,color:k.c}}>{k.v}</div>
-                    <div style={{fontSize:9,color:'#64748b',marginTop:2}}>{k.l}</div>
+            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
+              <div style={{background:card,border:`2px solid ${VERDE}`,borderRadius:14,padding:'14px'}}>
+                <div style={{fontSize:12,fontWeight:800,color:VERDE}}>🟢 OLV Verdes</div>
+                <div style={{fontSize:30,fontWeight:900,color:VERDE,margin:'4px 0'}}>{olv_verdes}</div>
+                {verdes_pend>0&&<div style={{fontSize:10,color:'#64748b'}}>+{verdes_pend} en validación</div>}
+                <div style={{fontSize:10,color:'#94a3b8',marginTop:6,lineHeight:1.4}}>{lang==='es'?'Orgánico. Podrían tener valor si se certifica bajo Verra.':'Organic. Could gain value if certified under Verra.'}</div>
+              </div>
+              <div style={{background:card,border:`2px solid ${AMARILLO}`,borderRadius:14,padding:'14px'}}>
+                <div style={{fontSize:12,fontWeight:800,color:AMARILLO}}>🟡 OLV Amarillos</div>
+                <div style={{fontSize:30,fontWeight:900,color:AMARILLO,margin:'4px 0'}}>{olv_amarillos}</div>
+                {amarillos_pend>0&&<div style={{fontSize:10,color:'#64748b'}}>+{amarillos_pend} en validación</div>}
+                <div style={{fontSize:10,color:'#94a3b8',marginTop:6,lineHeight:1.4}}>{lang==='es'?'Otros materiales. Registro ambiental, sin valor monetario.':'Other materials. Environmental record, no monetary value.'}</div>
+              </div>
+            </div>
+
+            <div style={{background:card,border:`1px solid ${border}`,borderRadius:14,padding:'16px',fontSize:11,lineHeight:1.6}}>
+              <div style={{fontSize:13,fontWeight:700,marginBottom:8}}>{lang==='es'?'¿Cuáles podrían valer algo?':'Which could be worth something?'}</div>
+              <div style={{borderLeft:`3px solid ${VERDE}`,paddingLeft:10,marginBottom:10,color:'#94a3b8'}}><strong style={{color:VERDE}}>🟢 Verdes.</strong> {TEXTO_VERDES}</div>
+              <div style={{borderLeft:`3px solid ${AMARILLO}`,paddingLeft:10,color:'#94a3b8'}}><strong style={{color:AMARILLO}}>🟡 Amarillos.</strong> {TEXTO_AMARILLOS}</div>
+              <div style={{fontSize:10,color:'#64748b',marginTop:10}}>⏳ {lang==='es'?'Los OLV "en validación" se acreditan cuando el material llega a la planta y la planta certifica el compost.':'OLV "in validation" are credited once the material reaches the plant and the plant certifies the compost.'}</div>
+            </div>
+
+            <div style={{background:card,border:`1px solid ${border}`,borderRadius:14,padding:'16px'}}>
+              <div style={{fontSize:13,fontWeight:700,marginBottom:4}}>{lang==='es'?'¿De qué residuo sale cada OLV?':'Which waste does each OLV come from?'}</div>
+              <div style={{fontSize:10,color:'#64748b',marginBottom:10}}>{lang==='es'?'Cada registro tuyo, con sus OLV y en qué estado está.':'Each of your records, its OLV and its status.'}</div>
+              {visibles.length===0?(
+                <div style={{fontSize:12,color:'#64748b',textAlign:'center',padding:'10px 0'}}>{lang==='es'?'Todavía no registraste residuos.':'No records yet.'}</div>
+              ):visibles.map((r:any)=>(
+                <div key={r.id} style={{display:'flex',justifyContent:'space-between',alignItems:'center',gap:8,padding:'8px 0',borderBottom:`1px solid ${border}`}}>
+                  <div style={{display:'flex',alignItems:'center',gap:8,minWidth:0}}>
+                    <span style={{width:10,height:10,borderRadius:'50%',background:colorDe(r),flexShrink:0}} />
+                    <div style={{minWidth:0}}>
+                      <div style={{fontSize:12,fontWeight:600}}><span style={{textTransform:'capitalize'}}>{r.tipo}</span> · {r.kg} kg</div>
+                      <div style={{fontSize:10,color:'#64748b'}}>{new Date(r.created_at).toLocaleDateString()} · {r.status==='validado'?'✓ '+(lang==='es'?'Validado':'Validated'):r.status==='en_camino'?(lang==='es'?'🚚 En planta':'🚚 At the plant'):(lang==='es'?'⏳ En validación':'⏳ In validation')}{esPesajeEnVivo(r)&&' · ⚖️'}</div>
+                    </div>
                   </div>
-                ))}
-              </div>
-              <div style={{fontSize:10,color:'#64748b',lineHeight:1.6,padding:'8px',background:'rgba(245,158,11,0.06)',borderRadius:8,border:'1px solid rgba(245,158,11,0.15)'}}>
-                ⏳ Los OLV pendientes se acreditan cuando verificamos que el residuo llegó a la planta.
-              </div>
+                  <div style={{textAlign:'right',flexShrink:0}}>
+                    <div style={{fontSize:13,fontWeight:800,color:colorDe(r),opacity:r.status==='validado'?1:0.55}}>{olvDe(r)} OLV</div>
+                    <div style={{fontSize:9,color:colorDe(r)}}>{esVerde(r)?(lang==='es'?'verdes':'green'):(lang==='es'?'amarillos':'yellow')}</div>
+                  </div>
+                </div>
+              ))}
             </div>
 
             {olv_por_tipo.length>0&&(
               <div style={{background:card,border:`1px solid ${border}`,borderRadius:14,padding:'16px'}}>
-                <div style={{fontSize:13,fontWeight:700,marginBottom:12}}>OLV por tipo de residuo</div>
+                <div style={{fontSize:13,fontWeight:700,marginBottom:12}}>OLV verificados por tipo de residuo</div>
                 {olv_por_tipo.map(t=>(
                   <div key={t.v} style={{marginBottom:12}}>
                     <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:4}}>
@@ -375,21 +404,53 @@ function DashboardContent() {
                         <span style={{fontSize:12,fontWeight:600}}>{t.l}</span>
                         <span style={{fontSize:10,color:'#64748b'}}>{t.kg}kg</span>
                       </div>
-                      <span style={{fontSize:12,fontWeight:700,color:t.color}}>{t.olv} OLV</span>
+                      <span style={{fontSize:12,fontWeight:700,color:colorDe({tipo:t.v})}}>{t.olv} OLV {esVerde({tipo:t.v})?'🟢':'🟡'}</span>
                     </div>
                     <div style={{height:6,background:'rgba(255,255,255,0.06)',borderRadius:99}}>
-                      <div style={{height:'100%',width:`${Math.min((t.olv/(olv_total||1))*100,100)}%`,background:t.color,borderRadius:99,opacity:0.8}} />
+                      <div style={{height:'100%',width:`${Math.min((t.olv/(olv_verificados||1))*100,100)}%`,background:colorDe({tipo:t.v}),borderRadius:99,opacity:0.8}} />
                     </div>
                   </div>
                 ))}
               </div>
             )}
 
-            <div style={{background:card,border:'1px solid rgba(59,130,246,0.2)',borderRadius:14,padding:'16px'}}>
-              <div style={{fontSize:13,fontWeight:700,marginBottom:4,color:'#3b82f6'}}>{lang==='es'?'Tus puntos de actividad':'Your activity points'}</div>
-              <div style={{fontSize:10,color:'#64748b',marginBottom:12}}>{lang==='es'?'Distintos de los OLV · sin valor monetario':'Separate from OLV · no monetary value'}</div>
+            <div style={{background:card,border:`1px solid ${border}`,borderRadius:14,padding:'16px'}}>
+              <div style={{fontSize:13,fontWeight:700,marginBottom:4}}>🗂️ {lang==='es'?'Evidencia de tus registros validados':'Evidence for your validated records'}</div>
+              <div style={{fontSize:10,color:'#64748b',marginBottom:12}}>{lang==='es'?'Tu foto con el peso, la foto de la entrega en la planta y el certificado de compost. Tocá para abrir.':'Your photo with the weight, the delivery photo at the plant and the compost certificate. Tap to open.'}</div>
+              {evidencia.length===0?(
+                <div style={{fontSize:12,color:'#64748b',textAlign:'center',padding:'12px 0'}}>{lang==='es'?'Cuando validemos un registro, acá vas a ver sus fotos y el certificado.':'Once a record is validated, its photos and certificate show up here.'}</div>
+              ):evidencia.map((r:any)=>{
+                const cert = certificadoDe(r)
+                const esImg = (u:string)=>!/\.pdf(\?|$)/i.test(u)
+                const items = [
+                  r.foto_url&&{u:r.foto_url,l:lang==='es'?'Tu foto':'Your photo'},
+                  r.foto_entrega_url&&{u:r.foto_entrega_url,l:lang==='es'?'Entrega':'Delivery'},
+                  cert&&{u:cert,l:lang==='es'?'Certificado':'Certificate'},
+                ].filter(Boolean) as {u:string,l:string}[]
+                return (
+                  <div key={r.id} style={{marginBottom:14}}>
+                    <div style={{fontSize:11,fontWeight:700,marginBottom:6}}>{r.tipo} · {r.kg} kg · {new Date(r.created_at).toLocaleDateString()}{esPesajeEnVivo(r)&&<span style={{color:'#eab308'}}> · ⚖️ {lang==='es'?'Pesaje en vivo':'Live weighing'}</span>}</div>
+                    <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:6}}>
+                      {items.map(i=>(
+                        <a key={i.l} href={i.u} target="_blank" rel="noopener noreferrer" style={{textDecoration:'none',color:'#94a3b8',fontSize:10,textAlign:'center'}}>
+                          {esImg(i.u)
+                            ?<img src={i.u} alt={i.l} style={{width:'100%',aspectRatio:'1',objectFit:'cover',borderRadius:8,display:'block',marginBottom:3}} />
+                            :<div style={{width:'100%',aspectRatio:'1',borderRadius:8,background:'rgba(34,197,94,0.08)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:28,marginBottom:3}}>📄</div>}
+                          {i.l}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )
+              })}
+              <div style={{fontSize:9,color:'#64748b',lineHeight:1.5,marginTop:4}}>{NOTA_CO2}</div>
+            </div>
+
+            <div style={{background:card,border:`1px solid ${AMARILLO}55`,borderRadius:14,padding:'16px'}}>
+              <div style={{fontSize:13,fontWeight:700,marginBottom:4,color:AMARILLO}}>🟡 {lang==='es'?'Tus puntos de actividad':'Your activity points'}</div>
+              <div style={{fontSize:10,color:'#64748b',marginBottom:12}}>{lang==='es'?'No son OLV · nunca van a tener valor monetario':'Not OLV · will never have monetary value'}</div>
               <div style={{display:'flex',alignItems:'center',gap:16}}>
-                <div style={{fontSize:40,fontWeight:900,color:'#3b82f6'}}>{usuario?.score_pulso||0}</div>
+                <div style={{fontSize:40,fontWeight:900,color:AMARILLO}}>{usuario?.score_pulso||0}</div>
                 <div>
                   <div style={{fontSize:12,fontWeight:700}}>Nivel {usuario?.nivel||1}</div>
                   <div style={{fontSize:10,color:'#64748b',marginTop:2}}>{lang==='es'?'Suman por registrar y participar en la comunidad':'Earned by registering and taking part in the community'}</div>
@@ -412,15 +473,15 @@ function DashboardContent() {
               <div style={{fontSize:13,fontWeight:700,marginBottom:6,color:'#f59e0b'}}>{lang==='es'?'Qué son tus OLV':'What your OLV are'}</div>
               <div style={{fontSize:11,color:'#94a3b8',lineHeight:1.6}}>
                 {lang==='es'
-                  ?'Cada residuo validado suma OLV Verdes. Hoy no tienen valor monetario: no se canjean ni se cobran. Son tu historial verificado: cuántos kilos separaste y a dónde fueron.'
-                  :'Each validated waste adds Green OLV. Today they have no monetary value: they cannot be redeemed or paid out. They are your verified record: how many kilos you sorted and where they went.'}
+                  ?'Cada kilo de orgánico validado suma OLV Verdes (🟢): son los únicos que podrían tener valor si el proyecto se certifica bajo Verra. Los demás materiales suman OLV Amarillos (🟡), que son registro ambiental sin valor monetario. Hoy ninguno se canjea ni se cobra.'
+                  :'Each validated kilo of organic waste adds Green OLV (🟢): the only ones that could gain value if the project is certified under Verra. Other materials add Yellow OLV (🟡), an environmental record with no monetary value. Today none can be redeemed or paid out.'}
               </div>
             </div>
 
             <div style={{background:card,border:`1px solid ${border}`,borderRadius:14,padding:'16px'}}>
               <div style={{fontSize:13,fontWeight:700,marginBottom:16}}>{lang==='es'?'Las etapas de OLIVIA':'OLIVIA stages'}</div>
               {[
-                {num:1,fase:lang==='es'?'Semilla · hoy':'Seed · today',titulo:lang==='es'?'Registrás y validamos':'You register, we validate',desc:lang==='es'?'Cada registro se revisa a mano, uno por uno. Construís historial verificado.':'Each record is reviewed by hand, one by one. You build a verified record.',color:'#22c55e',activo:true,progreso:Math.min((olv_total/200)*100,100),meta:`${olv_total}/200 OLV`},
+                {num:1,fase:lang==='es'?'Semilla · hoy':'Seed · today',titulo:lang==='es'?'Registrás y validamos':'You register, we validate',desc:lang==='es'?'Cada registro se revisa a mano, uno por uno. Construís historial verificado.':'Each record is reviewed by hand, one by one. You build a verified record.',color:'#22c55e',activo:true,progreso:Math.min((olv_verificados/200)*100,100),meta:`${olv_verificados}/200 OLV`},
                 {num:2,fase:lang==='es'?'Brote · próxima':'Sprout · next',titulo:lang==='es'?'Planta aliada y balanza':'Partner plant and scale',desc:lang==='es'?'El peso sale de una balanza con modelo aprobado y la planta confirma que procesó el material.':'Weight comes from an approved-model scale and the plant confirms it processed the material.',color:'#3b82f6',activo:false,progreso:0,meta:''},
                 {num:3,fase:lang==='es'?'Árbol · si llega':'Tree · if it comes',titulo:lang==='es'?'Certificación':'Certification',desc:lang==='es'?'Con 12 a 24 meses de registros completos, OLIVIA puede presentar un proyecto ante Verra. Si se certifica, cómo se reconoce a quienes aportaron el origen se definirá y comunicará en ese momento. Hoy no prometemos pagos.':'With 12 to 24 months of complete records, OLIVIA can submit a project to Verra. If certified, how those who contributed the origin are recognized will be defined and announced then. We promise no payments today.',color:'#f59e0b',activo:false,progreso:0,meta:''},
               ].map((f,i)=>(

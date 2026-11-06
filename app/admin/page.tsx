@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import { fetchIA } from '../../lib/ia'
 import PilotoPlanta from '../../components/admin/PilotoPlanta'
+import { co2De } from '../../lib/impacto'
 
 
 function BarChart({datos, color='#22c55e'}: {datos:{label:string,value:number}[], color?:string}) {
@@ -41,11 +42,12 @@ function NewsletterEngine({usuarios,residuos}:any) {
   const [newsletter, setNewsletter] = React.useState('')
   const [loading, setLoading] = React.useState(false)
   const [copiado, setCopiado] = React.useState(false)
-  const kg = residuos.reduce((a:number,r:any)=>a+Number(r.peso_kg||0),0)
-  const co2 = residuos.reduce((a:number,r:any)=>a+Number(r.co2_evitado_kg||0),0)
+  const val = residuos.filter((r:any)=>r.status==='validado')
+  const kg = val.reduce((a:number,r:any)=>a+Number(r.kg||0),0)
+  const co2 = val.reduce((a:number,r:any)=>a+co2De(r),0)
   const generar = async () => {
     setLoading(true); setNewsletter('')
-    const prompt = 'Escribe el newsletter quincenal de OLIVIA Circulab. Datos: ' + usuarios.length + ' usuarios, ' + kg.toFixed(1) + ' kg verificados, ' + co2.toFixed(1) + ' kg CO2eq. Tono cercano. Max 300 palabras.'
+    const prompt = 'Escribe el newsletter quincenal de OLIVIA Circulab. Datos: ' + usuarios.length + ' usuarios, ' + kg.toFixed(1) + ' kg verificados, ' + co2.toFixed(1) + ' kg CO2eq estimados (solo orgánico, factor declarado 0,8 kg por kilo; no es un crédito de carbono). Tono cercano. Max 300 palabras.'
     try {
       const res = await fetchIA('/api/ia',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:800,messages:[{role:'user',content:prompt}]})})
       const data = await res.json()
@@ -110,7 +112,7 @@ function EmailSecuencia({usuarios}:any) {
   const [loading, setLoading] = React.useState(false)
   const [copiado, setCopiado] = React.useState(false)
   const TIPOS = [
-    {id:'dia3',label:'Dia 3 - Primer residuo',prompt:'Escribe email de seguimiento para usuario de OLIVIA que se registro hace 3 dias y no registro residuos. Tono cercano. Recordar 100 OLV Bonus. 2 minutos para registrar. CTA oliviacirculab.com.ar/registrar. Max 120 palabras. Incluir ASUNTO: al inicio.'},
+    {id:'dia3',label:'Dia 3 - Primer residuo',prompt:'Escribe email de seguimiento para usuario de OLIVIA que se registro hace 3 dias y no registro residuos. Tono cercano. Recordar los 100 puntos de actividad de bienvenida. 2 minutos para registrar. CTA oliviacirculab.com.ar/registrar. Max 120 palabras. Incluir ASUNTO: al inicio.'},
     {id:'dia7',label:'Dia 7 - Invitar vecinos',prompt:'Escribe email para usuario activo de OLIVIA hace 7 dias. Felicitarlo. Recordar +50 OLV por vecino invitado. Max 120 palabras. Incluir ASUNTO: al inicio.'},
     {id:'dia30',label:'Mes 1 - Reporte',prompt:'Escribe email de reporte mensual para usuario de OLIVIA. Celebratorio. Un mes activo. Destacar kilos desviados del relleno y metano evitado. NO prometer pagos ni fechas. CTA dashboard. Max 150 palabras. Incluir ASUNTO: al inicio.'},
     {id:'verra',label:'Hito Verra Feb 2026',prompt:'Escribe email informando que Verra aprobo su primer piloto de verificacion digital dMRV de alta frecuencia en febrero 2026, el mismo modelo que implementa OLIVIA. Explicar que eso abre el camino tecnico. NO prometer pagos, montos ni fechas de certificacion. Aclarar que el proceso lleva entre dos y tres anios. Max 150 palabras. Incluir ASUNTO: al inicio.'},
@@ -647,7 +649,7 @@ export default function Admin() {
  const pendientes = residuos.filter(r=>r.status==='pendiente')
  const validados = residuos.filter(r=>r.status==='validado')
  const kg_total = validados.reduce((a,r)=>a+Number(r.kg),0)
- const co2_total = validados.reduce((a,r)=>a+(Number(r.kg)*1.8),0)
+ const co2_total = validados.reduce((a,r)=>a+co2De(r),0) // solo orgánico, 0,8 kg CO2eq/kg (lib/impacto)
  const quierePiloto = encuestas.filter(e=>e.quiere_piloto==='si').length
 
  // Gráficos
@@ -668,7 +670,7 @@ export default function Admin() {
    return Object.entries(semanas).slice(-6).map(([k,v])=>({label:k,value:v as number}))
  })()
 
- const textoRedes = `🌿 OLIVIA Circulab esta semana:\n\n✅ ${validados.length} residuos verificados\n♻️ ${kg_total.toFixed(1)}kg reciclados\n💨 ${co2_total.toFixed(1)}kg CO2eq evitados\n👥 ${usuarios.length} usuarios activos\n\nSumate → oliviacirculab.com.ar\n\n#OliviaCirculab #ReFi #Reciclaje #CABA`
+ const textoRedes = `🌿 OLIVIA Circulab esta semana:\n\n✅ ${validados.length} residuos verificados\n♻️ ${kg_total.toFixed(1)}kg reciclados\n💨 ${co2_total.toFixed(1)}kg CO2eq estimados\n👥 ${usuarios.length} usuarios activos\n\nSumate → oliviacirculab.com.ar\n\n#OliviaCirculab #ReFi #Reciclaje #CABA`
 
  // Funnel comercial
  const funnel = [
@@ -811,10 +813,7 @@ export default function Admin() {
              <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(120px,1fr))',gap:10}}>
                {[
                  {icon:'♻️',v:`${kg_total.toFixed(1)}kg`,l:'Desviados del relleno'},
-                 {icon:'💨',v:`${(kg_total*0.065).toFixed(2)}kg`,l:'Metano evitado'},
-                 {icon:'🌡️',v:`${co2_total.toFixed(1)}kg`,l:'CO2eq evitados'},
-                 {icon:'🚗',v:`${(co2_total/0.21).toFixed(0)}km`,l:'Equiv. en auto'},
-                 {icon:'🌳',v:`${((co2_total/21)*365).toFixed(0)}d`,l:'Trabajo árbol'},
+                 {icon:'🌡️',v:`${co2_total.toFixed(1)}kg`,l:'CO2eq estimados (orgánico)'},
                ].map(m=>(
                  <div key={m.l} style={{background:'rgba(255,255,255,0.03)',borderRadius:10,padding:'10px',textAlign:'center'}}>
                    <div style={{fontSize:20,marginBottom:4}}>{m.icon}</div>
@@ -1360,7 +1359,7 @@ export default function Admin() {
            <div style={{background:'#111827',border:'1px solid rgba(255,255,255,0.06)',borderRadius:14,padding:'16px'}}>
              <div style={{fontSize:13,fontWeight:700,marginBottom:12}}>Templates rápidos</div>
              {[
-               {titulo:'🏆 Logro semanal',texto:`Esta semana la comunidad OLIVIA verificó ${kg_total.toFixed(0)}kg de residuos en Buenos Aires 🌿\n\n${co2_total.toFixed(1)}kg CO2eq evitados\n${usuarios.length} vecinos activos\n\n#OliviaCirculab`},
+               {titulo:'🏆 Logro semanal',texto:`Esta semana la comunidad OLIVIA verificó ${kg_total.toFixed(0)}kg de residuos en Buenos Aires 🌿\n\n${co2_total.toFixed(1)}kg CO2eq estimados\n${usuarios.length} vecinos activos\n\n#OliviaCirculab`},
                {titulo:'📊 Dato de la encuesta',texto:`El ${encuestas.length>0?Math.round(encuestas.filter(e=>e.separaria_con_beneficio==='si').length/encuestas.length*100):78}% separaría si recibiera un beneficio económico real.\n\nEso es exactamente lo que hace OLIVIA 🌿\n\noliviacirculab.com.ar`},
                {titulo:'🌿 Invitación al piloto',texto:`¿Vivís en un edificio en Buenos Aires?\n\nTu consorcio puede empezar a recuperar el valor de sus residuos hoy.\n\nGratis. Sin complicaciones. Con impacto real.\n\n→ oliviacirculab.com.ar`},
              ].map(t=>(

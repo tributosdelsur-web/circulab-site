@@ -236,11 +236,11 @@ export default function Ciudadano() {
             <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.3)',borderRadius:14,padding:'16px'}}>
               <div style={{fontSize:20,marginBottom:8}}>🌿</div>
               <div style={{fontSize:13,fontWeight:700,color:'#22c55e',marginBottom:6}}>{es?'OLV Verdes':'Green OLV'}</div>
-              <div style={{fontSize:11,color:sub,lineHeight:1.6}}>{es?'Solo de residuos validados por el equipo. Respaldados por kilos reales y metano evitado. Son los únicos que pueden entrar a un proceso de certificación.':'Only from team-validated waste. Backed by real kilos and avoided methane. The only ones that can enter a certification process.'}</div>
+              <div style={{fontSize:11,color:sub,lineHeight:1.6}}>{es?'Solo de orgánico validado: pesado, entregado en planta y con certificado de compost. Son los únicos que pueden entrar a un proceso de certificación (Verra) y, si se certifica, podrían tener valor. Hoy no lo tienen. Los demás materiales suman OLV Amarillos, sin valor monetario.':'Only from validated organic waste: weighed, delivered to the plant and with a compost certificate. The only ones that can enter certification (Verra) and could gain value if certified. Today they have none. Other materials add Yellow OLV, with no monetary value.'}</div>
             </div>
             <div style={{background:'rgba(245,158,11,0.06)',border:'1px solid rgba(245,158,11,0.2)',borderRadius:14,padding:'16px'}}>
               <div style={{fontSize:20,marginBottom:8}}>⭐</div>
-              <div style={{fontSize:13,fontWeight:700,color:'#f59e0b',marginBottom:6}}>{es?'OLV Bonus':'Bonus OLV'}</div>
+              <div style={{fontSize:13,fontWeight:700,color:'#f59e0b',marginBottom:6}}>{es?'Puntos de actividad':'Activity points'}</div>
               <div style={{fontSize:11,color:sub,lineHeight:1.6}}>{es?'Por registrarte, referir amigos, publicar y dar likes. Sin valor ambiental. No se presentan a certificación.':'For registering, referring friends, posting and liking. No environmental value. Not submitted for certification.'}</div>
             </div>
           </div>
@@ -532,7 +532,7 @@ export default function Ciudadano() {
         {/* COMPARTIR */}
         <section style={{padding:'24px 0',borderTop:`1px solid ${border}`}}>
           <h2 style={{fontSize:20,fontWeight:900,marginBottom:6,color:text}}>{es?'Compartí OLIVIA':'Share OLIVIA'}</h2>
-          <p style={{fontSize:12,color:sub,marginBottom:16}}>{es?'Invitar suma OLV Bonus, que son puntos de participación sin valor ambiental ni monetario':'Inviting adds Bonus OLV: participation points with no environmental or monetary value'}</p>
+          <p style={{fontSize:12,color:sub,marginBottom:16}}>{es?'Invitar suma puntos de actividad, que son de participación: no son OLV y no tienen valor ambiental ni monetario':'Inviting adds activity points: participation only, not OLV, no environmental or monetary value'}</p>
           <div style={{display:'flex',flexDirection:'column',gap:10}}>
             <a href={`https://wa.me/?text=${encodeURIComponent(es?'Mirá esto — tu residuo vuelve al ciclo 🌿 https://oliviacirculab.com.ar/ciudadano':'Check this out — your waste returns to the cycle 🌿 https://oliviacirculab.com.ar/ciudadano')}`}
               target="_blank" style={{display:'flex',alignItems:'center',gap:12,padding:'14px',borderRadius:12,background:'rgba(37,211,102,0.08)',border:'1px solid rgba(37,211,102,0.3)',textDecoration:'none'}}>

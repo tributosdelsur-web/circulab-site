@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import { fetchIA } from '../../lib/ia'
 import { comprimirImagen } from '../../lib/fotos'
+import { certificadoDe } from '../../lib/impacto'
 
 // Panel del pesaje en vivo: 1) entrega en planta con una foto para todo el lote, 2) certificado de compost.
 // En cada paso se avisa por mail a las personas, con la foto.
@@ -34,6 +35,7 @@ export default function PilotoPlanta({ residuos, recargar }: { residuos: any[]; 
   const filtro = (r: any) => (soloVivo ? esVivo(r) : true)
   const paraEntregar = useMemo(() => residuos.filter(r => r.status === 'pendiente' && filtro(r)), [residuos, soloVivo])
   const enPlanta = useMemo(() => residuos.filter(r => r.status === 'en_camino' && filtro(r)), [residuos, soloVivo])
+  const yaValidados = useMemo(() => residuos.filter(r => r.status === 'validado' && filtro(r)), [residuos, soloVivo])
   const conPermiso = useMemo(() => residuos.filter(r => /\[autoriza_redes\]/.test(r.notas || '') && r.foto_url), [residuos])
 
   const marcado = (sel: Record<string, boolean>, id: string) => sel[id] !== false // por defecto, todos marcados
@@ -187,6 +189,35 @@ export default function PilotoPlanta({ residuos, recargar }: { residuos: any[]; 
         <button onClick={registrarCompost} disabled={!certificado || !idsCompost.length || !!trabajando} style={boton(!!certificado && idsCompost.length > 0 && !trabajando)}>
           {trabajando === 'compost' ? 'Validando…' : `Validar ${idsCompost.length} registros con el certificado`}
         </button>
+      </div>
+
+      <div style={caja}>
+        <div style={{ fontSize: 15, fontWeight: 800, color: '#22c55e' }}>✅ 3 · Validados: fotos y certificados</div>
+        <div style={{ fontSize: 12, color: '#64748b', margin: '4px 0 10px' }}>{yaValidados.length} registros validados · {kgTxt(yaValidados.reduce((a, r) => a + Number(r.kg || 0), 0))}. Tocá una foto o el certificado para abrirlo.</div>
+        {yaValidados.slice(0, 60).map(r => {
+          const cert = certificadoDe(r)
+          const items = [
+            r.foto_url && { u: r.foto_url, l: 'Pesaje' },
+            r.foto_entrega_url && { u: r.foto_entrega_url, l: 'Entrega' },
+            cert && { u: cert, l: 'Certificado' },
+          ].filter(Boolean) as { u: string; l: string }[]
+          return (
+            <div key={r.id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+              <div style={{ flex: 1, minWidth: 0, fontSize: 12 }}>
+                <div style={{ fontWeight: 700, color: '#f1f5f9' }}>{kgTxt(Number(r.kg))} · {r.tipo}</div>
+                <div style={{ fontSize: 10, color: '#64748b' }}>{r.usuarios?.nombre || r.nombre || ''} {new Date(r.created_at).toLocaleDateString('es-AR')}</div>
+              </div>
+              {items.map(i => (
+                <a key={i.l} href={i.u} target="_blank" rel="noopener noreferrer" title={i.l} style={{ textAlign: 'center', fontSize: 9, color: '#94a3b8', textDecoration: 'none' }}>
+                  {/\.pdf(\?|$)/i.test(i.u)
+                    ? <div style={{ width: 48, height: 48, borderRadius: 8, background: 'rgba(34,197,94,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>📄</div>
+                    : <img src={i.u} alt={i.l} style={{ width: 48, height: 48, objectFit: 'cover', borderRadius: 8, display: 'block' }} />}
+                  {i.l}
+                </a>
+              ))}
+            </div>
+          )
+        })}
       </div>
 
       <div style={caja}>

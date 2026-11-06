@@ -81,7 +81,7 @@ function ComunidadContent() {
         setUsuario(u)
         const {data:t} = await supabase.from('wallet_transacciones').select('*').eq('usuario_id',id).order('created_at',{ascending:false}).limit(20)
         setTransacciones(t||[])
-        setWallet((t||[]).reduce((a:number,tr:any)=>a+Number(tr.monto_olv),0))
+        setWallet(Number(u?.score_pulso ?? (t||[]).reduce((a:number,tr:any)=>a+Number(tr.monto_olv),0)))
         // Cargar mis likes
         const {data:ml} = await supabase.from('likes').select('post_id').eq('usuario_id',id)
         setMisLikes((ml||[]).map((l:any)=>l.post_id))
@@ -133,7 +133,7 @@ function ComunidadContent() {
       foto_url = data.publicUrl
     }
     await supabase.from('posts').insert({usuario_id:uid,contenido:nuevoPost,foto_url,video_url:videoUrl||null,tipo:'accion',olv_ganados:10})
-    await supabase.from('wallet_transacciones').insert({usuario_id:uid,tipo:'bonus_post',monto_olv:10,tipo_olv:'bonus',descripcion:'⭐ OLV Bonus · Post publicado en la comunidad'})
+    await supabase.rpc('sumar_puntos',{p_tipo:'post'})
     setNuevoPost('')
     setNuevaFoto(null)
     setVideoUrl('')
@@ -148,7 +148,7 @@ function ComunidadContent() {
     await supabase.storage.from('residuos-fotos').upload(nombre,file)
     const {data} = supabase.storage.from('residuos-fotos').getPublicUrl(nombre)
     await supabase.from('stories').insert({usuario_id:uid,foto_url:data.publicUrl,texto:''})
-    await supabase.from('wallet_transacciones').insert({usuario_id:uid,tipo:'bonus_story',monto_olv:10,tipo_olv:'bonus',descripcion:'⭐ OLV Bonus · Story publicada'})
+    await supabase.rpc('sumar_puntos',{p_tipo:'story'})
     cargarFeed()
   }
 
@@ -163,16 +163,8 @@ function ComunidadContent() {
       await supabase.from('likes').insert({post_id:postId,usuario_id:uid})
       setMisLikes(prev=>[...prev,postId])
       setLikesCount((prev:any)=>({...prev,[postId]:(prev[postId]||0)+1}))
-      // +5 OLV al dueño del post si no es el mismo usuario
-      if(uid!==postOwnerId) {
-        await supabase.from('wallet_transacciones').insert({
-          usuario_id:postOwnerId,
-          tipo:'like_recibido',
-          monto_olv:2,
-          tipo_olv:'bonus',
-          descripcion:'⭐ OLV Bonus · Like recibido en tu post'
-        })
-      }
+      // +2 puntos de actividad al dueño del post (la base controla que no sea el propio y que cuente una sola vez)
+      if(uid!==postOwnerId) await supabase.rpc('sumar_puntos',{p_tipo:'like_recibido',p_ref:postId})
     }
   }
 
@@ -186,7 +178,7 @@ function ComunidadContent() {
     if(!uid){window.location.href='/login';return}
     if(!comentarioTexto) return
     await supabase.from('comentarios').insert({post_id:postId,usuario_id:uid,texto:comentarioTexto})
-    await supabase.from('wallet_transacciones').insert({usuario_id:uid,tipo:'bonus_comentario',monto_olv:5,tipo_olv:'bonus',descripcion:'⭐ OLV Bonus · Comentario publicado'})
+    await supabase.rpc('sumar_puntos',{p_tipo:'comentario'})
     setComentarioTexto('')
     cargarComentarios(postId)
   }
@@ -272,11 +264,11 @@ function ComunidadContent() {
     const yOLV = post.foto_url ? 1280 : 900
     ctx.fillStyle = '#22c55e'
     ctx.font = 'bold 100px system-ui'
-    ctx.fillText('+'+post.olv_ganados+' OLV', 540, yOLV)
+    ctx.fillText('+'+post.olv_ganados+' puntos', 540, yOLV)
 
     ctx.fillStyle = '#64748b'
     ctx.font = '40px system-ui'
-    ctx.fillText('tokens de carbono verificados', 540, yOLV+70)
+    ctx.fillText('de actividad en OLIVIA', 540, yOLV+70)
 
     // CTA — Registrate vos también
     const yCTA = post.foto_url ? 1480 : 1200
@@ -360,8 +352,8 @@ function ComunidadContent() {
         </a>
         <div style={{display:'flex',gap:8,alignItems:'center'}}>
           {uid?(
-            <button onClick={()=>cambiarVista('wallet')} style={{background:'rgba(34,197,94,0.1)',border:'1px solid rgba(34,197,94,0.3)',borderRadius:20,padding:'5px 12px',color:'#22c55e',fontSize:12,fontWeight:700,cursor:'pointer'}}>
-              🪙 {wallet} OLV
+            <button onClick={()=>cambiarVista('wallet')} style={{background:'rgba(234,179,8,0.1)',border:'1px solid rgba(234,179,8,0.35)',borderRadius:20,padding:'5px 12px',color:'#eab308',fontSize:12,fontWeight:700,cursor:'pointer'}}>
+              ⭐ {wallet} pts
             </button>
           ):(
             <a href="/login" style={{background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',padding:'6px 14px',borderRadius:8,fontSize:12,fontWeight:700,textDecoration:'none'}}>Entrar →</a>
@@ -432,23 +424,24 @@ function ComunidadContent() {
         <div style={{padding:16}}>
           <button onClick={()=>cambiarVista('feed')} style={{background:'transparent',border:'none',color:'#64748b',fontSize:13,cursor:'pointer',marginBottom:16}}>← Volver al feed</button>
           <div style={{background:'linear-gradient(135deg,#0f1f10,#0a1628)',border:'1px solid rgba(34,197,94,0.3)',borderRadius:16,padding:24,marginBottom:16,textAlign:'center'}}>
-            <div style={{fontSize:12,color:'#64748b',marginBottom:4}}>Tus OLV</div>
-            <div style={{fontSize:52,fontWeight:900,color:'#22c55e'}}>{wallet}</div>
-            <div style={{fontSize:12,color:'#94a3b8',lineHeight:1.6,maxWidth:320,margin:'0 auto'}}>Registro ambiental sin valor monetario: hoy no se canjean ni se cobran. Muestran cuánto separaste y participaste.</div>
+            <div style={{fontSize:12,color:'#64748b',marginBottom:4}}>Tus puntos de actividad · Nivel {usuario?.nivel||'Semilla'}</div>
+            <div style={{fontSize:52,fontWeight:900,color:'#eab308'}}>{wallet}</div>
+            <div style={{fontSize:12,color:'#94a3b8',lineHeight:1.6,maxWidth:320,margin:'0 auto'}}>🟡 Muestran cuánto participás en la comunidad. No son OLV y nunca van a tener valor monetario. Tus OLV (🟢 verdes y 🟡 amarillos) salen solo de kilos validados y los ves en tu panel.</div>
           </div>
           <div style={{background:'#111827',border:'1px solid rgba(255,255,255,0.06)',borderRadius:16,padding:16,marginBottom:16}}>
-            <div style={{fontSize:13,fontWeight:700,marginBottom:12,color:'#22c55e'}}>Cómo ganar OLV</div>
+            <div style={{fontSize:13,fontWeight:700,marginBottom:12,color:'#22c55e'}}>Cómo sumar puntos</div>
             {[
-              {a:'Registrar residuo verificado',v:'+50-800'},
-              {a:'Subir foto de entrega',v:'+30'},
-              {a:'Publicar en la comunidad',v:'+10'},
-              {a:'Publicar una story',v:'+10'},
-              {a:'Comentar un post',v:'+5'},
-              {a:'Dar un like',v:'+2'},
+              {a:'Bienvenida (una vez)',v:'+100'},
+              {a:'Registrar un residuo (hasta 5 por día)',v:'+10'},
+              {a:'Compartir tu registro en la comunidad (hasta 3 por día)',v:'+20'},
+              {a:'Publicar en la comunidad (hasta 5 por día)',v:'+10'},
+              {a:'Publicar una story (hasta 3 por día)',v:'+10'},
+              {a:'Comentar un post (hasta 10 por día)',v:'+5'},
+              {a:'Recibir un like',v:'+2'},
             ].map(i=>(
               <div key={i.a} style={{display:'flex',justifyContent:'space-between',padding:'7px 0',borderBottom:'1px solid rgba(255,255,255,0.04)'}}>
                 <span style={{fontSize:12,color:'#94a3b8'}}>{i.a}</span>
-                <span style={{fontSize:12,fontWeight:700,color:'#22c55e'}}>{i.v} OLV</span>
+                <span style={{fontSize:12,fontWeight:700,color:'#22c55e'}}>{i.v} pts</span>
               </div>
             ))}
           </div>
@@ -459,10 +452,10 @@ function ComunidadContent() {
             ):transacciones.map((t:any,i:number)=>(
               <div key={i} style={{display:'flex',justifyContent:'space-between',padding:'8px 0',borderBottom:'1px solid rgba(255,255,255,0.04)'}}>
                 <div>
-                  <div style={{fontSize:11,color:'#f1f5f9'}}>{t.descripcion}</div>
+                  <div style={{fontSize:11,color:'#f1f5f9'}}>{String(t.descripcion||'').replace('OLV Bonus','Puntos de actividad')}</div>
                   <div style={{fontSize:9,color:'#64748b'}}>{new Date(t.created_at).toLocaleDateString()}</div>
                 </div>
-                <span style={{fontSize:13,fontWeight:700,color:'#22c55e'}}>+{t.monto_olv} OLV</span>
+                <span style={{fontSize:13,fontWeight:700,color:'#22c55e'}}>+{t.monto_olv} pts</span>
               </div>
             ))}
           </div>
@@ -536,13 +529,13 @@ function ComunidadContent() {
                 <input ref={fileRef} type="file" accept="image/*" onChange={e=>setNuevaFoto(e.target.files?.[0]||null)} style={{display:'none'}} />
                 <button onClick={publicarPost} disabled={publicando||(!nuevoPost&&!nuevaFoto&&!videoUrl)}
                   style={{marginLeft:'auto',background:nuevoPost||nuevaFoto||videoUrl?'linear-gradient(135deg,#22c55e,#16a34a)':'rgba(255,255,255,0.04)',border:'none',borderRadius:10,padding:'8px 20px',color:nuevoPost||nuevaFoto||videoUrl?'white':'#64748b',fontSize:13,fontWeight:700,cursor:'pointer'}}>
-                  {publicando?'Publicando...':'Publicar +20 OLV'}
+                  {publicando?'Publicando...':'Publicar · +10 puntos'}
                 </button>
               </div>
             </div>
           ):(
             <div style={{padding:'16px',borderBottom:'1px solid rgba(255,255,255,0.06)',textAlign:'center'}}>
-              <div style={{fontSize:13,color:'#64748b',marginBottom:10}}>Iniciá sesión para publicar y ganar OLV</div>
+              <div style={{fontSize:13,color:'#64748b',marginBottom:10}}>Iniciá sesión para publicar y sumar puntos</div>
               <a href="/login" style={{background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',padding:'10px 24px',borderRadius:10,fontSize:13,fontWeight:700,textDecoration:'none'}}>Entrar →</a>
             </div>
           )}
@@ -563,7 +556,7 @@ function ComunidadContent() {
                   <a href={`/usuario/${post.usuario_id}`} style={{fontSize:13,fontWeight:700,color:'#f1f5f9',textDecoration:'none'}}>
                     {post.usuarios?.nombre} {post.usuarios?.apellido}
                   </a>
-                  <div style={{fontSize:10,color:'#64748b'}}>{tiempoRelativo(post.created_at)} · +{post.olv_ganados} OLV</div>
+                  <div style={{fontSize:10,color:'#64748b'}}>{tiempoRelativo(post.created_at)} · +{post.olv_ganados} pts</div>
                 </div>
                 <div style={{display:'flex',gap:6,alignItems:'center'}}>
                   <span style={{fontSize:18}}>🌿</span>
@@ -628,7 +621,7 @@ function ComunidadContent() {
                         onKeyDown={e=>e.key==='Enter'&&publicarComentario(post.id)}
                         style={{flex:1,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.08)',borderRadius:8,padding:'8px 12px',color:'#f1f5f9',fontSize:12,outline:'none',fontFamily:'inherit'}} />
                       <button onClick={()=>publicarComentario(post.id)} style={{background:'linear-gradient(135deg,#22c55e,#16a34a)',border:'none',borderRadius:8,padding:'8px 14px',color:'white',fontSize:12,fontWeight:700,cursor:'pointer'}}>
-                        +5 OLV
+                        +5 pts
                       </button>
                     </div>
                   ):(

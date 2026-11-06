@@ -2,15 +2,16 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import { supabase } from '../../../lib/supabase'
+import { olvDe, co2De, validados, NOTA_CO2 } from '../../../lib/impacto'
 
 const TIPOS_RESIDUO = [
-  {v:'organico',l:'Orgánico',icon:'🌿',factor:1.8,color:'#22c55e'},
-  {v:'plastico',l:'Plástico',icon:'♻️',factor:1.5,color:'#3b82f6'},
-  {v:'papel',l:'Papel',icon:'📄',factor:0.9,color:'#f59e0b'},
-  {v:'vidrio',l:'Vidrio',icon:'🍾',factor:0.3,color:'#a855f7'},
-  {v:'metal',l:'Metal',icon:'🔩',factor:8.0,color:'#ef4444'},
-  {v:'aceite',l:'Aceite',icon:'🛢️',factor:2.5,color:'#f97316'},
-  {v:'textil',l:'Textil',icon:'👕',factor:5.5,color:'#ec4899'},
+  {v:'organico',l:'Orgánico',icon:'🌿',color:'#22c55e'},
+  {v:'plastico',l:'Plástico',icon:'♻️',color:'#3b82f6'},
+  {v:'papel',l:'Papel',icon:'📄',color:'#f59e0b'},
+  {v:'vidrio',l:'Vidrio',icon:'🍾',color:'#a855f7'},
+  {v:'metal',l:'Metal',icon:'🔩',color:'#ef4444'},
+  {v:'aceite',l:'Aceite',icon:'🛢️',color:'#f97316'},
+  {v:'textil',l:'Textil',icon:'👕',color:'#ec4899'},
 ]
 
 export default function PerfilUsuario() {
@@ -47,27 +48,11 @@ export default function PerfilUsuario() {
     </div>
   )
 
-  // Cálculos ambientales
-  const kg_total = residuos.reduce((a,r)=>a+Number(r.kg),0)
-  const co2_total = residuos.reduce((a,r)=>{
-    const factor = TIPOS_RESIDUO.find(t=>t.v===r.tipo)?.factor||1.8
-    return a + (Number(r.kg)*factor)
-  },0)
-
-  // Métricas ambientales reales
-  const kg_organico = residuos.filter(r=>r.tipo==='organico').reduce((a,r)=>a+Number(r.kg),0)
-  const metano_evitado = kg_organico * 0.065 // kg CH4
-  const co2eq_metano = metano_evitado * 84 // CH4 es 84x más potente que CO2
-  const km_auto = co2_total / 0.21 // kg CO2 / 0.21 kg CO2 por km
-  const arboles_dias = (co2_total / 21) * 365 // días equivalentes de árbol
-  const kwh_ahorrados = co2_total / 0.233
-
-  // OLV
-  const residuos_validados = residuos.filter(r=>r.status==='validado')
-  const olv_total = residuos_validados.reduce((a,r)=>{
-    const factor = TIPOS_RESIDUO.find(t=>t.v===r.tipo)?.factor||1.8
-    return a + Math.round(Number(r.kg)*factor*100)
-  },0)
+  // Cálculos ambientales: solo registros validados (ver lib/impacto.ts)
+  const kg_total = validados(residuos).reduce((a,r)=>a+Number(r.kg),0)
+  const co2_total = validados(residuos).reduce((a,r)=>a+co2De(r),0)
+  const residuos_validados = validados(residuos)
+  const olv_total = residuos_validados.reduce((a,r)=>a+olvDe(r),0)
 
   // Por tipo
   const por_tipo = TIPOS_RESIDUO.map(t=>{
@@ -77,7 +62,7 @@ export default function PerfilUsuario() {
   }).filter(t=>t.kg>0)
 
   async function compartirPerfil() {
-    const texto = `${usuario.nombre} ${usuario.apellido} recicló ${kg_total.toFixed(1)}kg y evitó ${co2_total.toFixed(1)}kg de CO2eq 🌿\n\nUní tu impacto a OLIVIA Circulab → oliviacirculab.com.ar\n\n#OliviaCirculab #ReFi`
+    const texto = `${usuario.nombre} ${usuario.apellido} tiene ${kg_total.toFixed(1)} kg de residuos validados en OLIVIA 🌿\n\nUní tu impacto a OLIVIA Circulab → oliviacirculab.com.ar\n\n#OliviaCirculab #ReFi`
     if(navigator.share) {
       try { await navigator.share({title:'Perfil OLIVIA',text:texto,url:window.location.href}) } catch(e) {}
     } else {
@@ -113,58 +98,20 @@ export default function PerfilUsuario() {
 
         {/* Impacto ambiental — lo más importante */}
         <div style={{background:'linear-gradient(135deg,#0f1f10,#050d1f)',border:'2px solid rgba(34,197,94,0.3)',borderRadius:16,padding:'20px',marginBottom:16}}>
-          <div style={{fontSize:14,fontWeight:700,marginBottom:16,color:'#22c55e'}}>🌍 Su impacto ambiental real</div>
+          <div style={{fontSize:14,fontWeight:700,marginBottom:16,color:'#22c55e'}}>🌍 Su impacto ambiental validado</div>
 
           <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10,marginBottom:16}}>
             <div style={{background:'rgba(34,197,94,0.08)',borderRadius:12,padding:'14px',textAlign:'center'}}>
               <div style={{fontSize:28,fontWeight:900,color:'#22c55e'}}>{kg_total.toFixed(1)}</div>
-              <div style={{fontSize:10,color:'#64748b',marginTop:2}}>kg desviados del relleno</div>
+              <div style={{fontSize:10,color:'#64748b',marginTop:2}}>kg validados</div>
             </div>
             <div style={{background:'rgba(59,130,246,0.08)',borderRadius:12,padding:'14px',textAlign:'center'}}>
               <div style={{fontSize:28,fontWeight:900,color:'#3b82f6'}}>{co2_total.toFixed(1)}</div>
-              <div style={{fontSize:10,color:'#64748b',marginTop:2}}>kg CO2eq evitados</div>
+              <div style={{fontSize:10,color:'#64748b',marginTop:2}}>kg CO2eq estimados (orgánico)</div>
             </div>
           </div>
 
-          {/* Métricas emotivas */}
-          <div style={{display:'flex',flexDirection:'column',gap:8}}>
-            {metano_evitado>0&&(
-              <div style={{display:'flex',gap:10,padding:'10px',background:'rgba(255,255,255,0.03)',borderRadius:10,alignItems:'center'}}>
-                <span style={{fontSize:24,flexShrink:0}}>💨</span>
-                <div>
-                  <div style={{fontSize:13,fontWeight:700,color:'#f1f5f9'}}>{metano_evitado.toFixed(2)} kg de metano evitados</div>
-                  <div style={{fontSize:10,color:'#64748b',marginTop:1}}>El metano es 84× más dañino que el CO2 · Sin su separación este gas estaría en la atmósfera hoy</div>
-                </div>
-              </div>
-            )}
-            {km_auto>0&&(
-              <div style={{display:'flex',gap:10,padding:'10px',background:'rgba(255,255,255,0.03)',borderRadius:10,alignItems:'center'}}>
-                <span style={{fontSize:24,flexShrink:0}}>🚗</span>
-                <div>
-                  <div style={{fontSize:13,fontWeight:700,color:'#f1f5f9'}}>{km_auto.toFixed(0)} km en auto sin emitir</div>
-                  <div style={{fontSize:10,color:'#64748b',marginTop:1}}>Equivalente ambiental de su reciclaje total</div>
-                </div>
-              </div>
-            )}
-            {arboles_dias>0&&(
-              <div style={{display:'flex',gap:10,padding:'10px',background:'rgba(255,255,255,0.03)',borderRadius:10,alignItems:'center'}}>
-                <span style={{fontSize:24,flexShrink:0}}>🌳</span>
-                <div>
-                  <div style={{fontSize:13,fontWeight:700,color:'#f1f5f9'}}>{arboles_dias.toFixed(0)} días de trabajo de un árbol</div>
-                  <div style={{fontSize:10,color:'#64748b',marginTop:1}}>Un árbol adulto absorbe 21 kg CO2 por año</div>
-                </div>
-              </div>
-            )}
-            {kwh_ahorrados>0&&(
-              <div style={{display:'flex',gap:10,padding:'10px',background:'rgba(255,255,255,0.03)',borderRadius:10,alignItems:'center'}}>
-                <span style={{fontSize:24,flexShrink:0}}>💡</span>
-                <div>
-                  <div style={{fontSize:13,fontWeight:700,color:'#f1f5f9'}}>{kwh_ahorrados.toFixed(0)} horas de luz evitadas</div>
-                  <div style={{fontSize:10,color:'#64748b',marginTop:1}}>Equivalente en energía eléctrica</div>
-                </div>
-              </div>
-            )}
-          </div>
+          <div style={{fontSize:10,color:'#64748b',lineHeight:1.6}}>{NOTA_CO2}</div>
         </div>
 
         {/* OLV y registros */}
