@@ -167,9 +167,7 @@ export default function PilotoPlanta({ residuos, recargar }: { residuos: any[]; 
         <div style={{ fontSize: 15, fontWeight: 800, color: '#3b82f6' }}>🚚 1 · Entrega en planta</div>
         <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>{paraEntregar.length} registros pendientes · seleccionados {idsEntrega.length} ({kgTxt(suma(paraEntregar, idsEntrega))})</div>
         {paraEntregar.length > 0 && <Lista items={paraEntregar} sel={selEntrega} setSel={setSelEntrega} />}
-        <label style={{ display: 'block', fontSize: 12, color: '#94a3b8', margin: '8px 0' }}>Foto de la entrega en la planta
-          <input type="file" accept="image/*" capture="environment" onChange={e => setFotoEntrega(e.target.files?.[0] || null)} style={{ display: 'block', marginTop: 6, color: '#94a3b8' }} />
-        </label>
+        <Archivo texto="📷 Elegir o sacar la foto de la entrega" accept="image/*" archivo={fotoEntrega} setArchivo={setFotoEntrega} color="#3b82f6" />
         <button onClick={registrarEntrega} disabled={!fotoEntrega || !idsEntrega.length || !!trabajando} style={boton(!!fotoEntrega && idsEntrega.length > 0 && !trabajando)}>
           {trabajando === 'entrega' ? 'Registrando…' : `Registrar entrega de ${idsEntrega.length} registros`}
         </button>
@@ -185,9 +183,7 @@ export default function PilotoPlanta({ residuos, recargar }: { residuos: any[]; 
             {trabajando === 'reenvio' ? 'Enviando…' : `📧 Reenviar el aviso de entrega a los ${idsCompost.length} seleccionados`}
           </button>
         )}
-        <label style={{ display: 'block', fontSize: 12, color: '#94a3b8', margin: '8px 0' }}>Certificado de la planta (foto o PDF)
-          <input type="file" accept="image/*,application/pdf" onChange={e => setCertificado(e.target.files?.[0] || null)} style={{ display: 'block', marginTop: 6, color: '#94a3b8' }} />
-        </label>
+        <Archivo texto="📎 Subir el certificado de la planta (foto o PDF)" accept="image/*,application/pdf" archivo={certificado} setArchivo={setCertificado} color="#22c55e" />
         <button onClick={registrarCompost} disabled={!certificado || !idsCompost.length || !!trabajando} style={boton(!!certificado && idsCompost.length > 0 && !trabajando)}>
           {trabajando === 'compost' ? 'Validando…' : `Validar ${idsCompost.length} registros con el certificado`}
         </button>
@@ -206,5 +202,16 @@ export default function PilotoPlanta({ residuos, recargar }: { residuos: any[]; 
         </div>
       </div>
     </div>
+  )
+}
+
+// Selector de archivo grande y visible: muestra qué archivo quedó elegido.
+function Archivo({ texto, accept, archivo, setArchivo, color }: { texto: string; accept: string; archivo: File | null; setArchivo: (f: File | null) => void; color: string }) {
+  return (
+    <label style={{ display: 'block', margin: '10px 0', padding: 14, borderRadius: 12, border: `2px dashed ${archivo ? color : 'rgba(255,255,255,0.18)'}`, background: archivo ? 'rgba(34,197,94,0.06)' : 'rgba(255,255,255,0.02)', textAlign: 'center', cursor: 'pointer' }}>
+      <span style={{ display: 'block', fontSize: 13, fontWeight: 800, color }}>{archivo ? '✓ Archivo listo' : texto}</span>
+      <span style={{ display: 'block', fontSize: 11, color: '#94a3b8', marginTop: 4, wordBreak: 'break-all' }}>{archivo ? `${archivo.name} · tocá para cambiarlo` : 'Tocá acá para elegir el archivo'}</span>
+      <input type="file" accept={accept} onChange={e => setArchivo(e.target.files?.[0] || null)} style={{ position: 'absolute', width: 1, height: 1, opacity: 0, overflow: 'hidden' }} />
+    </label>
   )
 }
