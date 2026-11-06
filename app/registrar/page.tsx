@@ -1,6 +1,8 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
 import { supabase } from '../../lib/supabase'
+import { comprimirImagen, crearImagenHistoria } from '../../lib/fotos'
+import { asegurarPerfil } from '../../lib/perfil'
 
 const STORAGE_KEY = 'olivia_registro_data'
 
@@ -104,6 +106,10 @@ export default function Registrar() {
  const [publicadoOlivia, setPublicadoOlivia] = useState(false)
  const [mostrarFeedback, setMostrarFeedback] = useState(false)
  const [feedback, setFeedback] = useState('')
+ const [autorizaRedes, setAutorizaRedes] = useState(true)
+ const [imagenHistoria, setImagenHistoria] = useState<File|null>(null)
+ const [historiaUrl, setHistoriaUrl] = useState<string|null>(null)
+ const [avisoCompartir, setAvisoCompartir] = useState('')
  const fotoOrigenRef = useRef<HTMLInputElement>(null)
  const fotoEntregaRef = useRef<HTMLInputElement>(null)
 
@@ -129,6 +135,12 @@ export default function Registrar() {
        else if(p.kg) setKg(500)
      } catch(e){}
    }
+   // Pesaje en vivo: la persona solo elige el tipo, pone el peso y saca la foto.
+   // La entrega a la planta la registra el equipo OLIVIA desde el admin.
+   if(new URLSearchParams(window.location.search).get('origen')==='pesaje') {
+     setDisposicion('punto_verde')
+     setPuntoEntrega(PESAJE_VIVO)
+   }
    navigator.geolocation?.getCurrentPosition(pos=>{
      setLatOrigen(pos.coords.latitude)
      setLngOrigen(pos.coords.longitude)
@@ -142,13 +154,13 @@ export default function Registrar() {
 
  function atras() {
    if(paso>1) {
-     setPaso(p=>p-1)
+     setPaso(p=>enVivo&&p===5?3:p-1)
      window.scrollTo(0,0)
    }
  }
 
  function siguiente() {
-   setPaso(p=>p+1)
+   setPaso(p=>enVivo&&p===3?5:p+1)
    window.scrollTo(0,0)
  }
 
@@ -176,8 +188,10 @@ export default function Registrar() {
 
  async function subirFoto(file: File, etapa: string) {
    const extension = (file.name.split('.').pop() || 'jpg').replace(/[^a-z0-9]/gi,'').toLowerCase()
-   const nombre = `${uid}-${etapa}-${Date.now()}.${extension}`
-   const { error } = await supabase.storage.from('residuos-fotos').upload(nombre, file)
+   const liviana = await comprimirImagen(file)
+   const ext = liviana.type==='image/jpeg' ? 'jpg' : extension
+   const nombre = `${uid}-${etapa}-${Date.now()}.${ext}`
+   const { error } = await supabase.storage.from('residuos-fotos').upload(nombre, liviana, { contentType: liviana.type || undefined })
    if(error) throw new Error('foto')
    return supabase.storage.from('residuos-fotos').getPublicUrl(nombre).data.publicUrl
  }
@@ -188,6 +202,7 @@ export default function Registrar() {
    setEnviando(true)
    setErrorEnvio('')
    try {
+     await asegurarPerfil()
      const foto_url = fotoOrigen ? await subirFoto(fotoOrigen,'origen') : null
      const foto_entrega_url = fotoEntrega ? await subirFoto(fotoEntrega,'entrega') : null
 
@@ -198,7 +213,7 @@ export default function Registrar() {
      const esCompost = disposicion==='compost'||disposicion==='lombricompost'
      const status = fotoEntrega&&!esCompost ? 'en_camino' : 'pendiente'
      const fecha_compost = esCompost ? new Date(Date.now() + diasCompost*24*60*60*1000).toISOString() : null
-     const notas = (metodoPeso==='balanza'?'Peso: balanza digital, cargado a mano':'Peso: estimado por el usuario')+(enVivo?' · Pesaje en vivo':'')
+     const notas = (metodoPeso==='balanza'?'Peso: balanza digital, cargado a mano':'Peso: estimado por el usuario')+(enVivo?' · Pesaje en vivo':'')+(autorizaRedes?' · [autoriza_redes]':'')
 
      const {data: residuo, error} = await supabase.from('residuos').insert({
        usuario_id: uid,
@@ -221,6 +236,13 @@ export default function Registrar() {
 
      localStorage.removeItem(STORAGE_KEY)
      setResultado({olv, co2, residuoId: residuo?.id, foto_url, status, esCompost})
+     if(fotoOrigenPreview) {
+       crearImagenHistoria(fotoOrigenPreview, kgFinal, tipo.l, enVivo?'Pesaje en vivo · Climate Week Argentina':'Mi registro en OLIVIA').then(f=>{
+         if(!f) return
+         setImagenHistoria(f)
+         setHistoriaUrl(URL.createObjectURL(f))
+       })
+     }
    } catch(e) {
      setErrorEnvio('No pudimos guardar tu registro. Revisá tu conexión y volvé a tocar el botón: tus datos siguen acá.')
    } finally {
@@ -251,21 +273,30 @@ export default function Registrar() {
    setPublicandoOlivia(false)
  }
 
- async function compartirEnRedes() {
-   const texto = `Acabo de registrar ${kgFinal} kg de ${tipo?.l} en OLIVIA Circulab 🌿\n\n¿Vos también reciclás? → oliviacirculab.com.ar\n\n#OliviaCirculab #ReFi #Reciclaje #CABA`
-   if(navigator.share) {
-     try {
-       await navigator.share({
-         title: 'Registré mi residuo en OLIVIA Circulab',
-         text: texto,
-         url: 'https://oliviacirculab.com.ar/pesaje'
-       })
-     } catch(e) {}
-   } else {
-     await navigator.clipboard.writeText(texto)
-     alert('Texto copiado — pegalo en Instagram, Facebook o X')
-   }
+ function textoCompartir() {
+   const kgTxt = kgFinal<1 ? `${Math.round(kgFinal*1000)} g` : `${kgFinal} kg`
+   return `Hoy pesé ${kgTxt} de ${tipo?.l?.toLowerCase()} con OLIVIA Circulab 🌿 Medido, con foto y a mi nombre: no va al relleno.${enVivo?' #ClimateWeekArgentina':''}\n\n¿Te sumás? → oliviacirculab.com.ar/pesaje`
  }
+
+ // Comparte la imagen vertical (historia/reel de Instagram, estado o chat de WhatsApp) con el menú del celular.
+ async function compartirImagen() {
+   setAvisoCompartir('')
+   const texto = textoCompartir()
+   try {
+     if(imagenHistoria && (navigator as any).canShare?.({files:[imagenHistoria]})) {
+       await navigator.share({files:[imagenHistoria], text: texto} as any)
+       return
+     }
+     if(navigator.share) {
+       await navigator.share({title:'Mi pesaje en OLIVIA Circulab', text: texto, url:'https://oliviacirculab.com.ar/pesaje'})
+       return
+     }
+   } catch(e) { return }
+   await navigator.clipboard?.writeText(texto).catch(()=>{})
+   setAvisoCompartir('Copiamos el texto. Descargá la imagen y subila a tu historia o a WhatsApp.')
+ }
+
+ const linkWhatsApp = () => 'https://wa.me/?text=' + encodeURIComponent(textoCompartir())
 
  async function enviarFeedback() {
    if(!feedback) return
@@ -289,8 +320,9 @@ export default function Registrar() {
    )
  }
 
- const pasos = ['Tipo','Punto','Foto origen','Foto entrega','Confirmar']
- const progreso = ((paso-1)/5)*100
+ const pasos = enVivo ? ['Tipo','Peso','Foto','Confirmar'] : ['Tipo','Punto','Foto origen','Foto entrega','Confirmar']
+ const pasoVisible = enVivo && paso===5 ? 4 : paso
+ const progreso = ((pasoVisible-1)/pasos.length)*100
 
  // PANTALLA ÉXITO
  if(resultado) return (
@@ -301,7 +333,9 @@ export default function Registrar() {
        <div style={{fontSize:14,color:'#64748b',marginBottom:24,lineHeight:1.6}}>
          {resultado.esCompost
            ? `Tu residuo fue registrado. Revisamos el compostaje a partir de los ${diasCompost} días.`
-           : 'Tu residuo fue registrado. Los OLV se acreditarán cuando verifiquemos la disposición final.'}
+           : enVivo
+             ? 'Tu pesaje quedó registrado a tu nombre. Llevamos el material a la planta y te avisamos por mail, con foto, cuando lo entreguemos. Después, cuando la planta certifique el compost, lo vas a ver en tu panel.'
+             : 'Tu residuo fue registrado. Los OLV se acreditarán cuando verifiquemos la disposición final.'}
        </div>
 
        {/* KPIs */}
@@ -342,10 +376,24 @@ export default function Registrar() {
            </div>
          )}
 
-         <button onClick={compartirEnRedes}
-           style={{background:'rgba(255,255,255,0.06)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',padding:'14px',borderRadius:12,fontSize:14,fontWeight:700,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',gap:8}}>
-           📱 Compartir en Instagram · Facebook · X
+         {historiaUrl&&(
+           <img src={historiaUrl} alt="Tu imagen para compartir" style={{width:'60%',margin:'4px auto 0',borderRadius:12,border:'1px solid rgba(255,255,255,0.1)',display:'block'}} />
+         )}
+         <button onClick={compartirImagen}
+           style={{background:'linear-gradient(135deg,#d62976,#962fbf,#4f5bd5)',border:'none',color:'white',padding:'14px',borderRadius:12,fontSize:14,fontWeight:700,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',gap:8}}>
+           📲 Compartir en historia, reel o WhatsApp
          </button>
+         <a href={linkWhatsApp()} target="_blank" rel="noopener noreferrer"
+           style={{background:'#25D366',color:'#04110a',padding:'14px',borderRadius:12,fontSize:14,fontWeight:700,textDecoration:'none',display:'block'}}>
+           💬 Mandarlo por WhatsApp
+         </a>
+         {historiaUrl&&(
+           <a href={historiaUrl} download="olivia-pesaje.jpg"
+             style={{background:'rgba(255,255,255,0.06)',border:'1px solid rgba(255,255,255,0.1)',color:'#f1f5f9',padding:'12px',borderRadius:12,fontSize:13,fontWeight:700,textDecoration:'none',display:'block'}}>
+             ⬇️ Descargar la imagen
+           </a>
+         )}
+         {avisoCompartir&&<div style={{fontSize:12,color:'#facc15',lineHeight:1.5}}>{avisoCompartir}</div>}
 
          <a href="/dashboard" style={{color:'#64748b',padding:'10px',borderRadius:12,fontSize:13,textDecoration:'none',display:'block'}}>
            Ver mi panel →
@@ -373,7 +421,7 @@ export default function Registrar() {
              <span style={{fontSize:13,fontWeight:800,color:'#f1f5f9'}}>OLIVIA Circulab</span>
            </a>
          </div>
-         <div style={{fontSize:11,color:'#64748b'}}>Paso {paso} de 5</div>
+         <div style={{fontSize:11,color:'#64748b'}}>Paso {pasoVisible} de {pasos.length}</div>
        </div>
 
        {/* Progreso */}
@@ -382,7 +430,7 @@ export default function Registrar() {
        </div>
        <div style={{display:'flex',justifyContent:'space-between',marginBottom:20}}>
          {pasos.map((p,i)=>(
-           <div key={p} style={{fontSize:9,color:i+1<=paso?'#22c55e':'#64748b',fontWeight:i+1===paso?700:400}}>{p}</div>
+           <div key={p} style={{fontSize:9,color:i+1<=pasoVisible?'#22c55e':'#64748b',fontWeight:i+1===pasoVisible?700:400}}>{p}</div>
          ))}
        </div>
 
@@ -393,7 +441,7 @@ export default function Registrar() {
            <div style={{fontSize:12,color:'#64748b',marginBottom:20}}>Elegí el tipo de residuo</div>
            <div style={{display:'flex',flexDirection:'column',gap:10}}>
              {TIPOS.map(t=>(
-               <button key={t.v} onClick={()=>{setTipo(t);setDisposicion('');siguiente()}}
+               <button key={t.v} onClick={()=>{setTipo(t);setDisposicion(enVivo?'punto_verde':'');siguiente()}}
                  style={{background:tipo?.v===t.v?'rgba(34,197,94,0.1)':'#111827',border:`1px solid ${tipo?.v===t.v?'rgba(34,197,94,0.5)':'rgba(255,255,255,0.06)'}`,borderRadius:14,padding:'16px',cursor:'pointer',textAlign:'left',transition:'all 0.15s'}}>
                  <div style={{display:'flex',alignItems:'center',gap:12,marginBottom:6}}>
                    <span style={{fontSize:24}}>{t.icon}</span>
@@ -427,6 +475,13 @@ export default function Registrar() {
              <div style={{fontSize:10,color:'#64748b'}}>{tipo.olv} OLV por kg verificado · {tipo.bolsa}</div>
            </div>
 
+           {enVivo&&(
+             <div style={{background:'rgba(250,204,21,0.08)',border:'1px solid rgba(250,204,21,0.3)',borderRadius:12,padding:'12px',marginBottom:16}}>
+               <div style={{fontSize:12,fontWeight:800,color:'#facc15',marginBottom:4}}>⚖️ Pesaje en vivo OLIVIA</div>
+               <div style={{fontSize:11,color:'#94a3b8',lineHeight:1.6}}>Poné el peso que marca la balanza y sacá la foto. Nosotros llevamos el material a la planta y te avisamos por mail cuando lo entreguemos.</div>
+             </div>
+           )}
+           {!enVivo&&<>
            {/* Método de disposición */}
            <div style={{marginBottom:16}}>
              <div style={{fontSize:12,color:'#94a3b8',marginBottom:8,textTransform:'uppercase',letterSpacing:'0.05em'}}>¿Cómo vas a reciclar este residuo?</div>
@@ -454,6 +509,7 @@ export default function Registrar() {
              </div>
            )}
 
+           </>}
            {/* Info compostaje */}
            {(disposicion==='compost'||disposicion==='lombricompost')&&(
              <div style={{background:'rgba(34,197,94,0.06)',border:'1px solid rgba(34,197,94,0.2)',borderRadius:12,padding:'12px',marginBottom:16}}>
@@ -537,7 +593,7 @@ export default function Registrar() {
                📍 Si das permiso, guardamos la ubicación
              </span>
              <div style={{fontSize:10,color:'#94a3b8',marginTop:3}}>
-               El GPS es necesario para generar OLV Verdes certificables
+               La ubicación ayuda a validar tu registro
              </div>
            </div>
 
@@ -700,6 +756,10 @@ export default function Registrar() {
              </div>
            </div>
 
+           <label style={{display:'flex',gap:10,alignItems:'flex-start',background:'rgba(255,255,255,0.03)',border:'1px solid rgba(255,255,255,0.08)',borderRadius:10,padding:'12px',marginBottom:12,cursor:'pointer'}}>
+             <input type="checkbox" checked={autorizaRedes} onChange={e=>setAutorizaRedes(e.target.checked)} style={{marginTop:2,width:18,height:18,accentColor:'#22c55e'}} />
+             <span style={{fontSize:12,color:'#94a3b8',lineHeight:1.5}}>Autorizo a OLIVIA a compartir la foto de mi pesaje en sus redes (sin mi email ni datos de contacto).</span>
+           </label>
            {errorEnvio&&(
              <div role="alert" style={{background:'rgba(239,68,68,0.1)',border:'1px solid rgba(239,68,68,0.3)',borderRadius:10,padding:'10px 14px',fontSize:12,color:'#ef4444',marginBottom:12,lineHeight:1.5}}>{errorEnvio}</div>
            )}

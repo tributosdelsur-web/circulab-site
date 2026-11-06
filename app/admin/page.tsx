@@ -3,6 +3,7 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import { fetchIA } from '../../lib/ia'
+import PilotoPlanta from '../../components/admin/PilotoPlanta'
 
 
 function BarChart({datos, color='#22c55e'}: {datos:{label:string,value:number}[], color?:string}) {
@@ -680,6 +681,7 @@ export default function Admin() {
 
  const tabs = [
    {id:'dashboard',l:'Dashboard',icon:'⊞'},
+   {id:'piloto',l:'Pesaje en vivo',icon:'⚖️'},
    {id:'pendientes',l:`Pendientes (${pendientes.length})`,icon:'⏳'},
    {id:'todos',l:`Residuos (${residuos.length})`,icon:'♻️'},
    {id:'usuarios',l:`Usuarios (${usuarios.length})`,icon:'👥'},
@@ -905,6 +907,8 @@ export default function Admin() {
          </div>
        )}
 
+       {tab==='piloto'&&<PilotoPlanta residuos={residuos} recargar={cargar} />}
+
        {/* ═══ RESIDUOS PENDIENTES / TODOS ═══ */}
        {(tab==='pendientes'||tab==='todos')&&(
          <div>
@@ -939,7 +943,7 @@ export default function Admin() {
                    )}
                  </div>
                  <span style={{fontSize:11,color:r.status==='validado'?'#22c55e':r.status==='rechazado'?'#ef4444':'#f59e0b',background:r.status==='validado'?'rgba(34,197,94,0.1)':r.status==='rechazado'?'rgba(239,68,68,0.1)':'rgba(245,158,11,0.1)',padding:'3px 10px',borderRadius:20}}>
-                   {r.status==='validado'?'✓ Validado':r.status==='rechazado'?'✗ Rechazado':'⏳ Pendiente'}
+                   {r.status==='validado'?'✓ Validado':r.status==='rechazado'?'✗ Rechazado':r.status==='en_camino'?'🚚 En planta':'⏳ Pendiente'}
                  </span>
                </div>
 
@@ -1006,7 +1010,7 @@ export default function Admin() {
                      {analizando===r.id?'🤖 Analizando...':'🤖 Analizar IA'}
                    </button>
                  )}
-                 {r.status==='pendiente'&&(
+                 {(r.status==='pendiente'||r.status==='en_camino')&&(
                    <>
                      <button onClick={()=>validar(r.id)} style={{background:'rgba(34,197,94,0.15)',border:'1px solid rgba(34,197,94,0.3)',borderRadius:8,padding:'7px 12px',color:'#22c55e',fontSize:11,fontWeight:600,cursor:'pointer'}}>
                        ✅ Validar

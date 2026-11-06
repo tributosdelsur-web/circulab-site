@@ -2,6 +2,7 @@
 import { useEffect, useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { supabase } from '../../lib/supabase'
+import { asegurarPerfil } from '../../lib/perfil'
 
 const TIPOS_RESIDUO = [
   {v:'organico',l:'Orgánico',icon:'🌿',factor:1.8,color:'#22c55e'},
@@ -40,6 +41,7 @@ function DashboardContent() {
       }
       const uid = data.session.user.id
       setUid(uid)
+      await asegurarPerfil()
       const [u, r, t] = await Promise.all([
         supabase.from('usuarios').select('*').eq('id',uid).single(),
         supabase.from('residuos').select('*').eq('usuario_id',uid).order('created_at',{ascending:false}),
@@ -216,7 +218,7 @@ function DashboardContent() {
                         </div>
                       </div>
                       <span style={{fontSize:11,color:r.status==='validado'?'#22c55e':r.status==='rechazado'?'#ef4444':'#f59e0b',background:r.status==='validado'?'rgba(34,197,94,0.1)':r.status==='rechazado'?'rgba(239,68,68,0.1)':'rgba(245,158,11,0.1)',padding:'3px 8px',borderRadius:20}}>
-                        {r.status==='validado'?'✓ Validado':r.status==='rechazado'?'✗ Rechazado':'⏳ Pendiente'}
+                        {r.status==='validado'?'✓ Validado':r.status==='rechazado'?'✗ Rechazado':r.status==='en_camino'?'🚚 En planta · esperando compost':'⏳ Pendiente'}
                       </span>
                     </div>
                   )

@@ -5,7 +5,7 @@ import SitioFooter from '../../components/SitioFooter'
 import { metricasPublicas } from '../../lib/publico'
 
 const WA_ORG = 'https://wa.me/5491138859820?text=' + encodeURIComponent('Hola OLIVIA, tengo una planta, hotel, consorcio u organización y quiero saber más.')
-const WA_AMIGO = 'https://wa.me/?text=' + encodeURIComponent('Vamos a pesar lo orgánico en el Carnaval Ambiental de OLIVIA 🌿 https://oliviacirculab.com.ar/pesaje')
+const WA_AMIGO = 'https://wa.me/?text=' + encodeURIComponent('Pesá tu orgánico con OLIVIA y dejalo registrado a tu nombre 🌿 https://oliviacirculab.com.ar/pesaje')
 
 const PASOS = [
   { n: '1', t: 'Traé tu orgánico vegetal', d: 'Yerba, cáscaras, restos de verdura. Lo que ibas a tirar, en una bolsita.' },
@@ -33,11 +33,9 @@ export default function Pesaje() {
 
       <section style={{ padding: '0 20px 32px', maxWidth: 620, margin: '0 auto' }}>
         <div style={{ background: card, border: '1px solid ' + gold + '55', borderRadius: 16, padding: 20 }}>
-          <div style={{ fontSize: 11, fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '.15em', color: gold, marginBottom: 8 }}>Te esperamos</div>
-          <h2 style={{ fontSize: 22, fontWeight: 900, margin: '0 0 6px' }}>Carnaval Ambiental de OLIVIA</h2>
-          <p style={{ fontSize: 15, margin: '0 0 4px' }}>Viernes 13 de noviembre · 17 a 19 h</p>
-          <p style={{ fontSize: 14, color: sub, margin: '0 0 14px' }}>Sede a confirmar. Anotate y te avisamos dónde es.</p>
-          <a href="https://luma.com/z4i5rtwf" target="_blank" rel="noopener noreferrer" style={{ ...boton, border: '1px solid ' + gold, color: gold, fontSize: 14, padding: 12 }}>Anotarme en Luma</a>
+          <div style={{ fontSize: 11, fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '.15em', color: gold, marginBottom: 8 }}>¿Estás en la mesa de pesaje?</div>
+          <h2 style={{ fontSize: 22, fontWeight: 900, margin: '0 0 6px' }}>Es menos de un minuto</h2>
+          <p style={{ fontSize: 15, color: sub, margin: 0, lineHeight: 1.55 }}>Creá tu cuenta, elegí el tipo de residuo, poné el peso que marca la balanza y sacá la foto. Nosotros lo llevamos a la planta y te avisamos por mail cuando lo entreguemos.</p>
         </div>
       </section>
 

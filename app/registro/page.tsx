@@ -32,7 +32,16 @@ export default function Registro() {
    if (!aceptoTerminos) return fallar('Para continuar, aceptá los Términos y la Política de Privacidad.')
    setEstado('cargando')
 
-   const { data, error } = await supabase.auth.signUp({ email, password })
+   // Los datos del perfil viajan en la cuenta: si Supabase pide confirmar el email,
+   // el perfil se crea igual la primera vez que la persona entra (lib/perfil.ts).
+   const { data, error } = await supabase.auth.signUp({
+     email,
+     password,
+     options: {
+       data: { nombre, apellido, consorcio, barrio },
+       emailRedirectTo: window.location.origin + destino(),
+     },
+   })
 
    if (error) {
      const yaExiste = /already|registered/i.test(error.message)
@@ -41,7 +50,7 @@ export default function Registro() {
    if (!data.user) return fallar('No pudimos crear tu cuenta. Probá de nuevo en un momento.')
    // Supabase no avisa si el email ya existía: devuelve un usuario sin identidades
    if (data.user.identities?.length === 0) return fallar('Ese email ya tiene cuenta. Ingresá con tu contraseña.')
-   if (!data.session) return fallar('Te enviamos un email para confirmar tu cuenta. Después podés ingresar.')
+   if (!data.session) return fallar('Te enviamos un email para confirmar tu cuenta. Abrilo en este celular, tocá el enlace y seguís desde donde estabas.')
 
    const { error: errorPerfil } = await supabase.from('usuarios').insert({
      id: data.user.id,
