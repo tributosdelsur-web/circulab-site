@@ -1,10 +1,15 @@
 'use client'
 import VideoBloque, { videoPorId } from '../../lib/VideoBloque'
 import { useTema, gridFondo, Rubro, Titulo, Pildoras, FUENTE } from '../../lib/ui'
+import AccesoInversores from '../../components/AccesoInversores'
 
 const FACTOR_PENDIENTE = true
 
 export default function Inversion() {
+  return <AccesoInversores titulo="OLIVIA Circulab · Inversión"><InversionContenido /></AccesoInversores>
+}
+
+function InversionContenido() {
   const t = useTema()
   const { es, dark, bg, text, card, border, sub, accent } = t
 

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import { fetchIA } from '../../lib/ia'
 import PilotoPlanta from '../../components/admin/PilotoPlanta'
+import Contactos from '../../components/admin/Contactos'
 import { co2De } from '../../lib/impacto'
 
 
@@ -683,7 +684,7 @@ export default function Admin() {
 
  const tabs = [
    {id:'dashboard',l:'Dashboard',icon:'⊞'},
-   {id:'piloto',l:'Pesaje en vivo',icon:'⚖️'},
+   {id:'piloto',l:'Pesaje en vivo',icon:'⚖️'},{id:'contactos',l:'Contactos',icon:'🤝'},
    {id:'pendientes',l:`Pendientes (${pendientes.length})`,icon:'⏳'},
    {id:'todos',l:`Residuos (${residuos.length})`,icon:'♻️'},
    {id:'usuarios',l:`Usuarios (${usuarios.length})`,icon:'👥'},
@@ -908,6 +909,7 @@ export default function Admin() {
        )}
 
        {tab==='piloto'&&<PilotoPlanta residuos={residuos} recargar={cargar} />}
+         {tab==='contactos'&&<Contactos />}
 
        {/* ═══ RESIDUOS PENDIENTES / TODOS ═══ */}
        {(tab==='pendientes'||tab==='todos')&&(

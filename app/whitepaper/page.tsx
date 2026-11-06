@@ -52,7 +52,7 @@ export default function Whitepaper() {
         </h1>
         <p style={{ fontSize: 14.5, lineHeight: 1.7, color: sub, marginBottom: 24 }}>
           Metodología, línea de base, diseño del instrumento de medición y protocolo de integridad del dato.
-          No contiene proyecciones financieras: el caso de negocio está publicado y abierto en <a href="/inversion" style={{ color: accent }}>la página de inversión</a>.
+          No contiene proyecciones financieras: el caso de negocio está en <a href="/inversion" style={{ color: accent }}>la página de inversión</a>.
         </p>
         <div style={{ background: card, border: `1px solid ${border}`, borderRadius: 16, padding: '22px 20px' }}>
           <input style={input} placeholder="Nombre y apellido" value={nombre} onChange={e => setNombre(e.target.value)} />
@@ -312,7 +312,7 @@ export default function Whitepaper() {
         <div style={{ marginTop: 40, paddingTop: 20, borderTop: `1px solid ${border}`, fontSize: 12, color: sub, lineHeight: 1.7 }}>
           Circulab Tech · Documento confidencial, entregado bajo acuerdo de no divulgación.
           Fuentes: base de datos de metodologías del CDM (UNFCCC) y registro de metodologías de Verra.
-          El caso de negocio, el pedido y las condiciones comerciales están publicados y abiertos en <a href="/inversion" style={{ color: accent }}>oliviacirculab.com.ar/inversion</a>.
+          El caso de negocio y las condiciones de la ronda están, con acceso por registro, en <a href="/inversion" style={{ color: accent }}>oliviacirculab.com.ar/inversion</a>.
         </div>
 
       </div>
