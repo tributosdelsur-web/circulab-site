@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
     const mails: any[] = []
     for (const u of (usuarios || []) as any[]) {
       if (!u.email) continue
-      const t = plantilla(tipo, String(u.nombre || 'vecino/a').slice(0, 60), porUsuario.get(u.id) || [], planta, fotoUrl)
+      const t = plantilla(tipo, (String(u.nombre || '').trim() || 'vecino/a').slice(0, 60), porUsuario.get(u.id) || [], planta, fotoUrl)
       mails.push({
         from: 'OLIVIA Circulab <hola@oliviacirculab.com.ar>',
         to: [u.email],
