@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import WhatsAppBoton from '../components/WhatsAppBoton'
+import RecuperarRedireccion from '../components/RecuperarRedireccion'
 
 const descripcion = 'La capa de datos para las plantas que tratan el orgánico: balanza conectada, remito digital y tratamiento verificado. Medición verificable del residuo que hoy se entierra.'
 
@@ -43,6 +44,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body>
+        <RecuperarRedireccion />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizacion) }} />
         {children}
         <WhatsAppBoton />

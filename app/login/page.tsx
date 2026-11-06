@@ -28,7 +28,7 @@ export default function Login() {
     if (!email) return
     setEstado('cargando')
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: 'https://circulab-site.vercel.app/nueva-contrasena',
+      redirectTo: window.location.origin + '/nueva-contrasena',
     })
     if (error) {
       setEstado('error')

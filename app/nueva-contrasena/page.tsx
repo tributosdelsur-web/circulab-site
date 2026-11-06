@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import { useRouter } from 'next/navigation'
 
@@ -9,6 +9,22 @@ export default function NuevaContrasena() {
   const [estado, setEstado] = useState<'idle'|'cargando'|'ok'|'error'>('idle')
   const [mensaje, setMensaje] = useState('')
   const router = useRouter()
+  const [sesion, setSesion] = useState<'buscando'|'si'|'no'>('buscando')
+
+  // El link del mail trae el token (en #access_token o en ?code=). Esperamos a que se convierta en sesión.
+  useEffect(() => {
+    let listo = false
+    const marcar = (ok: boolean) => { if (!listo) { listo = ok; setSesion(ok ? 'si' : 'no') } }
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => { if (s) marcar(true) })
+    ;(async () => {
+      const code = new URLSearchParams(window.location.search).get('code')
+      if (code) await supabase.auth.exchangeCodeForSession(code).catch(() => null)
+      const { data } = await supabase.auth.getSession()
+      if (data.session) marcar(true)
+      else setTimeout(async () => { const { data: d } = await supabase.auth.getSession(); if (!listo) setSesion(d.session ? 'si' : 'no') }, 2500)
+    })()
+    return () => sub.subscription.unsubscribe()
+  }, [])
 
   async function handleUpdate() {
     if (password !== confirm) { setEstado('error'); setMensaje('Las contraseñas no coinciden'); return }
@@ -18,6 +34,15 @@ export default function NuevaContrasena() {
     if (error) { setEstado('error'); setMensaje('Error al actualizar. Intentá de nuevo.') }
     else { setEstado('ok'); setTimeout(() => router.push('/dashboard'), 2000) }
   }
+
+  if (sesion==='no' && estado!=='ok') return (
+    <div style={{minHeight:'100vh',background:'#0a0e1a',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:14,padding:24,fontFamily:'system-ui',textAlign:'center'}}>
+      <div style={{fontSize:44}}>⏳</div>
+      <div style={{fontSize:20,fontWeight:800,color:'#f1f5f9'}}>El link venció o ya se usó</div>
+      <div style={{fontSize:13,color:'#94a3b8',maxWidth:340,lineHeight:1.6}}>Pedí uno nuevo desde el login con “¿Olvidaste tu contraseña?” y abrilo en este mismo navegador.</div>
+      <a href="/login" style={{marginTop:8,background:'linear-gradient(135deg,#22c55e,#16a34a)',color:'white',padding:'12px 24px',borderRadius:12,fontWeight:700,textDecoration:'none',fontSize:14}}>Ir al login →</a>
+    </div>
+  )
 
   if (estado==='ok') return (
     <div style={{minHeight:'100vh',background:'#0a0e1a',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:16,padding:24,fontFamily:'system-ui'}}>
