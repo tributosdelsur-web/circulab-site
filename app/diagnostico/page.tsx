@@ -71,6 +71,7 @@ export default function Diagnostico() {
             </li>
           ))}
         </ul>
+        <p style={{ fontSize: 14, color: sub, lineHeight: 1.6, margin: '16px 0 0' }}>Empezamos por el orgánico, la fracción más pesada y la que nadie mide. Después sumamos el resto de las fracciones (secos y electrónicos) al mismo reporte.</p>
       </section>
 
       <section id="precios" style={{ ...ancho, paddingBottom: 36 }}>
